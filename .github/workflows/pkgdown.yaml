@@ -19,7 +19,7 @@ jobs:
       
       - name: Install System Deps
         run: |
-          sudo apt-get install libcurl-dev libharfbuzz-dev libfribidi-dev libpng-dev libtiff-dev libjpeg-dev
+          sudo apt-get install libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libpng-dev libtiff-dev libjpeg-dev
 
       - name: Query dependencies
         run: |
