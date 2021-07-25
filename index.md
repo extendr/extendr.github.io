@@ -7,9 +7,6 @@
 
 Extendr is a Rust extension mechanism for R
 
-It is intended to be easier to use than the C interface and
-Rcpp as Rust gives type safety and freedom from segfaults.
-
 The following code illustrates a simple structure trait
 which is written in Rust. The data is defined in the `struct`
 declaration and the methods in the `impl`.
@@ -63,11 +60,10 @@ Anyone who knows the R library should be able to write R extensions.
 
 ## Goals of the project
 
-Instead of wrapping R objects, we convert to Rust native objects
-on entry to a function. This makes the wrapped code clean and dependency
-free. The ultimate goal is to allow the wrapping of existing 
-Rust libraries without markup, but in the meantime, the markup
-is as light as possible.
+Where possible, we convert parameters to Rust native objects on entry
+to a function. This makes the wrapped code clean and dependency free.
+We aim to support writing idiomatic Rust code, with a minimum amount
+of markup.
 
 ```rust
 #[extendr]
