@@ -1,0 +1,33 @@
+Package: ExtendrWeb
+Title: A safe and user friendly R extension interface using Rust.
+Version: 0.2.0
+Authors@R:
+  c(person(given = "Andy",
+           family = "Thomason",       
+           role = c("aut", "cre"),
+           email = "andy@andythomason.com"),
+    person(given = "Mossa M.",
+           family = "Reimert",
+           role = "aut",
+           email = "mossa@sund.ku.dk"),
+    person(given = "Claus O.",
+           family = "Wilke",
+           role = c("aut"),
+           email = "wilke@austin.utexas.edu",
+           comment = c(ORCID = "0000-0002-7470-9261")),
+    person(given = "Hiroaki",
+           family = "Yutani",
+           role = "aut",
+           email = "yutani.ini@gmail.com",
+           comment = c(ORCID = "0000-0002-3385-7233")),
+    person(given = "Ilia",
+           family = "Kosenkov",
+           role = "aut",
+           email = "ilia.kosenkov@outlook.com",
+           comment = c(ORCID = "0000-0001-5563-7840")),
+    person(given = "Daniel",
+           family = "Falbel",
+           role = "aut"),
+    person("Genomics Plc", role = c("cph")))
+License: MIT
+Encoding: UTF-8

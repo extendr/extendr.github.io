@@ -1,0 +1,40 @@
+url: https://extendr.github.io/
+
+title: Extendr
+
+home:
+  title: |
+    Extendr: A safe and user friendly R extension interface using Rust.
+  sidebar:
+    structure: [custom, license, dev, authors]
+    components:
+      custom:
+        title: ""
+        text: |
+          <img src="man/figures/extendr-logo-256.png" alt="Extendr logo">
+
+template:
+  bootstrap: 4
+
+navbar:
+  title: Extendr
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Getting started"
+      href: started.html
+    - text: Contributing
+      href: CONTRIBUTING.html
+    - text: "News"
+      href: CHANGELOG.html
+  right:
+   - icon: fa-github
+     href: https://github.com/extendr/extendr
+   - icon: fab fa-discord
+     href: https://discord.gg/7hmApuc
+     
+authors:
+         sidebar:
+           roles: [aut, cph]
+     
+
