@@ -79,7 +79,6 @@
 <a href="#extendr---a-safe-and-user-friendly-r-extension-interface-using-rust" class="anchor" aria-hidden="true"></a>extendr - A safe and user friendly R extension interface using Rust.</h1></div>
 
 <p>Extendr is a Rust extension mechanism for R</p>
-<p>It is intended to be easier to use than the C interface and Rcpp as Rust gives type safety and freedom from segfaults.</p>
 <p>The following code illustrates a simple structure trait which is written in Rust. The data is defined in the <code>struct</code> declaration and the methods in the <code>impl</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span>*;</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
@@ -120,7 +119,7 @@
 <div id="goals-of-the-project" class="section level2">
 <h2 class="hasAnchor">
 <a href="#goals-of-the-project" class="anchor" aria-hidden="true"></a>Goals of the project</h2>
-<p>Instead of wrapping R objects, we convert to Rust native objects on entry to a function. This makes the wrapped code clean and dependency free. The ultimate goal is to allow the wrapping of existing Rust libraries without markup, but in the meantime, the markup is as light as possible.</p>
+<p>Where possible, we convert parameters to Rust native objects on entry to a function. This makes the wrapped code clean and dependency free. We aim to support writing idiomatic Rust code, with a minimum amount of markup.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw">pub</span> <span class="kw">fn</span> my_sum(v: &amp;<span class="op">[</span><span class="dt">f64</span><span class="op">]</span>) -&gt; <span class="dt">f64</span> <span class="op">{</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>    v.iter().sum()</span>
