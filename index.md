@@ -46,6 +46,18 @@ extendr_module! {
 }
 ```
 
+On R's side, users can access to the above Rust functions as following:
+
+``` r
+# call function
+aux_func()
+
+# create Person object
+p <- Person$new()
+p$set_name("foo")
+p$name()   # "foo" is returned
+```
+
 The `#[extendr]` attribute causes the compiler to generate
 wrapper and registration functions for R which are called
 when the package is loaded.
