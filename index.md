@@ -46,7 +46,11 @@ extendr_module! {
 }
 ```
 
-On R's side, users can access to the above Rust functions as following:
+The `#[extendr]` attribute causes the compiler to generate
+wrapper and registration functions for R which are called
+when the package is loaded.
+
+On R's side, users can access to the above Rust functions as follows:
 
 ``` r
 # call function
@@ -57,10 +61,6 @@ p <- Person$new()
 p$set_name("foo")
 p$name()   # "foo" is returned
 ```
-
-The `#[extendr]` attribute causes the compiler to generate
-wrapper and registration functions for R which are called
-when the package is loaded.
 
 The `extendr_module!` macro lists the module name and exported functions
 and interfaces.
