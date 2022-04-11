@@ -70,21 +70,84 @@ first-time users of Rust or indeed any compiled language.
 
 Anyone who knows the R library should be able to write R extensions.
 
-## Goals of the project
+## Wrappers for R types
 
-Where possible, we convert parameters to Rust native objects on entry
-to a function. This makes the wrapped code clean and dependency free.
-We aim to support writing idiomatic Rust code, with a minimum amount
-of markup.
+Extendr provides a number of wrappers for R types. These fall into
+three categories, scalar types such as a single integer, vector
+types which are an array of a scalar type and linked list
+types used to represent R code and call arguments.
+
+### Scalar types
+
+R type|Extendr wrapper|Deref type: `&*object`
+------|---------------|----------------------
+`Any`|`extendr_api::robj::Robj`|N/A
+`character`|`extendr_api::wrapper::Rstr`|N/A
+`integer`|`extendr_api::wrapper::Rint`|N/A
+`double`|`extendr_api::wrapper::Rfloat`|N/A
+`complex`|`extendr_api::wrapper::Rcplx`|N/A
+`extptr`|`extendr_api::wrapper::ExternalPtr<T>`|`&T`
+
+### Vector types
+
+R type|Extendr wrapper|Deref type: `&*object`
+------|---------------|----------------------
+`integer`|`extendr_api::wrapper::Integer`|`&[Rint]`
+`double`|`extendr_api::wrapper::Doubles`|`&[Rfloat]`
+`logical`|`extendr_api::wrapper::Logical`|`&[Rbool]`
+`complex`|`extendr_api::wrapper::Complexes`|`&[Rcplx]`
+`string`|`extendr_api::wrapper::Strings`|`&[Rstr]`
+`list`|`extendr_api::wrapper::List`|`&[Robj]`
+`data.frame`|`extendr_api::wrapper::Dataframe<T>`|`&[Robj]`
+`expression`|`extendr_api::wrapper::Expression`|`&[Lang]`
+
+### Linked list types
+`pairlist`|`extendr_api::wrapper::Pairlist`|N/A
+`lang`|`extendr_api::wrapper::Lang`|N/A
+
+## Examples
+
+### Returning lists and strings.
 
 ```rust
-#[extendr]
-pub fn my_sum(v: &[f64]) -> f64 {
-    v.iter().sum()
+use extendr_api::wrapper::{List, Strings};
+use extendr_api::list;
+
+fn get_strings() -> Strings {
+    Strings::from_values(
+        (0..10)
+        .map(|i| format!("number {}", i))
+    )
+}
+
+fn get_named_list() -> List {
+    list!(x=1, y="xyz", z=())
+}
+
+fn get_unnamed_list() -> List {
+    List::from_values(0..10)
 }
 ```
 
-You can interact in more detail with R objects using the RObj
-type which wraps the native R object type. This supports a large
-subset of the R internals functions, but wrapped to prevent
-accidental segfaults and failures.
+### Returning scalars
+
+```
+use extendr_api::scalar::{Rint, Rfloat};
+use extendr_api::CanBeNA;
+
+fn get_int() -> Rint {
+    Rint::from(1)
+}
+
+fn get_na_int() -> Rint {
+    Rint::na()
+}
+
+fn get_float() -> Rfloat {
+    Rfloat::from(1.0)
+}
+
+fn get_na_float() -> Rfloat {
+    Rfloat::na()
+}
+```
