@@ -260,24 +260,53 @@
 <div id="returning-scalars" class="section level3">
 <h3 class="hasAnchor">
 <a href="#returning-scalars" class="anchor" aria-hidden="true"></a>Returning scalars</h3>
-<pre><code>use extendr_api::scalar::{Rint, Rfloat};
-use extendr_api::CanBeNA;
-
-fn get_int() -&gt; Rint {
-    Rint::from(1)
-}
-
-fn get_na_int() -&gt; Rint {
-    Rint::na()
-}
-
-fn get_float() -&gt; Rfloat {
-    Rfloat::from(1.0)
-}
-
-fn get_na_float() -&gt; Rfloat {
-    Rfloat::na()
-}</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">use</span> <span class="pp">extendr_api::scalar::</span><span class="op">{</span>Rint, Rfloat<span class="op">}</span>;</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">// for .na()</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">use</span> <span class="pp">extendr_api::</span>CanBeNA;</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">fn</span> get_int() -&gt; Rint <span class="op">{</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="pp">Rint::</span>from(<span class="dv">1</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="op">}</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">fn</span> get_na_int() -&gt; Rint <span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="pp">Rint::</span>na()</span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="op">}</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="kw">fn</span> get_float() -&gt; Rfloat <span class="op">{</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>    <span class="pp">Rfloat::</span>from(<span class="dv">1.0</span>)</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="op">}</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="kw">fn</span> get_na_float() -&gt; Rfloat <span class="op">{</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="pp">Rfloat::</span>na()</span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="plotting-a-png-file-from-rust" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plotting-a-png-file-from-rust" class="anchor" aria-hidden="true"></a>Plotting a PNG file from Rust</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>test, <span class="dt">Result</span>, eval_string, eval_string_with_params<span class="op">}</span>;</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>Doubles, R<span class="op">}</span>;</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="pp">test!</span><span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>        <span class="kw">let</span> x = <span class="pp">Doubles::</span>from_values((<span class="dv">0</span>..<span class="dv">100</span>).map(|i| i <span class="kw">as</span> <span class="dt">f64</span> / <span class="dv">20.0</span>));</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>        <span class="co">// let y = Doubles::from_values(x.iter().map(|x| x.inner().sin()));</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>        <span class="kw">let</span> y = <span class="pp">Doubles::</span>from_values((<span class="dv">0</span>..<span class="dv">100</span>).map(|i| (i <span class="kw">as</span> <span class="dt">f64</span> / <span class="dv">20.0</span>).sin()));</span>
+<span id="cb5-10"><a href="#cb5-10"></a></span>
+<span id="cb5-11"><a href="#cb5-11"></a>        <span class="co">// Set a PNG device</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>        <span class="pp">R!</span>(<span class="st">r#"png("/tmp/sin_plot.png")"#</span>)?;</span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a>        <span class="co">// Plot x and y</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>        <span class="pp">R!</span>(<span class="st">"plot({{&amp;x}}, {{&amp;y}})"</span>)?;</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a>        <span class="co">// Linear model.</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>        <span class="pp">R!</span>(<span class="st">"abline(lm({{y}} ~ {{x}}))"</span>)?;</span>
+<span id="cb5-19"><a href="#cb5-19"></a></span>
+<span id="cb5-20"><a href="#cb5-20"></a>        <span class="co">// Flush the device to the image.</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>        <span class="pp">R!</span>(<span class="st">"dev.off()"</span>)?;</span>
+<span id="cb5-22"><a href="#cb5-22"></a>    <span class="op">}</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="op">}</span></span></code></pre></div>
 </div>
 </div>
 </div>
