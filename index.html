@@ -239,6 +239,10 @@
 <div id="returning-lists-and-strings" class="section level3">
 <h3 class="hasAnchor">
 <a href="#returning-lists-and-strings" class="anchor" aria-hidden="true"></a>Returning lists and strings.</h3>
+<p>Lists and strings in rust are vectors of R objects. These are represented by the wrappers <code>List</code> and <code>Strings</code>.</p>
+<p><code>List</code> contains a slice of <code>Robj</code> wrappers which can contain any R object.</p>
+<p><code>Strings</code> contains a slice of <code>Rstr</code> wrappers which can contain a single string.</p>
+<p>These examples show how to return a list or string to R from Rust.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">use</span> <span class="pp">extendr_api::wrapper::</span><span class="op">{</span>List, Strings<span class="op">}</span>;</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">use</span> <span class="pp">extendr_api::</span>list;</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
@@ -260,6 +264,7 @@
 <div id="returning-scalars" class="section level3">
 <h3 class="hasAnchor">
 <a href="#returning-scalars" class="anchor" aria-hidden="true"></a>Returning scalars</h3>
+<p>Whilst we can use <code>i32</code> and <code>f64</code> in Extendr to return values. A better way is to use the <code>Rint</code> and <code>Rfloat</code> wrappers which provide access to the <code>NA</code> value used by R to represent missing data.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">use</span> <span class="pp">extendr_api::scalar::</span><span class="op">{</span>Rint, Rfloat<span class="op">}</span>;</span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">// for .na()</span></span>
@@ -284,6 +289,8 @@
 <div id="plotting-a-png-file-from-rust" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotting-a-png-file-from-rust" class="anchor" aria-hidden="true"></a>Plotting a PNG file from Rust</h3>
+<p>We can use Extendr to take advantage of the stats and plotting functions in R.</p>
+<p>For example, we could make a web server that returns plots of incomming data.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>test, <span class="dt">Result</span>, eval_string, eval_string_with_params<span class="op">}</span>;</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>Doubles, R<span class="op">}</span>;</span>
 <span id="cb5-3"><a href="#cb5-3"></a></span>
