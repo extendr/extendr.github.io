@@ -109,6 +109,18 @@ R type|Extendr wrapper|Deref type: `&*object`
 
 ### Returning lists and strings.
 
+Lists and strings in rust are vectors of R objects.
+These are represented by the wrappers `List` and `Strings`.
+
+`List` contains a slice of `Robj` wrappers which can contain
+any R object.
+
+`Strings` contains a slice of `Rstr` wrappers which can
+contain a single string.
+
+These examples show how to return a list or string to
+R from Rust.
+
 ```rust
 use extendr_api::wrapper::{List, Strings};
 use extendr_api::list;
@@ -130,6 +142,11 @@ fn get_unnamed_list() -> List {
 ```
 
 ### Returning scalars
+
+Whilst we can use `i32` and `f64` in Extendr to return values.
+A better way is to use the `Rint` and `Rfloat` wrappers which
+provide access to the `NA` value used by R to represent missing
+data.
 
 ```rust
 use extendr_api::scalar::{Rint, Rfloat};
@@ -155,6 +172,11 @@ fn get_na_float() -> Rfloat {
 ```
 
 ### Plotting a PNG file from Rust
+
+We can use Extendr to take advantage of the stats and plotting functions
+in R.
+
+For example, we could make a web server that returns plots of incomming data.
 
 ```rust
 use extendr_api::{test, Result, eval_string, eval_string_with_params};
