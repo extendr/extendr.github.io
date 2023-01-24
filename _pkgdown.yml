@@ -27,6 +27,8 @@ navbar:
       href: CONTRIBUTING.html
     - text: "News"
       href: CHANGELOG.html
+    - text: "API Docs"
+      href: https://extendr.github.io/extendr/extendr_api/
   right:
    - icon: fa-github
      href: https://github.com/extendr/extendr
