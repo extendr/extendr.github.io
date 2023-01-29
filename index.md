@@ -102,6 +102,9 @@ R type|Extendr wrapper|Deref type: `&*object`
 `expression`|`extendr_api::wrapper::Expression`|`&[Lang]`
 
 ### Linked list types
+
+R type|Extendr wrapper|Deref type: `&*object`
+------|---------------|----------------------
 `pairlist`|`extendr_api::wrapper::Pairlist`|N/A
 `lang`|`extendr_api::wrapper::Lang`|N/A
 
