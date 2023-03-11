@@ -1,9 +1,9 @@
 Package: ExtendrWeb
 Title: A safe and user friendly R extension interface using Rust.
-Version: 0.2.0
+Version: 0.4.0
 Authors@R:
   c(person(given = "Andy",
-           family = "Thomason",       
+           family = "Thomason",
            role = c("aut", "cre"),
            email = "andy@andythomason.com"),
     person(given = "Mossa M.",
