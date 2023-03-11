@@ -11,6 +11,15 @@ The following code illustrates a simple structure trait
 which is written in Rust. The data is defined in the `struct`
 declaration and the methods in the `impl`.
 
+Extendr consists of the following projects:
+
+* [`extendr`](https://extendr.github.io/extendr) set of crates, including:
+  * [`extendr-api`](https://extendr.github.io/extendr/extendr_api) - the core Extendr crate providing all of the functionality;
+  * [`extendr-macros`](https://extendr.github.io/extendr/extendr_macros) - Extendr crate responsbile for Rust wrapper generation;
+  * [`extendr-engine`](https://extendr.github.io/extendr/extendr_engine) - crate that enables launching R sessions from Rust code;
+* [`rextendr`](https://extendr.github.io/rextendr) - an R package that helps scaffolding extendr-enabled packages or compiling Rust code dynamically;
+* [`libR-sys`](https://extendr.github.io/libR-sys/libR_sys) - provides auto-generated R bindings for Rust.
+
 ```rust
 use extendr_api::prelude::*;
 
