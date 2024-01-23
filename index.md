@@ -103,7 +103,7 @@ R type|Extendr wrapper|Deref type: `&*object`
 ------|---------------|----------------------
 `integer`|`extendr_api::wrapper::Integers`|`&[Rint]`
 `double`|`extendr_api::wrapper::Doubles`|`&[Rfloat]`
-`logical`|`extendr_api::wrapper::Logical`|`&[Rbool]`
+`logical`|`extendr_api::wrapper::Logicals`|`&[Rbool]`
 `complex`|`extendr_api::wrapper::Complexes`|`&[Rcplx]`
 `string`|`extendr_api::wrapper::Strings`|`&[Rstr]`
 `list`|`extendr_api::wrapper::List`|`&[Robj]`
