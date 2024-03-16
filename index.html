@@ -10,7 +10,7 @@
  • Extendr</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="deps/bs3compat-0.4.2/transition.js"></script><script src="deps/bs3compat-0.4.2/tabs.js"></script><script src="deps/bs3compat-0.4.2/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="deps/bs3compat-0.6.1/transition.js"></script><script src="deps/bs3compat-0.6.1/tabs.js"></script><script src="deps/bs3compat-0.6.1/bs3compat.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <link href="syntax-highlighting.css" rel="stylesheet">
@@ -79,7 +79,7 @@
   <div class="contents col-md-9">
 <div id="extendr---a-safe-and-user-friendly-r-extension-interface-using-rust" class="section level1">
 <div class="pb-2 mt-4 mb-2 border-bottom"><h1 class="hasAnchor">
-<a href="#extendr---a-safe-and-user-friendly-r-extension-interface-using-rust" class="anchor" aria-hidden="true"></a>extendr - A safe and user friendly R extension interface using Rust.</h1></div>
+<a href="#extendr---a-safe-and-user-friendly-r-extension-interface-using-rust" class="anchor" aria-hidden="true"></a>extendr - A safe and user friendly R extension interface using Rust</h1></div>
 
 <p>Extendr is a Rust extension mechanism for R</p>
 <p>The following code illustrates a simple structure trait which is written in Rust. The data is defined in the <code>struct</code> declaration and the methods in the <code>impl</code>.</p>
@@ -189,7 +189,9 @@
 <tr class="even">
 <td><code>extptr</code></td>
 <td><code>extendr_api::wrapper::ExternalPtr&lt;T&gt;</code></td>
-<td><code>&amp;T</code></td>
+<td>
+<code>&amp;T</code> / <code>&amp;mut T</code>
+</td>
 </tr>
 </tbody>
 </table>
@@ -207,7 +209,7 @@
 <tbody>
 <tr class="odd">
 <td><code>integer</code></td>
-<td><code>extendr_api::wrapper::Integer</code></td>
+<td><code>extendr_api::wrapper::Integers</code></td>
 <td><code>&amp;[Rint]</code></td>
 </tr>
 <tr class="even">
@@ -217,7 +219,7 @@
 </tr>
 <tr class="odd">
 <td><code>logical</code></td>
-<td><code>extendr_api::wrapper::Logical</code></td>
+<td><code>extendr_api::wrapper::Logicals</code></td>
 <td><code>&amp;[Rbool]</code></td>
 </tr>
 <tr class="even">
@@ -278,7 +280,7 @@
 <a href="#examples" class="anchor" aria-hidden="true"></a>Examples</h2>
 <div id="returning-lists-and-strings" class="section level3">
 <h3 class="hasAnchor">
-<a href="#returning-lists-and-strings" class="anchor" aria-hidden="true"></a>Returning lists and strings.</h3>
+<a href="#returning-lists-and-strings" class="anchor" aria-hidden="true"></a>Returning lists and strings</h3>
 <p>Lists and strings in rust are vectors of R objects. These are represented by the wrappers <code>List</code> and <code>Strings</code>.</p>
 <p><code>List</code> contains a slice of <code>Robj</code> wrappers which can contain any R object.</p>
 <p><code>Strings</code> contains a slice of <code>Rstr</code> wrappers which can contain a single string.</p>
@@ -330,7 +332,7 @@
 <h3 class="hasAnchor">
 <a href="#plotting-a-png-file-from-rust" class="anchor" aria-hidden="true"></a>Plotting a PNG file from Rust</h3>
 <p>We can use Extendr to take advantage of the stats and plotting functions in R.</p>
-<p>For example, we could make a web server that returns plots of incomming data.</p>
+<p>For example, we could make a web server that returns plots of incoming data.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>test, <span class="dt">Result</span>, eval_string, eval_string_with_params<span class="op">}</span>;</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>Doubles, R<span class="op">}</span>;</span>
 <span id="cb5-3"><a href="#cb5-3"></a></span>
