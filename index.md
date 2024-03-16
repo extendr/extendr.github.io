@@ -1,4 +1,4 @@
-# extendr - A safe and user friendly R extension interface using Rust.
+# extendr - A safe and user friendly R extension interface using Rust
 
 [![Github Actions Build Status](https://github.com/extendr/extendr/workflows/Tests/badge.svg)](https://github.com/extendr/extendr/actions)
 [![Crates.io](https://img.shields.io/crates/v/extendr-api.svg)](https://crates.io/crates/extendr-api)
@@ -95,15 +95,15 @@ R type|Extendr wrapper|Deref type: `&*object`
 `integer`|`extendr_api::wrapper::Rint`|N/A
 `double`|`extendr_api::wrapper::Rfloat`|N/A
 `complex`|`extendr_api::wrapper::Rcplx`|N/A
-`extptr`|`extendr_api::wrapper::ExternalPtr<T>`|`&T`
+`extptr`|`extendr_api::wrapper::ExternalPtr<T>`|`&T` / `&mut T`
 
 ### Vector types
 
 R type|Extendr wrapper|Deref type: `&*object`
 ------|---------------|----------------------
-`integer`|`extendr_api::wrapper::Integer`|`&[Rint]`
+`integer`|`extendr_api::wrapper::Integers`|`&[Rint]`
 `double`|`extendr_api::wrapper::Doubles`|`&[Rfloat]`
-`logical`|`extendr_api::wrapper::Logical`|`&[Rbool]`
+`logical`|`extendr_api::wrapper::Logicals`|`&[Rbool]`
 `complex`|`extendr_api::wrapper::Complexes`|`&[Rcplx]`
 `string`|`extendr_api::wrapper::Strings`|`&[Rstr]`
 `list`|`extendr_api::wrapper::List`|`&[Robj]`
@@ -119,7 +119,7 @@ R type|Extendr wrapper|Deref type: `&*object`
 
 ## Examples
 
-### Returning lists and strings.
+### Returning lists and strings
 
 Lists and strings in rust are vectors of R objects.
 These are represented by the wrappers `List` and `Strings`.
@@ -188,7 +188,7 @@ fn get_na_float() -> Rfloat {
 We can use Extendr to take advantage of the stats and plotting functions
 in R.
 
-For example, we could make a web server that returns plots of incomming data.
+For example, we could make a web server that returns plots of incoming data.
 
 ```rust
 use extendr_api::{test, Result, eval_string, eval_string_with_params};
