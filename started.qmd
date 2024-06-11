@@ -1,4 +1,6 @@
-# Getting started
+---
+title: "Getting started"
+---
 
 Extendr is available on [crates.io](https://crates.io/crates/extendr-api).
 
