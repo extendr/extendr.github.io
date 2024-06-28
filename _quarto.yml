@@ -5,7 +5,7 @@ execute:
   freeze: true
 
 website:
-  title: "Extendr"
+  title: "extendr"
   navbar:
     left:
       - text: "Getting started"
