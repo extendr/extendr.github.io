@@ -23,6 +23,5 @@ format:
   html:
     theme:
       light: flatly
-      dark: darkly
-    css: styles.css
+      dark: darkly    
     toc: false
