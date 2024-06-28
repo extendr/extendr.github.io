@@ -2,7 +2,14 @@
 title: ""
 ---
 
+:::::: {style="margin:0; width: 100%;"}
+::: {style="margin:0; width: 81%; float: left;"}
 ## extendr - A safe and user friendly R extension interface using Rust
+:::
+::: {style="margin: 0.25rem 0 0 0; width: 19%; float: right;"}
+![](images/extendr-logo-256.png){width="100%" fig-alt="rextendr logo"}
+:::
+::::::
 
 [![Github Actions Build
 Status](https://github.com/extendr/extendr/workflows/Tests/badge.svg)](https://github.com/extendr/extendr/actions)
