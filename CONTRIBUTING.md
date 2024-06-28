@@ -1,6 +1,4 @@
----
-title: "Contributing"
----
+# Contributing
 
 We welcome contributions to the extendr project. Contributions come in many forms. Please carefully read and follow these guidelines. This will help us make the contribution process easy and effective for everyone involved. It also communicates that you agree to respect the time of the developers managing and developing this project.
 

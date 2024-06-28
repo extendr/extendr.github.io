@@ -11,9 +11,9 @@ website:
       - text: "Getting started"
         href: started.qmd
       - text: Contributing
-        href: CONTRIBUTING.qmd
+        href: CONTRIBUTING.md
       - text: "News"
-        href: CHANGELOG.qmd
+        href: CHANGELOG.md
       - text: "API Docs"
         href: https://extendr.github.io/extendr/extendr_api/
     right:

@@ -1,6 +1,4 @@
----
-title: "Changelog"
----
+# Changelog
 
 ## extendr devel
 
