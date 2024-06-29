@@ -37,18 +37,8 @@ We recommend using a moderately new version of R (>= 4.2.0).
 ![](images/rextendr-logo.png)
 ](https://extendr.github.io/rextendr/){.btn .btn-primary}
 :::
-The R package `{rextendr}` provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest development version, use `pak::pak("extendr/rextendr")`.
+The R package `{rextendr}` provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest development version, use `pak::pak("extendr/rextendr")`. Note that **rextendr** provides a function to check your Rust installation: `rextendr::rust_sitrep()`.  
 ::::::
-
-
-
-Note that **rextendr** provides a function to check your Rust installation.  
-
-```{r}
-rextendr::rust_sitrep()
-```
-
-If there are no issues reported by the situation report (sitrep), you are ready to start building Rust-powered R packages! 
 
 ## Step 4 [Use rust-analyzer]{.fw-light} 
 
