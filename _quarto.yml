@@ -1,0 +1,32 @@
+project:
+  type: website
+
+execute:
+  freeze: true
+
+website:
+  title: "extendr"
+  navbar:
+    left:
+      - text: "Getting started"
+        href: started.qmd
+      - text: Contributing
+        href: CONTRIBUTING.md
+      - text: "News"
+        href: CHANGELOG.md
+      - text: "API Docs"
+        href: https://extendr.github.io/extendr/extendr_api/
+      - text: "FAQ"
+        href: faq.qmd
+    right:
+     - icon: github
+       href: https://github.com/extendr/extendr
+     - icon: discord
+       href: https://discord.gg/7hmApuc
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly    
+    toc: false

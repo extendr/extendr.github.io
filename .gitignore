@@ -1,2 +1,16 @@
 docs
 *~
+.Rproj.user
+*.Rproj
+
+/.quarto/
+/_site/
+# rust specific .gitignore
+target/
+debug/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+# r specific
+.Rproj.user/
+*.Rproj
