@@ -16,6 +16,8 @@ website:
         href: CHANGELOG.md
       - text: "API Docs"
         href: https://extendr.github.io/extendr/extendr_api/
+      - text: "FAQ"
+        href: faq.qmd
     right:
      - icon: github
        href: https://github.com/extendr/extendr
