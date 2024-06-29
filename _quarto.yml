@@ -13,7 +13,7 @@ website:
       - text: Contributing
         href: CONTRIBUTING.md
       - text: "News"
-        href: CHANGELOG.md
+        href: changelog.qmd
       - text: "API Docs"
         href: https://extendr.github.io/extendr/extendr_api/
       - text: "FAQ"
