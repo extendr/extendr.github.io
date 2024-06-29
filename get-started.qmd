@@ -25,7 +25,8 @@ This is to ensure CRAN compliance.
 [![](images/Rlogo.svg)](https://cran.r-project.org/)
 :::
 
-We recommend using a moderately new version of R (\>= 4.2.0).
+We recommend using a moderately new version of R (\>= 4.2.0). You can get that 
+from [CRAN](https://cran.r-project.org/).
 :::
 
 ## Step 3 [Install rextendr]{.fw-light}
