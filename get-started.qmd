@@ -8,7 +8,7 @@ To build R packages with **extendr**, you need to have the right tools.
 ## Step 1 [Install Rust]{.fw-light}
 
 ::: clearfix
-::: {.float-start style="width: 126px; padding-right: 0.5rem;"}
+::: {.float-start style="width: 126px; margin-right: 0.8rem;"}
 [![](images/cuddlyferris.svg)](https://www.rust-lang.org/tools/install)
 :::
 
@@ -21,7 +21,7 @@ This is to ensure CRAN compliance.
 ## Step 2 [Update R]{.fw-light}
 
 ::: clearfix
-::: {.float-start style="width: 126px; padding-right: 0.5rem;"}
+::: {.float-start style="width: 126px; margin-right: 0.8rem;"}
 [![](images/Rlogo.svg)](https://cran.r-project.org/)
 :::
 
@@ -31,7 +31,7 @@ We recommend using a moderately new version of R (\>= 4.2.0).
 ## Step 3 [Install rextendr]{.fw-light}
 
 ::: clearfix
-::: {.float-start style="width: 126px; padding-right: 0.5rem;"}
+::: {.float-start style="width: 126px; margin-right: 0.8rem;"}
 [![](images/rextendr-logo.png)](https://extendr.github.io/rextendr/)
 :::
 
