@@ -8,8 +8,8 @@ website:
   title: "extendr"
   navbar:
     left:
-      - text: "Getting started"
-        href: started.qmd
+      - text: "Get Started"
+        href: get-started.qmd
       - text: Contributing
         href: CONTRIBUTING.md
       - text: "News"
