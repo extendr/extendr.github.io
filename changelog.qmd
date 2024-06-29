@@ -1,0 +1,23 @@
+---
+execute:
+  freeze: false
+---
+
+```{r}
+#| echo: false
+#| results: asis
+
+changelog_url <- file.path(
+  "https://raw.githubusercontent.com",
+  "extendr",
+  "extendr",
+  "master",
+  "CHANGELOG.md"
+)
+
+txt <- readLines(changelog_url)
+
+cat(txt, sep = "\n")
+
+```
+
