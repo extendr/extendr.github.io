@@ -1,0 +1,50 @@
+---
+title: "Get Started"
+anchor-sections: false
+---
+
+To build R packages with **extendr**, you need to have the right tools.
+
+## Step 1 [Install Rust]{.fw-light}
+
+::: clearfix
+::: {.float-start style="width: 126px; margin-right: 0.8rem;"}
+[![](images/cuddlyferris.svg)](https://www.rust-lang.org/tools/install)
+:::
+
+Follow the [rustup installation
+instructions](https://www.rust-lang.org/tools/install) to install Rust. Note
+that the current minimum supported Rust version (msrv) in **extendr** is `1.64`.
+This is to ensure CRAN compliance.
+:::
+
+## Step 2 [Update R]{.fw-light}
+
+::: clearfix
+::: {.float-start style="width: 126px; margin-right: 0.8rem;"}
+[![](images/Rlogo.svg)](https://cran.r-project.org/)
+:::
+
+We recommend using a moderately new version of R (\>= 4.2.0). You can get that 
+from [CRAN](https://cran.r-project.org/).
+:::
+
+## Step 3 [Install rextendr]{.fw-light}
+
+::: clearfix
+::: {.float-start style="width: 126px; margin-right: 0.8rem;"}
+[![](images/rextendr-logo.png)](https://extendr.github.io/rextendr/)
+:::
+
+The R package `{rextendr}` provides scaffolding for extendr projects and tools
+for documenting Rust functions and objects. To install the latest development
+version, use `pak::pak("extendr/rextendr")`. Note that **rextendr** provides a
+function to check your Rust installation: `rextendr::rust_sitrep()`.
+:::
+
+## Step 4 [Use rust-analyzer]{.fw-light}
+
+This is optional, but strongly recommended. If you use [Visual Studio Code (VS
+Code)](https://code.visualstudio.com/download) or a similar IDE, the
+[rust-analyzer](https://rust-analyzer.github.io/) will provide you type hinting
+and auto-completion suggestions. It is **very** helpful!

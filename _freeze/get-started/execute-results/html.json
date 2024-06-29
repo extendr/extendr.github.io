@@ -1,0 +1,15 @@
+{
+  "hash": "1749c41bb84c81970a9777a1732458ea",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Get Started\"\nanchor-sections: false\n---\n\n\nTo build R packages with **extendr**, you need to have the right tools.\n\n## Step 1 [Install Rust]{.fw-light} \n\n::::::{.clearfix}\n:::{.float-start style=\"max-width: 126px; padding-right: 0.5rem;\"}\n[\n![](images/cuddlyferris.svg) Use rustup!\n](https://www.rust-lang.org/tools/install){.btn .btn-primary}\n:::\n\nTo ensure CRAN compliance, the current minimum supported Rust version (msrv) is `1.64`.  \n::::::\n\n## Step 2 [Update R]{.fw-light} \n\n::::::{.clearfix}\n:::{.float-start style=\"max-width: 126px; padding-right: 0.5rem;\"}\n[\n![](images/Rlogo.svg) CRAN\n](https://cran.r-project.org/){.btn .btn-primary}\n:::\n\nWe recommend using a moderately new version of R (>= 4.2.0). \n::::::\n\n## Step 3 [Install rextendr]{.fw-light}\n\n::::::{.clearfix}\n:::{.float-start style=\"max-width: 126px; padding-right: 0.5rem;\"}\n[\n![](images/rextendr-logo.png)\n](https://extendr.github.io/rextendr/){.btn .btn-primary}\n:::\nThe R package `{rextendr}` provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest development version, use `pak::pak(\"extendr/rextendr\")`.\n::::::\n\n\n\nNote that **rextendr** provides a function to check your Rust installation.  \n\n\n::: {.cell}\n\n```{.r .cell-code}\nrextendr::rust_sitrep()\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nRust infrastructure sitrep:\n✔ \"rustup\": 1.26.0 (5af9b9484 2023-04-05)\n✔ \"cargo\": 1.70.0 (ec8a8a0ca 2023-04-25)\nℹ host: x86_64-pc-windows-msvc\nℹ toolchain: stable-x86_64-pc-windows-msvc (default)\nℹ targets: x86_64-pc-windows-gnu and x86_64-pc-windows-msvc\n```\n\n\n:::\n:::\n\n\nIf there are no issues reported by the situation report (sitrep), you are ready to start building Rust-powered R packages! \n\n## Step 4 [Use rust-analyzer]{.fw-light} \n\nThis is optional, but strongly recommended. If you use [Visual Studio Code (VS Code)](https://code.visualstudio.com/download) or a similar IDE, the [rust-analyzer](https://rust-analyzer.github.io/) will provide you type hinting and auto-completion suggestions. It is **very** helpful!\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
