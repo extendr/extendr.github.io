@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -98,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./CHANGELOG.html" aria-current="page"> 
+    <a class="nav-link active" href="./changelog.html" aria-current="page"> 
 <span class="menu-text">News</span></a>
   </li>  
   <li class="nav-item">
@@ -142,21 +176,192 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="changelog" class="level1">
 <h1>Changelog</h1>
-<section id="extendr-devel" class="level2">
-<h2 class="anchored" data-anchor-id="extendr-devel">extendr devel</h2>
+<section id="unreleased" class="level2">
+<h2 class="anchored" data-anchor-id="unreleased">Unreleased</h2>
+<section id="added" class="level3">
+<h3 class="anchored" data-anchor-id="added">Added</h3>
 <ul>
-<li><p>Fixed Clippy warnings</p></li>
-<li><p>Fixed “myvar” test failures - related to base_env() being the “local” enviroment in the tests.</p></li>
-<li><p>Fixes for builds on ARM and PPC platforms.</p></li>
-<li><p>Converted R! to a procedural macro, allowing parameters.</p></li>
-<li><p>Converted pairlist! to a procedural macro.</p></li>
-<li><p>Refactor extendr_macros.</p></li>
-<li><p>Remove unused lazy_static</p></li>
-<li><p>Continued improvments to wrappers for specific R types such as environments, functions and symbols.</p></li>
-<li><p>Install system dependencies on Linux.</p></li>
-<li><p>Use Use failure() to trigger steps on failures</p></li>
-<li><p><code>SymPair::sym_pair()</code> now returns <code>(Option&lt;Robj&gt;, Robj)</code></p></li>
+<li>Arguments can be (mutable) typed slices such as <code>&amp;[Rbool]</code>, <code>&amp;mut [Rint]</code> etc. <a href="https://github.com/extendr/extendr/pull/790">[#790]</a></li>
+<li>New optional <code>faer</code> feature which enables conversion between <code>faer</code> matrix and <code>RMatrix&lt;f64&gt;</code> <a href="https://github.com/extendr/extendr/pull/706">[#706]</a></li>
+<li>Adds <code>TryFrom&lt;Robj&gt;</code> and <code>&lt;TryFrom&lt;&amp;Robj&gt;</code> for <code>impl</code> blocks marked with <code>#[extendr]</code> macro allowing falliable conversion to <code>&amp;Self</code> <code>&amp;mut Self</code></li>
+<li>Adds <code>From&lt;T&gt; for Robj</code> for impl blocks marked with <code>#[extendr]</code> macro</li>
+<li>The new <code>ExpectedExternalNonNullPtr</code> error variant provides a more informative error when a null pointer is accessed</li>
+<li><code>RArray::data_mut</code> provides a mutable slice to the underlying array data <a href="https://github.com/extendr/extendr/pull/657">[#657]</a></li>
+<li>Implements the <code>Attributes</code> trait for all R vector wrapper structs (e.g.&nbsp;<code>Integers</code> , <code>Doubles</code>, <code>Strings</code>, etc.), allowing for easy access and setting of the attributes of an R object <a href="https://github.com/extendr/extendr/pull/745">[#745]</a>. This comes with breaking changes. See below.</li>
+<li>feature <code>non-api</code> that gives access to non-API items; Requires compile-time generation of bindings <a href="https://github.com/extendr/extendr/pull/754">[#754]</a></li>
+<li><code>TryFrom&lt;&amp;Robj&gt;</code> for <code>StrIter</code>, <code>HashMap&lt;K, Robj&gt;</code> for <code>K = String</code> and <code>K = &amp;str</code> <a href="https://github.com/extendr/extendr/pull/759">[#759]</a></li>
 </ul>
+</section>
+<section id="changed" class="level3">
+<h3 class="anchored" data-anchor-id="changed">Changed</h3>
+<ul>
+<li>vector <a href="https://github.com/extendr/extendr/pull/657">[#657]</a></li>
+<li><code>#[extendr(use_try_from = true)</code> is now the default setting, therefore the option <code>use_try_from</code> has been removed <a href="https://github.com/extendr/extendr/pull/759">[#759]</a></li>
+</ul>
+<section id="breaking-changes" class="level4">
+<h4 class="anchored" data-anchor-id="breaking-changes">Breaking changes</h4>
+<ul>
+<li>R-devel Non-API changes:
+<ul>
+<li>R’s C API is being formalized. While the changes are formalized, non-API functions are hidden behind a feature flag to prevent removal from CRAN.</li>
+<li>Non-API <a href="https://github.com/r-devel/r-svn/blob/71afe1e304b11f7febaa536e96817c63a7c1c7ab/src/library/tools/R/sotools.R#L564">changes are in flux in R-devel</a>, however, CRAN has set a July 9th date to remove any package that uses non-API functions. This includes almost every extendr based package on CRAN.</li>
+<li>See <a href="https://stat.ethz.ch/pipermail/r-devel/2024-June/083449.html">[Rd] clarifying and adjusting the C API for R</a></li>
+<li><a href="https://github.com/r-devel/r-svn/blob/f36c203d3a53a74d56a81d4f97a68d24993e0652/src/library/tools/R/sotools.R#L564">nonAPI.txt</a> functions are hidden behind the <code>non-api</code> feature flag.</li>
+<li>Removed from default include (but may not be limited to):
+<ul>
+<li><code>global_var()</code>, <code>local_var()</code>, <code>base_env()</code>, various <code>Environment</code>, <code>Function</code>, <code>Primitive</code>, and <code>Promise</code> methods.</li>
+</ul></li>
+</ul></li>
+<li><code>Attributes</code> trait now returns a mutable reference to <code>Self</code>. <a href="https://github.com/extendr/extendr/pull/745">[#745]</a>. Previously <code>.set_attrib()</code> would modify an object in place, and then return an untyped owned pointer (Robj). Instead, now we return <code>&amp;mut Self</code>.</li>
+<li>In <code>AltRep</code> the <code>unserialize_ex</code>, <code>set_parent</code>, <code>set_envflags</code> are now hidden behind the feature flag <code>non-api</code>. Also, <code>Promise::from_parts</code> is marked as non-API.</li>
+<li>Floating point numbers with decimal part can no longer be converted to integer types via rounding <a href="https://github.com/extendr/extendr/pull/757">[#757]</a></li>
+<li>You can no longer create an <code>Robj</code> from a reference <code>&amp;T</code>, where <code>T</code> is an <code>extendr</code>-impl. <a href="https://github.com/extendr/extendr/pull/759">[#759]</a></li>
+<li>You can no longer use <code>from_robj</code>, as the trait <code>FromRobj</code> as been removed. Instead, use <code>try_from</code>.</li>
+<li>It is no longer possible to access an R integer vector as a <code>&amp;[u32]</code> <a href="https://github.com/extendr/extendr/pull/767">[#767]</a></li>
+</ul>
+</section>
+</section>
+<section id="fixed" class="level3">
+<h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
+<ul>
+<li>returning <code>&amp;Self</code> or <code>&amp;mut Self</code> from a method in an <code>#[extendr]</code>-impl would result in unintended cloning <a href="https://github.com/extendr/extendr/issues/614">[#614]</a></li>
+<li><code>TryFrom&lt;&amp;Robj&gt;</code> and <code>FromRobj</code> for integer scalars now correctly handles conversions from <code>f64</code> <a href="https://github.com/extendr/extendr/pull/757">[#757]</a></li>
+</ul>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">0.6.0</h2>
+<section id="added-1" class="level3">
+<h3 class="anchored" data-anchor-id="added-1">Added</h3>
+<ul>
+<li><code>ALTLIST</code> support allowing users to represent structs as R list objects</li>
+<li>[<strong>either</strong>] <code>TryFrom&lt;&amp;Robj&gt; for Either&lt;T, R&gt;</code> and <code>From&lt;Either&lt;T, R&gt;&gt; for Robj</code> if <code>T</code> and <code>R</code> are themselves implement these traits. This unblocks scenarios like accepting any numeric vector from R via <code>Either&lt;Integers, Doubles&gt;</code> without extra memory allocation <a href="https://github.com/extendr/extendr/pull/480">[#480]</a></li>
+<li><code>PartialOrd</code> trait implementation for <code>Rfloat</code>, <code>Rint</code> and <code>Rbool</code>. <code>Rfloat</code> and <code>Rint</code> gained <code>min()</code> and <code>max()</code> methods <a href="https://github.com/extendr/extendr/pull/573">[#573]</a></li>
+<li><code>use_rng</code> option for the <code>extendr</code> attribute macro, which enables the use of random number sampling methods from R, e.g.&nbsp;<code>#[extendr(use_rng = true)</code> <a href="https://github.com/extendr/extendr/pull/476">[#476]</a></li>
+<li><code>[T; N]</code> conversions to <code>Robj</code> <a href="https://github.com/extendr/extendr/pull/594/">[#594]</a></li>
+<li><code>ToVectorValue</code> for <code>Rfloat</code>, <code>Rint</code> and <code>Rbool</code> <a href="https://github.com/extendr/extendr/pull/593">[#593]</a></li>
+<li><code>TryFrom&lt;_&gt;</code> on <code>Vec&lt;_&gt;</code> for <code>Integers</code> (<code>i32</code>), <code>Complexes</code> (<code>c64</code>), <code>Doubles</code> (<code>f64</code>), and <code>Logicals</code> (<code>bool</code> / <code>i32</code>). <a href="https://github.com/extendr/extendr/pull/593">[#593]</a></li>
+<li><code>Rstr</code> can now be constructed from <code>Option&lt;String&gt;</code> <a href="https://github.com/extendr/extendr/pull/630">[#630]</a></li>
+</ul>
+</section>
+<section id="fixed-1" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
+<ul>
+<li>You can now create <code>ArrayView1</code> from <code>&amp;Robj</code> as well as <code>Robj</code> <a href="https://github.com/extendr/extendr/pull/501">[#501]</a></li>
+<li>Raw literals from Rust can be used for function and argument names. e.g. <code>fn r#type()</code> in Rust is converted to <code>type()</code> in R. <a href="https://github.com/extendr/extendr/pull/531">[#531]</a></li>
+<li>Fix memory leaks on errors and panics <a href="https://github.com/extendr/extendr/pull/555">[#555]</a></li>
+<li>Fixed error when collecting too many objects into <code>List</code>, etc. <a href="https://github.com/extendr/extendr/pull/540">[#540]</a></li>
+</ul>
+</section>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">0.4.0</h2>
+<section id="added-2" class="level3">
+<h3 class="anchored" data-anchor-id="added-2">Added</h3>
+<ul>
+<li>Support for setting the default value of arguments to struct methods, using <code>#[default = "..."]</code> <a href="https://github.com/extendr/extendr/pull/436">[#436]</a></li>
+<li>[<strong>ndarray</strong>] <code>TryFrom&lt;&amp;Robj&gt;</code> for <code>ArrayView1&lt;T&gt;</code> and <code>ArrayView2&lt;T&gt;</code>, where <code>T</code> is <code>i32</code>, <code>f64</code>, <code>c64</code>, <code>Rint</code>, <code>Rfloat</code>, <code>Rcplx</code>, <code>Rstr</code>, <code>Rbool</code> <a href="https://github.com/extendr/extendr/pull/443">[#443]</a></li>
+<li><code>Debug</code> trait implementation for <code>Rcplx</code> and <code>Complexes</code> <a href="https://github.com/extendr/extendr/pull/444">[#444]</a></li>
+<li><code>TryFrom&lt;Robj&gt;</code>, <code>From&lt;Option&lt;T&gt;&gt;</code>, <code>Into&lt;Option&lt;T&gt;&gt;</code> and their variations for <code>Nullable&lt;T&gt;</code> <a href="https://github.com/extendr/extendr/pull/446">[#446]</a></li>
+<li><code>Nullable&lt;T&gt;::map()</code> that acts on not null value and propagates <code>NULL</code> <a href="https://github.com/extendr/extendr/pull/446">[#446]</a></li>
+<li>[<strong>ndarray</strong>] Conversion from owned arrays (ie <code>ndarray::Array</code>) into <code>Robj</code> <a href="https://github.com/extendr/extendr/pull/450">[#450]</a></li>
+<li>[<strong>ndarray</strong>][<strong>docs</strong>] Documentation for the <code>robj_ndarray</code> module <a href="https://github.com/extendr/extendr/pull/450">[#450]</a></li>
+<li><code>Sum</code> for scalars like <code>Rint</code>, <code>Rfloat</code> and <code>Rcplx</code>, which accept <code>Iterator&lt;Item = &amp;Rtype&gt;</code> <a href="https://github.com/extendr/extendr/pull/454">[#454]</a></li>
+<li>A new <code>collect_rarray</code> method that can be used to collect arbitrary iterables into an R matrix <a href="https://github.com/extendr/extendr/pull/466">[#466]</a></li>
+<li>[<strong>docs</strong>] Documentation for <code>RArray::new_matrix()</code> <a href="https://github.com/extendr/extendr/pull/466">[#466]</a></li>
+</ul>
+</section>
+<section id="changed-1" class="level3">
+<h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
+<ul>
+<li>[<strong>docs</strong>] Use bindgen on docs.rs, to ensure newer R features will still be documented <a href="https://github.com/extendr/extendr/pull/426">[#426]</a></li>
+<li>Unify the tagging mechanism used to identify Rust types inside <code>ExternalPtr</code>. This allows <code>#[extendr]</code>-annotated functions to directly accept <code>ExternalPtr&lt;MyStruct&gt;</code> as well as <code>MyStruct</code> <a href="https://github.com/extendr/extendr/pull/433">[#433]</a></li>
+<li><code>Nullable&lt;T&gt;</code> is now part of <code>extendr_api::prelude</code> <a href="https://github.com/extendr/extendr/pull/446">[#446]</a></li>
+<li>Bump the Rust edition from 2018 to 2021 <a href="https://github.com/extendr/extendr/pull/458">[#458]</a></li>
+<li>When converted to <code>STRSXP</code>, strings are now correctly marked as UTF-8 even on non-UTF-8 platforms (i.e., R &lt; 4.2 on Windows), which shouldn’t matter for most of the users <a href="https://github.com/extendr/extendr/pull/467">[#467]</a></li>
+</ul>
+</section>
+<section id="fixed-2" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
+<ul>
+<li>The R CMD check note “Found non-API calls to R” by moving <code>use extendr_engine;</code> inside <code>test!</code> macro <a href="https://github.com/extendr/extendr/pull/424">[#424]</a></li>
+<li>The clippy lint “this public function might dereference a raw pointer but is not marked <code>unsafe</code>” <a href="https://github.com/extendr/extendr/pull/451">[#451]</a></li>
+<li>A bug where importing a submodule via <code>use some_module;</code> inside the <code>extendr_module!</code> macro wasn’t working <a href="https://github.com/extendr/extendr/pull/469">[#469]</a></li>
+</ul>
+</section>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">0.3.0</h2>
+<section id="added-3" class="level3">
+<h3 class="anchored" data-anchor-id="added-3">Added</h3>
+<ul>
+<li><p><code>Function</code> type that wraps an R function, which can be invoked using the <code>call()</code> method. <a href="https://github.com/extendr/extendr/pull/188">[#188]</a></p></li>
+<li><p><code>pairlist!</code> macro for generating <code>Pairlist</code> objects, e.g.&nbsp;for use in function calls. <a href="https://github.com/extendr/extendr/pull/202">[#202]</a></p></li>
+<li><p><code>use_try_from</code> option for the <code>extendr</code> macro, which allows the use of any type that implements <code>TryInto&lt;Robj&gt;</code>/<code>TryFrom&lt;Robj&gt;</code>, e.g.&nbsp;<code>#[extendr(use_try_from = true)]</code>. <a href="https://github.com/extendr/extendr/pull/222">[#222]</a></p></li>
+<li><p>Support for R version 4.2. <a href="https://github.com/extendr/extendr/issues/235">[#235]</a></p></li>
+<li><p><code>call!</code> macro, which can be used to call an R function whose name is provided as a string. <a href="https://github.com/extendr/extendr/pull/238">[#238]</a></p></li>
+<li><p>Large Rust integer types (<code>u32</code>, <code>u64</code> and <code>i64</code>) can now be converted to R’s <code>numeric</code> type, which can handle large integer values. <a href="https://github.com/extendr/extendr/pull/242">[#242]</a></p></li>
+<li><p><code>TryFrom&lt;Robj&gt;</code> for a large number of Rust types. <a href="https://github.com/extendr/extendr/pull/249">[#249]</a>, <a href="https://github.com/extendr/extendr/pull/258">[#258]</a></p></li>
+<li><p>Support for <code>ALTREP</code>. <a href="https://github.com/extendr/extendr/pull/250">[#250]</a>, <a href="https://github.com/extendr/extendr/pull/274">[#274]</a></p></li>
+<li><p><code>S4</code> struct, which wraps an S4 class in R. <a href="https://github.com/extendr/extendr/pull/268">[#268]</a></p></li>
+<li><p>[<strong>ndarray</strong>] Implemented <code>TryFrom&lt;&amp;ArrayBase&gt; for Robj</code>, allowing <code>extendr</code>-annotated functions to return Arrays from the <code>ndarray</code> crate and have them automatically converted to R arrays. <a href="https://github.com/extendr/extendr/pull/275">[#275]</a></p></li>
+<li><p><code>Rint</code>, <code>Rdouble</code>, <code>Rbool</code> and <code>Rcplx</code>: <code>NA</code>-aware wrappers for scalar elements of R vectors <a href="https://github.com/extendr/extendr/pull/274">[#274]</a>, <a href="https://github.com/extendr/extendr/pull/284">[#284]</a>, <a href="https://github.com/extendr/extendr/pull/301">[#301]</a>, <a href="https://github.com/extendr/extendr/pull/338">[#338]</a>, <a href="https://github.com/extendr/extendr/pull/350">[#350]</a></p></li>
+<li><p><code>Integers</code>, <code>Doubles</code>, <code>Strings</code>, <code>Logicals</code> and <code>Complexes</code>: wrappers for R vectors that deref to slices of the above types (<code>RInt</code> etc). <a href="https://github.com/extendr/extendr/pull/274">[#274]</a>, <a href="https://github.com/extendr/extendr/pull/284">[#284]</a>, <a href="https://github.com/extendr/extendr/pull/301">[#301]</a>, <a href="https://github.com/extendr/extendr/pull/338">[#338]</a>, <a href="https://github.com/extendr/extendr/pull/350">[#350]</a></p></li>
+<li><p><code>ExternalPtr</code>, a wrapper class for creating R objects containing any Rust object. <a href="https://github.com/extendr/extendr/pull/260">[#260]</a></p></li>
+<li><p>[<strong>graphics</strong>] Support for R graphics and graphics devices. The <code>graphics</code> feature flag is disabled by default. <a href="https://github.com/extendr/extendr/pull/279">[#279]</a>, <a href="https://github.com/extendr/extendr/pull/360">[#360]</a>, <a href="https://github.com/extendr/extendr/pull/373">[#373]</a>, <a href="https://github.com/extendr/extendr/pull/379">[#379]</a>, <a href="https://github.com/extendr/extendr/pull/380">[#380]</a>, <a href="https://github.com/extendr/extendr/pull/389">[#389]</a></p></li>
+<li><p><code>Deref</code> implementation for vector types (Rint/Rfloat/Rbool/Rstr/Robj) to appropriately typed Rust slices. <a href="https://github.com/extendr/extendr/pull/327">[#327]</a></p></li>
+<li><p><code>default</code> option for <code>extendr</code>-annotated functions, allowing them to have default values, e.g.&nbsp;<code>fn fred(#[default="NULL"] x: Option&lt;i32&gt;) { }</code>. <a href="https://github.com/extendr/extendr/pull/334">[#334]</a></p></li>
+<li><p><code>r_name</code> option for <code>extendr</code>-annotated functions, allowing the generated R function to have a different name. e.g.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">(</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    use_try_from <span class="op">=</span> <span class="cn">true</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    r_name <span class="op">=</span> <span class="st">"test.rename.rlike"</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    mod_name <span class="op">=</span> <span class="st">"test_rename_mymod"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">)]</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> test_rename() <span class="op">{</span> <span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><a href="https://github.com/extendr/extendr/pull/335">[#335]</a></p></li>
+<li><p><code>serde::Serialize</code> implementation for R types. <a href="https://github.com/extendr/extendr/pull/305">[#305]</a>, <a href="https://github.com/extendr/extendr/pull/355">[#355]</a></p></li>
+<li><p><code>Rany</code> type and the <code>as_any</code> conversion method. <a href="https://github.com/extendr/extendr/pull/320">[#320]</a></p></li>
+<li><p><code>std::fmt::Debug</code> implementation for wrapper types. <a href="https://github.com/extendr/extendr/pull/345">[#345]</a></p></li>
+<li><p><code>#[derive(TryFromRobj)</code> and <code>#[derive(IntoRobj)]</code> which provide an automatic conversion from and to any custom Rust struct and <code>Robj</code> <a href="https://github.com/extendr/extendr/pull/347">[#347]</a></p></li>
+<li><p><code>[[</code> operator that works with Rust classes. Its behavior is identical to that of the <code>$</code> operator. <a href="https://github.com/extendr/extendr/pull/359">[#359]</a></p></li>
+<li><p><code>Load</code> and <code>Save</code>, traits that, once implemented, provide the ability to load and save R data in the RDS format. These traits are implemented for all <code>Robj</code>. <a href="https://github.com/extendr/extendr/pull/363">[#363]</a></p></li>
+<li><p><code>Dataframe</code> wrapper struct. <a href="https://github.com/extendr/extendr/pull/393">[#393]</a></p></li>
+<li><p><code>IntoDataFrame</code> trait, which can be derived to allow arbitrary Rust structs to be converted to rows of a data frame. <a href="https://github.com/extendr/extendr/pull/393">[#393]</a></p></li>
+</ul>
+</section>
+<section id="changed-2" class="level3">
+<h3 class="anchored" data-anchor-id="changed-2">Changed</h3>
+<ul>
+<li><p><code>Strings::elt</code> now returns an <code>Rstr</code>. <a href="https://github.com/extendr/extendr/pull/345">[#345]</a></p></li>
+<li><p>Renamed <code>RType</code> to <code>Rtype</code>. <a href="https://github.com/extendr/extendr/pull/345">[#345]</a></p></li>
+<li><p>Wrapper types now contain <code>Robj</code> fields. <a href="https://github.com/extendr/extendr/pull/190">[#190]</a></p></li>
+<li><p>The <code>R!</code> macro now accepts strings that contain R code. This is now the recommended way of using the macro, especially with raw strings e.g.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">R!</span>(<span class="st">r#"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">    print("hello")</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">"#</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><a href="https://github.com/extendr/extendr/pull/203">[#203]</a></p></li>
+<li><p>Improved error handling for <code>&lt;&amp;str&gt;::try_from(Robj)</code>. <a href="https://github.com/extendr/extendr/pull/226">[#226]</a></p></li>
+<li><p><code>SymPair::sym_pair()</code> now returns <code>(Option&lt;Robj&gt;, Robj)</code>. <a href="https://github.com/extendr/extendr/pull/225">[#225]</a></p></li>
+<li><p>More detailed error messages when converting Rust integer types to R. <a href="https://github.com/extendr/extendr/pull/243">[#243]</a></p></li>
+<li><p><code>Character</code> is now called <code>Rstr</code>. <a href="https://github.com/extendr/extendr/pull/273">[#273]</a></p></li>
+<li><p>[<strong>ndarray</strong>] Bumped <code>ndarray</code> to 0.15.3. Under <a href="https://github.com/rust-lang/rfcs/pull/1977">RFC 1977</a> this is a “public dependency” change, and therefore can be considered a breaking change, as consumers of <code>extendr</code> that use an older version of <code>ndarray</code> will no longer be compatible until they also bump <code>ndarray</code> to a compatible version. <a href="https://github.com/extendr/extendr/pull/275">[#275]</a></p></li>
+<li><p><code>IsNA</code> trait has been renamed to <code>CanBeNA</code>. <a href="https://github.com/extendr/extendr/pull/288">[#288]</a></p></li>
+<li><p><code>list!</code> has been rewritten, and now returns a <code>List</code> struct. <a href="https://github.com/extendr/extendr/pull/303">[#303]</a></p></li>
+</ul>
+</section>
+<section id="deprecated" class="level3">
+<h3 class="anchored" data-anchor-id="deprecated">Deprecated</h3>
+<ul>
+<li>Calling the <code>R!</code> macro with non-string types (e.g.&nbsp;<code>R!(1)</code>) is now deprecated. <a href="https://github.com/extendr/extendr/pull/203">[#203]</a></li>
+</ul>
+</section>
+<section id="removed" class="level3">
+<h3 class="anchored" data-anchor-id="removed">Removed</h3>
+<ul>
+<li><code>Real</code>, <code>Int</code>, <code>Bool</code> and the redundant trait <code>SliceIter</code>, which should be replaced with <code>Rdouble</code>, <code>Rint</code>, and <code>Rbool</code> respectively. <a href="https://github.com/extendr/extendr/pull/304">[#304]</a>, <a href="https://github.com/extendr/extendr/pull/338">[#338]</a></li>
+<li><code>TryFrom</code> conversions between <code>Robj</code> and <code>HashMap</code> for consistency. <code>List::into_hashmap()</code> and <code>List::from_hashmap()</code> should be used instead. <a href="https://github.com/extendr/extendr/pull/254">[#254]</a></li>
+</ul>
+</section>
 </section>
 <section id="extendr-0.2.0" class="level2">
 <h2 class="anchored" data-anchor-id="extendr-0.2.0">extendr 0.2.0</h2>
