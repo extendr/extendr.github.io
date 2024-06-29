@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>extendr - Getting started</title>
+<title>extendr - Get Started</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -67,7 +33,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -124,8 +89,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./started.html" aria-current="page"> 
-<span class="menu-text">Getting started</span></a>
+    <a class="nav-link active" href="./get-started.html" aria-current="page"> 
+<span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./CONTRIBUTING.html"> 
@@ -173,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Getting started</h1>
+<h1 class="title">Get Started</h1>
 </div>
 
 
@@ -190,13 +155,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Extendr is available on <a href="https://crates.io/crates/extendr-api">crates.io</a>.</p>
-<p>Simply add this line to the <code>[dependencies]</code> section of a rust crate’s <code>Cargo.toml</code>. You will then be able to call R code from Rust.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">extendr-api</span> <span class="op">=</span> <span class="st">"0.6"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="installation---r" class="level2">
-<h2 class="anchored" data-anchor-id="installation---r">Installation - R</h2>
-<p>There are two ways you can use the <code>extendr</code> API from R. First, you can use the <a href="https://extendr.github.io/rextendr/"><code>rextendr</code></a> package to call individual Rust functions from an R session. Second, you can write an R package that uses compiled Rust code, see the <a href="https://github.com/extendr/helloextendr"><code>helloextendr</code></a> repo for a minimal example.</p>
+<p>To build R packages with <strong>extendr</strong>, you need to have the right tools.</p>
+<section id="step-1-install-rust" class="level2">
+<h2 data-anchor-id="step-1-install-rust">Step 1 <span class="fw-light">Install Rust</span></h2>
+<div class="clearfix">
+<div class="float-start" style="width: 126px; margin-right: 0.8rem;">
+<p><a href="https://www.rust-lang.org/tools/install"><img src="images/cuddlyferris.svg" class="img-fluid"></a></p>
+</div>
+<p>Follow the <a href="https://www.rust-lang.org/tools/install">rustup installation instructions</a> to install Rust. Note that the current minimum supported Rust version (msrv) in <strong>extendr</strong> is <code>1.64</code>. This is to ensure CRAN compliance.</p>
+</div>
+</section>
+<section id="step-2-update-r" class="level2">
+<h2 data-anchor-id="step-2-update-r">Step 2 <span class="fw-light">Update R</span></h2>
+<div class="clearfix">
+<div class="float-start" style="width: 126px; margin-right: 0.8rem;">
+<p><a href="https://cran.r-project.org/"><img src="images/Rlogo.svg" class="img-fluid"></a></p>
+</div>
+<p>We recommend using a moderately new version of R (&gt;= 4.2.0). You can get that from <a href="https://cran.r-project.org/">CRAN</a>.</p>
+</div>
+</section>
+<section id="step-3-install-rextendr" class="level2">
+<h2 data-anchor-id="step-3-install-rextendr">Step 3 <span class="fw-light">Install rextendr</span></h2>
+<div class="clearfix">
+<div class="float-start" style="width: 126px; margin-right: 0.8rem;">
+<p><a href="https://extendr.github.io/rextendr/"><img src="images/rextendr-logo.png" class="img-fluid"></a></p>
+</div>
+<p>The R package <code>{rextendr}</code> provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest development version, use <code>pak::pak("extendr/rextendr")</code>. Note that <strong>rextendr</strong> provides a function to check your Rust installation: <code>rextendr::rust_sitrep()</code>.</p>
+</div>
+</section>
+<section id="step-4-use-rust-analyzer" class="level2">
+<h2 data-anchor-id="step-4-use-rust-analyzer">Step 4 <span class="fw-light">Use rust-analyzer</span></h2>
+<p>This is optional, but strongly recommended. If you use <a href="https://code.visualstudio.com/download">Visual Studio Code (VS Code)</a> or a similar IDE, the <a href="https://rust-analyzer.github.io/">rust-analyzer</a> will provide you type hinting and auto-completion suggestions. It is <strong>very</strong> helpful!</p>
 
 
 </section>
@@ -366,13 +355,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

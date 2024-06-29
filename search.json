@@ -7,18 +7,25 @@
     "text": "What can I use extendr for?\n\n\nHow do I install extendr?\n\n\nWho are the developers of extendr?\nAuthors and maintainers include:\n\nAmy Thomason (author and creator, @andy-thomason)\nMossa M. Reimert (author and maintainer, @CGMossa)\nClaus O. Wilke (author, @clauswilke)\nHoroaki Yutani (author, @yutannihilation)\nIlia Kosenkov (author and maintainer, @Ilia-Kosenkov)\nDaniel Falbel (author, @dfalbel)\nJosiah Parry (maintainer, @JosiahParry)"
   },
   {
-    "objectID": "started.html",
-    "href": "started.html",
-    "title": "Getting started",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "extendr",
     "section": "",
-    "text": "Extendr is available on crates.io.\nSimply add this line to the [dependencies] section of a rust crate’s Cargo.toml. You will then be able to call R code from Rust."
+    "text": "Extendr is a Rust extension mechanism for R\nThe following code illustrates a simple structure trait which is written in Rust. The data is defined in the struct declaration and the methods in the impl.\nExtendr consists of the following projects:\nThe #[extendr] attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded.\nOn R’s side, users can access to the above Rust functions as follows:\nThe extendr_module! macro lists the module name and exported functions and interfaces.\nThis library aims to provide an interface that will be familiar to first-time users of Rust or indeed any compiled language.\nAnyone who knows the R library should be able to write R extensions."
   },
   {
-    "objectID": "started.html#installation---r",
-    "href": "started.html#installation---r",
-    "title": "Getting started",
-    "section": "Installation - R",
-    "text": "Installation - R\nThere are two ways you can use the extendr API from R. First, you can use the rextendr package to call individual Rust functions from an R session. Second, you can write an R package that uses compiled Rust code, see the helloextendr repo for a minimal example."
+    "objectID": "index.html#wrappers-for-r-types",
+    "href": "index.html#wrappers-for-r-types",
+    "title": "extendr",
+    "section": "Wrappers for R types",
+    "text": "Wrappers for R types\nExtendr provides a number of wrappers for R types. These fall into three categories, scalar types such as a single integer, vector types which are an array of a scalar type and linked list types used to represent R code and call arguments.\n\nScalar types\n\n\n\n\n\n\n\n\nR type\nExtendr wrapper\nDeref type: &*object\n\n\n\n\nAny\nextendr_api::robj::Robj\nN/A\n\n\ncharacter\nextendr_api::wrapper::Rstr\nN/A\n\n\ninteger\nextendr_api::wrapper::Rint\nN/A\n\n\ndouble\nextendr_api::wrapper::Rfloat\nN/A\n\n\ncomplex\nextendr_api::wrapper::Rcplx\nN/A\n\n\nextptr\nextendr_api::wrapper::ExternalPtr&lt;T&gt;\n&T / &mut T\n\n\n\n\n\nVector types\n\n\n\n\n\n\n\n\nR type\nExtendr wrapper\nDeref type: &*object\n\n\n\n\ninteger\nextendr_api::wrapper::Integers\n&[Rint]\n\n\ndouble\nextendr_api::wrapper::Doubles\n&[Rfloat]\n\n\nlogical\nextendr_api::wrapper::Logicals\n&[Rbool]\n\n\ncomplex\nextendr_api::wrapper::Complexes\n&[Rcplx]\n\n\nstring\nextendr_api::wrapper::Strings\n&[Rstr]\n\n\nlist\nextendr_api::wrapper::List\n&[Robj]\n\n\ndata.frame\nextendr_api::wrapper::Dataframe&lt;T&gt;\n&[Robj]\n\n\nexpression\nextendr_api::wrapper::Expression\n&[Lang]\n\n\n\n\n\nLinked list types\n\n\n\n\n\n\n\n\nR type\nExtendr wrapper\nDeref type: &*object\n\n\n\n\npairlist\nextendr_api::wrapper::Pairlist\nN/A\n\n\nlang\nextendr_api::wrapper::Lang\nN/A"
+  },
+  {
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
+    "title": "extendr",
+    "section": "Examples",
+    "text": "Examples\n\nReturning lists and strings\nLists and strings in rust are vectors of R objects. These are represented by the wrappers List and Strings.\nList contains a slice of Robj wrappers which can contain any R object.\nStrings contains a slice of Rstr wrappers which can contain a single string.\nThese examples show how to return a list or string to R from Rust.\nuse extendr_api::wrapper::{List, Strings};\nuse extendr_api::list;\n\nfn get_strings() -&gt; Strings {\n    Strings::from_values(\n        (0..10)\n        .map(|i| format!(\"number {}\", i))\n    )\n}\n\nfn get_named_list() -&gt; List {\n    list!(x=1, y=\"xyz\", z=())\n}\n\nfn get_unnamed_list() -&gt; List {\n    List::from_values(0..10)\n}\n\n\nReturning scalars\nWhilst we can use i32 and f64 in Extendr to return values. A better way is to use the Rint and Rfloat wrappers which provide access to the NA value used by R to represent missing data.\nuse extendr_api::scalar::{Rint, Rfloat};\n\n// for .na()\nuse extendr_api::CanBeNA;\n\nfn get_int() -&gt; Rint {\n    Rint::from(1)\n}\n\nfn get_na_int() -&gt; Rint {\n    Rint::na()\n}\n\nfn get_float() -&gt; Rfloat {\n    Rfloat::from(1.0)\n}\n\nfn get_na_float() -&gt; Rfloat {\n    Rfloat::na()\n}\n\n\nPlotting a PNG file from Rust\nWe can use Extendr to take advantage of the stats and plotting functions in R.\nFor example, we could make a web server that returns plots of incoming data.\nuse extendr_api::{test, Result, eval_string, eval_string_with_params};\nuse extendr_api::{Doubles, R};\n\nfn main() {\n    test!{\n        let x = Doubles::from_values((0..100).map(|i| i as f64 / 20.0));\n\n        // let y = Doubles::from_values(x.iter().map(|x| x.inner().sin()));\n        let y = Doubles::from_values((0..100).map(|i| (i as f64 / 20.0).sin()));\n\n        // Set a PNG device\n        R!(r#\"png(\"/tmp/sin_plot.png\")\"#)?;\n\n        // Plot x and y\n        R!(\"plot({{&x}}, {{&y}})\")?;\n\n        // Linear model.\n        R!(\"abline(lm({{y}} ~ {{x}}))\")?;\n\n        // Flush the device to the image.\n        R!(\"dev.off()\")?;\n    }\n}"
   },
   {
     "objectID": "CONTRIBUTING.html",
@@ -70,25 +77,39 @@
     "text": "This document was adapted from the General Contributing Guidelines of the auth0 project."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "extendr",
+    "objectID": "get-started.html",
+    "href": "get-started.html",
+    "title": "Get Started",
     "section": "",
-    "text": "Extendr is a Rust extension mechanism for R\nThe following code illustrates a simple structure trait which is written in Rust. The data is defined in the struct declaration and the methods in the impl.\nExtendr consists of the following projects:\nThe #[extendr] attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded.\nOn R’s side, users can access to the above Rust functions as follows:\nThe extendr_module! macro lists the module name and exported functions and interfaces.\nThis library aims to provide an interface that will be familiar to first-time users of Rust or indeed any compiled language.\nAnyone who knows the R library should be able to write R extensions."
+    "text": "To build R packages with extendr, you need to have the right tools."
   },
   {
-    "objectID": "index.html#wrappers-for-r-types",
-    "href": "index.html#wrappers-for-r-types",
-    "title": "extendr",
-    "section": "Wrappers for R types",
-    "text": "Wrappers for R types\nExtendr provides a number of wrappers for R types. These fall into three categories, scalar types such as a single integer, vector types which are an array of a scalar type and linked list types used to represent R code and call arguments.\n\nScalar types\n\n\n\n\n\n\n\n\nR type\nExtendr wrapper\nDeref type: &*object\n\n\n\n\nAny\nextendr_api::robj::Robj\nN/A\n\n\ncharacter\nextendr_api::wrapper::Rstr\nN/A\n\n\ninteger\nextendr_api::wrapper::Rint\nN/A\n\n\ndouble\nextendr_api::wrapper::Rfloat\nN/A\n\n\ncomplex\nextendr_api::wrapper::Rcplx\nN/A\n\n\nextptr\nextendr_api::wrapper::ExternalPtr&lt;T&gt;\n&T / &mut T\n\n\n\n\n\nVector types\n\n\n\n\n\n\n\n\nR type\nExtendr wrapper\nDeref type: &*object\n\n\n\n\ninteger\nextendr_api::wrapper::Integers\n&[Rint]\n\n\ndouble\nextendr_api::wrapper::Doubles\n&[Rfloat]\n\n\nlogical\nextendr_api::wrapper::Logicals\n&[Rbool]\n\n\ncomplex\nextendr_api::wrapper::Complexes\n&[Rcplx]\n\n\nstring\nextendr_api::wrapper::Strings\n&[Rstr]\n\n\nlist\nextendr_api::wrapper::List\n&[Robj]\n\n\ndata.frame\nextendr_api::wrapper::Dataframe&lt;T&gt;\n&[Robj]\n\n\nexpression\nextendr_api::wrapper::Expression\n&[Lang]\n\n\n\n\n\nLinked list types\n\n\n\n\n\n\n\n\nR type\nExtendr wrapper\nDeref type: &*object\n\n\n\n\npairlist\nextendr_api::wrapper::Pairlist\nN/A\n\n\nlang\nextendr_api::wrapper::Lang\nN/A"
+    "objectID": "get-started.html#step-1-install-rust",
+    "href": "get-started.html#step-1-install-rust",
+    "title": "Get Started",
+    "section": "Step 1 Install Rust",
+    "text": "Step 1 Install Rust\n\n\n\n\nFollow the rustup installation instructions to install Rust. Note that the current minimum supported Rust version (msrv) in extendr is 1.64. This is to ensure CRAN compliance."
   },
   {
-    "objectID": "index.html#examples",
-    "href": "index.html#examples",
-    "title": "extendr",
-    "section": "Examples",
-    "text": "Examples\n\nReturning lists and strings\nLists and strings in rust are vectors of R objects. These are represented by the wrappers List and Strings.\nList contains a slice of Robj wrappers which can contain any R object.\nStrings contains a slice of Rstr wrappers which can contain a single string.\nThese examples show how to return a list or string to R from Rust.\nuse extendr_api::wrapper::{List, Strings};\nuse extendr_api::list;\n\nfn get_strings() -&gt; Strings {\n    Strings::from_values(\n        (0..10)\n        .map(|i| format!(\"number {}\", i))\n    )\n}\n\nfn get_named_list() -&gt; List {\n    list!(x=1, y=\"xyz\", z=())\n}\n\nfn get_unnamed_list() -&gt; List {\n    List::from_values(0..10)\n}\n\n\nReturning scalars\nWhilst we can use i32 and f64 in Extendr to return values. A better way is to use the Rint and Rfloat wrappers which provide access to the NA value used by R to represent missing data.\nuse extendr_api::scalar::{Rint, Rfloat};\n\n// for .na()\nuse extendr_api::CanBeNA;\n\nfn get_int() -&gt; Rint {\n    Rint::from(1)\n}\n\nfn get_na_int() -&gt; Rint {\n    Rint::na()\n}\n\nfn get_float() -&gt; Rfloat {\n    Rfloat::from(1.0)\n}\n\nfn get_na_float() -&gt; Rfloat {\n    Rfloat::na()\n}\n\n\nPlotting a PNG file from Rust\nWe can use Extendr to take advantage of the stats and plotting functions in R.\nFor example, we could make a web server that returns plots of incoming data.\nuse extendr_api::{test, Result, eval_string, eval_string_with_params};\nuse extendr_api::{Doubles, R};\n\nfn main() {\n    test!{\n        let x = Doubles::from_values((0..100).map(|i| i as f64 / 20.0));\n\n        // let y = Doubles::from_values(x.iter().map(|x| x.inner().sin()));\n        let y = Doubles::from_values((0..100).map(|i| (i as f64 / 20.0).sin()));\n\n        // Set a PNG device\n        R!(r#\"png(\"/tmp/sin_plot.png\")\"#)?;\n\n        // Plot x and y\n        R!(\"plot({{&x}}, {{&y}})\")?;\n\n        // Linear model.\n        R!(\"abline(lm({{y}} ~ {{x}}))\")?;\n\n        // Flush the device to the image.\n        R!(\"dev.off()\")?;\n    }\n}"
+    "objectID": "get-started.html#step-2-update-r",
+    "href": "get-started.html#step-2-update-r",
+    "title": "Get Started",
+    "section": "Step 2 Update R",
+    "text": "Step 2 Update R\n\n\n\n\nWe recommend using a moderately new version of R (&gt;= 4.2.0). You can get that from CRAN."
+  },
+  {
+    "objectID": "get-started.html#step-3-install-rextendr",
+    "href": "get-started.html#step-3-install-rextendr",
+    "title": "Get Started",
+    "section": "Step 3 Install rextendr",
+    "text": "Step 3 Install rextendr\n\n\n\n\nThe R package {rextendr} provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest development version, use pak::pak(\"extendr/rextendr\"). Note that rextendr provides a function to check your Rust installation: rextendr::rust_sitrep()."
+  },
+  {
+    "objectID": "get-started.html#step-4-use-rust-analyzer",
+    "href": "get-started.html#step-4-use-rust-analyzer",
+    "title": "Get Started",
+    "section": "Step 4 Use rust-analyzer",
+    "text": "Step 4 Use rust-analyzer\nThis is optional, but strongly recommended. If you use Visual Studio Code (VS Code) or a similar IDE, the rust-analyzer will provide you type hinting and auto-completion suggestions. It is very helpful!"
   },
   {
     "objectID": "CHANGELOG.html",
