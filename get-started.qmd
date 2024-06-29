@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: Get Started
 ---
 
 To start building R packages using extendr you will need to have R and Rust toolchain installed on your machine. 
