@@ -1,0 +1,169 @@
+---
+title: "Migration guide for extendr 0.7.0"
+description: |
+  A new version of extendr has arrived, so we explain how to address major changes.
+author: Josiah Parry
+date: "06/30/2024"
+image: images/extendr-release-070.png
+image-alt: "The extendr logo, letter R in middle of gear."
+categories: [Release, Updates]
+---
+
+The `0.7.0` version of extendr has just been released. This release has focused
+on cleaning up the API and ensuring that design decisions are safer and more
+idiomatic rust. To this end, there are a few breaking changes that will need to
+be addressed. When migrating, the Rust compiler might *look* like a red mess of
+error, but I can assure you, it isn't so bad!
+
+## Removal of `FromRobj`
+
+The `FromRobj` trait provided the method `from_robj()` method which allowed you
+to fallibly convert from one struct to another.
+
+This trait has been removed in favor of the standard library `TryFrom` trait.
+
+For example the following function definition adapted from `{rsgeo}` is no
+longer valid.
+
+``` rs
+fn signed_area(x: List) -> f64 {
+    <&Geom>::from_robj(&xi)
+        .unwrap()
+        .geom
+        .signed_area()
+}
+```
+
+Instead, replace the `from_robj()` with `try_from()`.
+
+``` rs
+fn signed_area(x: List) -> f64 {
+    <&Geom>::try_from(&xi)
+        .unwrap()
+        .geom
+        .signed_area()
+}
+```
+
+## Removal of `#[extendr(use_try_from = true)]`
+
+Because `TryFrom` is the default now, the macro argument `use_try_from = true`
+will cause a compiler error. For example this
+
+``` rs
+#[extendr(use_try_from = true)]
+fn wkb_to_geoms(x: List) -> Robj {
+    x
+        .into_iter()
+        .map(|(_, x)| wkb_to_geom(raw_to_vecu8(x)))
+        .collect::<List>()
+        .into_robj()
+}
+```
+
+becomes
+
+``` rs
+#[extendr]
+fn wkb_to_geoms(x: List) -> Robj {
+    x
+        .into_iter()
+        .map(|(_, x)| wkb_to_geom(raw_to_vecu8(x)))
+        .collect::<List>()
+        .into_robj()
+}
+```
+
+## Setting `Attributes`
+
+Prior to version `0.7.0` the `Attributes` trait did two undesirable things:
+
+1.  any time you added an attribute, the result was an `Robj`
+2.  adding an attribute did not require a mutable reference
+
+The first was problematic because you lose the struct type when setting an
+attribute. The second was problematic because `Attributes::set_attrib()` method
+modified the underlying `SEXP` in place *without* requiring a mutable reference
+giving you an unsafe guarantee that the original `SEXP` would not be modified.
+
+For example migrating from to 0.7.0 in the package
+[`{arcgisplaces}`](https://cran.r-project.org/package=arcgisplaces) results in
+the compiler error:
+
+```         
+error[E0308]: mismatched types
+  --> src/lib.rs:15:13
+   |
+11 |   pub fn location_to_sfg(x: Option<Point>) -> Robj {
+   |                                               ---- expected `extendr_api::Robj` because of return type
+...
+15 | /             Doubles::from_values([x, y])
+16 | |                 .into_robj()
+17 | |                 .set_class(&["XY", "POINT", "sfg"])
+18 | |                 .unwrap()
+   | |_________________________^ expected `Robj`, found `&mut Robj`
+
+error[E0308]: mismatched types
+```
+
+A simplified version of the function looks like:
+
+``` rs
+pub fn location_to_sfg(x: Option<Point>) -> Robj {
+    let Point { x, y } = x.unwrap();
+    Doubles::from_values([x, y])
+        .set_class(&["XY", "POINT", "sfg"])
+        .unwrap()
+}
+```
+
+This function previously returned an `Robj` because that was the type returned
+by `set_class()`. This function can be rewritten as
+
+``` rs
+pub fn location_to_sfg2(x: Option<Point>) -> Robj {
+    let Point { x, y } = x.unwrap();
+    Doubles::from_values([x, y])
+        .set_class(&["XY", "POINT", "sfg"])
+        .unwrap()
+        .clone()
+        .into_robj()
+}
+```
+
+`.set_class()` returns a `&mut Doubles` we can clone the `Doubles` the result so
+that we have a non-mutable reference. Note that **cloning only increases a
+reference counter** and is not costly. Here `.into_robj()` is used to return an
+`Robj`
+
+Alternatively, the function can now return `Doubles` instead if you so desire:
+
+``` rs
+pub fn location_to_sfg(x: Option<Point>) -> Doubles {
+    let Point { x, y } = x.unwrap();
+    Doubles::from_values([x, y])
+        .set_class(&["XY", "POINT", "sfg"])
+        .unwrap()
+        .clone()
+}
+```
+
+## R-devel Non-API changes
+
+R-devel is currently in the process of formalizing what is and is not part of
+the official C-API. As a result extendr powered R packages have WARN-ings due to
+non-API usage.
+
+extendr 0.7.0 hides these behind a feature flag `non-api`. Unfortunately, due to
+the 1.69 minimum supported Rust version (MSRV) of CRAN combined with the lack of
+an MSRV in bindgen (which is used to generate R bindings), the non-api features
+cannot be provided automatically and require custom generation of R bindings via
+`libR-sys`.
+
+This will affect you if you are using the `global_var()`, `local_var()`,
+`base_env()`, various `Environment`, `Function`, `Primitive`, and `Promise`
+methods.
+
+If you are affected by this, [please create an
+issue](https://github.com/extendr/extendr/issues) and we can work through it
+together.

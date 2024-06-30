@@ -1,0 +1,11 @@
+---
+title: extendr Blog
+subtitle: News, tips, and commentary about all things extendr
+listing:
+  sort: "date desc"
+  contents: "posts/*/index.qmd"
+  sort-ui: false
+  filter-ui: false
+  categories: true
+  feed: true
+---

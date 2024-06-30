@@ -19,6 +19,8 @@ website:
         href: changelog.qmd
       - text: "API Docs"
         href: https://extendr.github.io/extendr/extendr_api/
+      - text: "Blog"
+        href: blog/index.qmd
       - text: "FAQ"
         href: faq.qmd
     right:
