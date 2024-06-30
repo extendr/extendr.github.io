@@ -1,0 +1,120 @@
+---
+title: "Vector Type Mapping"
+---
+
+```{r}
+#| echo: false
+
+library(rextendr)
+
+```
+
+## Vector Type Mapping with Rust Types
+
+What happens if we try to pass more than one value to `scalar_double()`?
+
+```{r}
+#| error: true
+
+scalar_double(c(4.2, 1.3, 2.5))
+
+```
+
+It errors because the function expects a scalar of the `f64` type, not a vector
+of `f64`.
+
+In this section, we show you how to pass Rust vectors between R and Rust.
+
+::: callout-important
+While using a Rust vector is possible in some cases, it is strongly not
+recommended. Instead, extendr types should be used as they provide access
+directly to R objectes. Whereas using Rust vectors requires additional
+allocations.
+:::
+
+The syntax is basically the same as with scalars, with just some minor changes.
+We'll use doubles again to demonstrate this.
+
+For reference, below are the type of Rust vectors that can be utilized with
+extendr.
+
+| R type        | extendr type | Rust type           |
+|---------------|--------------|---------------------|
+| `integer()`   | `Integers`   | `Vec<i32>`          |
+| `double()`    | `Doubles`    | `Vec<f64>`          |
+| `complex()`   | `Complexes`  | `Vec<Complex<f64>>` |
+| `character()` | `Strings`    | `Vec<String>`       |
+| `raw()`       | `Raw`        | `&[u8]`             |
+| `logical()`   | `Logicals`   |                     |
+| `list()`      | `List`       |                     |
+
+::: callout-note
+You might have anticipated `Vec<bool>` to be a supported Rust vector type. This
+is not possible because in R, logical vectors do not contain *only* `true` and
+`false` like Rust's bool type. They also can be an `NA` value which has no
+corresponding representation in Rust.
+:::
+
+Below defines Rust function which takes in a vector of `f64` values and prints
+them out.
+
+```{extendrsrc}
+#[extendr]
+fn vector_double(x: Vec<f64>) {
+    rprintln!("The values of x are {x:?}");
+}
+```
+
+That function can be called from R which prints the Debug format of the vector.
+
+::: callout-tip
+Rust's vector do not implement the
+[Display](https://doc.rust-lang.org/std/fmt/trait.Display.html) trait so the
+debug format (`:?`) is used.
+:::
+
+```{r}
+vector_double(c(4.2, 1.3, 2.5))
+```
+
+Returning values using Rust follows the same rules as R. You do not need to
+explicitly return a value as long as the last item in an expression is not
+followed by a `;`.
+
+```{extendrsrc}
+#[extendr]
+fn vector_double(x: Vec<f64>) -> Vec<f64> { 
+    x 
+}
+```
+
+Calling the function returns the input as a double vector
+
+```{r}
+x <- vector_double(c(4.2, 1.3, 2.5))
+typeof(x)
+x + 1
+```
+
+### Additional examples
+
+These same principles can be extended to other supported vector types such as
+`Vec<i32>` and `Vec<String>`.
+
+```{extendrsrc}
+#[extendr]
+fn vector_integer(x: Vec<i32>) -> Vec<i32> { 
+    x
+}
+
+#[extendr]
+fn vector_character(x: Vec<String>) -> Vec<String> {
+    x 
+}
+```
+
+```{r}
+vector_integer(c(4L, 6L, 8L))
+
+vector_character(c("Hello world!", "Hello extendr!", "Hello R!"))
+```
