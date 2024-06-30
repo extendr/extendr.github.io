@@ -4,14 +4,19 @@ title: "Vector Type Mapping"
 
 ```{r}
 #| echo: false
-
 library(rextendr)
-
 ```
 
 ## Vector Type Mapping with Rust Types
 
 What happens if we try to pass more than one value to `scalar_double()`?
+
+```{extendrsrc, echo=FALSE}
+#[extendr]
+fn scalar_double(x: f64) { 
+    rprintln!("The value of x is {x}"); 
+}
+```
 
 ```{r}
 #| error: true
