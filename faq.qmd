@@ -18,7 +18,7 @@ Authors and maintainers include:
 -   Mossa M. Reimert (author and maintainer,
     [\@CGMossa](https://github.com/CGMossa))
 -   Claus O. Wilke (author, [\@clauswilke](https://github.com/clauswilke))
--   Horoaki Yutani (author,
+-   Hiroaki Yutani (author,
     [\@yutannihilation](https://github.com/yutannihilation))
 -   Ilia Kosenkov (author and maintainer,
     [\@Ilia-Kosenkov](https://github.com/Ilia-Kosenkov))

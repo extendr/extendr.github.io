@@ -37,7 +37,7 @@ extendr_module! {
 ```
 
 ::: callout-tip
-Everything that is made available in the `extendr_module! {}` macro in `lib.rs` must be compatible with R as indicated by the `#[extendr]` macro. Note that the module name `mod hellorust` must be the name of the R package that this is part of. If you have created your package with `rextendr::use_extendr()` this should be set automatically. See [Hello, world!](./hello-world.qmd).
+Everything that is made available in the `extendr_module! {}` macro in `lib.rs` must be compatible with R as indicated by the `#[extendr]` macro. Note that the module name `mod hellorust` must be the name of the R package that this is part of. If you have created your package with `rextendr::use_extendr()` this should be set automatically. See [Hello, world!](../r-pkgs/package-setup.qmd).
 :::
 
 What happens if you try and return something that cannot be represented by R? Take this example, an enum `Shape` is defined and a function takes a string `&str`. Based on the value of the arugment, an enum variant is returned. 
