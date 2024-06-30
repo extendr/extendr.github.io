@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Josiah Parry">
+<meta name="dcterms.date" content="2024-06-30">
+<meta name="description" content="A new version of extendr has arrived, so we explain how to address major changes.">
 
-<title>extendr - Vector Type Mapping</title>
+<title>extendr - Migration guide for extendr 0.7.0</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,24 +60,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,14 +109,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">extendr</span>
     </a>
   </div>
@@ -124,19 +127,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../get-started.html"> 
+    <a class="nav-link" href="../../../get-started.html"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../user-guide/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../user-guide/index.html"> 
 <span class="menu-text">User Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../CONTRIBUTING.html"> 
+    <a class="nav-link" href="../../../CONTRIBUTING.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../changelog.html"> 
+    <a class="nav-link" href="../../../changelog.html"> 
 <span class="menu-text">News</span></a>
   </li>  
   <li class="nav-item">
@@ -144,11 +147,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">API Docs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
+    <a class="nav-link" href="../../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../faq.html"> 
+    <a class="nav-link" href="../../../faq.html"> 
 <span class="menu-text">FAQ</span></a>
   </li>  
 </ul>
@@ -170,146 +173,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../user-guide/type-mapping/extendr-macro.html">Type Mapping</a></li><li class="breadcrumb-item"><a href="../../user-guide/type-mapping/vectors.html">Vector Type Mapping</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">User Guide</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A Complete Example</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
- <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Package Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project Structure</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Type Mapping</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The extendr Macro</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scalar Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/type-mapping/vectors.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Vector Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/type-mapping/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Missing Values</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/type-mapping/characters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Character Strings</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Error Handling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Error Handling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#removal-of-fromrobj" id="toc-removal-of-fromrobj" class="nav-link active" data-scroll-target="#removal-of-fromrobj">Removal of <code>FromRobj</code></a></li>
+  <li><a href="#removal-of-extendruse_try_from-true" id="toc-removal-of-extendruse_try_from-true" class="nav-link" data-scroll-target="#removal-of-extendruse_try_from-true">Removal of <code>#[extendr(use_try_from = true)]</code></a></li>
+  <li><a href="#setting-attributes" id="toc-setting-attributes" class="nav-link" data-scroll-target="#setting-attributes">Setting <code>Attributes</code></a></li>
+  <li><a href="#r-devel-non-api-changes" id="toc-r-devel-non-api-changes" class="nav-link" data-scroll-target="#r-devel-non-api-changes">R-devel Non-API changes</a></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#vector-type-mapping-with-rust-types" id="toc-vector-type-mapping-with-rust-types" class="nav-link active" data-scroll-target="#vector-type-mapping-with-rust-types">Vector Type Mapping with Rust Types</a>
-  <ul class="collapse">
-  <li><a href="#additional-examples" id="toc-additional-examples" class="nav-link" data-scroll-target="#additional-examples">Additional examples</a></li>
-  </ul></li>
-  </ul>
-</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../user-guide/type-mapping/extendr-macro.html">Type Mapping</a></li><li class="breadcrumb-item"><a href="../../user-guide/type-mapping/vectors.html">Vector Type Mapping</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Vector Type Mapping</h1>
-</div>
+<h1 class="title">Migration guide for extendr 0.7.0</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Release</div>
+    <div class="quarto-category">Updates</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    <p>A new version of extendr has arrived, so we explain how to address major changes.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Josiah Parry </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 30, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -319,164 +236,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="vector-type-mapping-with-rust-types" class="level2">
-<h2 class="anchored" data-anchor-id="vector-type-mapping-with-rust-types">Vector Type Mapping with Rust Types</h2>
-<p>What happens if we try to pass more than one value to <code>scalar_double()</code>?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scalar_double</span>(<span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">1.3</span>, <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in scalar_double(c(4.2, 1.3, 2.5)): could not find function "scalar_double"</code></pre>
-</div>
-</div>
-<p>It errors because the function expects a scalar of the <code>f64</code> type, not a vector of <code>f64</code>.</p>
-<p>In this section, we show you how to pass Rust vectors between R and Rust.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>While using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.</p>
-</div>
-</div>
-<p>The syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.</p>
-<p>For reference, below are the type of Rust vectors that can be utilized with extendr.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>R type</th>
-<th>extendr type</th>
-<th>Rust type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>integer()</code></td>
-<td><code>Integers</code></td>
-<td><code>Vec&lt;i32&gt;</code></td>
-</tr>
-<tr class="even">
-<td><code>double()</code></td>
-<td><code>Doubles</code></td>
-<td><code>Vec&lt;f64&gt;</code></td>
-</tr>
-<tr class="odd">
-<td><code>complex()</code></td>
-<td><code>Complexes</code></td>
-<td><code>Vec&lt;Complex&lt;f64&gt;&gt;</code></td>
-</tr>
-<tr class="even">
-<td><code>character()</code></td>
-<td><code>Strings</code></td>
-<td><code>Vec&lt;String&gt;</code></td>
-</tr>
-<tr class="odd">
-<td><code>raw()</code></td>
-<td><code>Raw</code></td>
-<td><code>&amp;[u8]</code></td>
-</tr>
-<tr class="even">
-<td><code>logical()</code></td>
-<td><code>Logicals</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code>list()</code></td>
-<td><code>List</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You might have anticipated <code>Vec&lt;bool&gt;</code> to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain <em>only</em> <code>true</code> and <code>false</code> like Rust’s bool type. They also can be an <code>NA</code> value which has no corresponding representation in Rust.</p>
-</div>
-</div>
-<p>Below defines Rust function which takes in a vector of <code>f64</code> values and prints them out.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> vector_double(x<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span>) <span class="op">{</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">rprintln!</span>(<span class="st">"The values of x are {x:?}"</span>)<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>That function can be called from R which prints the Debug format of the vector.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Rust’s vector do not implement the <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html">Display</a> trait so the debug format (<code>:?</code>) is used.</p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vector_double</span>(<span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">1.3</span>, <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The values of x are [4.2, 1.3, 2.5]</code></pre>
-</div>
-</div>
-<p>Returning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a <code>;</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> vector_double(x<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span> <span class="op">{</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    x </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Calling the function returns the input as a double vector</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">vector_double</span>(<span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">1.3</span>, <span class="fl">2.5</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "double"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.2 2.3 3.5</code></pre>
-</div>
-</div>
-<section id="additional-examples" class="level3">
-<h3 class="anchored" data-anchor-id="additional-examples">Additional examples</h3>
-<p>These same principles can be extended to other supported vector types such as <code>Vec&lt;i32&gt;</code> and <code>Vec&lt;String&gt;</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> vector_integer(x<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span> <span class="op">{</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    x</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> vector_character(x<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    x </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vector_integer</span>(<span class="fu">c</span>(<span class="dv">4</span>L, <span class="dv">6</span>L, <span class="dv">8</span>L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4 6 8</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vector_character</span>(<span class="fu">c</span>(<span class="st">"Hello world!"</span>, <span class="st">"Hello extendr!"</span>, <span class="st">"Hello R!"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Hello world!"   "Hello extendr!" "Hello R!"      </code></pre>
-</div>
-</div>
-
-
+<p>The <code>0.7.0</code> version of extendr has just been released. This release has focused on cleaning up the API and ensuring that design decisions are safer and more idiomatic rust. To this end, there are a few breaking changes that will need to be addressed. When migrating, the Rust compiler might <em>look</em> like a red mess of error, but I can assure you, it isn’t so bad!</p>
+<section id="removal-of-fromrobj" class="level2">
+<h2 class="anchored" data-anchor-id="removal-of-fromrobj">Removal of <code>FromRobj</code></h2>
+<p>The <code>FromRobj</code> trait provided the method <code>from_robj()</code> method which allowed you to fallibly convert from one struct to another.</p>
+<p>This trait has been removed in favor of the standard library <code>TryFrom</code> trait.</p>
+<p>For example the following function definition adapted from <code>{rsgeo}</code> is no longer valid.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> signed_area(x<span class="op">:</span> List) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;&amp;</span>Geom<span class="op">&gt;</span><span class="pp">::</span>from_robj(<span class="op">&amp;</span>xi)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>unwrap()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>geom</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>signed_area()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Instead, replace the <code>from_robj()</code> with <code>try_from()</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> signed_area(x<span class="op">:</span> List) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;&amp;</span>Geom<span class="op">&gt;</span><span class="pp">::</span>try_from(<span class="op">&amp;</span>xi)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>unwrap()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>geom</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>signed_area()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+<section id="removal-of-extendruse_try_from-true" class="level2">
+<h2 class="anchored" data-anchor-id="removal-of-extendruse_try_from-true">Removal of <code>#[extendr(use_try_from = true)]</code></h2>
+<p>Because <code>TryFrom</code> is the default now, the macro argument <code>use_try_from = true</code> will cause a compiler error. For example this</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">(</span>use_try_from <span class="op">=</span> <span class="cn">true</span><span class="at">)]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> wkb_to_geoms(x<span class="op">:</span> List) <span class="op">-&gt;</span> Robj <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>into_iter()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>(_<span class="op">,</span> x)<span class="op">|</span> wkb_to_geom(raw_to_vecu8(x)))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="pp">collect::</span><span class="op">&lt;</span>List<span class="op">&gt;</span>()</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>into_robj()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>becomes</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> wkb_to_geoms(x<span class="op">:</span> List) <span class="op">-&gt;</span> Robj <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>into_iter()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>(_<span class="op">,</span> x)<span class="op">|</span> wkb_to_geom(raw_to_vecu8(x)))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="pp">collect::</span><span class="op">&lt;</span>List<span class="op">&gt;</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>into_robj()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="setting-attributes" class="level2">
+<h2 class="anchored" data-anchor-id="setting-attributes">Setting <code>Attributes</code></h2>
+<p>Prior to version <code>0.7.0</code> the <code>Attributes</code> trait did two undesirable things:</p>
+<ol type="1">
+<li>any time you added an attribute, the result was an <code>Robj</code></li>
+<li>adding an attribute did not require a mutable reference</li>
+</ol>
+<p>The first was problematic because you lose the struct type when setting an attribute. The second was problematic because <code>Attributes::set_attrib()</code> method modified the underlying <code>SEXP</code> in place <em>without</em> requiring a mutable reference giving you an unsafe guarantee that the original <code>SEXP</code> would not be modified.</p>
+<p>For example migrating from to 0.7.0 in the package <a href="https://cran.r-project.org/package=arcgisplaces"><code>{arcgisplaces}</code></a> results in the compiler error:</p>
+<pre><code>error[E0308]: mismatched types
+  --&gt; src/lib.rs:15:13
+   |
+11 |   pub fn location_to_sfg(x: Option&lt;Point&gt;) -&gt; Robj {
+   |                                               ---- expected `extendr_api::Robj` because of return type
+...
+15 | /             Doubles::from_values([x, y])
+16 | |                 .into_robj()
+17 | |                 .set_class(&amp;["XY", "POINT", "sfg"])
+18 | |                 .unwrap()
+   | |_________________________^ expected `Robj`, found `&amp;mut Robj`
+
+error[E0308]: mismatched types</code></pre>
+<p>A simplified version of the function looks like:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> location_to_sfg(x<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>Point<span class="op">&gt;</span>) <span class="op">-&gt;</span> Robj <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Point <span class="op">{</span> x<span class="op">,</span> y <span class="op">}</span> <span class="op">=</span> x<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Doubles::</span>from_values([x<span class="op">,</span> y])</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>set_class(<span class="op">&amp;</span>[<span class="st">"XY"</span><span class="op">,</span> <span class="st">"POINT"</span><span class="op">,</span> <span class="st">"sfg"</span>])</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>unwrap()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This function previously returned an <code>Robj</code> because that was the type returned by <code>set_class()</code>. This function can be rewritten as</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> location_to_sfg2(x<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>Point<span class="op">&gt;</span>) <span class="op">-&gt;</span> Robj <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Point <span class="op">{</span> x<span class="op">,</span> y <span class="op">}</span> <span class="op">=</span> x<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Doubles::</span>from_values([x<span class="op">,</span> y])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>set_class(<span class="op">&amp;</span>[<span class="st">"XY"</span><span class="op">,</span> <span class="st">"POINT"</span><span class="op">,</span> <span class="st">"sfg"</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>unwrap()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>clone()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>into_robj()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>.set_class()</code> returns a <code>&amp;mut Doubles</code> we can clone the <code>Doubles</code> the result so that we have a non-mutable reference. Note that <strong>cloning only increases a reference counter</strong> and is not costly. Here <code>.into_robj()</code> is used to return an <code>Robj</code></p>
+<p>Alternatively, the function can now return <code>Doubles</code> instead if you so desire:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> location_to_sfg(x<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>Point<span class="op">&gt;</span>) <span class="op">-&gt;</span> Doubles <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Point <span class="op">{</span> x<span class="op">,</span> y <span class="op">}</span> <span class="op">=</span> x<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Doubles::</span>from_values([x<span class="op">,</span> y])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>set_class(<span class="op">&amp;</span>[<span class="st">"XY"</span><span class="op">,</span> <span class="st">"POINT"</span><span class="op">,</span> <span class="st">"sfg"</span>])</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>unwrap()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>clone()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="r-devel-non-api-changes" class="level2">
+<h2 class="anchored" data-anchor-id="r-devel-non-api-changes">R-devel Non-API changes</h2>
+<p>R-devel is currently in the process of formalizing what is and is not part of the official C-API. As a result extendr powered R packages have WARN-ings due to non-API usage.</p>
+<p>extendr 0.7.0 hides these behind a feature flag <code>non-api</code>. Unfortunately, due to the 1.69 minimum supported Rust version (MSRV) of CRAN combined with the lack of an MSRV in bindgen (which is used to generate R bindings), the non-api features cannot be provided automatically and require custom generation of R bindings via <code>libR-sys</code>.</p>
+<p>This will affect you if you are using the <code>global_var()</code>, <code>local_var()</code>, <code>base_env()</code>, various <code>Environment</code>, <code>Function</code>, <code>Primitive</code>, and <code>Promise</code> methods.</p>
+<p>If you are affected by this, <a href="https://github.com/extendr/extendr/issues">please create an issue</a> and we can work through it together.</p>
+
+
 </section>
 
 </main> <!-- /main -->

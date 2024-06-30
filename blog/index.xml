@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>extendr</title>
+<link>https://extendr.github.io/blog/</link>
+<atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.4.557</generator>
+<lastBuildDate>Sun, 30 Jun 2024 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Migration guide for extendr 0.7.0</title>
+  <dc:creator>Josiah Parry</dc:creator>
+  <link>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>The <code>0.7.0</code> version of extendr has just been released. This release has focused on cleaning up the API and ensuring that design decisions are safer and more idiomatic rust. To this end, there are a few breaking changes that will need to be addressed. When migrating, the Rust compiler might <em>look</em> like a red mess of error, but I can assure you, it isn’t so bad!</p>
+<section id="removal-of-fromrobj" class="level2">
+<h2 class="anchored" data-anchor-id="removal-of-fromrobj">Removal of <code>FromRobj</code></h2>
+<p>The <code>FromRobj</code> trait provided the method <code>from_robj()</code> method which allowed you to fallibly convert from one struct to another.</p>
+<p>This trait has been removed in favor of the standard library <code>TryFrom</code> trait.</p>
+<p>For example the following function definition adapted from <code>{rsgeo}</code> is no longer valid.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> signed_area(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">f64</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb1-2">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;&amp;</span>Geom<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">::</span>from_robj(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span>xi)</span>
+<span id="cb1-3">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()</span>
+<span id="cb1-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>geom</span>
+<span id="cb1-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>signed_area()</span>
+<span id="cb1-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>Instead, replace the <code>from_robj()</code> with <code>try_from()</code>.</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> signed_area(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">f64</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-2">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;&amp;</span>Geom<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">::</span>try_from(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span>xi)</span>
+<span id="cb2-3">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()</span>
+<span id="cb2-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>geom</span>
+<span id="cb2-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>signed_area()</span>
+<span id="cb2-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+</section>
+<section id="removal-of-extendruse_try_from-true" class="level2">
+<h2 class="anchored" data-anchor-id="removal-of-extendruse_try_from-true">Removal of <code>#[extendr(use_try_from = true)]</code></h2>
+<p>Because <code>TryFrom</code> is the default now, the macro argument <code>use_try_from = true</code> will cause a compiler error. For example this</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">#[</span>extendr<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">(</span>use_try_from <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">true</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">)]</span></span>
+<span id="cb3-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> wkb_to_geoms(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Robj <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb3-3">    x</span>
+<span id="cb3-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>into_iter()</span>
+<span id="cb3-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>map(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span>(_<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> x)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> wkb_to_geom(raw_to_vecu8(x)))</span>
+<span id="cb3-6">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">collect::</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>List<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span>()</span>
+<span id="cb3-7">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>into_robj()</span>
+<span id="cb3-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>becomes</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">#[</span>extendr<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb4-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> wkb_to_geoms(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Robj <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb4-3">    x</span>
+<span id="cb4-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>into_iter()</span>
+<span id="cb4-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>map(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span>(_<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> x)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> wkb_to_geom(raw_to_vecu8(x)))</span>
+<span id="cb4-6">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">collect::</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>List<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span>()</span>
+<span id="cb4-7">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>into_robj()</span>
+<span id="cb4-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+</section>
+<section id="setting-attributes" class="level2">
+<h2 class="anchored" data-anchor-id="setting-attributes">Setting <code>Attributes</code></h2>
+<p>Prior to version <code>0.7.0</code> the <code>Attributes</code> trait did two undesirable things:</p>
+<ol type="1">
+<li>any time you added an attribute, the result was an <code>Robj</code></li>
+<li>adding an attribute did not require a mutable reference</li>
+</ol>
+<p>The first was problematic because you lose the struct type when setting an attribute. The second was problematic because <code>Attributes::set_attrib()</code> method modified the underlying <code>SEXP</code> in place <em>without</em> requiring a mutable reference giving you an unsafe guarantee that the original <code>SEXP</code> would not be modified.</p>
+<p>For example migrating from to 0.7.0 in the package <a href="https://cran.r-project.org/package=arcgisplaces"><code>{arcgisplaces}</code></a> results in the compiler error:</p>
+<pre><code>error[E0308]: mismatched types
+  --&gt; src/lib.rs:15:13
+   |
+11 |   pub fn location_to_sfg(x: Option&lt;Point&gt;) -&gt; Robj {
+   |                                               ---- expected `extendr_api::Robj` because of return type
+...
+15 | /             Doubles::from_values([x, y])
+16 | |                 .into_robj()
+17 | |                 .set_class(&amp;["XY", "POINT", "sfg"])
+18 | |                 .unwrap()
+   | |_________________________^ expected `Robj`, found `&amp;mut Robj`
+
+error[E0308]: mismatched types</code></pre>
+<p>A simplified version of the function looks like:</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> location_to_sfg(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Option</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>Point<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Robj <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb6-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">let</span> Point <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span> x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb6-3">    <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Doubles::</span>from_values([x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> y])</span>
+<span id="cb6-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>set_class(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"XY"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"POINT"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sfg"</span>])</span>
+<span id="cb6-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()</span>
+<span id="cb6-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>This function previously returned an <code>Robj</code> because that was the type returned by <code>set_class()</code>. This function can be rewritten as</p>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> location_to_sfg2(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Option</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>Point<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Robj <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb7-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">let</span> Point <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span> x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-3">    <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Doubles::</span>from_values([x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> y])</span>
+<span id="cb7-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>set_class(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"XY"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"POINT"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sfg"</span>])</span>
+<span id="cb7-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()</span>
+<span id="cb7-6">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>clone()</span>
+<span id="cb7-7">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>into_robj()</span>
+<span id="cb7-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p><code>.set_class()</code> returns a <code>&amp;mut Doubles</code> we can clone the <code>Doubles</code> the result so that we have a non-mutable reference. Note that <strong>cloning only increases a reference counter</strong> and is not costly. Here <code>.into_robj()</code> is used to return an <code>Robj</code></p>
+<p>Alternatively, the function can now return <code>Doubles</code> instead if you so desire:</p>
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">fn</span> location_to_sfg(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Option</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>Point<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Doubles <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb8-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">let</span> Point <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span> x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb8-3">    <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Doubles::</span>from_values([x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> y])</span>
+<span id="cb8-4">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>set_class(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"XY"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"POINT"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sfg"</span>])</span>
+<span id="cb8-5">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>unwrap()</span>
+<span id="cb8-6">        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>clone()</span>
+<span id="cb8-7"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+</section>
+<section id="r-devel-non-api-changes" class="level2">
+<h2 class="anchored" data-anchor-id="r-devel-non-api-changes">R-devel Non-API changes</h2>
+<p>R-devel is currently in the process of formalizing what is and is not part of the official C-API. As a result extendr powered R packages have WARN-ings due to non-API usage.</p>
+<p>extendr 0.7.0 hides these behind a feature flag <code>non-api</code>. Unfortunately, due to the 1.69 minimum supported Rust version (MSRV) of CRAN combined with the lack of an MSRV in bindgen (which is used to generate R bindings), the non-api features cannot be provided automatically and require custom generation of R bindings via <code>libR-sys</code>.</p>
+<p>This will affect you if you are using the <code>global_var()</code>, <code>local_var()</code>, <code>base_env()</code>, various <code>Environment</code>, <code>Function</code>, <code>Primitive</code>, and <code>Promise</code> methods.</p>
+<p>If you are affected by this, <a href="https://github.com/extendr/extendr/issues">please create an issue</a> and we can work through it together.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Release</category>
+  <category>Updates</category>
+  <guid>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/</guid>
+  <pubDate>Sun, 30 Jun 2024 00:00:00 GMT</pubDate>
+  <media:content url="https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/images/extendr-release-070.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+</channel>
+</rss>
