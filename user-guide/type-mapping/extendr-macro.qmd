@@ -1,5 +1,5 @@
 ---
-title: "Making Rust items available to R"
+title: "The extendr Macro"
 ---
 
 The power of extendr is in its ability to use Rust from R. The `#[extendr]` macro is what determines what is exported to R from Rust. This section covers the basic usage of the `#[extendr]` macro. 

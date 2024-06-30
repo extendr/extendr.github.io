@@ -1,5 +1,6 @@
 ---
-title: Hello, world!
+title: "Package Setup"
+subtitle: "A 'Hello, world!' Example."
 ---
 
 Once you have Rust and `{rextendr}` installed, you can begin creating Rust-powered R packages.
