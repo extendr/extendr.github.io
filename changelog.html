@@ -226,6 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>You can no longer create an <code>Robj</code> from a reference <code>&amp;T</code>, where <code>T</code> is an <code>extendr</code>-impl. <a href="https://github.com/extendr/extendr/pull/759">[#759]</a></li>
 <li>You can no longer use <code>from_robj</code>, as the trait <code>FromRobj</code> as been removed. Instead, use <code>try_from</code>.</li>
 <li>It is no longer possible to access an R integer vector as a <code>&amp;[u32]</code> <a href="https://github.com/extendr/extendr/pull/767">[#767]</a></li>
+<li>It is no longer possible to generate bindings as part of the compilation of extendr. Feature <code>non-api</code> is broken and will not compile. Related <a href="https://github.com/extendr/libR-sys/issues/251" class="uri">https://github.com/extendr/libR-sys/issues/251</a></li>
 </ul>
 </section>
 </section>

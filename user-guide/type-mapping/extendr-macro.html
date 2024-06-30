@@ -364,7 +364,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Everything that is made available in the <code>extendr_module! {}</code> macro in <code>lib.rs</code> must be compatible with R as indicated by the <code>#[extendr]</code> macro. Note that the module name <code>mod hellorust</code> must be the name of the R package that this is part of. If you have created your package with <code>rextendr::use_extendr()</code> this should be set automatically. See <a href="./hello-world.qmd">Hello, world!</a>.</p>
+<p>Everything that is made available in the <code>extendr_module! {}</code> macro in <code>lib.rs</code> must be compatible with R as indicated by the <code>#[extendr]</code> macro. Note that the module name <code>mod hellorust</code> must be the name of the R package that this is part of. If you have created your package with <code>rextendr::use_extendr()</code> this should be set automatically. See <a href="../../user-guide/r-pkgs/package-setup.html">Hello, world!</a>.</p>
 </div>
 </div>
 <p>What happens if you try and return something that cannot be represented by R? Take this example, an enum <code>Shape</code> is defined and a function takes a string <code>&amp;str</code>. Based on the value of the arugment, an enum variant is returned.</p>
@@ -533,17 +533,17 @@ Tip
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.list</span>(Shape)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $n_coords</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function () </span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .Call("wrap__Shape__n_coords", self, PACKAGE = "rextendr1")</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .Call("wrap__Shape__n_coords", self, PACKAGE = "librextendr1.dylib")</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $new</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x) </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .Call("wrap__Shape__new", x, PACKAGE = "rextendr1")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .Call("wrap__Shape__new", x, PACKAGE = "librextendr1.dylib")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Calling the <code>new()</code> method instantiates a new enum variant.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tri <span class="ot">&lt;-</span> Shape<span class="sc">$</span><span class="fu">new</span>(<span class="st">"triangle"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tri</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;pointer: 0x000001dc87f0cf50&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;pointer: 0x11ef2f080&gt;</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"class")</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Shape"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
