@@ -2,22 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://extendr.github.io/faq.html</loc>
-    <lastmod>2024-06-29T19:44:39.342Z</lastmod>
+    <lastmod>2024-06-30T04:17:11.948Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/get-started.html</loc>
-    <lastmod>2024-06-29T19:44:39.342Z</lastmod>
+    <lastmod>2024-06-30T04:17:11.948Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/changelog.html</loc>
-    <lastmod>2024-06-29T19:44:39.342Z</lastmod>
+    <lastmod>2024-06-30T04:17:11.948Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/characters.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/vectors.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/error-handling/basic-error-handling.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/index.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/missing-values.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/scalars.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/complete-example.html</loc>
+    <lastmod>2024-06-30T04:17:11.952Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/CONTRIBUTING.html</loc>
-    <lastmod>2024-06-29T19:44:39.342Z</lastmod>
+    <lastmod>2024-06-30T04:17:11.948Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/index.html</loc>
-    <lastmod>2024-06-29T19:44:39.342Z</lastmod>
+    <lastmod>2024-06-30T04:17:11.948Z</lastmod>
   </url>
 </urlset>

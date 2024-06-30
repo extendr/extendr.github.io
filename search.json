@@ -91,6 +91,178 @@
     "text": "Fix build on Windows and MacOS."
   },
   {
+    "objectID": "user-guide/type-mapping/vectors.html",
+    "href": "user-guide/type-mapping/vectors.html",
+    "title": "Vector Type Mapping",
+    "section": "",
+    "text": "What happens if we try to pass more than one value to scalar_double()?\n\nscalar_double(c(4.2, 1.3, 2.5))\n\nError in scalar_double(c(4.2, 1.3, 2.5)): could not find function \"scalar_double\"\n\n\nIt errors because the function expects a scalar of the f64 type, not a vector of f64.\nIn this section, we show you how to pass Rust vectors between R and Rust.\n\n\n\n\n\n\nImportant\n\n\n\nWhile using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.\n\n\nThe syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.\nFor reference, below are the type of Rust vectors that can be utilized with extendr.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger()\nIntegers\nVec&lt;i32&gt;\n\n\ndouble()\nDoubles\nVec&lt;f64&gt;\n\n\ncomplex()\nComplexes\nVec&lt;Complex&lt;f64&gt;&gt;\n\n\ncharacter()\nStrings\nVec&lt;String&gt;\n\n\nraw()\nRaw\n&[u8]\n\n\nlogical()\nLogicals\n\n\n\nlist()\nList\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou might have anticipated Vec&lt;bool&gt; to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain only true and false like Rust’s bool type. They also can be an NA value which has no corresponding representation in Rust.\n\n\nBelow defines Rust function which takes in a vector of f64 values and prints them out.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) {\n    rprintln!(\"The values of x are {x:?}\");\n}\n\nThat function can be called from R which prints the Debug format of the vector.\n\n\n\n\n\n\nTip\n\n\n\nRust’s vector do not implement the Display trait so the debug format (:?) is used.\n\n\n\nvector_double(c(4.2, 1.3, 2.5))\n\nThe values of x are [4.2, 1.3, 2.5]\n\n\nReturning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a ;.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) -&gt; Vec&lt;f64&gt; { \n    x \n}\n\nCalling the function returns the input as a double vector\n\nx &lt;- vector_double(c(4.2, 1.3, 2.5))\ntypeof(x)\n\n[1] \"double\"\n\nx + 1\n\n[1] 5.2 2.3 3.5\n\n\n\n\nThese same principles can be extended to other supported vector types such as Vec&lt;i32&gt; and Vec&lt;String&gt;.\n\n#[extendr]\nfn vector_integer(x: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { \n    x\n}\n\n#[extendr]\nfn vector_character(x: Vec&lt;String&gt;) -&gt; Vec&lt;String&gt; {\n    x \n}\n\n\nvector_integer(c(4L, 6L, 8L))\n\n[1] 4 6 8\n\nvector_character(c(\"Hello world!\", \"Hello extendr!\", \"Hello R!\"))\n\n[1] \"Hello world!\"   \"Hello extendr!\" \"Hello R!\"",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Vector Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/vectors.html#vector-type-mapping-with-rust-types",
+    "href": "user-guide/type-mapping/vectors.html#vector-type-mapping-with-rust-types",
+    "title": "Vector Type Mapping",
+    "section": "",
+    "text": "What happens if we try to pass more than one value to scalar_double()?\n\nscalar_double(c(4.2, 1.3, 2.5))\n\nError in scalar_double(c(4.2, 1.3, 2.5)): could not find function \"scalar_double\"\n\n\nIt errors because the function expects a scalar of the f64 type, not a vector of f64.\nIn this section, we show you how to pass Rust vectors between R and Rust.\n\n\n\n\n\n\nImportant\n\n\n\nWhile using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.\n\n\nThe syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.\nFor reference, below are the type of Rust vectors that can be utilized with extendr.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger()\nIntegers\nVec&lt;i32&gt;\n\n\ndouble()\nDoubles\nVec&lt;f64&gt;\n\n\ncomplex()\nComplexes\nVec&lt;Complex&lt;f64&gt;&gt;\n\n\ncharacter()\nStrings\nVec&lt;String&gt;\n\n\nraw()\nRaw\n&[u8]\n\n\nlogical()\nLogicals\n\n\n\nlist()\nList\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou might have anticipated Vec&lt;bool&gt; to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain only true and false like Rust’s bool type. They also can be an NA value which has no corresponding representation in Rust.\n\n\nBelow defines Rust function which takes in a vector of f64 values and prints them out.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) {\n    rprintln!(\"The values of x are {x:?}\");\n}\n\nThat function can be called from R which prints the Debug format of the vector.\n\n\n\n\n\n\nTip\n\n\n\nRust’s vector do not implement the Display trait so the debug format (:?) is used.\n\n\n\nvector_double(c(4.2, 1.3, 2.5))\n\nThe values of x are [4.2, 1.3, 2.5]\n\n\nReturning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a ;.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) -&gt; Vec&lt;f64&gt; { \n    x \n}\n\nCalling the function returns the input as a double vector\n\nx &lt;- vector_double(c(4.2, 1.3, 2.5))\ntypeof(x)\n\n[1] \"double\"\n\nx + 1\n\n[1] 5.2 2.3 3.5\n\n\n\n\nThese same principles can be extended to other supported vector types such as Vec&lt;i32&gt; and Vec&lt;String&gt;.\n\n#[extendr]\nfn vector_integer(x: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { \n    x\n}\n\n#[extendr]\nfn vector_character(x: Vec&lt;String&gt;) -&gt; Vec&lt;String&gt; {\n    x \n}\n\n\nvector_integer(c(4L, 6L, 8L))\n\n[1] 4 6 8\n\nvector_character(c(\"Hello world!\", \"Hello extendr!\", \"Hello R!\"))\n\n[1] \"Hello world!\"   \"Hello extendr!\" \"Hello R!\"",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Vector Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/scalars.html",
+    "href": "user-guide/type-mapping/scalars.html",
+    "title": "Scalar Type Mapping",
+    "section": "",
+    "text": "This tutorial demonstrates some of the basics of passing scalar data types back and forth between Rust and R. We’ll start with simple examples using explicit Rust types but then move on to showing their extendr alternatives. Why does extendr have its own data types? For a number of reasons, of course, but the most important reason is probably that Rust types do not allow for missing values, so no NA, NaN, NULL, or what have you. Fortunately, extendr types will handle missing values for you. For this reason, it is strongly recommended that you work with the extendr types whenever possible.",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Scalar Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/scalars.html#scalar-types",
+    "href": "user-guide/type-mapping/scalars.html#scalar-types",
+    "title": "Scalar Type Mapping",
+    "section": "Scalar types",
+    "text": "Scalar types\nA scalar type consists of a single value, and it can only consist of a single value, whether that value is a single character string, integer, or logical. As it happens, R doesn’t have a way of representing a scalar value. That’s because everything is a vector in R, and vectors can have any arbitrary length you want. So, the closest thing to a scalar you will ever encounter in R is a vector that just so happens to have a length of one. In Rust, however, scalars are the building blocks of everything, and they come in a bewildering variety, at least for the traditional R user. Consider, for example, integers. R has just one way to represent this type of numeric value. Rust, on the other hand, has twelve!\nThe table below shows the most common R “scalar” types, along with their Rust and extendr equivalents.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger(1)\nRint\ni32\n\n\ndouble(1)\nRfloat\nf64\n\n\nlogical(1)\nRbool\nbool\n\n\ncomplex(1)\nRcplx\nComplex&lt;f64&gt;\n\n\ncharacter(1)\nRstr\nString\n\n\n\nTo learn more about Rust types, see section 3.2 of The Book.",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Scalar Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/scalars.html#sharing-scalars",
+    "href": "user-guide/type-mapping/scalars.html#sharing-scalars",
+    "title": "Scalar Type Mapping",
+    "section": "Sharing scalars",
+    "text": "Sharing scalars\nTo see how scalars get passed back and forth between Rust and R, we’ll first explore Rust’s f64 value which is a 64-bit float. This is equivalent to R’s double(1). We’ll write a very simple Rust function that prints the value of the input and does not return anything.\n\n#[extendr]\nfn scalar_double(x: f64) { \n    rprintln!(\"The value of x is {x}\"); \n}\n\nThrough the magic of extendr, we can now call this function in R and pass it a single double value.\n\nscalar_double(4.2)\n\nThe value of x is 4.2\n\n\nThere are several things to note about this example. First, in Rust, x: f64 tells us that the type of x being passed to the function (fn) is a single double vector or “float” value. Second, rprintln!(\"{}\", x); is an extendr macro that makes it easier to print information from Rust to the console in R. R users will perhaps notice that the syntax is vaguely {glue}-like in that the value of x is inserted into the curly brackets. Finally, if you are not working inside of an extendr R package, you can create the scalar_double() function locally using rextendr::rust_function().\nrextendr::rust_function(\"\nfn scalar_double(x: f64) { \n    rprintln!(\"The value of x is {x}\"); \n}\n\")\nNow, what if, rather than printing the value of x to the R console, we wanted instead to return that value to R? To do that, we just need to let Rust know what type is being returned by our function. This is done with the -&gt; type notation. The extendr crate understands this notation and knows how to handle the scalar f64 type returned by the Rust function and pass it to R as double.\n\n#[extendr]\nfn return_scalar_double(x: f64) -&gt; f64 { \n    x \n}\n\n\nx &lt;- return_scalar_double(4.2)\n\ntypeof(x)\n\n[1] \"double\"\n\nx + 1.0\n\n[1] 5.2",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Scalar Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/scalars.html#missing-values",
+    "href": "user-guide/type-mapping/scalars.html#missing-values",
+    "title": "Scalar Type Mapping",
+    "section": "Missing values",
+    "text": "Missing values\nAs noted above, Rust does not allow a scalar type to have a missing value, so you cannot simply pass a missing value like NA to Rust and expect it to just work. Here is a demonstration of this issue using a simple function which adds 1.0 to x.\n\n#[extendr]\nfn plus_one(x: f64) -&gt; f64 { \n    x + 1.0 \n}\n\nYou will notice that this function expects x to be f64, not a missing value. Passing a missing value from R to this Rust function will, therefore, result in an error.\n\nplus_one(NA_real_)\n\nError in plus_one(NA_real_): Must not be NA.\n\n\nFortunately, the extendr types are NA-aware, so you can, for instance, use extendr’s Rfloat in place of f64 to handle missing values without error. Below, you will see that we have done this for the function plus_one().\n\n#[extendr]\nfn plus_one(x: Rfloat) -&gt; Rfloat { \n    x + 1.0 \n}\n\n\nplus_one(NA_real_)\n\n[1] NA\n\nplus_one(4.2)\n\n[1] 5.2",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Scalar Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/scalars.html#additional-examples",
+    "href": "user-guide/type-mapping/scalars.html#additional-examples",
+    "title": "Scalar Type Mapping",
+    "section": "Additional examples",
+    "text": "Additional examples\nHere are additional examples showing how to pass scalars to Rust and return them to R using Rust scalar types.\n\n#[extendr]\nfn scalar_integer(x: i32) -&gt; i32 { x }\n\n#[extendr]\nfn scalar_logical(x: bool) -&gt; bool { x }\n\n\nscalar_integer(4L)\n\n[1] 4\n\nscalar_logical(TRUE)\n\n[1] TRUE\n\n\nAnd here are the same examples with extendr scalar types.\n\n#[extendr]\nfn scalar_integer(x: Rint) -&gt; Rint { x }\n\n#[extendr]\nfn scalar_logical(x: Rbool) -&gt; Rbool { x }\n\n\nscalar_integer(4L)\n\n[1] 4\n\nscalar_logical(TRUE)\n\n[1] TRUE\n\n\nDid you notice that we didn’t give an example with character strings? Yeah, well, there’s a good reason for that. You can find out what that is by heading over to the tutorial on Handling Strings.",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Scalar Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html",
+    "href": "user-guide/complete-example.html",
+    "title": "A Complete Example",
+    "section": "",
+    "text": "The Rust crate ecosystem is rich with very small and very powerful utility libraries. One of the most downloaded crates is heck. It provides traits and structs to perform some of the most common case conversions.\nIn this tutorial we’ll create a 0 dependency R package to provide the common case conversions. The resultant R package will be more performant but less flexible than the {snakecase} R package.\nThis tutorial covers:",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#getting-started",
+    "href": "user-guide/complete-example.html#getting-started",
+    "title": "A Complete Example",
+    "section": "Getting started",
+    "text": "Getting started\nCreate a new R package:\nusethis::create_package(\"heck\")\nWhen the new R package has opened up, add extendr.\nrextendr::use_extendr(crate_name = \"rheck\", lib_name = \"rheck\")\n\n\n\n\n\n\nNote\n\n\n\nWhen adding the extendr dependency, make sure that the crate_name and lib_name arguments are not heck. In order to add the heck crate as a dependency, the crate itself cannot be called heck because it creates a recursive dependency. Doing this allows us to name the R package {heck}, but the internal Rust crate is called rheck.\n\n\nNext, heck is needed as a dependency. From your terminal, navigate to src/rust and run cargo add heck. With this, you have everything you need to get started.",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#snek-case-conversion",
+    "href": "user-guide/complete-example.html#snek-case-conversion",
+    "title": "A Complete Example",
+    "section": "snek case conversion",
+    "text": "snek case conversion\n\nuse heck::ToSnekCase;\n\nLet’s start by creating a simple function to take a single string, and convert it to snake case. First, the trait ToSnekCase needs to be imported so that the method to_snek_case() is available to &str.\n\nuse heck::ToSnekCase;\n\n#[extendr]\nfn to_snek_case(x: &str) -&gt; String {\n    x.to_snek_case()\n}\n\nSimple enough, right? Let’s give it a shot. To make it accessible from your R session, it needs to be included in your extendr_module! {} macro.\nextendr_module! {\n    mod heck;\n    fn to_snek_case;\n}\nFrom your R session, run rextendr::document() followed by devtools::load_all() to make the function available. We’ll skip these step from now on, but be sure to remember it!\n\nto_snek_case(\"MakeMe-Snake case\")\n\n[1] \"make_me_snake_case\"\n\n\nRarely is it useful to run a function on just a scalar character value. Rust, though, works with scalars by default and adding vectorization is another step.\n\nto_snek_case(c(\"DontStep\", \"on-Snek\"))\n\nError in to_snek_case(c(\"DontStep\", \"on-Snek\")): Expected Scalar, got Strings\n\n\nProviding a character vector causes an error. So how do you go about vectorizing?",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#vectorizing-snek-case-conversion",
+    "href": "user-guide/complete-example.html#vectorizing-snek-case-conversion",
+    "title": "A Complete Example",
+    "section": "vectorizing snek case conversion",
+    "text": "vectorizing snek case conversion\nTo vectorize this function, you need to be apply the conversion to each element in a character vector. The extendr wrapper struct for a character vector is called Strings. To take in a character vector and also return one, the function signature should look like this:\n#[extendr]\nfn to_snek_case(x: Strings) -&gt; Strings {\n}\nThis says there is an argument x which must be a character vector and this function must also -&gt; return the Strings (a character vector).\nTo iterate through this you can use the .into_iter() method on the character vector.\n#[extendr]\nfn to_snek_case(x: Strings) -&gt; Strings {\n    x\n        .into_iter()\n        // the rest of the function\n}\nIterators have a method called .map() (yes, just like purrr::map()). It lets you apply a closure (an anonymous function) to each element of the iterator. In this case, each element is an Rstr. The Rstr has a method .as_str() which will return a string slice &str. You can take this slice and pass it on to .to_snek_case(). After having mapped over each element, the results are .collect()ed into another Strings.\n\n#[extendr]\nfn to_snek_case(x: Strings) -&gt; Strings {\n    x\n        .into_iter()\n        .map(|xi| {\n            xi.as_str().to_snek_case()\n        })\n        .collect::&lt;Strings&gt;()\n}\n\nThis new version of the function can be used in a vectorized manner:\n\nto_snek_case(c(\"DontStep\", \"on-Snek\"))\n\n[1] \"dont_step\" \"on_snek\"  \n\n\nBut can it handle a missing value out of the box?\n\nto_snek_case(c(\"DontStep\", NA_character_, \"on-Snek\"))\n\n[1] \"dont_step\" \"na\"        \"on_snek\"  \n\n\nWell, sort of. The as_str() method when used on a missing value will return \"NA\" which is not in a user’s best interest.",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#handling-missing-values",
+    "href": "user-guide/complete-example.html#handling-missing-values",
+    "title": "A Complete Example",
+    "section": "handling missing values",
+    "text": "handling missing values\nInstead of returning \"na\", it would be better to return an actual missing value. Those can be created each scalar’s na() method e.g. Rstr::na().\nYou can modify the .map() statement to check if an NA is present, and, if so, return an NA value. To perform this check, use the is_na() method which returns a bool which is either true or false. The result can be matched. When it is missing, the match arm returns the NA scalar value. When it is not missing, the Rstr is converted to snek case. However, since the true arm is an Rstr the other false arm must also be an Rstr. To accomplish this use the Rstr::from() method.\n\n#[extendr]\nfn to_snek_case(x: Strings) -&gt; Strings {\n    x.into_iter()\n        .map(|xi| match xi.is_na() {\n            true =&gt; Rstr::na(),\n            false =&gt; Rstr::from(xi.as_str().to_snek_case()),\n        })\n        .collect::&lt;Strings&gt;()\n}\n\nThis function can now handle missing values!\n\nto_snek_case(c(\"DontStep\", NA_character_, \"on-Snek\"))\n\n[1] \"dont_step\" NA          \"on_snek\"",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#automating-other-methods-with-a-macro",
+    "href": "user-guide/complete-example.html#automating-other-methods-with-a-macro",
+    "title": "A Complete Example",
+    "section": "automating other methods with a macro!",
+    "text": "automating other methods with a macro!\nThere are traits for the other case conversions such as ToKebabCase, ToPascalCase, ToShoutyKebabCase and others. The each have a similar method name: .to_kebab_case(), to_pascal_case(), .to_shouty_kebab_case(). You can either choose to copy the above and change the method call multiple times, or use a macro as a form of code generation.\nA macro allows you to generate code in a short hand manner. This macro take an identifier which has a placeholder called $fn_name: $fn_name:ident.\nmacro_rules! make_heck_fn {\n    ($fn_name:ident) =&gt; {\n        #[extendr]\n        /// @export\n        fn $fn_name(x: Strings) -&gt; Strings {\n            x.into_iter()\n                .map(|xi| match xi.is_na() {\n                    true =&gt; Rstr::na(),\n                    false =&gt; Rstr::from(xi.as_str().$fn_name()),\n                })\n                .collect::&lt;Strings&gt;()\n        }\n    };\n}\nThe $fn_name placeholder is put as the function name definition which is the same as the method name. To use this macro to generate the rest of the functions the other traits need to be imported.\n\nuse heck::{\n    ToKebabCase, ToShoutyKebabCase,\n    ToSnekCase, ToShoutySnakeCase,\n    ToPascalCase, ToUpperCamelCase,\n    ToTrainCase, ToTitleCase,\n};\n\nWith the traits in scope, the macro can be invoked to generate the other functions.\nmake_heck_fn!(to_snek_case);\nmake_heck_fn!(to_shouty_snake_case);\nmake_heck_fn!(to_kebab_case);\nmake_heck_fn!(to_shouty_kebab_case);\nmake_heck_fn!(to_pascal_case);\nmake_heck_fn!(to_upper_camel_case);\nmake_heck_fn!(to_train_case);\nmake_heck_fn!(to_title_case);\nNote that each of these functions should be added to the extendr_module! {} macro in order for them to be available from R.\nTest it out with the to_shouty_kebab_case() function!\n\nto_shouty_kebab_case(\"lorem:IpsumDolor__sit^amet\")\n\n[1] \"LOREM-IPSUM-DOLOR-SIT-AMET\"\n\n\nAnd with that, you’ve created an R package that provides case conversion using heck and with very little code!",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#bench-marking-with-snakecase",
+    "href": "user-guide/complete-example.html#bench-marking-with-snakecase",
+    "title": "A Complete Example",
+    "section": "bench marking with {snakecase}",
+    "text": "bench marking with {snakecase}\nTo illustrate the performance gains from using a vectorized Rust funciton, a bench::mark() is created between to_snek_case() and snakecase::to_snake_case().\nThe bench mark will use 5000 randomly generated lorem ipsum sentences.\n\nx &lt;- unlist(lorem::ipsum(5000, 1, 25))\n\nhead(x)\n\n[1] \"Adipiscing porttitor ac gravida scelerisque quisque sapien cum est duis metus penatibus cras himenaeos interdum senectus sollicitudin nisi malesuada faucibus semper sodales potenti rutrum eu?\"\n[2] \"Ipsum laoreet laoreet laoreet rutrum senectus id lectus erat velit mattis felis tellus mus neque augue libero dapibus auctor cursus lacinia egestas nullam ultrices ultrices porttitor cursus?\" \n[3] \"Amet sollicitudin a erat sagittis id massa lobortis justo metus vehicula purus ad orci non et magnis dignissim metus dictum diam euismod a?\"                                                    \n[4] \"Sit torquent vivamus blandit molestie semper primis pretium tempus faucibus nisi magnis sed cursus vehicula venenatis praesent pretium ad montes lectus a vel magna arcu praesent dui aenean?\"  \n[5] \"Lorem platea magnis interdum metus cubilia venenatis elementum habitant morbi iaculis aenean sagittis metus luctus conubia quisque tempus pellentesque inceptos sed nisi?\"                      \n[6] \"Lorem tristique senectus orci diam parturient non ut nunc condimentum enim parturient mus neque vel porttitor lacus litora fusce sociosqu mauris ligula auctor?\"                                \n\nbench::mark(\n  rust = to_snek_case(x),\n  snakecase = snakecase::to_snake_case(x)\n)\n\n# A tibble: 2 × 6\n  expression      min   median `itr/sec` mem_alloc `gc/sec`\n  &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;\n1 rust         23.7ms   24.3ms     40.4     1.17MB     0   \n2 snakecase   305.8ms    307ms      3.26   12.29MB     4.89",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
+    "objectID": "user-guide/complete-example.html#the-whole-thing",
+    "href": "user-guide/complete-example.html#the-whole-thing",
+    "title": "A Complete Example",
+    "section": "The whole thing",
+    "text": "The whole thing\nIn just 42 lines of code (empty lines included), you can create a very performant R package!\nuse extendr_api::prelude::*;\n\nuse heck::{\n    ToKebabCase, ToPascalCase, ToShoutyKebabCase, ToShoutySnakeCase, ToSnekCase, ToTitleCase,\n    ToTrainCase, ToUpperCamelCase,\n};\n\nmacro_rules! make_heck_fn {\n    ($fn_name:ident) =&gt; {\n        #[extendr]\n        /// @export\n        fn $fn_name(x: Strings) -&gt; Strings {\n            x.into_iter()\n                .map(|xi| match xi.is_na() {\n                    true =&gt; Rstr::na(),\n                    false =&gt; Rstr::from(xi.as_str().$fn_name()),\n                })\n                .collect::&lt;Strings&gt;()\n        }\n    };\n}\n\nmake_heck_fn!(to_snek_case);\nmake_heck_fn!(to_shouty_snake_case);\nmake_heck_fn!(to_kebab_case);\nmake_heck_fn!(to_shouty_kebab_case);\nmake_heck_fn!(to_pascal_case);\nmake_heck_fn!(to_upper_camel_case);\nmake_heck_fn!(to_train_case);\nmake_heck_fn!(to_title_case);\n\nextendr_module! {\n    mod heck;\n    fn to_snek_case;\n    fn to_shouty_snake_case;\n    fn to_kebab_case;\n    fn to_shouty_kebab_case;\n    fn to_pascal_case;\n    fn to_upper_camel_case;\n    fn to_title_case;\n    fn to_train_case;\n}",
+    "crumbs": [
+      "User Guide",
+      "A Complete Example"
+    ]
+  },
+  {
     "objectID": "CONTRIBUTING.html",
     "href": "CONTRIBUTING.html",
     "title": "Contributing",
