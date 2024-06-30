@@ -90,7 +90,7 @@ For example migrating from to 0.7.0 in the package
 [`{arcgisplaces}`](https://cran.r-project.org/package=arcgisplaces) results in
 the compiler error:
 
-```         
+```rust
 error[E0308]: mismatched types
   --> src/lib.rs:15:13
    |
