@@ -34,8 +34,13 @@ website:
       contents: 
         - user-guide/index.qmd
         - user-guide/complete-example.qmd
+        - section: "R Packages"
+          contents:
+            - user-guide/r-pkgs/package-setup.qmd
+            - user-guide/r-pkgs/package-structure.qmd
         - section: "Type Mapping"
           contents: 
+            - user-guide/type-mapping/extendr-macro.qmd
             - user-guide/type-mapping/scalars.qmd
             - user-guide/type-mapping/vectors.qmd
             - user-guide/type-mapping/missing-values.qmd

@@ -1,12 +1,39 @@
 ---
 title: "User Guide"
 subtitle: "A comprehensive guide to using extendr."
+toc: false
 ---
 
-<!-- Describe what this guide is for? Who is it geared toward? -->
+::: {.fs-1 .text-center .fw-bold}
+\~\~\~ THIS IS A WORK IN PROGRESS!!! \~\~\~
+:::
 
-<!-- Note that throughout, we provide tons of references to Rust resources. -->
+This user guide serves two primary functions:
 
-<!-- Add annotated list of major Rust references. -->
+-   First, and more generally, it explains how to call Rust code in R (and, as
+    it happens, how to call R code in Rust).
+-   Second, and more narrowly, it provides sufficient information and resources
+    to empower developers to build R packages with Rust extensions and publish
+    them to CRAN.
 
-<!-- [The Rust Book](https://doc.rust-lang.org/stable/book/) -->
+Given these goals, the guide is primarily geared towards R users and R
+developers who also have a decent grasp of Rust.
+
+## What's in this guide?
+
+We're working on that...
+
+## What's *not* in this guide?
+
+This book is not intended to be a comprehensive introduction to Rust. While do
+go over some of the basics, more often than not, concepts are introduced only to
+help explain extendr tools. That said, we do try to include copious references
+and links to additional resources that the reader can follow to learn more about
+specific topics. Of course, the biggest reference will be \["The
+Book"\](<https://doc.rust-lang.org/stable/book/>).
+
+This book is also not intended to be a comprehensive guide to R package
+development! There are, quite frankly, better resources for that, notably \[R
+Packages (2e)\](<https://r-pkgs.org/>). As with Rust specifics, we will strive
+to point you in the right direction to get more details and advice when you need
+it.
