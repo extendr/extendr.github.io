@@ -2,7 +2,7 @@
 title: "Conversion to and from R data"
 ---
 
-One of the key goals with extendr, is to provide a framework that allows you to write Rust functions, that interact with R, without having to know the intricacies within R internals, or even R's C-facilities. However, this is unavoidable if one wishes to understand why the extendr-api is the way it is.
+One of the key goals with extendr, is to provide a framework that allows you to write Rust functions, that interact with R, without having to know the intricacies within R internals, or even R's C-facilities. However, this is unavoidable if one wishes to understand why the `extendr-api` is the way it is.
 
 Thus, for introducing extendr, we shall mention facts about R internals, but these are not necessary to keep in mind going forward.
 
