@@ -6,7 +6,8 @@ execute:
 
 website:
   title: "extendr"
-  
+  site-url: https://extendr.github.io
+
   navbar:
     left:
       - text: "Get Started"
@@ -33,7 +34,7 @@ website:
     - title: "User Guide"
       collapse-level: 1
       style: "floating"
-      contents: 
+      contents:
         - user-guide/index.qmd
         - user-guide/complete-example.qmd
         - section: "R Packages"
@@ -41,19 +42,19 @@ website:
             - user-guide/r-pkgs/package-setup.qmd
             - user-guide/r-pkgs/package-structure.qmd
         - section: "Type Mapping"
-          contents: 
+          contents:
             - user-guide/type-mapping/extendr-macro.qmd
             - user-guide/type-mapping/scalars.qmd
             - user-guide/type-mapping/vectors.qmd
             - user-guide/type-mapping/missing-values.qmd
             - user-guide/type-mapping/characters.qmd
         - section: "Error Handling"
-          contents: 
+          contents:
             - user-guide/error-handling/basic-error-handling.qmd
 
 format:
   html:
     theme:
       light: flatly
-      dark: darkly    
+      dark: darkly
     toc: false
