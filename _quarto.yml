@@ -6,10 +6,13 @@ execute:
 
 website:
   title: "extendr"
+  
   navbar:
     left:
       - text: "Get Started"
         href: get-started.qmd
+      - text: "User Guide"
+        href: user-guide/index.qmd
       - text: Contributing
         href: CONTRIBUTING.md
       - text: "News"
@@ -23,6 +26,23 @@ website:
        href: https://github.com/extendr/extendr
      - icon: discord
        href: https://discord.gg/7hmApuc
+
+  sidebar:
+    - title: "User Guide"
+      collapse-level: 1
+      style: "floating"
+      contents: 
+        - user-guide/index.qmd
+        - user-guide/complete-example.qmd
+        - section: "Type Mapping"
+          contents: 
+            - user-guide/type-mapping/scalars.qmd
+            - user-guide/type-mapping/vectors.qmd
+            - user-guide/type-mapping/missing-values.qmd
+            - user-guide/type-mapping/characters.qmd
+        - section: "Error Handling"
+          contents: 
+            - user-guide/error-handling/basic-error-handling.qmd
 
 format:
   html:

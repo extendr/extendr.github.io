@@ -1,0 +1,184 @@
+---
+title: "Scalar Type Mapping"
+---
+
+```{r}
+#| echo: false
+
+library(rextendr)
+
+```
+
+This tutorial demonstrates some of the basics of passing scalar data types back
+and forth between Rust and R. We'll start with simple examples using explicit
+Rust types but then move on to showing their extendr alternatives. Why does
+extendr have its own data types? For a number of reasons, of course, but the
+most important reason is probably that Rust types do not allow for missing
+values, so no `NA`, `NaN`, `NULL`, or what have you. Fortunately, extendr types
+will handle missing values for you. For this reason, **it is strongly
+recommended that you work with the extendr types whenever possible.**
+
+## Scalar types
+
+A scalar type consists of a single value, and it can *only* consist of a single
+value, whether that value is a single character string, integer, or logical. As
+it happens, R doesn't have a way of representing a scalar value. That's because
+everything is a vector in R, and vectors can have any arbitrary length you want.
+So, the closest thing to a scalar you will ever encounter in R is a vector that
+just so happens to have a length of one. In Rust, however, scalars are the
+building blocks of everything, and they come in a bewildering variety, at least
+for the traditional R user. Consider, for example, integers. R has just one way 
+to represent this type of numeric value. Rust, on the other hand, has twelve!
+
+The table below shows the most common R "scalar" types, along with their Rust
+and extendr equivalents. 
+
+| R type         | extendr type | Rust type      |
+|----------------|--------------|----------------|
+| `integer(1)`   | `Rint`       | `i32`          |
+| `double(1)`    | `Rfloat`     | `f64`          |
+| `logical(1)`   | `Rbool`      | `bool`         |
+| `complex(1)`   | `Rcplx`      | `Complex<f64>` |
+| `character(1)` | `Rstr`       | `String`       |
+
+To learn more about Rust types, see [section 3.2 of The
+Book](https://doc.rust-lang.org/book/ch03-02-data-types.html).
+
+## Sharing scalars
+
+To see how scalars get passed back and forth between Rust and R, we'll first
+explore Rust's `f64` value which is a 64-bit float. This is equivalent to R's
+`double(1)`. We'll write a very simple Rust function that prints the value of
+the input and does not return anything.
+
+```{extendrsrc}
+#[extendr]
+fn scalar_double(x: f64) { 
+    rprintln!("The value of x is {x}"); 
+}
+```
+
+Through the magic of extendr, we can now call this function in R and pass it a 
+single double value.
+
+```{r}
+scalar_double(4.2)
+```
+
+There are several things to note about this example. First, in Rust, `x: f64` 
+tells us that the type of `x` being passed to the function (`fn`) is a single 
+double vector or "float" value. Second, `rprintln!("{}", x);` is an extendr 
+macro that makes it easier to print information from Rust to the console in R. 
+R users will perhaps notice that the syntax is vaguely `{glue}`-like in that the 
+value of `x` is inserted into the curly brackets. Finally, if you are not 
+working inside of an extendr R package, you can create the `scalar_double()` 
+function locally using `rextendr::rust_function()`.
+
+``` r
+rextendr::rust_function("
+fn scalar_double(x: f64) { 
+    rprintln!("The value of x is {x}"); 
+}
+")
+```
+
+Now, what if, rather than printing the value of `x` to the R console, we wanted
+instead to return that value to R? To do that, we just need to let Rust know
+what type is being returned by our function. This is done with the `-> type`
+notation. The extendr crate understands this notation and knows how to handle 
+the scalar `f64` type returned by the Rust function and pass it to R as double.
+
+```{extendrsrc}
+#[extendr]
+fn return_scalar_double(x: f64) -> f64 { 
+    x 
+}
+```
+
+```{r}
+x <- return_scalar_double(4.2)
+
+typeof(x)
+
+x + 1.0
+
+```
+
+## Missing values
+
+As noted above, Rust does not allow a scalar type to have a missing value, so 
+you cannot simply pass a missing value like `NA` to Rust and expect it to just 
+work. Here is a demonstration of this issue using a simple function which adds 
+1.0 to `x`.
+
+```{extendrsrc}
+#[extendr]
+fn plus_one(x: f64) -> f64 { 
+    x + 1.0 
+}
+```
+
+You will notice that this function expects `x` to be `f64`, not a missing value.
+Passing a missing value from R to this Rust function will, therefore, result in 
+an error.
+
+```{r}
+#| error: true
+plus_one(NA_real_)
+```
+
+Fortunately, the extendr types are `NA`-aware, so you can, for instance, use 
+extendr's `Rfloat` in place of `f64` to handle missing values without error. 
+Below, you will see that we have done this for the function `plus_one()`. 
+
+```{extendrsrc}
+#[extendr]
+fn plus_one(x: Rfloat) -> Rfloat { 
+    x + 1.0 
+}
+```
+
+```{r}
+plus_one(NA_real_)
+
+plus_one(4.2)
+```
+
+## Additional examples
+
+Here are some additional examples showing how to pass scalars to Rust and return them 
+to R using Rust scalar types.
+
+```{extendrsrc}
+#[extendr]
+fn scalar_integer(x: i32) -> i32 { x }
+
+#[extendr]
+fn scalar_logical(x: bool) -> bool { x }
+```
+
+```{r}
+scalar_integer(4L)
+
+scalar_logical(TRUE)
+```
+
+And here are the same examples with extendr scalar types.
+
+```{extendrsrc}
+#[extendr]
+fn scalar_integer(x: Rint) -> Rint { x }
+
+#[extendr]
+fn scalar_logical(x: Rbool) -> Rbool { x }
+```
+
+```{r}
+scalar_integer(4L)
+
+scalar_logical(TRUE)
+```
+
+Did you notice that we didn't give an example with character strings? Yeah, well,
+there's a good reason for that. You can find out what that is by heading over to
+the tutorial on [Handling Strings](user-guide/type-mapping/characters.qmd).

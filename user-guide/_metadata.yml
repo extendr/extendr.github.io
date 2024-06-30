@@ -1,0 +1,9 @@
+format:
+  html:
+    toc: true
+    toc-location: right
+
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#>" 

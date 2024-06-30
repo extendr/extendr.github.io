@@ -1,0 +1,12 @@
+---
+title: "User Guide"
+subtitle: "A comprehensive guide to using extendr."
+---
+
+<!-- Describe what this guide is for? Who is it geared toward? -->
+
+<!-- Note that throughout, we provide tons of references to Rust resources. -->
+
+<!-- Add annotated list of major Rust references. -->
+
+<!-- [The Rust Book](https://doc.rust-lang.org/stable/book/) -->
