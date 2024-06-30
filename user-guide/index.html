@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-sidebar floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -164,12 +164,41 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
- <span class="menu-text">Type Mapping</span></a>
+ <span class="menu-text">R Packages</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project Structure</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Type Mapping</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The extendr Macro</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
@@ -198,13 +227,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">Error Handling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
@@ -218,9 +247,7 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -244,12 +271,26 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- Describe what this guide is for? Who is it geared toward? -->
-<!-- Note that throughout, we provide tons of references to Rust resources. -->
-<!-- Add annotated list of major Rust references. -->
-<!-- [The Rust Book](https://doc.rust-lang.org/stable/book/) -->
+<div class="fs-1 text-center fw-bold">
+<p>~~~ THIS IS A WORK IN PROGRESS!!! ~~~</p>
+</div>
+<p>This user guide serves two primary functions:</p>
+<ul>
+<li>First, and more generally, it explains how to call Rust code in R (and, as it happens, how to call R code in Rust).</li>
+<li>Second, and more narrowly, it provides sufficient information and resources to empower developers to build R packages with Rust extensions and publish them to CRAN.</li>
+</ul>
+<p>Given these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.</p>
+<section id="whats-in-this-guide" class="level2">
+<h2 class="anchored" data-anchor-id="whats-in-this-guide">What’s in this guide?</h2>
+<p>We’re working on that…</p>
+</section>
+<section id="whats-not-in-this-guide" class="level2">
+<h2 class="anchored" data-anchor-id="whats-not-in-this-guide">What’s <em>not</em> in this guide?</h2>
+<p>This book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be [“The Book”](<a href="https://doc.rust-lang.org/stable/book/" class="uri">https://doc.rust-lang.org/stable/book/</a>).</p>
+<p>This book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably [R Packages (2e)](<a href="https://r-pkgs.org/" class="uri">https://r-pkgs.org/</a>). As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
