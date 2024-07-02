@@ -9,7 +9,7 @@
 <link>https://extendr.github.io/blog/</link>
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.4.557</generator>
+<generator>quarto-1.5.52</generator>
 <lastBuildDate>Sun, 30 Jun 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Migration guide for extendr 0.7.0</title>
@@ -28,6 +28,7 @@
 <p>For example the following function definition adapted from <code>{rsgeo}</code> is no longer valid.</p>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> signed_area(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
@@ -61,6 +62,7 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>Instead, replace the <code>from_robj()</code> with <code>try_from()</code>.</p>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> signed_area(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
@@ -108,6 +110,7 @@ background-color: null;
 font-style: inherit;">)]</span></span>
 <span id="cb3-2"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> wkb_to_geoms(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
@@ -151,6 +154,7 @@ background-color: null;
 font-style: inherit;">]</span></span>
 <span id="cb4-2"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> wkb_to_geoms(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> List) <span class="op" style="color: #5E5E5E;
@@ -196,24 +200,78 @@ font-style: inherit;">}</span></span></code></pre></div>
 </ol>
 <p>The first was problematic because you lose the struct type when setting an attribute. The second was problematic because <code>Attributes::set_attrib()</code> method modified the underlying <code>SEXP</code> in place <em>without</em> requiring a mutable reference giving you an unsafe guarantee that the original <code>SEXP</code> would not be modified.</p>
 <p>For example migrating from to 0.7.0 in the package <a href="https://cran.r-project.org/package=arcgisplaces"><code>{arcgisplaces}</code></a> results in the compiler error:</p>
-<pre><code>error[E0308]: mismatched types
-  --&gt; src/lib.rs:15:13
-   |
-11 |   pub fn location_to_sfg(x: Option&lt;Point&gt;) -&gt; Robj {
-   |                                               ---- expected `extendr_api::Robj` because of return type
-...
-15 | /             Doubles::from_values([x, y])
-16 | |                 .into_robj()
-17 | |                 .set_class(&amp;["XY", "POINT", "sfg"])
-18 | |                 .unwrap()
-   | |_________________________^ expected `Robj`, found `&amp;mut Robj`
-
-error[E0308]: mismatched types</code></pre>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1">error[E0308]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> mismatched types</span>
+<span id="cb5-2">  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--&gt;</span> src<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>lib<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>rs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">15</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span></span>
+<span id="cb5-3">   <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span></span>
+<span id="cb5-4"><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">11</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span>   <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">fn</span> location_to_sfg(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Option</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>Point<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Robj <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb5-5">   <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span>                                               <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">----</span> expected `<span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">extendr_api::</span>Robj` because of <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">type</span></span>
+<span id="cb5-6">...</span>
+<span id="cb5-7">15 | /             Doubles::from_values([x, y])</span>
+<span id="cb5-8">16 | |                 .into_robj()</span>
+<span id="cb5-9">17 | |                 .set_class(&amp;["XY", "POINT", "sfg"])</span>
+<span id="cb5-10">18 | |                 .unwrap()</span>
+<span id="cb5-11">   | |_________________________^ expected `Robj`, found `&amp;mut Robj`</span>
+<span id="cb5-12"></span>
+<span id="cb5-13">error[E0308]: mismatched types</span></code></pre></div>
 <p>A simplified version of the function looks like:</p>
 <div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> location_to_sfg(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -229,6 +287,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb6-2">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> Point <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">{</span> x<span class="op" style="color: #5E5E5E;
@@ -271,8 +330,10 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>This function previously returned an <code>Robj</code> because that was the type returned by <code>set_class()</code>. This function can be rewritten as</p>
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> location_to_sfg2(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -288,6 +349,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb7-2">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> Point <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">{</span> x<span class="op" style="color: #5E5E5E;
@@ -337,8 +399,10 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>Alternatively, the function can now return <code>Doubles</code> instead if you so desire:</p>
 <div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode rs code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">pub</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">fn</span> location_to_sfg(x<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -354,6 +418,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb8-2">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> Point <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">{</span> x<span class="op" style="color: #5E5E5E;
