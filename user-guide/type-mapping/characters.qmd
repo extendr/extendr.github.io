@@ -1,3 +1,46 @@
 ---
 title: "Character Strings"
 ---
+
+```{r}
+#| echo: false
+library(rextendr)
+```
+
+The R runtime performs [string interning](https://en.wikipedia.org/wiki/String_interning) to
+all of its string elements. This means, that whenever R encounters a new string,
+it adds it to its internal string intern pool. Therefore, it is unsound to
+access R strings mutably.
+
+::: {.callout-tip }
+A string intern pool can be thought of as a container that stores all distinct
+strings, and then provides a lightweight reference counted variable back to it.
+An example of such a string interner is the [`lasso`](https://crates.io/crates/lasso) crate.
+:::
+
+Let's look at a concrete example:
+
+```{extendrsrc}
+#[extendr]
+fn hello_world() -> &'static str {
+    "Hello world!"
+}
+```
+
+```{r}
+.Internal(inspect(hello_world()))
+```
+
+Then, any time R encounters `"Hello world!"`, it retrieves it from the pool, rather
+than re-instantiate it
+
+```{r}
+.Internal(inspect("Hello world!"))
+```
+
+The `STRSXP` is different, due to R's clone semantics, but the underlying
+string `CHARSXP` is the same. Thus, equality is determined if two strings
+have the same pointer, rather than if they have the same bytes.
+
+Therefore, `extendr` does not provide mutable access to an R string, because it breaks
+the assumption that all strings are the immutable.
