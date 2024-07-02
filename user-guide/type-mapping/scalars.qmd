@@ -181,4 +181,4 @@ scalar_logical(TRUE)
 
 Did you notice that we didn't give an example with character strings? Yeah, well,
 there's a good reason for that. You can find out what that is by heading over to
-the tutorial on [Handling Strings](user-guide/type-mapping/characters.qmd).
+the tutorial on [Character Strings](./characters.qmd).
