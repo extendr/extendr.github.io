@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.52">
+<meta name="generator" content="quarto-1.5.53">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -494,12 +494,12 @@ Note
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">unlist</span>(lorem<span class="sc">::</span><span class="fu">ipsum</span>(<span class="dv">5000</span>, <span class="dv">1</span>, <span class="dv">25</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Consectetur velit mi integer facilisi quam nulla dui pharetra mattis mus gravida porttitor eleifend et donec varius nisl dictumst nisi metus aptent fringilla natoque porta nibh sapien enim."                                                                               </span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "Adipiscing hendrerit ad per duis aliquam vel cursus suscipit semper mi malesuada feugiat pharetra rutrum libero placerat consequat congue eleifend duis vivamus natoque dignissim molestie volutpat arcu a ad purus vitae euismod cursus bibendum ultricies pulvinar dui eu?"</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] "Ipsum dapibus metus donec eros potenti natoque massa enim enim duis dictum magnis viverra metus fames integer varius eu neque varius nascetur mollis natoque."                                                                                                               </span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] "Amet magnis faucibus est non vivamus sollicitudin viverra nascetur nibh feugiat in nisl tempor ad metus conubia duis per justo est eleifend morbi per imperdiet accumsan taciti tempor fames mattis."                                                                        </span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] "Ipsum dignissim primis duis ullamcorper nam tempor placerat tincidunt sociis commodo et interdum ornare vel imperdiet ultricies eu porta ligula duis turpis litora."                                                                                                         </span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] "Ipsum justo eros nullam per purus interdum lacus natoque tristique purus volutpat habitant nec duis litora velit et eros tortor placerat ultrices nullam ut class lacus ad iaculis."</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Elit inceptos bibendum vulputate velit lacus nibh sociis placerat vitae maecenas vehicula varius sapien ultricies praesent eros aliquet fermentum malesuada suspendisse!"                                        </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] "Elit tristique mollis mollis placerat nec sapien fermentum nisl mauris sed sagittis facilisis nisl ultricies orci scelerisque sociis aenean viverra velit dictum iaculis congue tellus euismod laoreet ultrices."</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] "Amet hac tellus nisi vestibulum dignissim cum tempor senectus himenaeos vivamus hac dui felis rutrum est dictum at proin facilisi nostra fermentum velit pharetra erat turpis ultrices nisl sed aptent at?"      </span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] "Amet sem erat ac luctus aliquet at leo imperdiet velit diam maecenas ultrices venenatis convallis magna malesuada cum risus nascetur primis orci imperdiet maecenas ridiculus libero mi fusce porttitor lectus." </span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] "Amet justo sagittis conubia phasellus tristique vitae egestas fusce lectus phasellus maecenas nisi blandit condimentum placerat risus odio vel sed convallis dapibus molestie malesuada sagittis suscipit purus."</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] "Lorem mattis donec himenaeos felis proin diam faucibus habitant per dapibus lacus lacinia potenti aliquam porttitor eu nulla!"</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>bench<span class="sc">::</span><span class="fu">mark</span>(</span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">rust =</span> <span class="fu">to_snek_case</span>(x),</span>
@@ -508,8 +508,8 @@ Note
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 rust         13.8ms     14ms     69.7     1.17MB     0   </span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 snakecase   201.2ms    211ms      4.81   12.29MB     8.02</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 rust         13.7ms   13.8ms     70.2     1.16MB     0   </span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 snakecase   205.3ms  217.7ms      4.63   12.24MB     7.72</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="the-whole-thing" class="level2">

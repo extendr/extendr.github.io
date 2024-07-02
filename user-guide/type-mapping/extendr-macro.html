@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.52">
+<meta name="generator" content="quarto-1.5.53">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -387,21 +387,20 @@ Tip
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When this is compiled, an error occurs because extendr does not know how to convert the <code>Shape</code> enum into something that R can use. The error is fairly informative!</p>
-<pre><code>#[extendr]
-   | ^^^^^^^^^^ the trait `ToVectorValue` is not implemented for `Shape`, which is required by `extendr_api::Robj: From&lt;Shape&gt;`
-   |
-   = help: the following other types implement trait `ToVectorValue`:
-             bool
-             i8
-             i16
-             i32
-             i64
-             usize
-             u8
-             u16
-           and 45 others
-   = note: required for `extendr_api::Robj` to implement `From&lt;Shape&gt;`
-   = note: this error originates in the attribute macro `extendr` </code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>   <span class="op">|</span> <span class="op">^^^^^^^^^^</span> the <span class="kw">trait</span> `ToVectorValue` is not implemented <span class="cf">for</span> `Shape`<span class="op">,</span> which is required by `<span class="pp">extendr_api::</span>Robj<span class="op">:</span> <span class="bu">From</span><span class="op">&lt;</span>Shape<span class="op">&gt;</span>`</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="op">|</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="op">=</span> help<span class="op">:</span> the following other types implement <span class="kw">trait</span> `ToVectorValue`<span class="op">:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             <span class="dt">bool</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="dt">i8</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             <span class="dt">i16</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="dt">i32</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="dt">i64</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             <span class="dt">usize</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             <span class="dt">u8</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>             <span class="dt">u16</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>           and <span class="dv">45</span> others</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>   <span class="op">=</span> note<span class="op">:</span> required <span class="cf">for</span> `<span class="pp">extendr_api::</span>Robj` to implement `From<span class="op">&lt;</span>Shape<span class="op">&gt;</span>`</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>   <span class="op">=</span> note<span class="op">:</span> this error originates <span class="kw">in</span> the attribute <span class="kw">macro</span> `extendr` </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>It tells you that <code>Shape</code> does not implement the <code>ToVectorValue</code> trait. The <code>ToVectorValue</code> trait is what enables items from Rust to be returned to R.</p>
 </section>
 <section id="tovectorvalue-trait" class="level2">
@@ -543,7 +542,7 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tri <span class="ot">&lt;-</span> Shape<span class="sc">$</span><span class="fu">new</span>(<span class="st">"triangle"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tri</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;pointer: 0x112076970&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;pointer: 0x131715920&gt;</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"class")</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Shape"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -636,7 +635,7 @@ Tip
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="pp">ExternalPtr::</span>new(variant)</span>
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Using an external pointer, however, is far more limiting than the <code>impl</code> block. For example, you cannot access and of its methods.</p>
+<p>Using an external pointer, however, is far more limiting than the <code>impl</code> block. For example, you cannot access any of its methods.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tri_ptr <span class="ot">&lt;-</span> <span class="fu">shape_ptr</span>(<span class="st">"triangle"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>tri_ptr<span class="sc">$</span><span class="fu">n_coords</span>()</span>
@@ -652,7 +651,7 @@ Tip
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Err</span>(_) <span class="op">=&gt;</span> <span class="dv">0</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This function definition takes an <code>Robj</code> and from it, tries to create an <code>ExternalPtr&lt;Shape&gt;</code>. Then, if the conversion did not error, it returns the number of coordinates as an i32 (R’s version of an integer) and if there was an error converting, it returns 0.</p>
+<p>This function definition takes an <code>Robj</code> and from it, tries to create an <code>ExternalPtr&lt;Shape&gt;</code>. Then, if the conversion did not error, it returns the number of coordinates as an <code>i32</code> (R’s version of an integer) and if there was an error converting, it returns 0.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tri_ptr <span class="ot">&lt;-</span> <span class="fu">shape_ptr</span>(<span class="st">"triangle"</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
