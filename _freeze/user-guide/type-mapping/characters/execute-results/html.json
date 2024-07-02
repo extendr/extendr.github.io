@@ -1,0 +1,15 @@
+{
+  "hash": "4876597e0d5a972f10de82702b5692bc",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Character Strings\"\n---\n\n::: {.cell}\n\n:::\n\n\nThe R runtime performs [string interning](https://en.wikipedia.org/wiki/String_interning) to\nall of its string elements. This means, that whenever R encounters a new string,\nit adds it to its internal string intern pool. Therefore, it is unsound to\naccess R strings mutably.\n\n::: {.callout-tip }\nA string intern pool can be thought of as a container that stores all distinct\nstrings, and then provides a lightweight reference counted variable back to it.\nAn example of such a string interner is the [`lasso`](https://crates.io/crates/lasso) crate.\n:::\n\nLet's look at a concrete example:\n\n\n::: {.cell}\n\n```{.rust .cell-code}\n#[extendr]\nfn hello_world() -> &'static str {\n    \"Hello world!\"\n}\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\n.Internal(inspect(hello_world()))\n#> @11c4bd628 16 STRSXP g0c1 [] (len=1, tl=0)\n#>   @119641448 09 CHARSXP g0c2 [REF(2),gp=0x60,ATT] [ASCII] [cached] \"Hello world!\"\n```\n:::\n\n\nThen, any time R encounters `\"Hello world!\"`, it retrieves it from the pool, rather\nthan re-instantiate it\n\n\n::: {.cell}\n\n```{.r .cell-code}\n.Internal(inspect(\"Hello world!\"))\n#> @11b2f0780 16 STRSXP g0c1 [REF(2)] (len=1, tl=0)\n#>   @119641448 09 CHARSXP g0c2 [MARK,REF(3),gp=0x60,ATT] [ASCII] [cached] \"Hello world!\"\n```\n:::\n\n\nThe `STRSXP` is different, due to R's clone semantics, but the underlying\nstring `CHARSXP` is the same. Thus, equality is determined if two strings\nhave the same pointer, rather than if they have the same bytes.\n\nTherefore, `extendr` does not provide mutable access to an R string, because it breaks\nthe assumption that all strings are the immutable.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
