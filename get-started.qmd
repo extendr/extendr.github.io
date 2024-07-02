@@ -15,7 +15,7 @@ To build R packages with **extendr**, you need to have the right tools.
 Follow the [rustup installation
 instructions](https://www.rust-lang.org/tools/install) to install Rust. Note
 that the current minimum supported Rust version (msrv) in **extendr** is `1.64`.
-This is to ensure CRAN compliance.
+This is to ensure CRAN compliance. Windows users will also need to install the GNU toolchain as it matches Rtools. This can be done via rustup in the terminal: `rustup target add x86_64-pc-windows-gnu`.
 :::
 
 ## Step 2 [Update R]{.fw-light}
