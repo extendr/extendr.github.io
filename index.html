@@ -191,284 +191,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><a href="https://github.com/extendr/extendr/actions"><img src="https://github.com/extendr/extendr/workflows/Tests/badge.svg" class="img-fluid" alt="Github Actions Build Status"></a> <a href="https://crates.io/crates/extendr-api"><img src="https://img.shields.io/crates/v/extendr-api.svg" class="img-fluid" alt="Crates.io"></a> <a href="https://docs.rs/extendr-api"><img src="https://docs.rs/extendr-api/badge.svg" class="img-fluid" alt="Documentation"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a></p>
-<p>Extendr is a Rust extension mechanism for R</p>
-<p>The following code illustrates a simple structure trait which is written in Rust. The data is defined in the <code>struct</code> declaration and the methods in the <code>impl</code>.</p>
-<p>Extendr consists of the following projects:</p>
-<ul>
-<li><a href="https://extendr.github.io/extendr"><code>extendr</code></a> set of crates, including:
-<ul>
-<li><a href="https://extendr.github.io/extendr/extendr_api"><code>extendr-api</code></a> - the core Extendr crate providing all of the functionality;</li>
-<li><a href="https://extendr.github.io/extendr/extendr_macros"><code>extendr-macros</code></a> - Extendr crate responsbile for Rust wrapper generation;</li>
-<li><a href="https://extendr.github.io/extendr/extendr_engine"><code>extendr-engine</code></a> - crate that enables launching R sessions from Rust code;</li>
-</ul></li>
-<li><a href="https://extendr.github.io/rextendr"><code>rextendr</code></a> - an R package that helps scaffolding extendr-enabled packages or compiling Rust code dynamically;</li>
-<li><a href="https://extendr.github.io/libR-sys/libR_sys"><code>libR-sys</code></a> - provides auto-generated R bindings for Rust.</li>
-</ul>
+<p>The extendr suite of software packages provides a Rust extension mechanism for R, thus bringing the computing power of Rust to the statistical programming environment of R. The following code provides a simple illustration of how extendr achieves this.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span><span class="op">*;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Person <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Person <span class="op">{</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> new() <span class="op">-&gt;</span> <span class="dt">Self</span> <span class="op">{</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Self</span> <span class="op">{</span> name<span class="op">:</span> <span class="st">""</span><span class="op">.</span>to_string() <span class="op">}</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> set_name(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> name<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name <span class="op">=</span> name<span class="op">.</span>to_string()<span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">{</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>as_str()</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> aux_func() <span class="op">{</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="at">)]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Person <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Person <span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> new() <span class="op">-&gt;</span> <span class="dt">Self</span> <span class="op">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Self</span> <span class="op">{</span> name<span class="op">:</span> <span class="st">""</span><span class="op">.</span>to_string() <span class="op">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> set_name(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> name<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name <span class="op">=</span> name<span class="op">.</span>to_string()<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">{</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>as_str()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> my_function() <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">// Macro to generate exports</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">extendr_module!</span> <span class="op">{</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mod</span> classes<span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">impl</span> Person<span class="op">;</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> aux_func;</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>#[extendr]</code> attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded.</p>
-<p>On R’s side, users can access to the above Rust functions as follows:</p>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">// Macro to generate exports</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">extendr_module!</span> <span class="op">{</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mod</span> classes<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">impl</span> Person<span class="op">;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> my_function;</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>#[extendr]</code> attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded, thus allowing one to access Rust functions and structures in an R session:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># call function</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aux_func</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_function</span>()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create Person object</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> Person<span class="sc">$</span><span class="fu">new</span>()</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">set_name</span>(<span class="st">"foo"</span>)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">name</span>()   <span class="co"># "foo" is returned</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>extendr_module!</code> macro lists the module name and exported functions and interfaces.</p>
-<p>This library aims to provide an interface that will be familiar to first-time users of Rust or indeed any compiled language.</p>
-<p>Anyone who knows the R library should be able to write R extensions.</p>
-<section id="wrappers-for-r-types" class="level2">
-<h2 class="anchored" data-anchor-id="wrappers-for-r-types">Wrappers for R types</h2>
-<p>Extendr provides a number of wrappers for R types. These fall into three categories, scalar types such as a single integer, vector types which are an array of a scalar type and linked list types used to represent R code and call arguments.</p>
-<section id="scalar-types" class="level3">
-<h3 class="anchored" data-anchor-id="scalar-types">Scalar types</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 51%">
-<col style="width: 31%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>R type</th>
-<th>Extendr wrapper</th>
-<th>Deref type: <code>&amp;*object</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>Any</code></td>
-<td><code>extendr_api::robj::Robj</code></td>
-<td>N/A</td>
-</tr>
-<tr class="even">
-<td><code>character</code></td>
-<td><code>extendr_api::wrapper::Rstr</code></td>
-<td>N/A</td>
-</tr>
-<tr class="odd">
-<td><code>integer</code></td>
-<td><code>extendr_api::wrapper::Rint</code></td>
-<td>N/A</td>
-</tr>
-<tr class="even">
-<td><code>double</code></td>
-<td><code>extendr_api::wrapper::Rfloat</code></td>
-<td>N/A</td>
-</tr>
-<tr class="odd">
-<td><code>complex</code></td>
-<td><code>extendr_api::wrapper::Rcplx</code></td>
-<td>N/A</td>
-</tr>
-<tr class="even">
-<td><code>extptr</code></td>
-<td><code>extendr_api::wrapper::ExternalPtr&lt;T&gt;</code></td>
-<td><code>&amp;T</code> / <code>&amp;mut T</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="vector-types" class="level3">
-<h3 class="anchored" data-anchor-id="vector-types">Vector types</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 18%">
-<col style="width: 50%">
-<col style="width: 31%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>R type</th>
-<th>Extendr wrapper</th>
-<th>Deref type: <code>&amp;*object</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>integer</code></td>
-<td><code>extendr_api::wrapper::Integers</code></td>
-<td><code>&amp;[Rint]</code></td>
-</tr>
-<tr class="even">
-<td><code>double</code></td>
-<td><code>extendr_api::wrapper::Doubles</code></td>
-<td><code>&amp;[Rfloat]</code></td>
-</tr>
-<tr class="odd">
-<td><code>logical</code></td>
-<td><code>extendr_api::wrapper::Logicals</code></td>
-<td><code>&amp;[Rbool]</code></td>
-</tr>
-<tr class="even">
-<td><code>complex</code></td>
-<td><code>extendr_api::wrapper::Complexes</code></td>
-<td><code>&amp;[Rcplx]</code></td>
-</tr>
-<tr class="odd">
-<td><code>string</code></td>
-<td><code>extendr_api::wrapper::Strings</code></td>
-<td><code>&amp;[Rstr]</code></td>
-</tr>
-<tr class="even">
-<td><code>list</code></td>
-<td><code>extendr_api::wrapper::List</code></td>
-<td><code>&amp;[Robj]</code></td>
-</tr>
-<tr class="odd">
-<td><code>data.frame</code></td>
-<td><code>extendr_api::wrapper::Dataframe&lt;T&gt;</code></td>
-<td><code>&amp;[Robj]</code></td>
-</tr>
-<tr class="even">
-<td><code>expression</code></td>
-<td><code>extendr_api::wrapper::Expression</code></td>
-<td><code>&amp;[Lang]</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="linked-list-types" class="level3">
-<h3 class="anchored" data-anchor-id="linked-list-types">Linked list types</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 17%">
-<col style="width: 48%">
-<col style="width: 34%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>R type</th>
-<th>Extendr wrapper</th>
-<th>Deref type: <code>&amp;*object</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pairlist</code></td>
-<td><code>extendr_api::wrapper::Pairlist</code></td>
-<td>N/A</td>
-</tr>
-<tr class="even">
-<td><code>lang</code></td>
-<td><code>extendr_api::wrapper::Lang</code></td>
-<td>N/A</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="examples" class="level2">
-<h2 class="anchored" data-anchor-id="examples">Examples</h2>
-<section id="returning-lists-and-strings" class="level3">
-<h3 class="anchored" data-anchor-id="returning-lists-and-strings">Returning lists and strings</h3>
-<p>Lists and strings in rust are vectors of R objects. These are represented by the wrappers <code>List</code> and <code>Strings</code>.</p>
-<p><code>List</code> contains a slice of <code>Robj</code> wrappers which can contain any R object.</p>
-<p><code>Strings</code> contains a slice of <code>Rstr</code> wrappers which can contain a single string.</p>
-<p>These examples show how to return a list or string to R from Rust.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::wrapper::</span><span class="op">{</span>List<span class="op">,</span> Strings<span class="op">};</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span>list<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_strings() <span class="op">-&gt;</span> Strings <span class="op">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Strings::</span>from_values(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">0</span><span class="op">..</span><span class="dv">10</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>i<span class="op">|</span> <span class="pp">format!</span>(<span class="st">"number {}"</span><span class="op">,</span> i))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_named_list() <span class="op">-&gt;</span> List <span class="op">{</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="pp">list!</span>(x<span class="op">=</span><span class="dv">1</span><span class="op">,</span> y<span class="op">=</span><span class="st">"xyz"</span><span class="op">,</span> z<span class="op">=</span>())</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_unnamed_list() <span class="op">-&gt;</span> List <span class="op">{</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="pp">List::</span>from_values(<span class="dv">0</span><span class="op">..</span><span class="dv">10</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="returning-scalars" class="level3">
-<h3 class="anchored" data-anchor-id="returning-scalars">Returning scalars</h3>
-<p>Whilst we can use <code>i32</code> and <code>f64</code> in Extendr to return values. A better way is to use the <code>Rint</code> and <code>Rfloat</code> wrappers which provide access to the <code>NA</code> value used by R to represent missing data.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::scalar::</span><span class="op">{</span>Rint<span class="op">,</span> Rfloat<span class="op">};</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">// for .na()</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span>CanBeNA<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_int() <span class="op">-&gt;</span> Rint <span class="op">{</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Rint::</span>from(<span class="dv">1</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_na_int() <span class="op">-&gt;</span> Rint <span class="op">{</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Rint::</span>na()</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_float() <span class="op">-&gt;</span> Rfloat <span class="op">{</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Rfloat::</span>from(<span class="dv">1.0</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_na_float() <span class="op">-&gt;</span> Rfloat <span class="op">{</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="pp">Rfloat::</span>na()</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="plotting-a-png-file-from-rust" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-a-png-file-from-rust">Plotting a PNG file from Rust</h3>
-<p>We can use Extendr to take advantage of the stats and plotting functions in R.</p>
-<p>For example, we could make a web server that returns plots of incoming data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>test<span class="op">,</span> <span class="dt">Result</span><span class="op">,</span> eval_string<span class="op">,</span> eval_string_with_params<span class="op">};</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::</span><span class="op">{</span>Doubles<span class="op">,</span> R<span class="op">};</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">test!</span><span class="op">{</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> x <span class="op">=</span> <span class="pp">Doubles::</span>from_values((<span class="dv">0</span><span class="op">..</span><span class="dv">100</span>)<span class="op">.</span>map(<span class="op">|</span>i<span class="op">|</span> i <span class="kw">as</span> <span class="dt">f64</span> <span class="op">/</span> <span class="dv">20.0</span>))<span class="op">;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">// let y = Doubles::from_values(x.iter().map(|x| x.inner().sin()));</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> y <span class="op">=</span> <span class="pp">Doubles::</span>from_values((<span class="dv">0</span><span class="op">..</span><span class="dv">100</span>)<span class="op">.</span>map(<span class="op">|</span>i<span class="op">|</span> (i <span class="kw">as</span> <span class="dt">f64</span> <span class="op">/</span> <span class="dv">20.0</span>)<span class="op">.</span>sin()))<span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Set a PNG device</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="pp">R!</span>(<span class="st">r#"png("/tmp/sin_plot.png")"#</span>)<span class="op">?;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Plot x and y</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="pp">R!</span>(<span class="st">"plot({{&amp;x}}, {{&amp;y}})"</span>)<span class="op">?;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Linear model.</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="pp">R!</span>(<span class="st">"abline(lm({{y}} ~ {{x}}))"</span>)<span class="op">?;</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Flush the device to the image.</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="pp">R!</span>(<span class="st">"dev.off()"</span>)<span class="op">?;</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This, of course, is just the tip of the iceberg, for there are many ways to use extendr in R:</p>
+<ul>
+<li><p>In an interactive R session one may use <a href="https://extendr.github.io/rextendr/reference/rust_source.html"><code>rextendr::rust_function</code> and friends</a> to quickly prototype Rust code.</p></li>
+<li><p>In an R package context, one may use <a href="https://extendr.github.io/rextendr/reference/use_extendr.html"><code>rextendr::use_extendr()</code></a> to setup a Rust powered R-package. See also the <a href="https://extendr.github.io/rextendr/articles/package.html">vignette on R-packages</a>.</p></li>
+<li><p>It is also possible to inline Rust code in <code>Quarto</code> documents, see <a href="https://extendr.github.io/rextendr/articles/rmarkdown.html">vignette on extendr <code>knitr-engine</code></a>.</p></li>
+</ul>
+<section id="software-overview" class="level2">
+<h2 class="anchored" data-anchor-id="software-overview">Software Overview</h2>
+<p>The software packages that make up extendr include:</p>
+<ul>
+<li>Rust crates:
+<ul>
+<li><a href="https://extendr.github.io/extendr/extendr_api"><code>extendr-api</code></a> - the core Extendr crate providing all of the functionality;</li>
+<li><a href="https://extendr.github.io/extendr/extendr_macros"><code>extendr-macros</code></a> - Extendr crate responsbile for Rust wrapper generation;</li>
+<li><a href="https://extendr.github.io/extendr/extendr_engine"><code>extendr-engine</code></a> - crate that enables launching R sessions from Rust code;</li>
+</ul></li>
+<li>An R package <a href="https://extendr.github.io/rextendr"><code>rextendr</code></a> that helps scaffolding extendr-enabled packages or compiling Rust code dynamically; and</li>
+<li><a href="https://extendr.github.io/libR-sys/libR_sys"><code>libR-sys</code></a> - provides auto-generated R bindings for Rust.</li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
