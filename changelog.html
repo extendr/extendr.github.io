@@ -188,10 +188,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="unreleased">Unreleased</h2>
 <section id="added" class="level3">
 <h3 class="anchored" data-anchor-id="added">Added</h3>
+</section>
+<section id="changed" class="level3">
+<h3 class="anchored" data-anchor-id="changed">Changed</h3>
+</section>
+<section id="fixed" class="level3">
+<h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
+</section>
+<section id="deprecated" class="level3">
+<h3 class="anchored" data-anchor-id="deprecated">Deprecated</h3>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">0.7.0</h2>
+<section id="added-1" class="level3">
+<h3 class="anchored" data-anchor-id="added-1">Added</h3>
 <ul>
 <li>Arguments can be (mutable) typed slices such as <code>&amp;[Rbool]</code>, <code>&amp;mut [Rint]</code> etc. <a href="https://github.com/extendr/extendr/pull/790">[#790]</a></li>
 <li>New optional <code>faer</code> feature which enables conversion between <code>faer</code> matrix and <code>RMatrix&lt;f64&gt;</code> <a href="https://github.com/extendr/extendr/pull/706">[#706]</a></li>
-<li>Adds <code>TryFrom&lt;Robj&gt;</code> and <code>&lt;TryFrom&lt;&amp;Robj&gt;</code> for <code>impl</code> blocks marked with <code>#[extendr]</code> macro allowing falliable conversion to <code>&amp;Self</code> <code>&amp;mut Self</code></li>
+<li>Adds <code>TryFrom&lt;Robj&gt;</code> and <code>&lt;TryFrom&lt;&amp;Robj&gt;</code> for <code>impl</code> blocks marked with <code>#[extendr]</code> macro allowing falliable conversion to <code>&amp;Self</code> <code>&amp;mut Self</code> <a href="https://github.com/extendr/extendr/pull/730">[#730]</a></li>
 <li>Adds <code>From&lt;T&gt; for Robj</code> for impl blocks marked with <code>#[extendr]</code> macro</li>
 <li>The new <code>ExpectedExternalNonNullPtr</code> error variant provides a more informative error when a null pointer is accessed</li>
 <li><code>RArray::data_mut</code> provides a mutable slice to the underlying array data <a href="https://github.com/extendr/extendr/pull/657">[#657]</a></li>
@@ -200,10 +215,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>TryFrom&lt;&amp;Robj&gt;</code> for <code>StrIter</code>, <code>HashMap&lt;K, Robj&gt;</code> for <code>K = String</code> and <code>K = &amp;str</code> <a href="https://github.com/extendr/extendr/pull/759">[#759]</a></li>
 </ul>
 </section>
-<section id="changed" class="level3">
-<h3 class="anchored" data-anchor-id="changed">Changed</h3>
+<section id="changed-1" class="level3">
+<h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
 <ul>
-<li>vector <a href="https://github.com/extendr/extendr/pull/657">[#657]</a></li>
+<li>[<em>Potentially breaking</em>]: <code>RArray::from_parts</code> no longer requires a pointer to the underlying data vector <a href="https://github.com/extendr/extendr/pull/657">[#657]</a></li>
 <li><code>#[extendr(use_try_from = true)</code> is now the default setting, therefore the option <code>use_try_from</code> has been removed <a href="https://github.com/extendr/extendr/pull/759">[#759]</a></li>
 </ul>
 <section id="breaking-changes" class="level4">
@@ -230,20 +245,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="fixed" class="level3">
-<h3 class="anchored" data-anchor-id="fixed">Fixed</h3>
+<section id="fixed-1" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
 <ul>
 <li>returning <code>&amp;Self</code> or <code>&amp;mut Self</code> from a method in an <code>#[extendr]</code>-impl would result in unintended cloning <a href="https://github.com/extendr/extendr/issues/614">[#614]</a></li>
 <li><code>TryFrom&lt;&amp;Robj&gt;</code> and <code>FromRobj</code> for integer scalars now correctly handles conversions from <code>f64</code> <a href="https://github.com/extendr/extendr/pull/757">[#757]</a></li>
 </ul>
 </section>
 </section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">0.6.0</h2>
-<section id="added-1" class="level3">
-<h3 class="anchored" data-anchor-id="added-1">Added</h3>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">0.6.0</h2>
+<section id="added-2" class="level3">
+<h3 class="anchored" data-anchor-id="added-2">Added</h3>
 <ul>
-<li><code>ALTLIST</code> support allowing users to represent structs as R list objects</li>
+<li><code>ALTLIST</code> support allowing users to represent structs as R list objects <a href="https://github.com/extendr/extendr/pull/600">[#600]</a></li>
 <li>[<strong>either</strong>] <code>TryFrom&lt;&amp;Robj&gt; for Either&lt;T, R&gt;</code> and <code>From&lt;Either&lt;T, R&gt;&gt; for Robj</code> if <code>T</code> and <code>R</code> are themselves implement these traits. This unblocks scenarios like accepting any numeric vector from R via <code>Either&lt;Integers, Doubles&gt;</code> without extra memory allocation <a href="https://github.com/extendr/extendr/pull/480">[#480]</a></li>
 <li><code>PartialOrd</code> trait implementation for <code>Rfloat</code>, <code>Rint</code> and <code>Rbool</code>. <code>Rfloat</code> and <code>Rint</code> gained <code>min()</code> and <code>max()</code> methods <a href="https://github.com/extendr/extendr/pull/573">[#573]</a></li>
 <li><code>use_rng</code> option for the <code>extendr</code> attribute macro, which enables the use of random number sampling methods from R, e.g.&nbsp;<code>#[extendr(use_rng = true)</code> <a href="https://github.com/extendr/extendr/pull/476">[#476]</a></li>
@@ -253,8 +268,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>Rstr</code> can now be constructed from <code>Option&lt;String&gt;</code> <a href="https://github.com/extendr/extendr/pull/630">[#630]</a></li>
 </ul>
 </section>
-<section id="fixed-1" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-1">Fixed</h3>
+<section id="fixed-2" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
 <ul>
 <li>You can now create <code>ArrayView1</code> from <code>&amp;Robj</code> as well as <code>Robj</code> <a href="https://github.com/extendr/extendr/pull/501">[#501]</a></li>
 <li>Raw literals from Rust can be used for function and argument names. e.g. <code>fn r#type()</code> in Rust is converted to <code>type()</code> in R. <a href="https://github.com/extendr/extendr/pull/531">[#531]</a></li>
@@ -263,10 +278,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">0.4.0</h2>
-<section id="added-2" class="level3">
-<h3 class="anchored" data-anchor-id="added-2">Added</h3>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">0.4.0</h2>
+<section id="added-3" class="level3">
+<h3 class="anchored" data-anchor-id="added-3">Added</h3>
 <ul>
 <li>Support for setting the default value of arguments to struct methods, using <code>#[default = "..."]</code> <a href="https://github.com/extendr/extendr/pull/436">[#436]</a></li>
 <li>[<strong>ndarray</strong>] <code>TryFrom&lt;&amp;Robj&gt;</code> for <code>ArrayView1&lt;T&gt;</code> and <code>ArrayView2&lt;T&gt;</code>, where <code>T</code> is <code>i32</code>, <code>f64</code>, <code>c64</code>, <code>Rint</code>, <code>Rfloat</code>, <code>Rcplx</code>, <code>Rstr</code>, <code>Rbool</code> <a href="https://github.com/extendr/extendr/pull/443">[#443]</a></li>
@@ -280,8 +295,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>[<strong>docs</strong>] Documentation for <code>RArray::new_matrix()</code> <a href="https://github.com/extendr/extendr/pull/466">[#466]</a></li>
 </ul>
 </section>
-<section id="changed-1" class="level3">
-<h3 class="anchored" data-anchor-id="changed-1">Changed</h3>
+<section id="changed-2" class="level3">
+<h3 class="anchored" data-anchor-id="changed-2">Changed</h3>
 <ul>
 <li>[<strong>docs</strong>] Use bindgen on docs.rs, to ensure newer R features will still be documented <a href="https://github.com/extendr/extendr/pull/426">[#426]</a></li>
 <li>Unify the tagging mechanism used to identify Rust types inside <code>ExternalPtr</code>. This allows <code>#[extendr]</code>-annotated functions to directly accept <code>ExternalPtr&lt;MyStruct&gt;</code> as well as <code>MyStruct</code> <a href="https://github.com/extendr/extendr/pull/433">[#433]</a></li>
@@ -290,8 +305,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>When converted to <code>STRSXP</code>, strings are now correctly marked as UTF-8 even on non-UTF-8 platforms (i.e., R &lt; 4.2 on Windows), which shouldn’t matter for most of the users <a href="https://github.com/extendr/extendr/pull/467">[#467]</a></li>
 </ul>
 </section>
-<section id="fixed-2" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-2">Fixed</h3>
+<section id="fixed-3" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-3">Fixed</h3>
 <ul>
 <li>The R CMD check note “Found non-API calls to R” by moving <code>use extendr_engine;</code> inside <code>test!</code> macro <a href="https://github.com/extendr/extendr/pull/424">[#424]</a></li>
 <li>The clippy lint “this public function might dereference a raw pointer but is not marked <code>unsafe</code>” <a href="https://github.com/extendr/extendr/pull/451">[#451]</a></li>
@@ -299,10 +314,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="section-2" class="level2">
-<h2 class="anchored" data-anchor-id="section-2">0.3.0</h2>
-<section id="added-3" class="level3">
-<h3 class="anchored" data-anchor-id="added-3">Added</h3>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">0.3.0</h2>
+<section id="added-4" class="level3">
+<h3 class="anchored" data-anchor-id="added-4">Added</h3>
 <ul>
 <li><p><code>Function</code> type that wraps an R function, which can be invoked using the <code>call()</code> method. <a href="https://github.com/extendr/extendr/pull/188">[#188]</a></p></li>
 <li><p><code>pairlist!</code> macro for generating <code>Pairlist</code> objects, e.g.&nbsp;for use in function calls. <a href="https://github.com/extendr/extendr/pull/202">[#202]</a></p></li>
@@ -338,8 +353,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><code>IntoDataFrame</code> trait, which can be derived to allow arbitrary Rust structs to be converted to rows of a data frame. <a href="https://github.com/extendr/extendr/pull/393">[#393]</a></p></li>
 </ul>
 </section>
-<section id="changed-2" class="level3">
-<h3 class="anchored" data-anchor-id="changed-2">Changed</h3>
+<section id="changed-3" class="level3">
+<h3 class="anchored" data-anchor-id="changed-3">Changed</h3>
 <ul>
 <li><p><code>Strings::elt</code> now returns an <code>Rstr</code>. <a href="https://github.com/extendr/extendr/pull/345">[#345]</a></p></li>
 <li><p>Renamed <code>RType</code> to <code>Rtype</code>. <a href="https://github.com/extendr/extendr/pull/345">[#345]</a></p></li>
@@ -358,8 +373,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><code>list!</code> has been rewritten, and now returns a <code>List</code> struct. <a href="https://github.com/extendr/extendr/pull/303">[#303]</a></p></li>
 </ul>
 </section>
-<section id="deprecated" class="level3">
-<h3 class="anchored" data-anchor-id="deprecated">Deprecated</h3>
+<section id="deprecated-1" class="level3">
+<h3 class="anchored" data-anchor-id="deprecated-1">Deprecated</h3>
 <ul>
 <li>Calling the <code>R!</code> macro with non-string types (e.g.&nbsp;<code>R!(1)</code>) is now deprecated. <a href="https://github.com/extendr/extendr/pull/203">[#203]</a></li>
 </ul>
