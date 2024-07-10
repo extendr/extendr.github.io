@@ -34,6 +34,34 @@ let bytes = bytes.as_bytes().to_owned();
 bytes
 ```
 
+
+Let us investigate the address of these two identical snippets of data
+
+```{extendrsrc}
+#[extendr]
+fn hello_world() -> &'static str {
+  let hello_world = "Hello World!";
+  rprintln!("Address of the Rust `hello_world`: {:p}", hello_world.as_ptr());
+  hello_world
+}
+```
+
+
+```{r}
+hello_world()
+```
+
+And the adress of `hello_world`, once it is part of the R runtime:
+
+```{r}
+.Internal(inspect(hello_world()))
+```
+
+::::: {.callout-note}
+The return type of `hello_world` need not be `'static str`. The life-time can be made
+arbitrary, such as `fn hello_world<'a>() -> &'a str`. 
+:::
+
 A `character`-vector in R could be compared to a `Vec<String>` in Rust. However, there is an important distinction, that we'll illustrate with an example.
 
 ```{extendr}
@@ -82,9 +110,33 @@ Thus, `[&str]` and `character` behave similarly. Let's investigate `&[String]`:
 .collect::<Vec<_>>()
 ```
 
+<!-- @co-authors: the snippet below is an alternative to the above snippet -->
+
+```{extendr, echo=FALSE, eval=FALSE}
+let sample_states = [
+    "Texas",
+    "Maine",
+    "Maine",
+    "Idaho",
+    "Maine",
+    "Maine",
+];
+let mut state_ptrs = Vec::with_capacity(sample_states.len());
+let mut state_strings = Vec::with_capacity(sample_states.len());
+for state in sample_states {
+  let mut x_string = String::with_capacity(5);
+  x_string.push_str(state);
+  state_ptrs.push(format!("{:p}", x_string.as_ptr()));
+  state_strings.push(x_string);
+}
+state_ptrs
+```
+
 The memory addresses of all the items are different, even for those entries that have the same value.
 
 Thus, R's `character` is actually more resembling that of `[&str]`, rather than a container of `String`.
+
+<!-- TODO: mention that direct indexing in utf-8 is difficult... -->
 
 The R runtime performs [string interning](https://en.wikipedia.org/wiki/String_interning) to
 all of its string elements. This means, that whenever R encounters a new string,
