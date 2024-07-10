@@ -7,6 +7,85 @@ title: "Character Strings"
 library(rextendr)
 ```
 
+The standard type for a UTF-8 encoded string type is `String`. An example of
+instantiating such a type
+
+```{extendr, echo=TRUE}
+let mut rust_string = String::new();
+rust_string.push_str("Hello world!");
+rust_string
+```
+
+A direct translation of this to R is
+```{r}
+r_string <- "Hello world!"
+r_string
+```
+
+Indeed, these are the same as they contain the same utf-8 bytes
+
+```{r}
+charToRaw(r_string)
+```
+
+```{extendr}
+let bytes = String::from("Hello world!");
+let bytes = bytes.as_bytes().to_owned();
+bytes
+```
+
+A `character`-vector in R could be compared to a `Vec<String>` in Rust. However, there is an important distinction, that we'll illustrate with an example.
+
+```{extendr}
+let states = ["Idaho", "Texas", "Maine"]; // 5 letter states in USA
+let b_states = states.into_iter().map(|x| x.as_bytes()).flatten().collect::<Vec<_>>();
+b_states
+```
+
+And in R
+
+```{r}
+# charToRaw(c("Idaho", "Texas", "Maine")) // only uses first argument
+vapply(c("Idaho", "Texas", "Maine"), charToRaw, FUN.VALUE = raw(5))
+```
+
+But what about identity and permanence? Let us first look at an array of string types, but with repeated strings:
+
+```{extendr}
+let sample_states = ["Texas", "Maine", "Maine", "Idaho", "Maine", "Maine"];
+sample_states.into_iter()
+  .map(|x| format!("{:p}", x.as_ptr())).collect::<Vec<_>>()
+```
+
+and in R
+
+```{r}
+sample_states <- c("Texas", "Maine", "Maine", "Idaho", "Maine", "Maine");
+.Internal(inspect(sample_states))
+```
+
+Thus, `[&str]` and `character` behave similarly. Let's investigate `&[String]`:
+
+<!-- @co-authors: This was the only way I could write this code without rustc optimising it out.. -->
+
+```{extendr}
+[
+    "Texas".to_string(),
+    "Maine".to_string(),
+    "Maine".to_string(),
+    "Idaho".to_string(),
+    "Maine".to_string(),
+    "Maine".to_string(),
+]
+.iter()
+.map(|x| format!("{:p}", x.as_ptr()))
+.collect::<Vec<_>>()
+```
+
+The memory addresses of all the items are different, even for those entries that have the same value.
+
+Thus, R's `character` is actually more resembling that of `[&str]`, rather than a container of `String`.
+
 The R runtime performs [string interning](https://en.wikipedia.org/wiki/String_interning) to
 all of its string elements. This means, that whenever R encounters a new string,
 it adds it to its internal string intern pool. Therefore, it is unsound to
