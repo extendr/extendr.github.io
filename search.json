@@ -1,5 +1,116 @@
 [
   {
+    "objectID": "faq.html",
+    "href": "faq.html",
+    "title": "Frequently Asked Questions",
+    "section": "",
+    "text": "What can I use extendr for?\n\n\nHow do I install extendr?\n\n\nWho are the developers of extendr?\nAuthors and maintainers include:\n\nAmy Thomason (author and creator, @andy-thomason)\nMossa M. Reimert (author and maintainer, @CGMossa)\nClaus O. Wilke (author, @clauswilke)\nHiroaki Yutani (author, @yutannihilation)\nIlia Kosenkov (author and maintainer, @Ilia-Kosenkov)\nDaniel Falbel (author, @dfalbel)\nJosiah Parry (maintainer, @JosiahParry)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "extendr",
+    "section": "",
+    "text": "The extendr suite of software packages provides a Rust extension mechanism for R, thus bringing the computing power of Rust to the statistical programming environment of R. The following code provides a simple illustration of how extendr achieves this.\nThe #[extendr] attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded, thus allowing one to access Rust functions and structures in an R session:\nThis, of course, is just the tip of the iceberg, for there are many ways to use extendr in R:"
+  },
+  {
+    "objectID": "index.html#software-overview",
+    "href": "index.html#software-overview",
+    "title": "extendr",
+    "section": "Software Overview",
+    "text": "Software Overview\nThe software packages that make up extendr include:\n\nRust crates:\n\nextendr-api - provides the ergonomic, opinionated, and safe interface to R in Rust\nextendr-macros - crate responsible generation of wrappers, derive macros for conversion to R, etc.\nextendr-engine - crate that enables launching R sessions from Rust code;\n\nAn R package rextendr that helps scaffolding extendr-enabled packages or compiling Rust code interactively; and\nlibR-sys - provides auto-generated bindings to R’s C-facilities (or C-API) in Rust"
+  },
+  {
+    "objectID": "user-guide/type-mapping/vectors.html",
+    "href": "user-guide/type-mapping/vectors.html",
+    "title": "Vector Type Mapping",
+    "section": "",
+    "text": "What happens if we try to pass more than one value to scalar_double()?\n\nscalar_double(c(4.2, 1.3, 2.5))\n#&gt; Error in scalar_double(c(4.2, 1.3, 2.5)): Expected Scalar, got Doubles\n\nIt errors because the function expects a scalar of the f64 type, not a vector of f64.\nIn this section, we show you how to pass Rust vectors between R and Rust.\n\n\n\n\n\n\nImportant\n\n\n\nWhile using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.\n\n\nThe syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.\nFor reference, below are the type of Rust vectors that can be utilized with extendr.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger()\nIntegers\nVec&lt;i32&gt;\n\n\ndouble()\nDoubles\nVec&lt;f64&gt;\n\n\ncomplex()\nComplexes\nVec&lt;Complex&lt;f64&gt;&gt;\n\n\ncharacter()\nStrings\nVec&lt;String&gt;\n\n\nraw()\nRaw\n&[u8]\n\n\nlogical()\nLogicals\n\n\n\nlist()\nList\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou might have anticipated Vec&lt;bool&gt; to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain only true and false like Rust’s bool type. They also can be an NA value which has no corresponding representation in Rust.\n\n\nBelow defines Rust function which takes in a vector of f64 values and prints them out.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) {\n    rprintln!(\"The values of x are {x:?}\");\n}\n\nThat function can be called from R which prints the Debug format of the vector.\n\n\n\n\n\n\nTip\n\n\n\nRust’s vector do not implement the Display trait so the debug format (:?) is used.\n\n\n\nvector_double(c(4.2, 1.3, 2.5))\n#&gt; The values of x are [4.2, 1.3, 2.5]\n\nReturning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a ;.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) -&gt; Vec&lt;f64&gt; { \n    x \n}\n\nCalling the function returns the input as a double vector\n\nx &lt;- vector_double(c(4.2, 1.3, 2.5))\ntypeof(x)\n#&gt; [1] \"double\"\nx + 1\n#&gt; [1] 5.2 2.3 3.5\n\n\n\nThese same principles can be extended to other supported vector types such as Vec&lt;i32&gt; and Vec&lt;String&gt;.\n\n#[extendr]\nfn vector_integer(x: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { \n    x\n}\n\n#[extendr]\nfn vector_character(x: Vec&lt;String&gt;) -&gt; Vec&lt;String&gt; {\n    x \n}\n\n\nvector_integer(c(4L, 6L, 8L))\n#&gt; [1] 4 6 8\n\nvector_character(c(\"Hello world!\", \"Hello extendr!\", \"Hello R!\"))\n#&gt; [1] \"Hello world!\"   \"Hello extendr!\" \"Hello R!\"",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Vector Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/type-mapping/vectors.html#vector-type-mapping-with-rust-types",
+    "href": "user-guide/type-mapping/vectors.html#vector-type-mapping-with-rust-types",
+    "title": "Vector Type Mapping",
+    "section": "",
+    "text": "What happens if we try to pass more than one value to scalar_double()?\n\nscalar_double(c(4.2, 1.3, 2.5))\n#&gt; Error in scalar_double(c(4.2, 1.3, 2.5)): Expected Scalar, got Doubles\n\nIt errors because the function expects a scalar of the f64 type, not a vector of f64.\nIn this section, we show you how to pass Rust vectors between R and Rust.\n\n\n\n\n\n\nImportant\n\n\n\nWhile using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.\n\n\nThe syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.\nFor reference, below are the type of Rust vectors that can be utilized with extendr.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger()\nIntegers\nVec&lt;i32&gt;\n\n\ndouble()\nDoubles\nVec&lt;f64&gt;\n\n\ncomplex()\nComplexes\nVec&lt;Complex&lt;f64&gt;&gt;\n\n\ncharacter()\nStrings\nVec&lt;String&gt;\n\n\nraw()\nRaw\n&[u8]\n\n\nlogical()\nLogicals\n\n\n\nlist()\nList\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou might have anticipated Vec&lt;bool&gt; to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain only true and false like Rust’s bool type. They also can be an NA value which has no corresponding representation in Rust.\n\n\nBelow defines Rust function which takes in a vector of f64 values and prints them out.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) {\n    rprintln!(\"The values of x are {x:?}\");\n}\n\nThat function can be called from R which prints the Debug format of the vector.\n\n\n\n\n\n\nTip\n\n\n\nRust’s vector do not implement the Display trait so the debug format (:?) is used.\n\n\n\nvector_double(c(4.2, 1.3, 2.5))\n#&gt; The values of x are [4.2, 1.3, 2.5]\n\nReturning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a ;.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) -&gt; Vec&lt;f64&gt; { \n    x \n}\n\nCalling the function returns the input as a double vector\n\nx &lt;- vector_double(c(4.2, 1.3, 2.5))\ntypeof(x)\n#&gt; [1] \"double\"\nx + 1\n#&gt; [1] 5.2 2.3 3.5\n\n\n\nThese same principles can be extended to other supported vector types such as Vec&lt;i32&gt; and Vec&lt;String&gt;.\n\n#[extendr]\nfn vector_integer(x: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { \n    x\n}\n\n#[extendr]\nfn vector_character(x: Vec&lt;String&gt;) -&gt; Vec&lt;String&gt; {\n    x \n}\n\n\nvector_integer(c(4L, 6L, 8L))\n#&gt; [1] 4 6 8\n\nvector_character(c(\"Hello world!\", \"Hello extendr!\", \"Hello R!\"))\n#&gt; [1] \"Hello world!\"   \"Hello extendr!\" \"Hello R!\"",
+    "crumbs": [
+      "User Guide",
+      "Type Mapping",
+      "Vector Type Mapping"
+    ]
+  },
+  {
+    "objectID": "user-guide/index.html",
+    "href": "user-guide/index.html",
+    "title": "User Guide",
+    "section": "",
+    "text": "~~~ THIS IS A WORK IN PROGRESS!!! ~~~\nThis user guide serves two primary functions:\nGiven these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.",
+    "crumbs": [
+      "User Guide"
+    ]
+  },
+  {
+    "objectID": "user-guide/index.html#whats-in-this-guide",
+    "href": "user-guide/index.html#whats-in-this-guide",
+    "title": "User Guide",
+    "section": "What’s in this guide?",
+    "text": "What’s in this guide?\nWe’re working on that…",
+    "crumbs": [
+      "User Guide"
+    ]
+  },
+  {
+    "objectID": "user-guide/index.html#whats-not-in-this-guide",
+    "href": "user-guide/index.html#whats-not-in-this-guide",
+    "title": "User Guide",
+    "section": "What’s not in this guide?",
+    "text": "What’s not in this guide?\nThis book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be “The Book”.\nThis book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably R Packages (2e). As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.",
+    "crumbs": [
+      "User Guide"
+    ]
+  },
+  {
+    "objectID": "user-guide/r-pkgs/package-structure.html",
+    "href": "user-guide/r-pkgs/package-structure.html",
+    "title": "Project Structure",
+    "section": "",
+    "text": "A extendr-powered R package has a fairly unique structure. This section briefly outlines the structure of an extendr package and the important files.\nextendr works by creating a Rust library crate in src/rust that is defined by src/rust/Cargo.toml.\nNote the crate-type = [ 'staticlib' ]. When this library is compiled, it creates a static library which can then be called from R.",
+    "crumbs": [
+      "User Guide",
+      "R Packages",
+      "Project Structure"
+    ]
+  },
+  {
+    "objectID": "user-guide/r-pkgs/package-structure.html#controlling-exports-to-r-lib.rs",
+    "href": "user-guide/r-pkgs/package-structure.html#controlling-exports-to-r-lib.rs",
+    "title": "Project Structure",
+    "section": "Controlling exports to R: lib.rs",
+    "text": "Controlling exports to R: lib.rs\nThe lib.rs file determines what will be exposed to your R package. The extendr_module! macro in lib.rs controls what will have wrappers provided to your R package.\nextendr_module! {\n    mod hellorust;\n    fn hello_world;\n}\nThe mod hellorust is the name of the R package. Additional functions, impls, and modules can also be added to this macro.",
+    "crumbs": [
+      "User Guide",
+      "R Packages",
+      "Project Structure"
+    ]
+  },
+  {
+    "objectID": "user-guide/r-pkgs/package-structure.html#building-the-package-makevars",
+    "href": "user-guide/r-pkgs/package-structure.html#building-the-package-makevars",
+    "title": "Project Structure",
+    "section": "Building the package: Makevars",
+    "text": "Building the package: Makevars\nWhen creating an R package that uses compiled code, a file called Makevars is used.\n\n\n\n\n\n\nNote\n\n\n\nSee Using Makevars in Writing R Extensions for a thorough discussion.\n\n\nMakevars is used as a preprocessing step for compiling an R package. The files Makevars and Makevars.win compile the Rust library in src/rust, and link to the library.\n\n\n\n\n\n\nTip\n\n\n\nMakevars is used for *nix operating systems and Makevars.win is used for Windows.",
+    "crumbs": [
+      "User Guide",
+      "R Packages",
+      "Project Structure"
+    ]
+  },
+  {
     "objectID": "get-started.html",
     "href": "get-started.html",
     "title": "Get Started",
@@ -35,18 +146,16 @@
     "text": "Step 4 Use rust-analyzer\nThis is optional, but strongly recommended. If you use Visual Studio Code (VS Code) or a similar IDE, the rust-analyzer will provide you type hinting and auto-completion suggestions. It is very helpful!"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "extendr",
+    "objectID": "user-guide/r-pkgs/package-setup.html",
+    "href": "user-guide/r-pkgs/package-setup.html",
+    "title": "Package Setup",
     "section": "",
-    "text": "The extendr suite of software packages provides a Rust extension mechanism for R, thus bringing the computing power of Rust to the statistical programming environment of R. The following code provides a simple illustration of how extendr achieves this.\nThe #[extendr] attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded, thus allowing one to access Rust functions and structures in an R session:\nThis, of course, is just the tip of the iceberg, for there are many ways to use extendr in R:"
-  },
-  {
-    "objectID": "index.html#software-overview",
-    "href": "index.html#software-overview",
-    "title": "extendr",
-    "section": "Software Overview",
-    "text": "Software Overview\nThe software packages that make up extendr include:\n\nRust crates:\n\nextendr-api - provides the ergonomic, opinionated, and safe interface to R in Rust\nextendr-macros - crate responsible generation of wrappers, derive macros for conversion to R, etc.\nextendr-engine - crate that enables launching R sessions from Rust code;\n\nAn R package rextendr that helps scaffolding extendr-enabled packages or compiling Rust code interactively; and\nlibR-sys - provides auto-generated bindings to R’s C-facilities (or C-API) in Rust"
+    "text": "Once you have Rust and {rextendr} installed, you can begin creating Rust-powered R packages.\nThe first step to using extendr is to create an R package. It is recommend to create a new package using the package {usethis}.\nusethis::create_package(\"hellorust\")\nIf you are in the RStudio IDE, a new R project will be opened up for you with the file structure of a new R package.\n.\n├── DESCRIPTION\n├── NAMESPACE\n├── R\n└── hellorust.Rproj\nNow that you have a new R package, you can add extendr to it.\nrextendr::use_extendr()\nThis will add an extendr package template to the R packge. We will go through the package structure in more depth shortly.\n.\n├── DESCRIPTION\n├── NAMESPACE\n├── R\n│   └── extendr-wrappers.R\n├── hellorust.Rproj\n└── src\n    ├── Makevars\n    ├── Makevars.ucrt\n    ├── Makevars.win\n    ├── entrypoint.c\n    ├── hellorust-win.def\n    └── rust\n        ├── Cargo.toml\n        └── src\n            └── lib.rs\nInside of the file src/rust/src/lib.rs is a hello world function.\n/// Return string `\"Hello world!\"` to R.\n/// @export\n#[extendr]\nfn hello_world() -&gt; &'static str {\n    \"Hello world!\"\n}\n\n\n\n\n\n\nTip\n\n\n\nNote that roxygen2 can be used with Rust documentation comments /// instead of //.\n\n\nThe function is made available to R via the macro extendr_module!.\n// Macro to generate exports.\n// This ensures exported functions are registered with R.\n// See corresponding C code in `entrypoint.c`.\nextendr_module! {\n    mod hellorust;\n    fn hello_world;\n}\nUse the function rextendr::document() to automatically create R function wrappers to call the Rust function. This will recompile the Rust library.\nrextendr::document()\n#&gt;  rextendr::document()\n#&gt; ✔ Saving changes in the open files.\n#&gt; ℹ Generating extendr wrapper functions for package: hellorust.\n#&gt; ℹ Re-compiling hellorust (debug build)\n#&gt; .... truncated ....\n#&gt; ─  DONE (hellorust)\n#&gt; ✔ Writing 'R/extendr-wrappers.R'\n#&gt; ℹ Updating hellorust documentation\n#&gt; Writing NAMESPACE\n#&gt; ℹ Loading hellorust\n#&gt; Writing NAMESPACE\n#&gt; Writing hellorust-package.Rd\n#&gt; Writing hello_world.Rd\nThe file R/extendr-wrappers.R was updated and now contains\n#' Return string `\"Hello world!\"` to R.\n#' @export\nhello_world &lt;- function() .Call(wrap__hello_world)\nRun devtools::load_all() to make the function available to your session.\ndevtools::load_all()\n#&gt; ℹ Loading hellorust\nThe package hellorust has been loaded and now you can run hello_world()\nhello_world()\n#&gt; \"Hello world!\"",
+    "crumbs": [
+      "User Guide",
+      "R Packages",
+      "Package Setup"
+    ]
   },
   {
     "objectID": "user-guide/complete-example.html",
@@ -134,157 +243,6 @@
     "crumbs": [
       "User Guide",
       "A Complete Example"
-    ]
-  },
-  {
-    "objectID": "user-guide/index.html",
-    "href": "user-guide/index.html",
-    "title": "User Guide",
-    "section": "",
-    "text": "~~~ THIS IS A WORK IN PROGRESS!!! ~~~\nThis user guide serves two primary functions:\nGiven these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.",
-    "crumbs": [
-      "User Guide"
-    ]
-  },
-  {
-    "objectID": "user-guide/index.html#whats-in-this-guide",
-    "href": "user-guide/index.html#whats-in-this-guide",
-    "title": "User Guide",
-    "section": "What’s in this guide?",
-    "text": "What’s in this guide?\nWe’re working on that…",
-    "crumbs": [
-      "User Guide"
-    ]
-  },
-  {
-    "objectID": "user-guide/index.html#whats-not-in-this-guide",
-    "href": "user-guide/index.html#whats-not-in-this-guide",
-    "title": "User Guide",
-    "section": "What’s not in this guide?",
-    "text": "What’s not in this guide?\nThis book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be “The Book”.\nThis book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably R Packages (2e). As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.",
-    "crumbs": [
-      "User Guide"
-    ]
-  },
-  {
-    "objectID": "user-guide/type-mapping/vectors.html",
-    "href": "user-guide/type-mapping/vectors.html",
-    "title": "Vector Type Mapping",
-    "section": "",
-    "text": "What happens if we try to pass more than one value to scalar_double()?\n\nscalar_double(c(4.2, 1.3, 2.5))\n#&gt; Error in scalar_double(c(4.2, 1.3, 2.5)): Expected Scalar, got Doubles\n\nIt errors because the function expects a scalar of the f64 type, not a vector of f64.\nIn this section, we show you how to pass Rust vectors between R and Rust.\n\n\n\n\n\n\nImportant\n\n\n\nWhile using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.\n\n\nThe syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.\nFor reference, below are the type of Rust vectors that can be utilized with extendr.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger()\nIntegers\nVec&lt;i32&gt;\n\n\ndouble()\nDoubles\nVec&lt;f64&gt;\n\n\ncomplex()\nComplexes\nVec&lt;Complex&lt;f64&gt;&gt;\n\n\ncharacter()\nStrings\nVec&lt;String&gt;\n\n\nraw()\nRaw\n&[u8]\n\n\nlogical()\nLogicals\n\n\n\nlist()\nList\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou might have anticipated Vec&lt;bool&gt; to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain only true and false like Rust’s bool type. They also can be an NA value which has no corresponding representation in Rust.\n\n\nBelow defines Rust function which takes in a vector of f64 values and prints them out.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) {\n    rprintln!(\"The values of x are {x:?}\");\n}\n\nThat function can be called from R which prints the Debug format of the vector.\n\n\n\n\n\n\nTip\n\n\n\nRust’s vector do not implement the Display trait so the debug format (:?) is used.\n\n\n\nvector_double(c(4.2, 1.3, 2.5))\n#&gt; The values of x are [4.2, 1.3, 2.5]\n\nReturning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a ;.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) -&gt; Vec&lt;f64&gt; { \n    x \n}\n\nCalling the function returns the input as a double vector\n\nx &lt;- vector_double(c(4.2, 1.3, 2.5))\ntypeof(x)\n#&gt; [1] \"double\"\nx + 1\n#&gt; [1] 5.2 2.3 3.5\n\n\n\nThese same principles can be extended to other supported vector types such as Vec&lt;i32&gt; and Vec&lt;String&gt;.\n\n#[extendr]\nfn vector_integer(x: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { \n    x\n}\n\n#[extendr]\nfn vector_character(x: Vec&lt;String&gt;) -&gt; Vec&lt;String&gt; {\n    x \n}\n\n\nvector_integer(c(4L, 6L, 8L))\n#&gt; [1] 4 6 8\n\nvector_character(c(\"Hello world!\", \"Hello extendr!\", \"Hello R!\"))\n#&gt; [1] \"Hello world!\"   \"Hello extendr!\" \"Hello R!\"",
-    "crumbs": [
-      "User Guide",
-      "Type Mapping",
-      "Vector Type Mapping"
-    ]
-  },
-  {
-    "objectID": "user-guide/type-mapping/vectors.html#vector-type-mapping-with-rust-types",
-    "href": "user-guide/type-mapping/vectors.html#vector-type-mapping-with-rust-types",
-    "title": "Vector Type Mapping",
-    "section": "",
-    "text": "What happens if we try to pass more than one value to scalar_double()?\n\nscalar_double(c(4.2, 1.3, 2.5))\n#&gt; Error in scalar_double(c(4.2, 1.3, 2.5)): Expected Scalar, got Doubles\n\nIt errors because the function expects a scalar of the f64 type, not a vector of f64.\nIn this section, we show you how to pass Rust vectors between R and Rust.\n\n\n\n\n\n\nImportant\n\n\n\nWhile using a Rust vector is possible in some cases, it is strongly not recommended. Instead, extendr types should be used as they provide access directly to R objectes. Whereas using Rust vectors requires additional allocations.\n\n\nThe syntax is basically the same as with scalars, with just some minor changes. We’ll use doubles again to demonstrate this.\nFor reference, below are the type of Rust vectors that can be utilized with extendr.\n\n\n\nR type\nextendr type\nRust type\n\n\n\n\ninteger()\nIntegers\nVec&lt;i32&gt;\n\n\ndouble()\nDoubles\nVec&lt;f64&gt;\n\n\ncomplex()\nComplexes\nVec&lt;Complex&lt;f64&gt;&gt;\n\n\ncharacter()\nStrings\nVec&lt;String&gt;\n\n\nraw()\nRaw\n&[u8]\n\n\nlogical()\nLogicals\n\n\n\nlist()\nList\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou might have anticipated Vec&lt;bool&gt; to be a supported Rust vector type. This is not possible because in R, logical vectors do not contain only true and false like Rust’s bool type. They also can be an NA value which has no corresponding representation in Rust.\n\n\nBelow defines Rust function which takes in a vector of f64 values and prints them out.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) {\n    rprintln!(\"The values of x are {x:?}\");\n}\n\nThat function can be called from R which prints the Debug format of the vector.\n\n\n\n\n\n\nTip\n\n\n\nRust’s vector do not implement the Display trait so the debug format (:?) is used.\n\n\n\nvector_double(c(4.2, 1.3, 2.5))\n#&gt; The values of x are [4.2, 1.3, 2.5]\n\nReturning values using Rust follows the same rules as R. You do not need to explicitly return a value as long as the last item in an expression is not followed by a ;.\n\n#[extendr]\nfn vector_double(x: Vec&lt;f64&gt;) -&gt; Vec&lt;f64&gt; { \n    x \n}\n\nCalling the function returns the input as a double vector\n\nx &lt;- vector_double(c(4.2, 1.3, 2.5))\ntypeof(x)\n#&gt; [1] \"double\"\nx + 1\n#&gt; [1] 5.2 2.3 3.5\n\n\n\nThese same principles can be extended to other supported vector types such as Vec&lt;i32&gt; and Vec&lt;String&gt;.\n\n#[extendr]\nfn vector_integer(x: Vec&lt;i32&gt;) -&gt; Vec&lt;i32&gt; { \n    x\n}\n\n#[extendr]\nfn vector_character(x: Vec&lt;String&gt;) -&gt; Vec&lt;String&gt; {\n    x \n}\n\n\nvector_integer(c(4L, 6L, 8L))\n#&gt; [1] 4 6 8\n\nvector_character(c(\"Hello world!\", \"Hello extendr!\", \"Hello R!\"))\n#&gt; [1] \"Hello world!\"   \"Hello extendr!\" \"Hello R!\"",
-    "crumbs": [
-      "User Guide",
-      "Type Mapping",
-      "Vector Type Mapping"
-    ]
-  },
-  {
-    "objectID": "user-guide/r-pkgs/package-structure.html",
-    "href": "user-guide/r-pkgs/package-structure.html",
-    "title": "Project Structure",
-    "section": "",
-    "text": "A extendr-powered R package has a fairly unique structure. This section briefly outlines the structure of an extendr package and the important files.\nextendr works by creating a Rust library crate in src/rust that is defined by src/rust/Cargo.toml.\nNote the crate-type = [ 'staticlib' ]. When this library is compiled, it creates a static library which can then be called from R.",
-    "crumbs": [
-      "User Guide",
-      "R Packages",
-      "Project Structure"
-    ]
-  },
-  {
-    "objectID": "user-guide/r-pkgs/package-structure.html#controlling-exports-to-r-lib.rs",
-    "href": "user-guide/r-pkgs/package-structure.html#controlling-exports-to-r-lib.rs",
-    "title": "Project Structure",
-    "section": "Controlling exports to R: lib.rs",
-    "text": "Controlling exports to R: lib.rs\nThe lib.rs file determines what will be exposed to your R package. The extendr_module! macro in lib.rs controls what will have wrappers provided to your R package.\nextendr_module! {\n    mod hellorust;\n    fn hello_world;\n}\nThe mod hellorust is the name of the R package. Additional functions, impls, and modules can also be added to this macro.",
-    "crumbs": [
-      "User Guide",
-      "R Packages",
-      "Project Structure"
-    ]
-  },
-  {
-    "objectID": "user-guide/r-pkgs/package-structure.html#building-the-package-makevars",
-    "href": "user-guide/r-pkgs/package-structure.html#building-the-package-makevars",
-    "title": "Project Structure",
-    "section": "Building the package: Makevars",
-    "text": "Building the package: Makevars\nWhen creating an R package that uses compiled code, a file called Makevars is used.\n\n\n\n\n\n\nNote\n\n\n\nSee Using Makevars in Writing R Extensions for a thorough discussion.\n\n\nMakevars is used as a preprocessing step for compiling an R package. The files Makevars and Makevars.win compile the Rust library in src/rust, and link to the library.\n\n\n\n\n\n\nTip\n\n\n\nMakevars is used for *nix operating systems and Makevars.win is used for Windows.",
-    "crumbs": [
-      "User Guide",
-      "R Packages",
-      "Project Structure"
-    ]
-  },
-  {
-    "objectID": "CONTRIBUTING.html",
-    "href": "CONTRIBUTING.html",
-    "title": "Contributing",
-    "section": "",
-    "text": "We welcome contributions to the extendr project. Contributions come in many forms. Please carefully read and follow these guidelines. This will help us make the contribution process easy and effective for everyone involved. It also communicates that you agree to respect the time of the developers managing and developing this project.\n\n\n\nCode of Conduct\nGetting Started\n\nIssues\nPull Requests\n\nGetting Help\nAuthorship\nAttribution\n\n\n\n\nWe take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our Code of Conduct.\n\n\n\nContributions can be made via Issues and Pull Requests (PRs). A few general guidelines cover both:\n\nPlease search for existing Issues and PRs before creating your own.\nWe work hard to makes sure issues are handled in a timely manner but, depending on the problem and maintainer availability, it could take a while to investigate the problem. A friendly ping in the comment thread can help draw attention if an issue has not received any attention for a while. Please keep in mind that all contributors to this project are volunteers and may have other commitments they need to attend to.\n\n\n\nIssues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. Please do not use Issues to request user support.\nWhenever possible, please provide a minimal reproducible example (reprex) to any bug report that you are filing. The more minimal your example, the more likely that somebody else can figure out what the problem is, so please remove any code that isn’t relevant to the problem you are reporting.\nPlease keep issues focused on one particular problem. Don’t feel shy about opening multiple issues if you’re encountering more than one problem.\nIf you find an Issue that addresses the problem you’re having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a reaction can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.\n\n\n\nPRs are always welcome and can be a quick way to get your fix or improvement slated for the next release. However, please always open an Issue before submitting a PR.\nIn general, PRs should:\n\nAddress a single concern in the least number of changed lines as possible.\nOnly fix/add the functionality in question OR address wide-spread whitespace/style issues, not both.\nAdd unit or integration tests for fixed or changed functionality.\nInclude documentation.\nIndicate which Issue they address by using the words Closes #&lt;issue number&gt; or Fixes #&lt;issue number&gt; in the body of the PR and/or the git commit message. (See the GitHub Documentation for details about linking PRs to Issues and automatically closing Issues when merging PRs.)\n\nIn general, we follow the GitHub flow development model:\n\nFork the repository to your own Github account\nClone the project to your machine\nCreate a branch locally with a succinct but descriptive name\nCommit changes to the branch\nPush changes to your fork\nOpen a PR in our repository and follow the PR template so that we can efficiently review the changes.\n\n\n\n\n\nPlease join us on our Discord server for general conversations and questions that don’t belong into a GitHub issue.\n\n\n\nContributors who have made multiple, sustained, and/or non-trivial contributions to the project may be added to the author list. New author names will always be added at the end of the list, so that author order reflects chronological order of joining the project. All authorship decisions are at the discretion of the current maintainers of the project.\n\n\n\nThis document was adapted from the General Contributing Guidelines of the auth0 project."
-  },
-  {
-    "objectID": "CONTRIBUTING.html#quicklinks",
-    "href": "CONTRIBUTING.html#quicklinks",
-    "title": "Contributing",
-    "section": "",
-    "text": "Code of Conduct\nGetting Started\n\nIssues\nPull Requests\n\nGetting Help\nAuthorship\nAttribution"
-  },
-  {
-    "objectID": "CONTRIBUTING.html#code-of-conduct",
-    "href": "CONTRIBUTING.html#code-of-conduct",
-    "title": "Contributing",
-    "section": "",
-    "text": "We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our Code of Conduct."
-  },
-  {
-    "objectID": "CONTRIBUTING.html#getting-started",
-    "href": "CONTRIBUTING.html#getting-started",
-    "title": "Contributing",
-    "section": "",
-    "text": "Contributions can be made via Issues and Pull Requests (PRs). A few general guidelines cover both:\n\nPlease search for existing Issues and PRs before creating your own.\nWe work hard to makes sure issues are handled in a timely manner but, depending on the problem and maintainer availability, it could take a while to investigate the problem. A friendly ping in the comment thread can help draw attention if an issue has not received any attention for a while. Please keep in mind that all contributors to this project are volunteers and may have other commitments they need to attend to.\n\n\n\nIssues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. Please do not use Issues to request user support.\nWhenever possible, please provide a minimal reproducible example (reprex) to any bug report that you are filing. The more minimal your example, the more likely that somebody else can figure out what the problem is, so please remove any code that isn’t relevant to the problem you are reporting.\nPlease keep issues focused on one particular problem. Don’t feel shy about opening multiple issues if you’re encountering more than one problem.\nIf you find an Issue that addresses the problem you’re having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a reaction can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.\n\n\n\nPRs are always welcome and can be a quick way to get your fix or improvement slated for the next release. However, please always open an Issue before submitting a PR.\nIn general, PRs should:\n\nAddress a single concern in the least number of changed lines as possible.\nOnly fix/add the functionality in question OR address wide-spread whitespace/style issues, not both.\nAdd unit or integration tests for fixed or changed functionality.\nInclude documentation.\nIndicate which Issue they address by using the words Closes #&lt;issue number&gt; or Fixes #&lt;issue number&gt; in the body of the PR and/or the git commit message. (See the GitHub Documentation for details about linking PRs to Issues and automatically closing Issues when merging PRs.)\n\nIn general, we follow the GitHub flow development model:\n\nFork the repository to your own Github account\nClone the project to your machine\nCreate a branch locally with a succinct but descriptive name\nCommit changes to the branch\nPush changes to your fork\nOpen a PR in our repository and follow the PR template so that we can efficiently review the changes."
-  },
-  {
-    "objectID": "CONTRIBUTING.html#getting-help",
-    "href": "CONTRIBUTING.html#getting-help",
-    "title": "Contributing",
-    "section": "",
-    "text": "Please join us on our Discord server for general conversations and questions that don’t belong into a GitHub issue."
-  },
-  {
-    "objectID": "CONTRIBUTING.html#authorship",
-    "href": "CONTRIBUTING.html#authorship",
-    "title": "Contributing",
-    "section": "",
-    "text": "Contributors who have made multiple, sustained, and/or non-trivial contributions to the project may be added to the author list. New author names will always be added at the end of the list, so that author order reflects chronological order of joining the project. All authorship decisions are at the discretion of the current maintainers of the project."
-  },
-  {
-    "objectID": "CONTRIBUTING.html#attribution",
-    "href": "CONTRIBUTING.html#attribution",
-    "title": "Contributing",
-    "section": "",
-    "text": "This document was adapted from the General Contributing Guidelines of the auth0 project."
-  },
-  {
-    "objectID": "user-guide/r-pkgs/package-setup.html",
-    "href": "user-guide/r-pkgs/package-setup.html",
-    "title": "Package Setup",
-    "section": "",
-    "text": "Once you have Rust and {rextendr} installed, you can begin creating Rust-powered R packages.\nThe first step to using extendr is to create an R package. It is recommend to create a new package using the package {usethis}.\nusethis::create_package(\"hellorust\")\nIf you are in the RStudio IDE, a new R project will be opened up for you with the file structure of a new R package.\n.\n├── DESCRIPTION\n├── NAMESPACE\n├── R\n└── hellorust.Rproj\nNow that you have a new R package, you can add extendr to it.\nrextendr::use_extendr()\nThis will add an extendr package template to the R packge. We will go through the package structure in more depth shortly.\n.\n├── DESCRIPTION\n├── NAMESPACE\n├── R\n│   └── extendr-wrappers.R\n├── hellorust.Rproj\n└── src\n    ├── Makevars\n    ├── Makevars.ucrt\n    ├── Makevars.win\n    ├── entrypoint.c\n    ├── hellorust-win.def\n    └── rust\n        ├── Cargo.toml\n        └── src\n            └── lib.rs\nInside of the file src/rust/src/lib.rs is a hello world function.\n/// Return string `\"Hello world!\"` to R.\n/// @export\n#[extendr]\nfn hello_world() -&gt; &'static str {\n    \"Hello world!\"\n}\n\n\n\n\n\n\nTip\n\n\n\nNote that roxygen2 can be used with Rust documentation comments /// instead of //.\n\n\nThe function is made available to R via the macro extendr_module!.\n// Macro to generate exports.\n// This ensures exported functions are registered with R.\n// See corresponding C code in `entrypoint.c`.\nextendr_module! {\n    mod hellorust;\n    fn hello_world;\n}\nUse the function rextendr::document() to automatically create R function wrappers to call the Rust function. This will recompile the Rust library.\nrextendr::document()\n#&gt;  rextendr::document()\n#&gt; ✔ Saving changes in the open files.\n#&gt; ℹ Generating extendr wrapper functions for package: hellorust.\n#&gt; ℹ Re-compiling hellorust (debug build)\n#&gt; .... truncated ....\n#&gt; ─  DONE (hellorust)\n#&gt; ✔ Writing 'R/extendr-wrappers.R'\n#&gt; ℹ Updating hellorust documentation\n#&gt; Writing NAMESPACE\n#&gt; ℹ Loading hellorust\n#&gt; Writing NAMESPACE\n#&gt; Writing hellorust-package.Rd\n#&gt; Writing hello_world.Rd\nThe file R/extendr-wrappers.R was updated and now contains\n#' Return string `\"Hello world!\"` to R.\n#' @export\nhello_world &lt;- function() .Call(wrap__hello_world)\nRun devtools::load_all() to make the function available to your session.\ndevtools::load_all()\n#&gt; ℹ Loading hellorust\nThe package hellorust has been loaded and now you can run hello_world()\nhello_world()\n#&gt; \"Hello world!\"",
-    "crumbs": [
-      "User Guide",
-      "R Packages",
-      "Package Setup"
     ]
   },
   {
@@ -420,18 +378,53 @@
     ]
   },
   {
-    "objectID": "faq.html",
-    "href": "faq.html",
-    "title": "Frequently Asked Questions",
+    "objectID": "CONTRIBUTING.html",
+    "href": "CONTRIBUTING.html",
+    "title": "Contributing",
     "section": "",
-    "text": "What can I use extendr for?\n\n\nHow do I install extendr?\n\n\nWho are the developers of extendr?\nAuthors and maintainers include:\n\nAmy Thomason (author and creator, @andy-thomason)\nMossa M. Reimert (author and maintainer, @CGMossa)\nClaus O. Wilke (author, @clauswilke)\nHiroaki Yutani (author, @yutannihilation)\nIlia Kosenkov (author and maintainer, @Ilia-Kosenkov)\nDaniel Falbel (author, @dfalbel)\nJosiah Parry (maintainer, @JosiahParry)"
+    "text": "We welcome contributions to the extendr project. Contributions come in many forms. Please carefully read and follow these guidelines. This will help us make the contribution process easy and effective for everyone involved. It also communicates that you agree to respect the time of the developers managing and developing this project.\n\n\n\nCode of Conduct\nGetting Started\n\nIssues\nPull Requests\n\nGetting Help\nAuthorship\nAttribution\n\n\n\n\nWe take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our Code of Conduct.\n\n\n\nContributions can be made via Issues and Pull Requests (PRs). A few general guidelines cover both:\n\nPlease search for existing Issues and PRs before creating your own.\nWe work hard to makes sure issues are handled in a timely manner but, depending on the problem and maintainer availability, it could take a while to investigate the problem. A friendly ping in the comment thread can help draw attention if an issue has not received any attention for a while. Please keep in mind that all contributors to this project are volunteers and may have other commitments they need to attend to.\n\n\n\nIssues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. Please do not use Issues to request user support.\nWhenever possible, please provide a minimal reproducible example (reprex) to any bug report that you are filing. The more minimal your example, the more likely that somebody else can figure out what the problem is, so please remove any code that isn’t relevant to the problem you are reporting.\nPlease keep issues focused on one particular problem. Don’t feel shy about opening multiple issues if you’re encountering more than one problem.\nIf you find an Issue that addresses the problem you’re having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a reaction can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.\n\n\n\nPRs are always welcome and can be a quick way to get your fix or improvement slated for the next release. However, please always open an Issue before submitting a PR.\nIn general, PRs should:\n\nAddress a single concern in the least number of changed lines as possible.\nOnly fix/add the functionality in question OR address wide-spread whitespace/style issues, not both.\nAdd unit or integration tests for fixed or changed functionality.\nInclude documentation.\nIndicate which Issue they address by using the words Closes #&lt;issue number&gt; or Fixes #&lt;issue number&gt; in the body of the PR and/or the git commit message. (See the GitHub Documentation for details about linking PRs to Issues and automatically closing Issues when merging PRs.)\n\nIn general, we follow the GitHub flow development model:\n\nFork the repository to your own Github account\nClone the project to your machine\nCreate a branch locally with a succinct but descriptive name\nCommit changes to the branch\nPush changes to your fork\nOpen a PR in our repository and follow the PR template so that we can efficiently review the changes.\n\n\n\n\n\nPlease join us on our Discord server for general conversations and questions that don’t belong into a GitHub issue.\n\n\n\nContributors who have made multiple, sustained, and/or non-trivial contributions to the project may be added to the author list. New author names will always be added at the end of the list, so that author order reflects chronological order of joining the project. All authorship decisions are at the discretion of the current maintainers of the project.\n\n\n\nThis document was adapted from the General Contributing Guidelines of the auth0 project."
   },
   {
-    "objectID": "blog/index.html",
-    "href": "blog/index.html",
-    "title": "extendr Blog",
+    "objectID": "CONTRIBUTING.html#quicklinks",
+    "href": "CONTRIBUTING.html#quicklinks",
+    "title": "Contributing",
     "section": "",
-    "text": "Migration guide for extendr 0.7.0\n\n\n\n\n\n\nRelease\n\n\nUpdates\n\n\n\nA new version of extendr has arrived, so we explain how to address major changes. \n\n\n\n\n\nJun 30, 2024\n\n\nJosiah Parry\n\n\n\n\n\n\nNo matching items"
+    "text": "Code of Conduct\nGetting Started\n\nIssues\nPull Requests\n\nGetting Help\nAuthorship\nAttribution"
+  },
+  {
+    "objectID": "CONTRIBUTING.html#code-of-conduct",
+    "href": "CONTRIBUTING.html#code-of-conduct",
+    "title": "Contributing",
+    "section": "",
+    "text": "We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our Code of Conduct."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#getting-started",
+    "href": "CONTRIBUTING.html#getting-started",
+    "title": "Contributing",
+    "section": "",
+    "text": "Contributions can be made via Issues and Pull Requests (PRs). A few general guidelines cover both:\n\nPlease search for existing Issues and PRs before creating your own.\nWe work hard to makes sure issues are handled in a timely manner but, depending on the problem and maintainer availability, it could take a while to investigate the problem. A friendly ping in the comment thread can help draw attention if an issue has not received any attention for a while. Please keep in mind that all contributors to this project are volunteers and may have other commitments they need to attend to.\n\n\n\nIssues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. Please do not use Issues to request user support.\nWhenever possible, please provide a minimal reproducible example (reprex) to any bug report that you are filing. The more minimal your example, the more likely that somebody else can figure out what the problem is, so please remove any code that isn’t relevant to the problem you are reporting.\nPlease keep issues focused on one particular problem. Don’t feel shy about opening multiple issues if you’re encountering more than one problem.\nIf you find an Issue that addresses the problem you’re having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a reaction can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.\n\n\n\nPRs are always welcome and can be a quick way to get your fix or improvement slated for the next release. However, please always open an Issue before submitting a PR.\nIn general, PRs should:\n\nAddress a single concern in the least number of changed lines as possible.\nOnly fix/add the functionality in question OR address wide-spread whitespace/style issues, not both.\nAdd unit or integration tests for fixed or changed functionality.\nInclude documentation.\nIndicate which Issue they address by using the words Closes #&lt;issue number&gt; or Fixes #&lt;issue number&gt; in the body of the PR and/or the git commit message. (See the GitHub Documentation for details about linking PRs to Issues and automatically closing Issues when merging PRs.)\n\nIn general, we follow the GitHub flow development model:\n\nFork the repository to your own Github account\nClone the project to your machine\nCreate a branch locally with a succinct but descriptive name\nCommit changes to the branch\nPush changes to your fork\nOpen a PR in our repository and follow the PR template so that we can efficiently review the changes."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#getting-help",
+    "href": "CONTRIBUTING.html#getting-help",
+    "title": "Contributing",
+    "section": "",
+    "text": "Please join us on our Discord server for general conversations and questions that don’t belong into a GitHub issue."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#authorship",
+    "href": "CONTRIBUTING.html#authorship",
+    "title": "Contributing",
+    "section": "",
+    "text": "Contributors who have made multiple, sustained, and/or non-trivial contributions to the project may be added to the author list. New author names will always be added at the end of the list, so that author order reflects chronological order of joining the project. All authorship decisions are at the discretion of the current maintainers of the project."
+  },
+  {
+    "objectID": "CONTRIBUTING.html#attribution",
+    "href": "CONTRIBUTING.html#attribution",
+    "title": "Contributing",
+    "section": "",
+    "text": "This document was adapted from the General Contributing Guidelines of the auth0 project."
   },
   {
     "objectID": "changelog.html",
@@ -481,5 +474,12 @@
     "title": "Changelog",
     "section": "",
     "text": "Fix build on Windows and MacOS."
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "extendr Blog",
+    "section": "",
+    "text": "Migration guide for extendr 0.7.0\n\n\n\n\n\n\nRelease\n\n\nUpdates\n\n\n\nA new version of extendr has arrived, so we explain how to address major changes. \n\n\n\n\n\nJun 30, 2024\n\n\nJosiah Parry\n\n\n\n\n\n\nNo matching items"
   }
 ]
