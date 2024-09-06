@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://extendr.github.io/index.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/get-started.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/blog/index.html</loc>
-    <lastmod>2024-08-30T01:02:22.965Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/index.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/r-pkgs/package-setup.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/type-mapping/extendr-macro.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/type-mapping/scalars.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/type-mapping/characters.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/faq.html</loc>
-    <lastmod>2024-08-30T01:02:22.965Z</lastmod>
-  </url>
-  <url>
     <loc>https://extendr.github.io/changelog.html</loc>
-    <lastmod>2024-08-30T01:02:22.965Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/type-mapping/missing-values.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/type-mapping/vectors.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/complete-example.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
-  </url>
-  <url>
-    <loc>https://extendr.github.io/user-guide/r-pkgs/package-structure.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/error-handling/basic-error-handling.html</loc>
-    <lastmod>2024-08-30T01:02:22.969Z</lastmod>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/r-pkgs/package-setup.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/complete-example.html</loc>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/missing-values.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/characters.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/index.html</loc>
-    <lastmod>2024-08-30T01:02:22.965Z</lastmod>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/get-started.html</loc>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/CONTRIBUTING.html</loc>
-    <lastmod>2024-08-30T01:02:22.965Z</lastmod>
+    <lastmod>2024-09-06T01:02:37.616Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/faq.html</loc>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/blog/index.html</loc>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/scalars.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/extendr-macro.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/type-mapping/vectors.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/r-pkgs/package-structure.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/user-guide/index.html</loc>
+    <lastmod>2024-09-06T01:02:37.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://extendr.github.io/index.html</loc>
+    <lastmod>2024-09-06T01:02:37.620Z</lastmod>
   </url>
 </urlset>
