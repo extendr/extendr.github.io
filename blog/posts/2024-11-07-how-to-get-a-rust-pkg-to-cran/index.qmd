@@ -1,0 +1,207 @@
+---
+title: "How to get a Rust-based Package to CRAN"
+description: |
+  This blog entry outlines the journey to get a Rust-based package to CRAN.
+author: David Zimmermann-Kollenda
+date: "11/07/2024"
+image: images/extendr-release-070.png
+image-alt: "The extendr logo, letter R in middle of gear."
+categories: [CRAN, Package, Best-Practices, rtiktoken]
+---
+
+I finally did it: I published a Rust-based package on CRAN.
+There where a couple of gotchas that I ran into, which I wanted to document here, so that your journey might be a bit faster and easier.
+
+Before I highlight what I learned, allow me to ~self-promote the backage~ talk a bit about the package first.
+
+
+## The `rtiktoken` Package
+
+If you haven't been living under a rock in the last couple of years, you will have heard about the new AI revolution using large language models and more specifically GPT models such as OpenAI's ChatGPT models, which are impressively good at dealing with text.
+
+What might surprise you, is that it's basically impossible to do math with text and in the end, these models are "just" doing (very large) [matrix multiplications](https://xkcd.com/1838/).
+Now you might be wondering how it is possible that these mathematical models are so good at text.
+The answer lies in encoding the text into numbers (or to use fancy terms: "tokens").
+That is, instead of using "I like Rust and R.", the LLMs would see something like the following `40, 1299, 56665, 326, 460, 13`, which it can use in its calculations.
+
+Why would I care about tokens?
+As you might be aware, most models have a hard cut in terms of content size, called context window.
+That is, it can only deal with text less than a fixed number of tokens in size.
+For example, OpenAI's GPT4o has a context window of 128,000 tokens ([source](https://platform.openai.com/docs/models/gpt-4o#gpt-4o)).
+That might seem plenty, but if you have large texts, you might want to know in advance if it will fail.
+Also, you pay per token on most platforms, it's a good idea to know how expensive a call to an LLM is going to be.
+
+Transforming the text into the tokens is done by using a *tokenizer*, which is more or less a direct mapping of strings to integers.
+What is even better is that these mappings/tokenizers are open sourced by OpenAI and can be used locally and there are multiple packages that allow you to do this offline.
+These packages are for example the original and official OpenAI python package [`tiktoken`](https://github.com/openai/tiktoken) or implementations in other languages such as [`tiktoken-rs`](https://github.com/zurawiki/tiktoken-rs), or [`tiktoken-go`](https://github.com/pkoukk/tiktoken-go).
+Unfortunately, there ~is~ was no R package that does this.
+
+But you might guess where this is leading.
+Thanks to the `rextendr` package, it's really easy to create an R wrapper around Rust crates and eventually release it to CRAN.
+So this is what I did.
+Introducing the [`rtiktoken`](https://github.com/DavZim/rtiktoken) package, which is a simple wrapper around the [`tiktoken-rs`](https://github.com/zurawiki/tiktoken-rs) crate and as of 2024-11-06 lives on CRAN.
+
+Before I go into a couple of details that helped me to achieve this, I wanted to quickly show you the output and functionality of the package.
+The usage of the package is as easy as the following:
+
+```r
+# install.packages("rtiktoken")
+library(rtiktoken)
+
+text <- "I like Rust and R."
+# note we have to specify which tokenizer we want to use
+# GPT-4o uses the o200k_base tokenizer, we can use either name here
+tokens <-  get_tokens(text, "gpt-4o")
+tokens
+#> [1]    40  1299 56665   326   460    13
+
+decode_tokens(tokens, "gpt-4o")
+#> [1] "I like Rust and R."
+
+get_token_count(c("I like Rust and R.", "extendr rocks"), "gpt-4o")
+#> [1] 6 3
+```
+
+OK, enough of this, how does it work and what did I learn?
+
+
+## The Process of Getting a Package to CRAN
+
+To get a package to CRAN, we first need to create the package and install a couple of development dependencies: `rextendr`, `devtools`, `usethis`. 
+
+
+### 1. Creating a Package
+
+Once we have a typical R package directory and file structure, we need to add the Rust structure as well.
+The easiest way is to use the packages [`devtools`](https://devtools.r-lib.org/) and [`usethis`](https://usethis.r-lib.org/):
+
+```r
+# create the basic folder structure of a package
+devtools::create("myRpkg")
+# make sure the following are executed from the new package
+setwd("myRpkg")
+# set license to MIT
+usethis::use_mit_license()
+# use RMarkdown for Readme
+usethis::use_readme_rmd()
+# use NEWS.md
+usethis::use_news_md()
+# use cran-comments.md - will be important later
+usethis::use_cran_comments()
+```
+
+And with this we should have the basic R package.
+
+A little bit of foreshadowing, but we will have to edit our `DESCRIPTION` file and add the right level of detail for our package, such as author, description, URLs etc.
+
+
+### 2. Add Rust as a Dependency
+
+Similar to the `usethis` package, there is the `rextendr` package that makes this step pretty straight forward.
+
+```r
+rextendr::use_extendr()
+```
+
+This will create the required files in `src/` and `src/rust`.
+
+As the command tells us, whenever we update our Rust code, we should run the following to document the code and build the Rust-parts.
+
+```r
+rextendr::document()
+# if we have changed our R-code and its documentation
+# we need the following as well
+devtools::document()
+```
+
+And we should be ready to go and call our default Rust function `hello_world()` (defined in `src/rust/src/lib.rs`).
+
+The actual R and Rust functions are typically the easiest parts of developing a package.
+If you need a good starter, have a look here, eg [`R/get_tokens.R`](https://github.com/DavZim/rtiktoken/blob/master/R/get_tokens.R) as well as [`src/rust/src/lib.rs`](https://github.com/DavZim/rtiktoken/blob/master/src/rust/src/lib.rs) (as we can see, I didn't lie when I said it's a *light* wrapper...).
+
+If we need to add a Rust dependency, we can use `rextendr::use_crate()` or use `cargo add xyz` directly from the `src/rust` directory.
+
+Now on to the "hard" parts.
+
+
+### 3. Get the Package to CRAN
+
+First, we need to make sure that the usual hurdles are met, see also the [R Packages (2e) Book](https://r-pkgs.org/).
+
+- document our functions using [`roxygen2`](https://roxygen2.r-lib.org/) and create the documentation using `devtools::document()`
+- fill the details of our `DESCRIPTION` file, write the `README.Rmd` and knit to `README.md`
+- use [`testthat`](https://testthat.r-lib.org/) and write tests (not strictly needed, but will most likely safe us in the future!)
+- ... other steps that are typically done in R package development
+- make sure `devtools::check()` works without a NOTE
+
+There are however a couple of CRAN-specific rules and best practices for packages using Rust (see also [Using Rust in CRAN Packages](https://cran.r-project.org/web/packages/using_rust.html)).
+Most of these requirements are already met, but there are a couple of must-haves and nice-to-haves.
+
+Note that some of the following `rextendr` functions are currently only available in the development version of `rextendr` (>0.3.1).
+
+
+#### CRAN Defaults
+
+First, we should tell `rextendr`, that we want to use the CRAN standards.
+For example, `Makevars` for different platforms, etc.
+We achieve this by calling
+
+```r
+rextendr::use_cran_defaults()
+```
+
+
+#### MSRV
+
+Then, we should find and record our MSRV (Minimal Supported Rust Version).
+Luckily, there is the [`cargo-msrv`](https://github.com/foresterre/cargo-msrv) crate, which tells us what our MSRV is.
+To find our MSRV, we can do the following (from the terminal and not from R this time):
+
+```bash
+# install the crate (won't be a dependency of our R package!)
+cargo install cargo-msrv
+# move to the rust folder and find the MSRV
+# note this might take some time...
+cd src/rust && cargo msrv find
+```
+
+After a couple of minutes (the program installs older version of Rust and checks if the package can be build), the cargo-msrv reports for me that my MSRV is "1.65.0" for this test project.
+To record this, we can use the `rextendr` package from R again:
+
+```r
+rextendr::use_msrv("1.65.0")
+```
+
+
+#### Vendor Dependencies
+
+CRAN doesn't allow the download of packages from external servers, that is we cannot download the crates from crates.io, instead we have to *vendor* the crates (ship the packages alongside our package).
+This sounds harder than it is, simply run the following and all our Rust dependencies will be archived to `src/rust/vendor.tar.xz`
+
+```r
+rextendr::vendor_pkgs()
+```
+
+
+#### License Updates
+
+As we are no longer the sole contributor to the package and ship dependencies as well, we need to update our licenses.
+Again `rextendr` has us covered (but we might have to run `cargo install cargo-license` from the terminal once before the following)
+
+```r
+rextendr::write_license_note()
+```
+
+which creates the `LICENSE.note` file with all contributors to all our Rust dependencies.
+
+
+#### CRAN Comments
+
+Last but not least, we have the aforementioned `cran-comments.md` file, which holds the comments to the CRAN maintainers (at least when we use `usethis::release()`, if we want to release the package manually on the website, we should consider adding the comments manually as well).
+
+There are a couple of things that resulted in multiple rounds between me and the CRAN maintainers, that can probably be shortened.
+
+First, mention that it is a Rust-based package, following CRAN's Rust guidelines and rextendr's best practices.
+
+Secondly, we should address the size of the package, as it might raise some comments if we have added extra crate dependencies.
+The comments I got were resolved by saying that the size comes mostly from vendored dependencies (already compressed at max compression level), otherwise the size of the package is minimized as much as possible.
