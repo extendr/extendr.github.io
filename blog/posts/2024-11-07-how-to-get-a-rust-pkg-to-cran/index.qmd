@@ -1,5 +1,5 @@
 ---
-title: "How to get a Rust-based Package to CRAN"
+title: "Introducing {rtiktoken}: encode text using OpenAIs Tokenizer"
 description: |
   This blog entry outlines the journey to get a Rust-based package to CRAN.
 author: David Zimmermann-Kollenda
