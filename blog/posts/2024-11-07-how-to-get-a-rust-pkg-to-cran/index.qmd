@@ -1,7 +1,7 @@
 ---
 title: "Introducing {rtiktoken}: encode text using OpenAIs Tokenizer"
 description: |
-  This blog entry outlines the journey to get a Rust-based package to CRAN.
+  How I published {rtiktoken} to CRAN
 author: David Zimmermann-Kollenda
 date: "11/07/2024"
 image: images/extendr-release-070.png
@@ -9,10 +9,6 @@ image-alt: "The extendr logo, letter R in middle of gear."
 categories: [CRAN, Package, Best-Practices, rtiktoken]
 ---
 
-I finally did it: I published a Rust-based package on CRAN.
-There where a couple of gotchas that I ran into, which I wanted to document here, so that your journey might be a bit faster and easier.
-
-Before I highlight what I learned, allow me to ~self-promote the backage~ talk a bit about the package first.
 
 
 ## The `rtiktoken` Package
@@ -62,7 +58,6 @@ get_token_count(c("I like Rust and R.", "extendr rocks"), "gpt-4o")
 #> [1] 6 3
 ```
 
-OK, enough of this, how does it work and what did I learn?
 
 
 ## The Process of Getting a Package to CRAN
@@ -153,8 +148,10 @@ rextendr::use_cran_defaults()
 
 #### MSRV
 
-Then, we should find and record our MSRV (Minimal Supported Rust Version).
-Luckily, there is the [`cargo-msrv`](https://github.com/foresterre/cargo-msrv) crate, which tells us what our MSRV is.
+Then, we should find and record our MSRV (Minimal Supported Rust Version). The MSRV is the minimum required 
+version of rust to be able to build the R package from source. Discovering the MSRV isn't entirely straightforward.
+Luckily, there is the [`cargo-msrv`](https://github.com/foresterre/cargo-msrv) crate, which tells us what our MSRV is. 
+Finding the MSRV involves compiling the rust source code using different versions of Rust. 
 To find our MSRV, we can do the following (from the terminal and not from R this time):
 
 ```bash
@@ -176,7 +173,7 @@ rextendr::use_msrv("1.65.0")
 #### Vendor Dependencies
 
 CRAN doesn't allow the download of packages from external servers, that is we cannot download the crates from crates.io, instead we have to *vendor* the crates (ship the packages alongside our package).
-This sounds harder than it is, simply run the following and all our Rust dependencies will be archived to `src/rust/vendor.tar.xz`
+This sounds harder than it is, simply run the following and all our Rust dependencies will be archived to `src/rust/vendor.tar.xz`.
 
 ```r
 rextendr::vendor_pkgs()
