@@ -4,11 +4,16 @@ description: |
   How I published {rtiktoken} to CRAN
 author: David Zimmermann-Kollenda
 date: "11/07/2024"
-image: images/extendr-release-070.png
+image: images/extendr-release-070.png [ ] TODO
 image-alt: "The extendr logo, letter R in middle of gear."
 categories: [CRAN, Package, Best-Practices, rtiktoken]
 ---
 
+[ ] TODO image and alt-image
+
+Im happy to announce that the [`rtiktoken`](https://github.com/DavZim/rtiktoken) package has found it's way to CRAN.
+As this was the first time that I used Rust in a real project and I am really happy with the ease of development with Rust and the `rextendr` package, I wanted to document my journey here and introduce the package and its inner workings in more detail.
+Lastly, I'll quickly talk about the journey of publishing the R package to CRAN.
 
 
 ## The `rtiktoken` Package
@@ -20,20 +25,28 @@ Now you might be wondering how it is possible that these mathematical models are
 The answer lies in encoding the text into numbers (or to use fancy terms: "tokens").
 That is, instead of using "I like Rust and R.", the LLMs would see something like the following `40, 1299, 56665, 326, 460, 13`, which it can use in its calculations.
 
-Why would I care about tokens?
+
+## Why would I care about tokens?
+
 As you might be aware, most models have a hard cut in terms of content size, called context window.
 That is, it can only deal with text less than a fixed number of tokens in size.
 For example, OpenAI's GPT4o has a context window of 128,000 tokens ([source](https://platform.openai.com/docs/models/gpt-4o#gpt-4o)).
 That might seem plenty, but if you have large texts, you might want to know in advance if it will fail.
 Also, you pay per token on most platforms, it's a good idea to know how expensive a call to an LLM is going to be.
+Another interesting use-case around text similiary is outlined below in its own section.
 
-Transforming the text into the tokens is done by using a *tokenizer*, which is more or less a direct mapping of strings to integers.
+Transforming text into tokens is done by using a *tokenizer*, which is more or less a direct mapping of strings to integers.
 What is even better is that these mappings/tokenizers are open sourced by OpenAI and can be used locally and there are multiple packages that allow you to do this offline.
 These packages are for example the original and official OpenAI python package [`tiktoken`](https://github.com/openai/tiktoken) or implementations in other languages such as [`tiktoken-rs`](https://github.com/zurawiki/tiktoken-rs), or [`tiktoken-go`](https://github.com/pkoukk/tiktoken-go).
 Unfortunately, there ~is~ was no R package that does this.
+Editor's note: there is or was the [`tok`](https://github.com/mlverse/tok) package, which at the time of writing is archived.
+The `tok` package acts as a wrapper around [Hugging Face Tokenizers](https://huggingface.co/docs/transformers/en/main_classes/tokenizer), but has no offline capabilities, instead it first needs to download the tokenizers.
+
+
+## Functionality
 
 But you might guess where this is leading.
-Thanks to the `rextendr` package, it's really easy to create an R wrapper around Rust crates and eventually release it to CRAN.
+Thanks to the wonderful `rextendr` package, it's really easy to create an R wrapper around Rust crates and eventually release it to CRAN.
 So this is what I did.
 Introducing the [`rtiktoken`](https://github.com/DavZim/rtiktoken) package, which is a simple wrapper around the [`tiktoken-rs`](https://github.com/zurawiki/tiktoken-rs) crate and as of 2024-11-06 lives on CRAN.
 
@@ -59,6 +72,91 @@ get_token_count(c("I like Rust and R.", "extendr rocks"), "gpt-4o")
 ```
 
 
+## Text Similarity Use-Cases
+
+Another really interesting use case is in the field of Natural Language Processing (NLP), which is finding similar text.
+If you want to search through a text or compare texts, oftentimes you want to do some kinds of stemming in order to have better matching.
+For example "walked" and "walked" will not be matched by classical bag-of-words approaches without stemming, because the words are not identical.
+If we use stemming, we transform the text into their base-form: "walked" and "walk".
+Therefore we can find the relation between the two.
+
+This technique is especially handy in LLM projects with large information retrieval tasks, where we often use Retrieval-Augmented-Generation (RAG), which is a technique to find an answer to a question based on a provided knowledgebase.
+That is a fancy way of saying that we have a large database of text and want to find an answer by asking a LLM and providing relevant context for the question.
+Instead of giving all text, we only provide relevant chunks of the text based on some kinds of similarity score between the database and the question/prompt.
+
+Let's give a small example.
+Given that we have the following text (= our knowledgebase),
+
+```
+"Alice likes to program using Rust and R"
+"Bob and his dog Edgar walked in the park"
+"Charlie likes to read books"
+```
+
+we want to find an answer to our question (= our prompt) "Who enjoys to go for a walk?".
+
+Let's also assume that we have a very small language model that can only deal a small number of words (or more precise: tokens) at a time, which means we cannot give all of our knowledgebase as context.
+Note as an alternative, we could assume that we don't have three entries in our knowledgebase but thousands or more.
+
+Instead we want to filter and only provide the top two closest matches of our knowledgebase.
+To find the closest matches, we can employ another technique called vector search or even better hybrid search.
+
+In a vector search we embed each entry of our knowledgebase as well as our prompt using an embedding model (see for example [OpenAI docs](https://platform.openai.com/docs/guides/embeddings)) and use a function such as cosine similarity to find the best matches between our prompt and our knowledgebase.
+
+Hybrid search enhances this technique by not only searching through the embedding space but by also searching through the "human" space using techniques such as [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) or the more advanced [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) to find the best matches.
+As a sidenote, I couldn't find a light-weight and permissive licensed R package that implements the BM25 algorithm, but I was able to create the [`rbm25`](https://github.com/DavZim/rbm25/) package alongside the `rtiktoken` package that I introduce here.
+The package is not yet on CRAN but will follow soon.
+
+Coming back to our RAG process, we now enhance the original prompt with our selected knowledge from our knowledgebase.
+Something along the lines of
+
+```
+Hey ChatGPT,
+
+{PROMPT}
+
+Only consider the following information:
+
+{TOP_N_KNOWLEDGE_MATCHES}
+```
+
+which would transform into the following when we consider only 2 context matches.
+
+```
+Hey ChatGPT,
+
+Who enjoys to go for a walk?
+
+Only consider the following information:
+
+"Bob and his dog Edgar walked in the park"
+"Alice likes to program using Rust and R"
+```
+
+This is of course simplified and better prompt engineering will produce better results, but this brings across the basics.
+
+Now coming back to why tokens are interesting here.
+Remember that I said that "walked" and "walk" are not matched on a word-level.
+The problem is without stemming, TF-IDF or BM25 will not match the words from our query to the words from the right text in our knowledgebase and the correct text might therefore be excluded from the given context, leading to incorrect or incomplete answers.
+
+If we instead transform our text as well as our knowledgebase into tokens, we can see that a match is possible, as "walked" is tokenized to `26072, 295` and "walk" is tokenized to `26072`.
+
+The full hybrid search then becomes the following:
+
+1. take our knowledgebase and calculate
+  1. embeddings, e.g., using Ada-002 from OpenAI
+  2. tokens, using `rtiktoken`
+2. on a new prompt, calculate embeddings and tokens as well
+3. find text in our knowledgebase (= context) with the highest weighted similarity scores, based on
+  1. vector similarity based on embedding scores
+  2. BM25 scores using words
+  3. BM25 scores using tokens
+4. enhance the prompt using the context
+5. ask an LLM for the answer using the enhanced prompt
+
+Note that this might be a bit over-the-top for some use-cases.
+But I have made good experience with it so-far, as this retrieves relevant information quite reliably.
+
 
 ## The Process of Getting a Package to CRAN
 
@@ -68,11 +166,11 @@ To get a package to CRAN, we first need to create the package and install a coup
 ### 1. Creating a Package
 
 Once we have a typical R package directory and file structure, we need to add the Rust structure as well.
-The easiest way is to use the packages [`devtools`](https://devtools.r-lib.org/) and [`usethis`](https://usethis.r-lib.org/):
+The easiest way is to use the packages [`usethis`](https://usethis.r-lib.org/):
 
 ```r
 # create the basic folder structure of a package
-devtools::create("myRpkg")
+usethis::create_package("myRpkg")
 # make sure the following are executed from the new package
 setwd("myRpkg")
 # set license to MIT
@@ -104,15 +202,68 @@ As the command tells us, whenever we update our Rust code, we should run the fol
 
 ```r
 rextendr::document()
-# if we have changed our R-code and its documentation
-# we need the following as well
-devtools::document()
 ```
 
 And we should be ready to go and call our default Rust function `hello_world()` (defined in `src/rust/src/lib.rs`).
 
 The actual R and Rust functions are typically the easiest parts of developing a package.
-If you need a good starter, have a look here, eg [`R/get_tokens.R`](https://github.com/DavZim/rtiktoken/blob/master/R/get_tokens.R) as well as [`src/rust/src/lib.rs`](https://github.com/DavZim/rtiktoken/blob/master/src/rust/src/lib.rs) (as we can see, I didn't lie when I said it's a *light* wrapper...).
+But to give you an example, `rtiktoken` has a function `get_tokens()` (Source available at [`R/get_tokens.R`](https://github.com/DavZim/rtiktoken/blob/master/R/get_tokens.R)), which, as we saw earlier, converts the text to the respective tokens.
+The function looks like this (note the actual function is a small wrapper around `get_tokens_internal()` for vectorized capabilities):
+
+```r
+get_tokens <- function(text, model) {
+  if (length(text) > 1) {
+    return(lapply(text, function(x) get_tokens_internal(x, model)))
+  } else {
+    get_tokens_internal(text, model)
+  }
+}
+
+get_tokens_internal <- function(text, model) {
+  res <- tryCatch(
+    rs_get_tokens(text, model),
+    error = function(e) {
+      stop(paste("Could not get tokens from text:", e))
+    }
+  )
+  res
+}
+```
+
+The main functionality is implemented in the function `rs_get_tokens()`, which is defined in [`src/rust/src/lib.rs`](https://github.com/DavZim/rtiktoken/blob/master/src/rust/src/lib.rs) and looks like this
+
+```rust
+use extendr_api::prelude::*;
+use tiktoken_rs::{
+  get_bpe_from_model,
+  get_bpe_from_tokenizer,
+  tokenizer::{
+    get_tokenizer,
+    Tokenizer,
+  }
+};
+
+// encodes text to tokens
+#[extendr]
+fn rs_get_tokens(text: &str, model: &str) -> Vec<usize> {
+    // try to load the BPE from model (gpt-4o),
+    // otherwise from tokenizer (o200k-base)
+    let bpe = match get_bpe_from_model(model) {
+        Ok(bpe) => bpe,
+        Err(_) => {
+          get_bpe_from_tokenizer(str_to_tokenizer(model))
+            .expect("Failed to get BPE from tokenizer")
+        },
+    };
+
+    let tokens = bpe.encode_with_special_tokens(text);
+    tokens
+}
+```
+
+The Rust function `str_to_tokenizer()` is omitted for brevity from this example.
+
+I think that neatly proves the point that the package is "just" a thin wrapper around the `tiktoken-rs` crate using the `extendr_api` Rust crate.
 
 If we need to add a Rust dependency, we can use `rextendr::use_crate()` or use `cargo add xyz` directly from the `src/rust` directory.
 
@@ -131,6 +282,13 @@ First, we need to make sure that the usual hurdles are met, see also the [R Pack
 
 There are however a couple of CRAN-specific rules and best practices for packages using Rust (see also [Using Rust in CRAN Packages](https://cran.r-project.org/web/packages/using_rust.html)).
 Most of these requirements are already met, but there are a couple of must-haves and nice-to-haves.
+These are:
+
+- Rust needs to be declared a system dependency
+- The rust and cargo versions must be reported before building the package
+- Rust dependencies need to be vendored (included) in the R package
+- Ensure that the minimum supported version of rust (MSRV) is available
+- Use a maximum of 2 threads to build the package
 
 Note that some of the following `rextendr` functions are currently only available in the development version of `rextendr` (>0.3.1).
 
