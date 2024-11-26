@@ -51,6 +51,7 @@ website:
         - section: "Error Handling"
           contents:
             - user-guide/error-handling/basic-error-handling.qmd
+        - user-guide/serde-integration.qmd
 
 format:
   html:

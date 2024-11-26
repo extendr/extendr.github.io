@@ -1,0 +1,261 @@
+---
+title: "`serde` integration"
+freeze: true
+---
+
+One of the most widely used rust crates is the **ser**ialization and **de**serialization crate [serde](https://serde.rs/). It enables rust developers to write their custom structs to many different file formats such as json, toml, yaml, csv, and many more as well as read directly from them.
+
+`extendr` provides a `serde` feature that can convert R objects into structs and struct into R objects. 
+
+First, modify your `Cargo.toml` to include the serde feature.
+
+```{r, include = FALSE}
+library(rextendr)
+```
+
+```{extendrsrc include=FALSE, engine.opts =  list(dependencies = list(serde = list(features = c("derive", "default"), version = "*")), features = "serde") }
+use extendr_api::prelude::*;
+use extendr_api::deserializer::from_robj;
+use extendr_api::serializer::to_robj;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Point {
+    x: f64,
+    y: f64
+}
+
+#[extendr]
+fn point_from_r(x: Robj) {
+    let point = from_robj::<Point>(&x);
+    rprintln!("{point:?}");
+}
+
+#[extendr]
+fn round_trip(x: Robj) -> Result<Robj> {
+    let point = from_robj::<Point>(&x)?;
+    to_robj(&point)
+}
+
+#[extendr]
+fn replicate_point(x: Robj, n: i32) -> Result<Robj> {
+    let point = from_robj::<Point>(&x)?;
+    let points = vec![point; n as usize];
+    to_robj(&points)
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MultiPoint {
+    x: Vec<f64>,
+    y: Vec<f64>,
+}
+
+
+#[extendr]
+fn make_multipoint(x: Robj) -> Result<()> {
+    let mpoint = from_robj::<MultiPoint>(&x)?;
+    rprintln!("{mpoint:#?}");
+    Ok(())
+}
+
+
+pub struct MPoint(Vec<Point>);
+
+impl TryFrom<Robj> for MPoint {
+    type Error = Error;
+    fn try_from(value: Robj) -> std::result::Result<Self, Self::Error> {
+        let point_df = List::try_from(&value)?;
+        let x_vec = Doubles::try_from(point_df.dollar("x")?)?;
+        let y_vec = Doubles::try_from(point_df.dollar("y")?)?;
+        let inner = x_vec.into_iter().zip(y_vec.into_iter()).map(|(x, y)| {
+                    Point {
+                        x: x.inner(),
+                        y: y.inner()
+                    }
+                }).collect::<Vec<_>>();
+        Ok(MPoint(inner))
+    }
+}
+
+#[extendr]
+fn centroid(x: MPoint) -> Result<Robj> {
+    let total = x.0.into_iter().fold((0.0, 0.0, 0.0), |mut acc, next| {
+        acc.0 += next.x;
+        acc.1 += next.y;
+        acc.2 += 1.0;
+        acc
+    });
+    let centroid = Point {
+        x: total.0 / total.2,
+        y: total.1 / total.2
+    };
+    to_robj(&centroid)
+}
+```
+
+```{toml filename="Cargo.toml"}
+#[dependenices]
+extender-api = { version = "*", features = ["serde"] }
+```
+
+For this example we will have a `Point` struct with two fields, `x`, and `y`. In your `lib.rs` include: 
+
+```{rust filename="lib.rs"}
+use extendr_api::prelude::*;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Point {
+    x: f64,
+    y: f64
+}
+```
+
+## Deserializing R objects
+
+This defines a `Point` struct. However, you may want to be able to use an R object to represent that point. To deserialize R objects into Rust, use `extendr_api::deserializer::from_robj`. For a basic example we can deserialize 
+an `Robj` into the `Point`.
+
+```{rust}
+use extendr_api::deserializer::from_robj;
+
+#[extendr]
+fn point_from_r(x: Robj) {
+    let point = from_robj::<Point>(&x);
+    rprintln!("{point:?}");
+}
+```
+
+To represent a struct, a named list has to be used. Each name must correspond with the field name of the struct. In this case these are `x` and `y`.
+
+```{r}
+point <- list(x = 3.0, y = 0.14)
+point_from_r(list(x = 3.0, y = 0.14))
+```
+
+
+## Serializing 
+
+To serialize R objects you must use `extendr_api::serializer::to_robj` this will take a serde-compatible struct and convert it into a corresponding R object. 
+
+```{rust}
+use extendr_api::prelude::*;
+use extendr_api::serializer::to_robj;
+use extendr_api::deserializer::from_robj;
+#[extendr]
+fn round_trip(x: Robj) -> Result<Robj> {
+    let point = from_robj::<Point>(&x)?;
+    to_robj(&point)
+}
+```
+
+This function will parse a list into a point and then return the `Point` as an R object as well doing a round trip deserialization and serialization process. 
+
+```{r}
+round_trip(
+  list(x = 3.0, y = 0.14)
+)
+```
+
+### Vectors of structs
+
+You may find your self wanting to deserialize many structs at once from vectors. For example, if you have a `data.frame` with 2 columns `x` and `y` you may want to deserialize this into a `Vec<Point>`. To your dismay you will find this not actually possible. 
+
+For example we can create a function `replicate_point()`.
+
+```{rust}
+#[extendr]
+fn replicate_point(x: Robj, n: i32) -> Result<Robj> {
+    let point = from_robj::<Point>(&x)?;
+    let points = vec![point; n as usize];
+    to_robj(&points)
+}
+```
+
+This will create a `Vec<Point>` with the size of `n`. If you serialize this to R you will get a list of lists where each sub-list is a named-list with elements `x` and `y`. This is expected. And is quite like how you would expect something to be serialized into json or yaml for example. 
+
+```{r}
+replicate_point(list(x = 0.14, y = 10), 3L)
+```
+
+When providing a `data.frame`, a closer analogue would be a struct with vectors for their fields like a `MultiPoint` struct 
+
+```{rust}
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MultiPoint {
+    x: Vec<f64>,
+    y: Vec<f64>,
+}
+```
+
+and for the sake of demonstration we can create a `make_multipoint()` function: 
+
+```{rust}
+#[extendr]
+fn make_multipoint(x: Robj) -> Result<()> {
+    let mpoint = from_robj::<MultiPoint>(&x)?;
+    rprintln!("{mpoint:#?}");
+    Ok(())
+}
+```
+
+This function can be used to parse a `data.frame` into a `MultiPoint`.
+
+```{r}
+make_multipoint(
+  data.frame(x = 0:2, y = 9:7)
+)
+```
+
+## Using `TryFrom` 
+
+
+One of the benefits and challenges of rust is that it requires us to be explicit. Adding another language into play makes it all the more confusing! In many cases there isn't a 1:1 mapping from Rust to R as you have seen the `Point` and `MultiPoint`. One way to simplify this would be to use a `TryFrom` trait implementation. This is discussed in more detail in another part of the user guide. 
+
+Rather than use serde to do the conversion for you, you probably want a custom `TryFrom` trait implementation. Here we define an `MPoint` tuple struct and then implement `TryFrom<Robj>` for it.
+```{rust}
+pub struct MPoint(Vec<Point>);
+
+impl TryFrom<Robj> for MPoint {
+    type Error = Error;
+    fn try_from(value: Robj) -> std::result::Result<Self, Self::Error> {
+        let point_df = List::try_from(&value)?;
+        let x_vec = Doubles::try_from(point_df.dollar("x")?)?;
+        let y_vec = Doubles::try_from(point_df.dollar("y")?)?;
+        let inner = x_vec.into_iter().zip(y_vec.into_iter()).map(|(x, y)| {
+                    Point {
+                        x: x.inner(),
+                        y: y.inner()
+                    }
+                }).collect::<Vec<_>>();
+        Ok(MPoint(inner))
+    }
+}
+```
+
+This gives us the benefit of being able to pass the struct type directly into the function. Here we create a function `centroid()` to calculate the centroid of the `MPoint` struct directly. We use `to_robj()` to convert it back to an `Robj`. 
+
+```{rust}
+#[extendr]
+fn centroid(x: MPoint) -> Result<Robj> {
+    let total = x.0.into_iter().fold((0.0, 0.0, 0.0), |mut acc, next| {
+        acc.0 += next.x;
+        acc.1 += next.y;
+        acc.2 += 1.0;
+        acc
+    });
+    let centroid = Point {
+        x: total.0 / total.2,
+        y: total.1 / total.2
+    };
+    to_robj(&centroid)
+}
+```
+
+This function can be used with a `data.frame` because we implemented the `TryFrom` trait. 
+
+```{r}
+centroid(
+  data.frame(x = rnorm(10), y = rnorm(10))
+)
+```
