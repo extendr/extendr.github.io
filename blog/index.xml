@@ -9,13 +9,14 @@
 <link>https://extendr.github.io/blog/</link>
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.6.43</generator>
+<generator>quarto-1.7.29</generator>
 <lastBuildDate>Sun, 30 Jun 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Migration guide for extendr 0.7.0</title>
   <dc:creator>Josiah Parry</dc:creator>
   <link>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/</link>
   <description><![CDATA[ 
+
 
 
 
