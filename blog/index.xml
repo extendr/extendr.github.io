@@ -9,7 +9,7 @@
 <link>https://extendr.github.io/blog/</link>
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.7.29</generator>
+<generator>quarto-1.7.30</generator>
 <lastBuildDate>Sun, 30 Jun 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Migration guide for extendr 0.7.0</title>
