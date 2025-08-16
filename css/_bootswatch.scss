@@ -1,0 +1,630 @@
+/*-- scss:defaults --*/
+// Brite 5.3.7
+// Bootswatch
+
+$theme: "brite" !default;
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #61bcff !default;
+$indigo:  #828df9 !default;
+$purple:  #be82fa !default;
+$pink:    #ea4998 !default;
+$red:     #f56565 !default;
+$orange:  #fa984a !default;
+$yellow:  #ffc700 !default;
+$green:   #68d391 !default;
+$teal:    #2ed3be !default;
+$cyan:    #22d2ed !default;
+$lime:    #a2e436 !default;
+
+$primary:       $lime !default;
+$secondary:     $white !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-200 !default;
+$dark:          $black !default;
+
+// $min-contrast-ratio:   1.75 !default;
+
+$spacer: 1rem !default;
+
+// Body
+
+// Links
+
+$link-color:                              $black !default;
+
+// Components
+
+$border-radius:               .375rem !default;
+$border-radius-sm:            .25rem !default;
+$border-radius-lg:            .5rem !default;
+
+$component-active-color:      $black !default;
+// $component-active-bg:         $black !default;
+
+$focus-ring-width:      1px !default;
+$focus-ring-opacity:    1 !default;
+$focus-ring-color:      $black !default;
+
+// Fonts
+
+$font-size-base:              .875rem !default;
+$font-size-sm:                $font-size-base * .875 !default;
+
+$lead-font-weight:            400 !default;
+
+$headings-font-weight:        500 !default;
+
+$hr-border-width:             2px !default;
+$hr-opacity:                  1 !default;
+
+// Tables
+
+$table-cell-padding-y:        .75rem !default;
+$table-cell-padding-x:        .75rem !default;
+
+$table-border-width:          1px !default;
+$table-border-color:          $black !default;
+
+$table-hover-bg-factor:       0 !default;
+
+$table-border-factor:         1 !default;
+
+$table-bg-scale:              0% !default;
+
+$table-variants: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+) !default;
+
+// Buttons + Forms
+
+$input-btn-padding-y:         .5rem !default;
+$input-btn-padding-x:         1rem !default;
+
+$input-btn-padding-y-sm:      .25rem !default;
+$input-btn-padding-x-sm:      .75rem !default;
+$input-btn-font-size-sm:      $font-size-sm !default;
+
+$input-btn-padding-y-lg:      .75rem !default;
+$input-btn-padding-x-lg:      1.25rem !default;
+$input-btn-font-size-lg:      $font-size-base !default;
+
+$input-btn-border-width:      2px !default;
+
+// Buttons
+
+$btn-border-width:            2px !default;
+
+// Forms
+
+$form-label-font-weight:                $headings-font-weight !default;
+
+$input-focus-border-color:              $black !default;
+
+$form-check-input-checked-border-color:   $black !default;
+
+$form-range-track-height:         .6rem !default;
+
+$form-range-thumb-width:                   1.2rem !default;
+$form-range-thumb-height:                  $form-range-thumb-width !default;
+$form-range-thumb-border:                  2px solid $black !default;
+$form-range-thumb-box-shadow:              none !default;
+$form-range-thumb-disabled-bg:             $light !default;
+
+// Dropdowns
+
+// $dropdown-link-hover-color:     $white !default;
+// $dropdown-link-hover-bg:        $primary !default;
+
+// Navs
+
+$nav-link-color:                    $black !default;
+$nav-link-hover-color:              $black !default;
+
+$nav-tabs-link-hover-border-color:  transparent !default;
+
+// Navbar
+
+$navbar-padding-y:                  $spacer * .75 !default;
+$navbar-padding-x:                  null !default;
+
+$navbar-nav-link-padding-x:         1rem !default;
+
+$navbar-light-color:                $black !default;
+$navbar-light-hover-color:          $black !default;
+$navbar-light-active-color:         $black !default;
+$navbar-light-disabled-color:       rgba($black, .3) !default;
+$navbar-light-icon-color:           $black !default;
+$navbar-light-toggler-border-color: $black !default;
+
+$navbar-dark-color:                $white !default;
+$navbar-dark-hover-color:          $white !default;
+$navbar-dark-active-color:         $white !default;
+$navbar-dark-disabled-color:       rgba($white, .3) !default;
+$navbar-dark-icon-color:           $white !default;
+$navbar-dark-toggler-border-color: $white !default;
+
+// Dropdowns
+
+$dropdown-border-color:             $black !default;
+$dropdown-border-width:             2px !default;
+
+$dropdown-link-hover-bg:            $primary !default;
+
+$dropdown-header-color:             $black !default;
+
+// Pagination
+
+$pagination-color:                  $black !default;
+$pagination-hover-color:            $black !default;
+$pagination-hover-bg:               transparent !default;
+$pagination-active-border-color:    $black !default;
+
+// Cards
+
+$card-border-color:                 $black !default;
+
+// Accordion
+
+$accordion-button-active-bg:              $primary !default;
+$accordion-button-active-color:           $black !default;
+
+// Tooltips
+
+$tooltip-opacity:                   1 !default;
+
+// Popovers
+
+$popover-border-color:              $black !default;
+
+// Toasts
+
+$toast-border-color:                $black !default;
+$toast-box-shadow:                  3px 3px 0 0 $black !default;
+
+$toast-header-color:                $black !default;
+
+// Badges
+
+$badge-color:                       $black !default;
+
+// Modals
+
+$modal-content-border-color:        $black !default;
+
+// Alerts
+
+// List group
+
+$list-group-active-border-color:    $black !default;
+
+// Breadcrumbs
+
+$breadcrumb-padding-y:              .5rem !default;
+$breadcrumb-padding-x:              1rem !default;
+$breadcrumb-divider-color:          $black !default;
+$breadcrumb-active-color:           $black !default;
+$breadcrumb-border-radius:          $border-radius-lg !default;
+
+// Close
+
+$btn-close-opacity:          1 !default;
+$btn-close-hover-opacity:    1 !default;
+
+/*-- scss:rules --*/
+// Brite 5.3.7
+// Bootswatch
+
+
+// Variables
+
+:root {
+  --#{$prefix}border-width: 2px;
+  --#{$prefix}border-color: #000;
+}
+
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+  --#{$prefix}border-color: #000;
+}
+
+/*-- scss:mixins --*/
+
+@mixin btn-shadow(){
+  box-shadow: 3px 3px 0 0 var(--#{$prefix}border-color);
+}
+
+.table {
+  border: 2px solid $black;
+}
+
+// Navbar
+
+.navbar {
+  $navbar-border-width: 2px;
+  font-size: $font-size-lg;
+  font-weight: $headings-font-weight;
+
+  border: $navbar-border-width solid $black;
+
+  &.fixed-top {
+    border-width: 0 0 $navbar-border-width 0;
+  }
+
+  &.fixed-bottom {
+    border-width: $navbar-border-width 0 0 0;
+  }
+
+  .dropdown-toggle::after {
+    margin-left: .15em;
+    vertical-align: .15em;
+  }
+
+  &-toggler {
+    --bs-border-width: 2px;
+  }
+}
+
+#quarto-header,
+#quarto-header nav:first-child {
+  background-color: var(--bs-light);
+}
+
+.navbar-title {
+  font-weight: 600;
+  font-family: monospace;
+}
+
+// Buttons
+
+.btn {
+  margin: 3px 0 0 3px;
+  border-color: $black;
+  @include btn-shadow();
+  transition: all .3s;
+  transform: translate(-3px, -3px);
+
+  &:hover {
+    border-color: $black;
+    box-shadow: none;
+    transform: translate(0, 0);
+  }
+
+  &.disabled {
+    border-color: $black;
+  }
+
+  &-link,
+  &-link:hover {
+    color: $black;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-outline-#{$color} {
+    color: $black;
+    background-color: #{$value};
+    box-shadow: none;
+    transform: translate(0, 0);
+
+    &:hover {
+      @include btn-shadow();
+      transform: translate(-3px, -3px);
+    }
+  }
+
+  .btn-check + .btn-#{$color},
+  .btn-check + .btn-outline-#{$color} {
+    &:hover {
+      background-color: #{$value};
+    }
+  }
+}
+
+.btn-outline-dark {
+  color: $white;
+}
+
+.btn-group {
+  .btn {
+    margin-left: 0;
+  }
+
+  > .btn.active {
+    z-index: 0;
+  }
+}
+
+.btn-group,
+.btn-group-vertical {
+  .btn {
+    &:hover,
+    &:active,
+    &:focus {
+      z-index: 0;
+    }
+
+  }
+
+  > .btn-check:focus + .btn,
+  > .btn-check:checked + .btn {
+    z-index: 0;
+  }
+}
+
+.btn-check + .btn {
+  border-color: $black;
+  @include btn-shadow();
+  transform: translate(-3px, -3px);
+}
+
+.btn-check + .btn:hover {
+  color: $black;
+  border-color: $black;
+}
+
+.btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+  border-color: $black;
+  box-shadow: none;
+  transform: translate(0, 0);
+}
+
+[data-bs-theme="dark"] .btn-link,
+[data-bs-theme="dark"] .btn-link:hover {
+  color: #fff;
+}
+
+// Typography
+
+a {
+  font-weight: $headings-font-weight;
+}
+
+// Forms
+
+.form-range {
+
+  &:not([disabled])::-moz-range-progress {
+    height: .6rem;
+    background-color: $primary;
+    border-radius: 6px 0 0 6px;
+  }
+
+  &:not([disabled])::-ms-fill-lower {
+    height: .6rem;
+    background-color: $primary;
+    border-radius: 6px 0 0 6px;
+  }
+
+  &::-webkit-slider-runnable-track {
+    border: 2px solid $black;
+  }
+
+  &::-moz-range-track {
+    border: 2px solid $black;
+  }
+
+  &::-webkit-slider-thumb {
+    margin-top: -.4rem;
+  }
+
+  &::-moz-range-thumb {
+    margin-top: -.4rem;
+  }
+
+  &:focus::-webkit-slider-thumb {
+    box-shadow: none;
+  }
+
+  &:focus::-moz-range-thumb {
+    box-shadow: none;
+  }
+}
+
+// Navs
+
+.nav {
+  &:not(.nav-tabs, .nav-pills) {
+    .nav-link {
+      &.active {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.nav-tabs {
+  gap: 4px;
+  padding: .4rem .4rem calc(.4rem + 2px);
+  font-weight: $headings-font-weight;
+  border: 2px solid $black;
+  border-radius: $border-radius-lg;
+
+  .nav-link {
+    border-width: 2px;
+    border-radius: $border-radius;
+
+    &.active,
+    &:hover {
+      border: 2px solid $black;
+    }
+  }
+}
+
+.tab-content {
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 2px solid $black;
+  border-radius: $border-radius-lg;
+}
+
+.nav-pills {
+  gap: 4px;
+  font-weight: $headings-font-weight;
+
+  .nav-link {
+    border: 2px solid $black;
+  }
+}
+
+.breadcrumb {
+  font-weight: $headings-font-weight;
+  border: 2px solid $black;
+
+  a {
+    color: $black;
+  }
+}
+
+.dropdown-menu {
+  @include btn-shadow();
+  border-radius: $border-radius;
+}
+
+.dropdown-header {
+  font-weight: 700;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #000;
+}
+
+@each $color, $value in $theme-colors {
+  .list-group-item-#{$color} {
+    color: $black;
+    background-color: #{$value};
+    border-color: $black;
+  }
+}
+
+.list-group-item-dark {
+  color: $white;
+}
+
+[data-bs-theme="dark"] {
+  .nav-tabs,
+  .nav-pills {
+    .nav-link {
+      --#{$prefix}nav-link-color: #fff;
+
+      &:hover,
+      &:focus {
+        --#{$prefix}nav-link-hover-color: #fff;
+      }
+    }
+  }
+
+  .page-link {
+    --#{$prefix}pagination-color: #fff;
+
+    &:hover {
+      --#{$prefix}pagination-hover-color: #fff;
+    }
+  }
+
+  .nav {
+    .nav-link {
+      --#{$prefix}nav-link-color: #fff;
+
+      &:hover,
+      &:focus {
+        --#{$prefix}nav-link-hover-color: #fff;
+      }
+    }
+  }
+
+  .breadcrumb {
+    a {
+      color: $white;
+    }
+  }
+
+  .breadcrumb-item {
+    &.active {
+      --#{$prefix}breadcrumb-item-active-color: #fff;
+    }
+  }
+}
+
+// Indicators
+
+.alert {
+  color: $black;
+  border: 2px solid $black;
+  @include btn-shadow();
+}
+
+.alert-link {
+  color: $black;
+}
+
+.alert-dark {
+  color: $white;
+}
+
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    background-color: #{$value};
+  }
+}
+
+.badge {
+  border: 2px solid $black;
+
+  &.bg-dark {
+    color: $white;
+  }
+}
+
+.progress {
+  border: 2px solid $black;
+
+  &-bar {
+    border-right: 2px solid $black;
+  }
+}
+
+.modal {
+  &-content {
+    @include btn-shadow();
+  }
+}
+
+.vr {
+  width: 2px;
+  background-color: $black;
+}
+
+[data-bs-theme="dark"] .toast-header {
+  --#{$prefix}toast-header-color: #fff;
+}

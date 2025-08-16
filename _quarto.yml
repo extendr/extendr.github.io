@@ -9,6 +9,7 @@ website:
   site-url: https://extendr.github.io
 
   navbar:
+    logo: images/ferRis.png
     left:
       - text: "Get Started"
         href: get-started.qmd
@@ -25,10 +26,10 @@ website:
       - text: "FAQ"
         href: faq.qmd
     right:
-     - icon: github
-       href: https://github.com/extendr/extendr
-     - icon: discord
-       href: https://discord.gg/7hmApuc
+      - icon: github
+        href: https://github.com/extendr/extendr
+      - icon: discord
+        href: https://discord.gg/7hmApuc
 
   sidebar:
     - title: "User Guide"
@@ -56,6 +57,5 @@ website:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      - css/_bootswatch.scss
     toc: false

@@ -4,10 +4,6 @@ subtitle: "A comprehensive guide to using extendr."
 toc: false
 ---
 
-::: {.fs-1 .text-center .fw-bold}
-\~\~\~ THIS IS A WORK IN PROGRESS!!! \~\~\~
-:::
-
 This user guide serves two primary functions:
 
 -   First, and more generally, it explains how to call Rust code in R (and, as
