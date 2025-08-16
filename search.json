@@ -487,7 +487,7 @@
     "href": "user-guide/index.html",
     "title": "User Guide",
     "section": "",
-    "text": "~~~ THIS IS A WORK IN PROGRESS!!! ~~~\nThis user guide serves two primary functions:\nGiven these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.",
+    "text": "This user guide serves two primary functions:\nGiven these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.",
     "crumbs": [
       "User Guide"
     ]

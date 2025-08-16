@@ -20,7 +20,6 @@
 
 
 
-
 <p>The <code>0.7.0</code> version of extendr has just been released. This release has focused on cleaning up the API and ensuring that design decisions are safer and more idiomatic rust. To this end, there are a few breaking changes that will need to be addressed. When migrating, the Rust compiler might <em>look</em> like a red mess of error, but I can assure you, it isn’t so bad!</p>
 <section id="removal-of-fromrobj" class="level2">
 <h2 class="anchored" data-anchor-id="removal-of-fromrobj">Removal of <code>FromRobj</code></h2>
