@@ -32,7 +32,10 @@ $teal:    #2ed3be !default;
 $cyan:    #22d2ed !default;
 $lime:    #a2e436 !default;
 
-$primary:       $lime !default;
+$extendrblue: #7fc6ff;
+
+// $primary:       $lime !default;
+$primary:       $extendrblue !default;
 $secondary:     $white !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -290,14 +293,18 @@ $btn-close-hover-opacity:    1 !default;
   }
 }
 
-#quarto-header,
-#quarto-header nav:first-child {
-  background-color: var(--bs-light);
-}
+// #quarto-header,
+// #quarto-header nav:first-child {
+//   background-color: var(--bs-light);
+// }
 
 .navbar-title {
   font-weight: 600;
   font-family: monospace;
+}
+
+.sourceCode {
+  @extend .border-dark;
 }
 
 // Buttons
