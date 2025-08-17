@@ -8,7 +8,25 @@ extendr-based packges are CRAN compatible **out of the box**! You only have to d
 rextendr::vendor_pkgs()
 ```
 
-That's it! 
+That's it!
+
+## cran-comments.md
+
+As with most things in life, communication is key. We recommend communicating thoroughly in your `cran-comments.md`. 
+
+In some cases your R package's `.tar.gz` can be quite large due to the `vendor.tar.xz` file. In your `cran-comments.md` make a note of the size. For example write:
+
+>  "Tarball is 4.7mb due to vendored rust depencies."
+
+## MSRV
+
+As of this writing the **MSRV of CRAN** is 1.81. In order to publish to CRAN, this MSRV must be met.
+
+See [CRAN's MSRV](user-guide/cran-msrv.qmd) for a detailed list of Rust versions for each check flavor.
+
+## Nightly features
+
+CRAN does not support nightly features as of this writing. Any package you plan to publish on CRAN cannot use nightly features. 
 
 ## Why vendor?
 

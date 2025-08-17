@@ -20,3 +20,7 @@ Run `rextendr::use_extendr()` to regenerate the `Makevars.in`, `Makevars.win.in`
 ## `Cargo.toml`
 `use_extendr()` will overwrite your existing `Cargo.toml` file. Please copy or backup your dependencies or any other changes beforehand.
 :::
+
+## What is the MSRV of extendr?
+
+The MSRV of extendr as of August, 2025 is 1.65. However, we do plan on raising this for better FFI support and unwinding capabilities in the future. It can be expected for the MSRV to be raised to 1.76 in the near future. 
