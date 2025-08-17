@@ -1,0 +1,42 @@
+---
+title: Building for WebR
+---
+
+As of the writing, extendr supports building for [WebR](https://docs.r-wasm.org/webr/latest/)!
+
+## Update build process
+
+To build for WebR, you need to ensure that your R package has the appropriate build scripts and configuration. To do so ensure you have the latest development version of rextendr installed. 
+
+```r
+# update rextendr 
+pak::pak("extendr/rextendr")
+```
+
+Compilation for WebR is handled through the [`tools/config.R`](https://github.com/extendr/rextendr/blob/main/inst/templates/config.R) and [`Makevars.in`](https://github.com/extendr/rextendr/blob/main/inst/templates/Makevars.in) files in your R packages.
+
+To udpate these files run 
+
+```r
+rextendr::use_extendr()
+```
+
+**Do not** overwrite any important files like `lib.rs` or `Cargo.toml`. Allow it to overwrite: 
+
+- `Makevars{.win}.in`
+- `tools/config.R`
+- `configure{.win}`
+- `entrypoint.c`
+
+## Update `Cargo.toml`
+
+In order to compile on WebR, the `Cargo.toml` file must ensure that `lto = true` for the release profile. Add the following to your `Cargo.toml` file:
+
+```
+[profile.release]
+lto = true
+```
+
+## Using extendr WebR packages
+
+To use an extendr package with WebR, we recommend using [r-universe](https://r-universe.dev/). R-universe automatically builds binaries of your package for WebR, Mac, Windows, and Linux. 

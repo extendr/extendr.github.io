@@ -262,8 +262,9 @@ $btn-close-hover-opacity:    1 !default;
   box-shadow: 3px 3px 0 0 var(--#{$prefix}border-color);
 }
 
+table,
 .table {
-  border: 2px solid $black;
+  border: 2px solid $black !important;
 }
 
 // Navbar
@@ -305,6 +306,10 @@ $btn-close-hover-opacity:    1 !default;
 
 .sourceCode {
   @extend .border-dark;
+}
+
+p code {
+  background-color: rgba(var(--bs-light-rgb), 0.1);
 }
 
 // Buttons

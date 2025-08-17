@@ -7,24 +7,21 @@ execute:
 website:
   title: "extendr"
   site-url: https://extendr.github.io
+  repo-url: https://github.com/extendr/extendr.github.io
+  repo-branch: main
+  repo-actions: [edit, issue]
 
   navbar:
-    logo: images/ferRis.png
+    logo: /images/ferRis.png
     left:
       - text: "Get Started"
         href: get-started.qmd
       - text: "User Guide"
         href: user-guide/index.qmd
-      - text: Contributing
-        href: CONTRIBUTING.md
-      - text: "News"
-        href: changelog.qmd
-      - text: "API Docs"
+      - text: "API"
         href: https://extendr.github.io/extendr/extendr_api/
       - text: "Blog"
         href: blog/index.qmd
-      - text: "FAQ"
-        href: faq.qmd
     right:
       - icon: github
         href: https://github.com/extendr/extendr
@@ -53,9 +50,17 @@ website:
           contents:
             - user-guide/error-handling/basic-error-handling.qmd
         - user-guide/serde-integration.qmd
+        - user-guide/cran-publishing.qmd
+        - text: CRAN's MSRV
+          href: user-guide/cran-msrv.qmd
+        - text: WebR
+          href: user-guide/webr.qmd
+        - text: FAQ
+          href: user-guide/faq.qmd
 
 format:
   html:
+    html-table-processing: none
     theme: css/_bootswatch.scss
     toc: false
     include-in-header:

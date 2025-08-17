@@ -5,14 +5,7 @@ title: ""
 ::: {style="margin:0; width: 100%;"}
 ::: {style="margin:0; width: 81%; float: left;"}
 
-## `extendr` - A safe and user-friendly R extension interface using Rust
-
-:::
-
-::: {style="margin: 0.25rem 0 0 0; width: 19%; float: right;"}
-![](images/extendr-logo-256.png){width="100%" fig-alt="rextendr logo"}
-:::
-:::
+# extendr - extending R with Rust 🦀
 
 [![Github Actions Build
 Status](https://github.com/extendr/extendr/workflows/Tests/badge.svg)](https://github.com/extendr/extendr/actions)
@@ -21,14 +14,69 @@ Status](https://github.com/extendr/extendr/workflows/Tests/badge.svg)](https://g
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The extendr suite of software packages provides a Rust extension mechanism for
-R, thus bringing the computing power of Rust to the statistical programming
-environment of R. The following code provides a simple illustration of how
-extendr achieves this.
+
+:::
+
+::: {style="margin: 0.25rem 0 0 0; width: 19%; float: right;"}
+![](images/extendr-logo-256.png){width="100%" fig-alt="rextendr logo"}
+:::
+
+:::
+
+
+
+Build blazingly fast R packages 📦 with ease. The extendr ecosystem is **developer-friendly** and **CRAN**-ready. extendr let's you write ergonomic and idomatic Rust without having to worry about R's internals (much 😅).
+
+## Getting Started
+
+- Don't have Rust installed yet? [Start here](/get-started.qmd).
+- Familiar with Rust and want to get your hands dirty? Follow along with a [complete example](user-guide/complete-example.qmd).
+
+
+## The ecosystem
+
+**Rust crates** 🦀 :
+
+- `extendr-api`—ergonomic, opinionated, and safe interface between R and Rust
+- `extendr-engine`—embed and use R in Rust
+- `extendr-ffi`hand-crafted bindings to R's C-API
+
+**rextendr** 📦 for seamless development:
+
+A `{usethis}`-like package that scaffolds extendr-powered R packages
+
+
+## Quickstart
+
+We recommend using the development version of `{rextendr}` from GitHub. 
+
+```r
+# Install from CRAN
+install.packages("rextendr")
+
+# Development version
+remotes::install_github("extendr/rextendr")
+
+# create a new R package 
+usethis::create_package("helloextendr")
+
+# Use extendr
+rextendr::use_extendr()
+
+# Document and build the package
+rextendr::document()
+
+# run hello_world()
+hello_world()
+#> [1] "Hello, world!"
+```
+
+### Example: calling structs from R
 
 ``` rust
 use extendr_api::prelude::*;
 
+#[extendr]
 #[derive(Debug)]
 struct Person {
     pub name: String,
@@ -90,18 +138,3 @@ extendr in R:
     [vignette on extendr
     `knitr-engine`](https://extendr.github.io/rextendr/articles/rmarkdown.html).
 
-## Software Overview
-
-The software packages that make up extendr include:
-
-- Rust crates:
-  - [`extendr-api`](https://extendr.github.io/extendr/extendr_api) -
-        provides the ergonomic, opinionated, and safe interface to R in Rust
-  - [`extendr-macros`](https://extendr.github.io/extendr/extendr_macros) -
-        crate responsible generation of wrappers, derive macros for conversion to R, etc.
-  - [`extendr-engine`](https://extendr.github.io/extendr/extendr_engine) -
-        crate that enables launching R sessions from Rust code;
-- An R package [`rextendr`](https://extendr.github.io/rextendr) that helps
-    scaffolding extendr-enabled packages or compiling Rust code interactively; and
-- [`libR-sys`](https://extendr.github.io/libR-sys/libR_sys) - provides
-    auto-generated bindings to R's C-facilities (or C-API) in Rust

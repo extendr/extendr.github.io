@@ -1,0 +1,26 @@
+---
+title: Frequently Asked Questions
+---
+
+Below are the answers to some of the more frequently asked questions in the extendr community. 
+
+## How do I rename my package?
+
+When you change the name of your package in the `DESCRIPTION` file or `Cargo.toml` file, you will likely notice that your package fails to build. 
+
+#### Problem
+
+The package name is used in the building and linking steps. The package is expecting the old name, not the new one. 
+
+#### Solution
+
+Run `rextendr::use_extendr()` to regenerate the `Makevars.in`, `Makevars.win.in`, `entrypoint.c`, and `Cargo.toml` files. 
+
+::: callout-caution
+## `Cargo.toml`
+`use_extendr()` will overwrite your existing `Cargo.toml` file. Please copy or backup your dependencies or any other changes beforehand.
+:::
+
+## What is the MSRV of extendr?
+
+The MSRV of extendr as of August, 2025 is 1.65. However, we do plan on raising this for better FFI support and unwinding capabilities in the future. It can be expected for the MSRV to be raised to 1.76 in the near future. 
