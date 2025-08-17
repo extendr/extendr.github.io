@@ -34,6 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -79,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/ferRis.png" alt="" class="navbar-logo">
+    <img src="./images/feRris.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">extendr</span>
@@ -95,14 +96,29 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./get-started.html" aria-current="page"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./user-guide/index.html"> 
-<span class="menu-text">User Guide</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Documentation</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+        <li>
+    <a class="dropdown-item" href="https://extendr.github.io/extendr/extendr_api/">
+ <span class="dropdown-text">Rust crate docs</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://extendr.github.io/extendr/extendr_api/"> 
-<span class="menu-text">API</span></a>
+        <li>
+    <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev/">
+ <span class="dropdown-text">rextendr package</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./user-guide/index.html">
+ <span class="dropdown-text">User Guide</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./intro-rust/index.html">
+ <span class="dropdown-text">Rust for R Developers</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./blog/index.html"> 
 <span class="menu-text">Blog</span></a>
@@ -155,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
 
 <p>To build R packages with <strong>extendr</strong>, you need to have the right tools.</p>
 <section id="step-1-install-rust" class="level2">
-<h2 data-anchor-id="step-1-install-rust">Step 1 <span class="fw-light">Install Rust</span></h2>
+<h2 class="anchored" data-anchor-id="step-1-install-rust">Step 1 <span class="fw-light">Install Rust</span></h2>
 <div class="clearfix">
 <div class="float-start" style="width: 126px; margin-right: 0.8rem;">
 <p><a href="https://www.rust-lang.org/tools/install"><img src="images/cuddlyferris.svg" class="img-fluid"></a></p>
@@ -164,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 <section id="step-2-update-r" class="level2">
-<h2 data-anchor-id="step-2-update-r">Step 2 <span class="fw-light">Update R</span></h2>
+<h2 class="anchored" data-anchor-id="step-2-update-r">Step 2 <span class="fw-light">Update R</span></h2>
 <div class="clearfix">
 <div class="float-start" style="width: 126px; margin-right: 0.8rem;">
 <p><a href="https://cran.r-project.org/"><img src="images/Rlogo.svg" class="img-fluid"></a></p>
@@ -173,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 <section id="step-3-install-rextendr" class="level2">
-<h2 data-anchor-id="step-3-install-rextendr">Step 3 <span class="fw-light">Install rextendr</span></h2>
+<h2 class="anchored" data-anchor-id="step-3-install-rextendr">Step 3 <span class="fw-light">Install rextendr</span></h2>
 <div class="clearfix">
 <div class="float-start" style="width: 126px; margin-right: 0.8rem;">
 <p><a href="https://extendr.github.io/rextendr/"><img src="images/rextendr-logo.png" class="img-fluid"></a></p>
@@ -182,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 <section id="step-4-use-rust-analyzer" class="level2">
-<h2 data-anchor-id="step-4-use-rust-analyzer">Step 4 <span class="fw-light">Use rust-analyzer</span></h2>
+<h2 class="anchored" data-anchor-id="step-4-use-rust-analyzer">Step 4 <span class="fw-light">Use rust-analyzer</span></h2>
 <p>This is optional, but strongly recommended. If you use <a href="https://code.visualstudio.com/download">Visual Studio Code (VS Code)</a> or a similar IDE, the <a href="https://rust-analyzer.github.io/">rust-analyzer</a> will provide you type hinting and auto-completion suggestions. It is <strong>very</strong> helpful!</p>
 
 
@@ -191,6 +207,13 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

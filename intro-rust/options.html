@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>User Guide – extendr</title>
+<title>options – extendr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -146,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../user-guide/index.html">User Guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/options.html"><code>Some()</code> or <code>None</code>?</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -160,125 +195,104 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">User Guide</span></a>
+  <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rust for R Developers</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A Complete Example</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Package Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project Structure</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Type Mapping</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The extendr Macro</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scalar Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vector Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Missing Values</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/characters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Character Strings</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Error Handling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Error Handling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/serde-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>serde</code> integration</span></a>
+  <a href="../intro-rust/why-rust.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Rust?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-publishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Publishing to CRAN</span></a>
+  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-msrv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CRAN’s MSRV</span></a>
+  <a href="../intro-rust/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Types</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/webr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">WebR</span></a>
+  <a href="../intro-rust/fizz-buzz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/faq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">FAQ</span></a>
+  <a href="../intro-rust/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arrays and Vectors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>for</code>-loops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/mutability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mutability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/mutable-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mutable Vectors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/is-odd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/references-slices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ownership</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/iterators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Iterators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/iter-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping over Iterators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/structs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Defining Struct(ure)s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/struct-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Struct Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/enums.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Enum(eration)s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/options.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><code>Some()</code> or <code>None</code>?</span></a>
   </div>
 </li>
     </ul>
@@ -286,46 +300,101 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#some-or-none" id="toc-some-or-none" class="nav-link active" data-scroll-target="#some-or-none"><code>Some()</code> or <code>None</code>?</a>
+  <ul class="collapse">
+  <li><a href="#option" id="toc-option" class="nav-link" data-scroll-target="#option"><code>Option</code></a></li>
+  <li><a href="#accessing-some-value" id="toc-accessing-some-value" class="nav-link" data-scroll-target="#accessing-some-value">Accessing <code>Some()</code> value</a></li>
+  <li><a href="#danger-.unwrap-.expect" id="toc-danger-.unwrap-.expect" class="nav-link" data-scroll-target="#danger-.unwrap-.expect">Danger! <code>.unwrap()</code> &amp; <code>.expect()</code></a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/options.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">User Guide</h1>
-<p class="subtitle lead">A comprehensive guide to using extendr.</p>
+
+
+
+<section id="some-or-none" class="level1 page-columns page-full">
+<h1><code>Some()</code> or <code>None</code>?</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>This user guide serves two primary functions:</p>
-<ul>
-<li>First, and more generally, it explains how to call Rust code in R (and, as it happens, how to call R code in Rust).</li>
-<li>Second, and more narrowly, it provides sufficient information and resources to empower developers to build R packages with Rust extensions and publish them to CRAN.</li>
-</ul>
-<p>Given these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.</p>
-<section id="whats-in-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="whats-in-this-guide">What’s in this guide?</h2>
-<p>We’re working on that…</p>
+<div class="callout-title-container flex-fill">
+Objective
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Understand how missingness is handled in Rust with <code>Option&lt;T&gt;</code>. - Understand how to handle missingness - Use <code>Option&lt;T&gt;</code> in an applied case</p>
+</div>
+</div>
+<p>Rust doesn’t have the concept of a <code>NULL</code> type. Null values are quite dangerous and have their own category of errors and security issues.</p>
+<p>Rust makes it impossible to have a null value by formalizing the concept of missingness through the <code>Option&lt;&gt;</code></p>
+<section id="option" class="level2">
+<h2 class="anchored" data-anchor-id="option"><code>Option</code></h2>
+<p>An Option is a special <code>enum</code> that has two possible values:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> <span class="dt">Option</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Some</span>(T)<span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cn">None</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When a value is missing, the option’s variant is <code>None</code>. When the option contains <em>some value</em>, the value is contained <em>inside of</em> the <code>Some(T)</code> variant.</p>
 </section>
-<section id="whats-not-in-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="whats-not-in-this-guide">What’s <em>not</em> in this guide?</h2>
-<p>This book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be <a href="https://doc.rust-lang.org/stable/book/">“The Book”</a>.</p>
-<p>This book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably <a href="https://r-pkgs.org/">R Packages (2e)</a>. As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.</p>
+<section id="accessing-some-value" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-some-value">Accessing <code>Some()</code> value</h2>
+<p>Since <code>Option&lt;T&gt;</code> are “just” an enum, we can match on the variants to access the values.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// create an Option&lt;Measure&gt; that contains a value</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> measure <span class="op">=</span> <span class="cn">Some</span>(<span class="pp">Measure::</span>Euclidean)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">match</span> measure <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Some</span>(v) <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"The measure is not missing!"</span>)<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">None</span> <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"Oh no! The measure is missing"</span>)<span class="op">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We put a placeholder value inside of <code>Some(v)</code> to create a binding to the inner value. It’s like a function argument, it can be called whatever you want it to be.</p>
+</section>
+<section id="danger-.unwrap-.expect" class="level2">
+<h2 class="anchored" data-anchor-id="danger-.unwrap-.expect">Danger! <code>.unwrap()</code> &amp; <code>.expect()</code></h2>
+<p>Sometimes dealing with options is a headache, particularly when we’re in the early stages of developing.</p>
+<p>We can use <code>.unwrap()</code> or <code>.expect()</code> to grab the inner value of an option <em>without matching</em>.</p>
+<p>This is <strong>dangerous!!</strong> because we are ignoring the possibility of a <code>None</code>. Unwrapping on a <code>None</code> leads to a <strong>panic</strong>. Panics cause your program to abort.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>thread <span class="ot">'mai</span>n<span class="ch">'</span> panicked at src<span class="op">/</span>main<span class="op">.</span>rs<span class="op">:</span><span class="dv">4</span><span class="op">:</span><span class="dv">41</span><span class="op">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>called `<span class="pp">Option::</span>unwrap()` on a `None` value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<ul>
+<li>Modify the <code>distance()</code> method to take an <code>Option&lt;&amp;Measure&gt;</code></li>
+<li>When <code>None</code> use euclidean distance, otherwise use the provided distance measure</li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>The exercise does not involve <code>.unwrap()</code> because it’s a bad habbit. Let’s try and form good habbits from the outset if possible.</p>
+</div></div><details>
+<summary>
+View solution
+</summary>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Point <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> distance(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> destination<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Self</span><span class="op">,</span> measure<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;&amp;</span>Measure<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">match</span> measure <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            <span class="cn">Some</span>(m) <span class="op">=&gt;</span> <span class="cf">match</span> m <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Measure::</span>Euclidean <span class="op">=&gt;</span> <span class="kw">self</span><span class="op">.</span>euclidean_distance(destination)<span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="pp">Measure::</span>Haversine <span class="op">=&gt;</span> <span class="kw">self</span><span class="op">.</span>haversine_distance(destination)<span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="cn">None</span> <span class="op">=&gt;</span> <span class="kw">self</span><span class="op">.</span>euclidean_distance(destination)<span class="op">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -733,4 +802,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/options.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

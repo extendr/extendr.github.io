@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>User Guide – extendr</title>
+<title>Why Rust? – extendr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../user-guide/index.html">User Guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/why-rust.html">Why Rust?</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -160,125 +160,104 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">User Guide</span></a>
+  <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rust for R Developers</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A Complete Example</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Package Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project Structure</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Type Mapping</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The extendr Macro</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scalar Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vector Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Missing Values</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/characters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Character Strings</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Error Handling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Error Handling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/serde-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>serde</code> integration</span></a>
+  <a href="../intro-rust/why-rust.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Why Rust?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-publishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Publishing to CRAN</span></a>
+  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-msrv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CRAN’s MSRV</span></a>
+  <a href="../intro-rust/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Types</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/webr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">WebR</span></a>
+  <a href="../intro-rust/fizz-buzz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/faq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">FAQ</span></a>
+  <a href="../intro-rust/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arrays and Vectors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>for</code>-loops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/mutability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mutability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/mutable-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mutable Vectors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/is-odd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/references-slices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ownership</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/iterators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Iterators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/iter-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping over Iterators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/structs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Defining Struct(ure)s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/struct-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Struct Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/enums.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Enum(eration)s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/options.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>Some()</code> or <code>None</code>?</span></a>
   </div>
 </li>
     </ul>
@@ -286,14 +265,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reasoning" id="toc-reasoning" class="nav-link active" data-scroll-target="#reasoning">Reasoning</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link" data-scroll-target="#tldr">TL;DR</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/why-rust.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">User Guide</h1>
-<p class="subtitle lead">A comprehensive guide to using extendr.</p>
+<h1 class="title">Why Rust?</h1>
 </div>
 
 
@@ -310,20 +297,48 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This user guide serves two primary functions:</p>
-<ul>
-<li>First, and more generally, it explains how to call Rust code in R (and, as it happens, how to call R code in Rust).</li>
-<li>Second, and more narrowly, it provides sufficient information and resources to empower developers to build R packages with Rust extensions and publish them to CRAN.</li>
-</ul>
-<p>Given these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.</p>
-<section id="whats-in-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="whats-in-this-guide">What’s in this guide?</h2>
-<p>We’re working on that…</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Objective
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Provide motivation for <em>why</em> learning Rust is a use of our time. Discuss <em>what</em> Rust is and how it is unique compared to other compiled langauges.</p>
+<p>🧠 Think of Rust as “C for people who like error messages that actually help.”</p>
+</div>
+</div>
+<section id="reasoning" class="level2">
+<h2 class="anchored" data-anchor-id="reasoning">Reasoning</h2>
+<p>Rust is a programming language that’s fast, safe, and surprisingly friendly to use. Rust turns your code into a standalone program that runs directly on your computer. This makes it much faster and more efficient, similar to languages like C or C++. But where those languages can be hard to use and easy to break, Rust was built to be safer and more helpful.</p>
+<p>Rust is especially good at preventing bugs related to memory. There’s no garbage collector in Rust so it is quite memory efficient. Moreover, Rust is designed with the developer in mind. The rust compiler provides error messages that rival—or maybe even surpass—the quality of tidyverse error messaging.</p>
 </section>
-<section id="whats-not-in-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="whats-not-in-this-guide">What’s <em>not</em> in this guide?</h2>
-<p>This book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be <a href="https://doc.rust-lang.org/stable/book/">“The Book”</a>.</p>
-<p>This book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably <a href="https://r-pkgs.org/">R Packages (2e)</a>. As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.</p>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<ul>
+<li>R is interpreted. Code runs line by line.</li>
+<li>R (and Python) are built on C.</li>
+<li>C is compiled — it builds a binary that runs directly on your machine.</li>
+<li>Rust is also compiled, like C, C++, Go, Java, and Fortran.</li>
+<li>These languages are “close to the metal” — fast, efficient, and powerful.</li>
+<li>Rust matches C++ in speed, but with some key advantages:
+<ul>
+<li><strong>Memory safety</strong> without a garbage collector (unlike Go), thanks to the borrow checker.</li>
+<li>A great developer experience:
+<ul>
+<li>Helpful, friendly compiler errors (Tidyverse-level DX).</li>
+<li>Modern tooling (cargo, rustdoc, rustfmt, <em>rust-analyzer</em>, etc.).</li>
+</ul></li>
+</ul></li>
+<li>Rust is easy to get started with and rewards best practices.
+<ul>
+<li>We won’t go deep into memory safety or concurrency today</li>
+</ul></li>
+<li>Rust uses errors as data, unlike R and C++, Rust does not support exceptions</li>
+</ul>
 
 
 </section>
@@ -733,4 +748,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/why-rust.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>User Guide – extendr</title>
+<title>hello-world – extendr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -146,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../user-guide/index.html">User Guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -160,125 +195,104 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">User Guide</span></a>
+  <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rust for R Developers</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A Complete Example</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Package Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Project Structure</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Type Mapping</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The extendr Macro</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scalar Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vector Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Missing Values</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/characters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Character Strings</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Error Handling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Error Handling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/serde-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>serde</code> integration</span></a>
+  <a href="../intro-rust/why-rust.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Rust?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-publishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Publishing to CRAN</span></a>
+  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-msrv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CRAN’s MSRV</span></a>
+  <a href="../intro-rust/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Types</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/webr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">WebR</span></a>
+  <a href="../intro-rust/fizz-buzz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/faq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">FAQ</span></a>
+  <a href="../intro-rust/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arrays and Vectors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>for</code>-loops</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/mutability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mutability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/mutable-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mutable Vectors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/is-odd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/references-slices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ownership</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/iterators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Iterators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/iter-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mapping over Iterators</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/structs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Defining Struct(ure)s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/struct-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Struct Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/enums.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Enum(eration)s</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-rust/options.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>Some()</code> or <code>None</code>?</span></a>
   </div>
 </li>
     </ul>
@@ -286,46 +300,161 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#hello-world" id="toc-hello-world" class="nav-link active" data-scroll-target="#hello-world">Hello, World!</a>
+  <ul class="collapse">
+  <li><a href="#crate-anatomy" id="toc-crate-anatomy" class="nav-link" data-scroll-target="#crate-anatomy">Crate anatomy</a></li>
+  <li><a href="#crate-anatomy-1" id="toc-crate-anatomy-1" class="nav-link" data-scroll-target="#crate-anatomy-1">Crate anatomy</a></li>
+  <li><a href="#main.rs" id="toc-main.rs" class="nav-link" data-scroll-target="#main.rs"><code>main.rs</code></a></li>
+  <li><a href="#println" id="toc-println" class="nav-link" data-scroll-target="#println"><code>println!()</code></a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a>
+  <ul class="collapse">
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/hello-world.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">User Guide</h1>
-<p class="subtitle lead">A comprehensive guide to using extendr.</p>
+
+
+
+<section id="hello-world" class="level1 page-columns page-full">
+<h1>Hello, World!</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Objective
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Learn how to create a new Rust crate and understand its file structure. You will know how to use <code>cargo run</code> and the <code>println!()</code> macro.</p>
+</div>
+</div>
+<p>Rust uses a tool called <code>cargo</code> for building, checking, and managing dependencies. This is installed for you when you used <code>rustup</code> to install Rust.</p>
+<p>To create a new Rust crate, use <code>cargo new name-of-crate</code>. This creates a new directory called <code>name-of-crate</code>. Be sure to <code>cd</code> into that directory.</p>
 
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><code>cd</code> is short for change directory. We use this to…yup…change the directory from the terminal.</p>
+</div></div><section id="crate-anatomy" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="crate-anatomy">Crate anatomy</h2>
+<p>Two types of crates: binary, library.</p>
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>This user guide serves two primary functions:</p>
-<ul>
-<li>First, and more generally, it explains how to call Rust code in R (and, as it happens, how to call R code in Rust).</li>
-<li>Second, and more narrowly, it provides sufficient information and resources to empower developers to build R packages with Rust extensions and publish them to CRAN.</li>
-</ul>
-<p>Given these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.</p>
-<section id="whats-in-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="whats-in-this-guide">What’s in this guide?</h2>
-<p>We’re working on that…</p>
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>This first workshop we will work only with a binary crate. We will create a library in the second half of the day.</p>
+</div></div><p>Binary crates are standalone applications like command line tools, or things that run once—simiar to a script that you run with <code>Rscript main.R</code></p>
 </section>
-<section id="whats-not-in-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="whats-not-in-this-guide">What’s <em>not</em> in this guide?</h2>
-<p>This book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be <a href="https://doc.rust-lang.org/stable/book/">“The Book”</a>.</p>
-<p>This book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably <a href="https://r-pkgs.org/">R Packages (2e)</a>. As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.</p>
+<section id="crate-anatomy-1" class="level2">
+<h2 class="anchored" data-anchor-id="crate-anatomy-1">Crate anatomy</h2>
+<p>A new crate looks like this:</p>
+<pre><code>intro-to-rust/
+├── Cargo.toml      # Metadata &amp; dependencies (like DESCRIPTION)
+├── Cargo.lock      # Dependency versions (like renv.lock)
+└── src/
+    └── main.rs     # Entry point — like main.R</code></pre>
+</section>
+<section id="main.rs" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="main.rs"><code>main.rs</code></h2>
+<p>When you create a new rust binary the file <code>src/main.rs</code> is prepopulated with:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>src/main.rs</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>main()</code> function defines what is executed when your <em>binary</em> is run.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, world!"</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>There are a few things going on in here:</p>
+<ul>
+<li>Functions are declared using the <code>fn</code> keyword</li>
+<li>The <code>main()</code> function is the entrypoint of the program (and required)</li>
+<li>Blocks of code are delimted using curly braces (like R &amp; C)</li>
+<li>Statements end with <code>;</code></li>
+<li><code>println!()</code> is a macro (notice the <code>!</code>) which is used to print to <code>stdout</code></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>When a program writes to the console it does so through file connections called standard output (<code>stdout</code>) and standard error (<code>stderr</code>).</p>
+<p>When we print a message with <code>print()</code> or <code>message()</code> in R, we print to stdout. When we make a warning or error using <code>stop()</code> or <code>warning()</code> in R, that is writing to <code>stderr</code>.</p>
+</div></div><div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Variables can only be defined inside of the <code>main()</code> function.</p>
+</div>
+</div>
+</section>
+<section id="println" class="level2">
+<h2 class="anchored" data-anchor-id="println"><code>println!()</code></h2>
+<ul>
+<li>Macros have a <code>!</code>, like <code>println!()</code>.</li>
+<li>Think of it like <code>print()</code> in R, but explicit.</li>
+<li>It supports format strings:</li>
+</ul>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<section id="using-placeholder" class="level4 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="using-placeholder">Using placeholder</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> name)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="direct-interpolation" class="level4 quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<h4 class="anchored" data-anchor-id="direct-interpolation">Direct interpolation</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</div>
+</div>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<ul>
+<li>In your terminal, create a new rust crate called <code>intro-to-rust</code></li>
+<li>Open the new Rust crate’s folder in Positron</li>
+<li>Run the hello world program using <code>cargo run</code></li>
+<li>Create a variable called <code>name</code> inside of the <code>main()</code> function with your name</li>
+<li>Print <code>Hello, {name}!</code> using <code>println!()</code></li>
+<li>To run it navigate to your terminal and then enter <code>cargo run</code>.</li>
+</ul>
+<section id="solution" class="level3">
+<h3 class="anchored" data-anchor-id="solution">Solution</h3>
+<details>
+<summary>
+View solution
+</summary>
+<p>In <code>src/main.rs</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -733,4 +862,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/hello-world.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

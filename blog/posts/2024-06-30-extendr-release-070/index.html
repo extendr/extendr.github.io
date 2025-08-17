@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../images/ferRis.png" alt="" class="navbar-logo">
+    <img src="../../../images/feRris.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">extendr</span>
@@ -134,14 +134,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../../get-started.html"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../user-guide/index.html"> 
-<span class="menu-text">User Guide</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Documentation</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+        <li>
+    <a class="dropdown-item" href="https://extendr.github.io/extendr/extendr_api/">
+ <span class="dropdown-text">Rust crate docs</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://extendr.github.io/extendr/extendr_api/"> 
-<span class="menu-text">API</span></a>
+        <li>
+    <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev/">
+ <span class="dropdown-text">rextendr package</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../user-guide/index.html">
+ <span class="dropdown-text">User Guide</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../intro-rust/index.html">
+ <span class="dropdown-text">Rust for R Developers</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
