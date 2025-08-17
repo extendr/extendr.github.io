@@ -1,6 +1,6 @@
 ---
 title: "Get Started"
-anchor-sections: false
+toc: false
 ---
 
 To build R packages with **extendr**, you need to have the right tools.
