@@ -30,7 +30,7 @@ CRAN does not support nightly features as of this writing. Any package you plan 
 
 ## Why vendor?
 
-One of the reasons we love CRAN is that they take reproducibility and portability seriously. Because of this, an R package must contain everything it needs to build. This means that the Rust dependencies must not be downloaded as the package is installed. 
+One of the reasons we love CRAN is that they take portability seriously. Because of this, an R package must contain everything it needs to build. This means that the Rust dependencies must not be downloaded as the package is installed. 
 
 Vendoring is the process of embedding the source code of our dependencies into our R package. `vendor_pkgs()` creates a `vendor.tar.xz` file which contains the compressed source of all the dependencies. 
 
