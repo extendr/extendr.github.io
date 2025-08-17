@@ -53,6 +53,8 @@ website:
         - user-guide/cran-publishing.qmd
         - text: CRAN's MSRV
           href: user-guide/cran-msrv.qmd
+        - text: WebR
+          href: user-guide/webr.qmd
         - text: FAQ
           href: user-guide/faq.qmd
 
