@@ -18,7 +18,7 @@ website:
         href: get-started.qmd
       - text: "User Guide"
         href: user-guide/index.qmd
-      - text: "API Docs"
+      - text: "API"
         href: https://extendr.github.io/extendr/extendr_api/
       - text: "Blog"
         href: blog/index.qmd
@@ -50,11 +50,14 @@ website:
           contents:
             - user-guide/error-handling/basic-error-handling.qmd
         - user-guide/serde-integration.qmd
+        - text: CRAN's MSRV
+          href: user-guide/cran-msrv.qmd
         - text: FAQ
           href: user-guide/faq.qmd
 
 format:
   html:
+    html-table-processing: none
     theme: css/_bootswatch.scss
     toc: false
     include-in-header:

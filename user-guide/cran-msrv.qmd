@@ -1,0 +1,66 @@
+---
+title: CRAN's Rust versions
+date: "`r Sys.Date()`"
+freeze: true
+
+---
+
+The build machines of CRAN do not have coordinated versions of Rust. The minimum Rust version of CRAN can dictate the crates and features extendr-powered packages can use (if you plan on distributing on CRAN). 
+
+The below table reports CRAN versions per check flavor based on the [check results](https://cran.r-project.org/web/checks/check_results_fio.htm) of the extendr package [`{fio}`](https://albersonmiranda.github.io/fio/).
+
+```{r}
+#| code-fold: true
+library(rvest)
+
+check_links <- "https://cran.r-project.org/web/checks/check_results_fio.html" |> 
+  read_html() |> 
+  html_node(".container") |> 
+  html_nodes("a") |> 
+  html_attr("href") 
+
+check_links <- unique(check_links[grepl("^https://", check_links)])
+
+install_logs <- gsub(
+  "00check.html",
+  "00install.html",
+  check_links
+)
+
+extract_semver <- function(ver) {
+  if (grepl("\\d+\\.\\d+(\\.\\d+)?", ver)) {
+    sub(".*?(\\d+\\.\\d+(\\.\\d+)?).*", "\\1", ver)
+  } else {
+    NA
+  }
+}
+
+versions <- lapply(install_logs, function(.log) {
+  lns <- readLines(.log)
+  rust_version <- extract_semver(lns[grepl("^Using rustc", lns)])
+  cargo_version <- extract_semver(lns[grepl("^Using cargo", lns)])
+  data.frame(rustc = rust_version, cargo = cargo_version)
+})
+
+
+# get all of the flavors
+flavor <- dirname(
+  gsub("https://www.r-project.org/nosvn/r.check/", "", tolower(install_logs))
+)
+
+res <- cbind(
+  "Check flavor" = flavor,
+  do.call(rbind.data.frame, versions)
+) |> 
+  dplyr::mutate(rustc = numeric_version(rustc), cargo = numeric_version(cargo)) |> 
+  dplyr::arrange(rustc)
+```
+
+## CRAN's MSRV is `r min(res$rustc)`
+
+```{r}
+#| html-table-processing: none
+#| echo: false
+knitr::kable(res) |> 
+  kableExtra::kable_styling(bootstrap_options = "none", htmltable_class = "table")
+```
