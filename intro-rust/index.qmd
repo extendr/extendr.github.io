@@ -1,0 +1,35 @@
+---
+title: Rust for R Developers
+---
+
+You want to build Rust powered R packages but don't know where to start? 
+
+## What is this? 
+
+This is an opinionated and streamlined introduction to Rust to get you building **fast** ⚡️, and **vectorized** R functions within a few hours. 
+
+## Who is it for?
+
+We get it. Learning Rust can be daunting and frankly, much of the "Intro to Rust" material out there isn't immediately applicable to R or data science. 
+
+This introduction is designed for **intermediate R developers**. 
+
+
+## Prerequisites
+
+
+It is recommended that you be familiar with fundamental computing concepts such as: 
+
+- Data types such as floats, integers, and booleans
+- Iteration such as for / while loops, `purrr::map()` style iterators, and the `apply()` family of functions
+- Control Flow
+- Writing functions
+
+### Resources 
+
+- Read [Advanced R Chapter 3](https://adv-r.hadley.nz/vectors-chap.html)
+- Read [Hands-On Programming with R](https://rstudio-education.github.io/hopr/loops.html), [R for Data Science Chapter 26](https://r4ds.hadley.nz/iteration.html)
+- Read [Advanced R Chapter 4](https://adv-r.hadley.nz/control-flow.html)
+- Read [R for Data Science Chapter 25](https://r4ds.hadley.nz/functions.html), [Advanced R Chapter 6](https://adv-r.hadley.nz/functions.html)
+
+

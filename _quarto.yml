@@ -12,14 +12,18 @@ website:
   repo-actions: [edit, issue]
 
   navbar:
-    logo: /images/ferRis.png
+    logo: /images/feRris.png
     left:
       - text: "Get Started"
         href: get-started.qmd
-      - text: "User Guide"
-        href: user-guide/index.qmd
-      - text: "API"
-        href: https://extendr.github.io/extendr/extendr_api/
+      - text: Documentation
+        menu:
+          - text: "Rust crate docs"
+            href: "https://extendr.github.io/extendr/extendr_api/"
+          - text: "rextendr package"
+            href: https://extendr.github.io/rextendr/dev/
+          - user-guide/index.qmd
+          - intro-rust/index.qmd
       - text: "Blog"
         href: blog/index.qmd
     right:
@@ -29,6 +33,28 @@ website:
         href: https://discord.gg/7hmApuc
 
   sidebar:
+    - title: "Rust for R Developers"
+      style: "floating"
+      collapse-level: 1
+      contents:
+        - intro-rust/index.qmd
+        - intro-rust/why-rust.qmd
+        - intro-rust/hello-world.qmd
+        - intro-rust/types.qmd
+        - intro-rust/fizz-buzz.qmd
+        - intro-rust/collections.qmd
+        - intro-rust/for-loops.qmd
+        - intro-rust/mutability.qmd
+        - intro-rust/mutable-vectors.qmd
+        - intro-rust/is-odd.qmd
+        - intro-rust/references-slices.qmd
+        - intro-rust/iterators.qmd
+        - intro-rust/iter-map.qmd
+        - intro-rust/structs.qmd
+        - intro-rust/struct-methods.qmd
+        - intro-rust/enums.qmd
+        - intro-rust/options.qmd
+
     - title: "User Guide"
       collapse-level: 1
       style: "floating"
@@ -62,7 +88,7 @@ format:
   html:
     html-table-processing: none
     theme: css/_bootswatch.scss
-    toc: false
+    toc: true
     include-in-header:
       - text: |
           <script type="text/javascript" src="/js/breadcrumb-fix.js"></script>
