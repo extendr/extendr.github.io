@@ -1,0 +1,22 @@
+---
+title: Frequently Asked Questions
+---
+
+Below are the answers to some of the more frequently asked questions in the extendr community. 
+
+## How do I rename my package?
+
+When you change the name of your package in the `DESCRIPTION` file or `Cargo.toml` file, you will likely notice that your package fails to build. 
+
+#### Problem
+
+The package name is used in the building and linking steps. The package is expecting the old name, not the new one. 
+
+#### Solution
+
+Run `rextendr::use_extendr()` to regenerate the `Makevars.in`, `Makevars.win.in`, `entrypoint.c`, and `Cargo.toml` files. 
+
+::: callout-caution
+## `Cargo.toml`
+`use_extendr()` will overwrite your existing `Cargo.toml` file. Please copy or backup your dependencies or any other changes beforehand.
+:::

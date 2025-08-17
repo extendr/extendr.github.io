@@ -307,6 +307,10 @@ $btn-close-hover-opacity:    1 !default;
   @extend .border-dark;
 }
 
+p code {
+  background-color: rgba(var(--bs-light-rgb), 0.1);
+}
+
 // Buttons
 
 .btn {
