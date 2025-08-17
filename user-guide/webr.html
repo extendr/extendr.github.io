@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Frequently Asked Questions – extendr</title>
+<title>Building for WebR – extendr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-86a3c41b50bc762bc5b79def831d91a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-505007e87eaac7de3676eb95d29adf58.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -67,23 +102,22 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script type="text/javascript" src="./js/breadcrumb-fix.js"></script>
+<script type="text/javascript" src="../js/breadcrumb-fix.js"></script>
 
 
-<link rel="stylesheet" href="faq.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/ferRis.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/ferRis.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">extendr</span>
     </a>
   </div>
@@ -94,32 +128,20 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./get-started.html"> 
+    <a class="nav-link" href="../get-started.html"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./user-guide/index.html"> 
+    <a class="nav-link active" href="../user-guide/index.html" aria-current="page"> 
 <span class="menu-text">User Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./CONTRIBUTING.html"> 
-<span class="menu-text">Contributing</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./changelog.html"> 
-<span class="menu-text">News</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="https://extendr.github.io/extendr/extendr_api/"> 
-<span class="menu-text">API Docs</span></a>
+<span class="menu-text">API</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog/index.html"> 
+    <a class="nav-link" href="../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./faq.html" aria-current="page"> 
-<span class="menu-text">FAQ</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -139,19 +161,168 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../user-guide/webr.html">WebR</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">User Guide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Complete Example</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">R Packages</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project Structure</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Type Mapping</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The extendr Macro</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scalar Type Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/type-mapping/vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Type Mapping</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/type-mapping/missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Missing Values</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/type-mapping/characters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Character Strings</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Error Handling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Error Handling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/serde-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>serde</code> integration</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/cran-publishing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Publishing to CRAN</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/cran-msrv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CRAN’s MSRV</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/webr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">WebR</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#update-build-process" id="toc-update-build-process" class="nav-link active" data-scroll-target="#update-build-process">Update build process</a></li>
+  <li><a href="#update-cargo.toml" id="toc-update-cargo.toml" class="nav-link" data-scroll-target="#update-cargo.toml">Update <code>Cargo.toml</code></a></li>
+  <li><a href="#using-extendr-webr-packages" id="toc-using-extendr-webr-packages" class="nav-link" data-scroll-target="#using-extendr-webr-packages">Using extendr WebR packages</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/webr.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Frequently Asked Questions</h1>
+<h1 class="title">Building for WebR</h1>
 </div>
 
 
@@ -167,33 +338,33 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#what-can-i-use-extendr-for" id="toc-what-can-i-use-extendr-for">What can I use extendr for?</a></li>
-  <li><a href="#how-do-i-install-extendr" id="toc-how-do-i-install-extendr">How do I install extendr?</a></li>
-  <li><a href="#who-are-the-developers-of-extendr" id="toc-who-are-the-developers-of-extendr">Who are the developers of extendr?</a></li>
-  </ul>
-</nav>
-<section id="what-can-i-use-extendr-for" class="level3">
-<h3 class="anchored" data-anchor-id="what-can-i-use-extendr-for">What can I use extendr for?</h3>
-</section>
-<section id="how-do-i-install-extendr" class="level3">
-<h3 class="anchored" data-anchor-id="how-do-i-install-extendr">How do I install extendr?</h3>
-</section>
-<section id="who-are-the-developers-of-extendr" class="level3">
-<h3 class="anchored" data-anchor-id="who-are-the-developers-of-extendr">Who are the developers of extendr?</h3>
-<p>Authors and maintainers include:</p>
+
+<p>As of the writing, extendr supports building for <a href="https://docs.r-wasm.org/webr/latest/">WebR</a>!</p>
+<section id="update-build-process" class="level2">
+<h2 class="anchored" data-anchor-id="update-build-process">Update build process</h2>
+<p>To build for WebR, you need to ensure that your R package has the appropriate build scripts and configuration. To do so ensure you have the latest development version of rextendr installed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># update rextendr </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"extendr/rextendr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Compilation for WebR is handled through the <a href="https://github.com/extendr/rextendr/blob/main/inst/templates/config.R"><code>tools/config.R</code></a> and <a href="https://github.com/extendr/rextendr/blob/main/inst/templates/Makevars.in"><code>Makevars.in</code></a> files in your R packages.</p>
+<p>To udpate these files run</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">use_extendr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Do not</strong> overwrite any important files like <code>lib.rs</code> or <code>Cargo.toml</code>. Allow it to overwrite:</p>
 <ul>
-<li>Amy Thomason (author and creator, <a href="https://github.com/andy-thomason">@andy-thomason</a>)</li>
-<li>Mossa M. Reimert (author and maintainer, <a href="https://github.com/CGMossa">@CGMossa</a>)</li>
-<li>Claus O. Wilke (author, <a href="https://github.com/clauswilke">@clauswilke</a>)</li>
-<li>Hiroaki Yutani (author, <a href="https://github.com/yutannihilation">@yutannihilation</a>)</li>
-<li>Ilia Kosenkov (author and maintainer, <a href="https://github.com/Ilia-Kosenkov">@Ilia-Kosenkov</a>)</li>
-<li>Daniel Falbel (author, <a href="https://github.com/dfalbel">@dfalbel</a>)</li>
-<li>Josiah Parry (maintainer, <a href="https://github.com/JosiahParry">@JosiahParry</a>)</li>
+<li><code>Makevars{.win}.in</code></li>
+<li><code>tools/config.R</code></li>
+<li><code>configure{.win}</code></li>
+<li><code>entrypoint.c</code></li>
 </ul>
+</section>
+<section id="update-cargo.toml" class="level2">
+<h2 class="anchored" data-anchor-id="update-cargo.toml">Update <code>Cargo.toml</code></h2>
+<p>In order to compile on WebR, the <code>Cargo.toml</code> file must ensure that <code>lto = true</code> for the release profile. Add the following to your <code>Cargo.toml</code> file:</p>
+<pre><code>[profile.release]
+lto = true</code></pre>
+</section>
+<section id="using-extendr-webr-packages" class="level2">
+<h2 class="anchored" data-anchor-id="using-extendr-webr-packages">Using extendr WebR packages</h2>
+<p>To use an extendr package with WebR, we recommend using <a href="https://r-universe.dev/">r-universe</a>. R-universe automatically builds binaries of your package for WebR, Mac, Windows, and Linux.</p>
 
 
 </section>
@@ -603,4 +774,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/webr.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

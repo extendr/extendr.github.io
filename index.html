@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-86a3c41b50bc762bc5b79def831d91a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-505007e87eaac7de3676eb95d29adf58.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -136,24 +136,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">User Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./CONTRIBUTING.html"> 
-<span class="menu-text">Contributing</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./changelog.html"> 
-<span class="menu-text">News</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="https://extendr.github.io/extendr/extendr_api/"> 
-<span class="menu-text">API Docs</span></a>
+<span class="menu-text">API</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./blog/index.html"> 
 <span class="menu-text">Blog</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./faq.html"> 
-<span class="menu-text">FAQ</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -180,81 +168,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">extendr - extending R with Rust 🦀</h1></header>
 
 
 
 
 <div style="margin:0; width: 100%;">
-<section id="extendr---a-safe-and-user-friendly-r-extension-interface-using-rust" class="level2" style="margin:0; width: 81%; float: left;">
-<h2 class="anchored" data-anchor-id="extendr---a-safe-and-user-friendly-r-extension-interface-using-rust"><code>extendr</code> - A safe and user-friendly R extension interface using Rust</h2>
+<section id="extendr---extending-r-with-rust" class="level1" style="margin:0; width: 81%; float: left;">
+
+<p><a href="https://github.com/extendr/extendr/actions"><img src="https://github.com/extendr/extendr/workflows/Tests/badge.svg" class="img-fluid" alt="Github Actions Build Status"></a> <a href="https://crates.io/crates/extendr-api"><img src="https://img.shields.io/crates/v/extendr-api.svg" class="img-fluid" alt="Crates.io"></a> <a href="https://docs.rs/extendr-api"><img src="https://docs.rs/extendr-api/badge.svg" class="img-fluid" alt="Documentation"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a></p>
 </section>
 <div style="margin: 0.25rem 0 0 0; width: 19%; float: right;">
 <p><img src="images/extendr-logo-256.png" class="img-fluid" style="width:100.0%" alt="rextendr logo"></p>
 </div>
 </div>
-<p><a href="https://github.com/extendr/extendr/actions"><img src="https://github.com/extendr/extendr/workflows/Tests/badge.svg" class="img-fluid" alt="Github Actions Build Status"></a> <a href="https://crates.io/crates/extendr-api"><img src="https://img.shields.io/crates/v/extendr-api.svg" class="img-fluid" alt="Crates.io"></a> <a href="https://docs.rs/extendr-api"><img src="https://docs.rs/extendr-api/badge.svg" class="img-fluid" alt="Documentation"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a></p>
-<p>The extendr suite of software packages provides a Rust extension mechanism for R, thus bringing the computing power of Rust to the statistical programming environment of R. The following code provides a simple illustration of how extendr achieves this.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span><span class="op">*;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="at">)]</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Person <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Person <span class="op">{</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> new() <span class="op">-&gt;</span> <span class="dt">Self</span> <span class="op">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Self</span> <span class="op">{</span> name<span class="op">:</span> <span class="st">""</span><span class="op">.</span>to_string() <span class="op">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> set_name(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> name<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">{</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name <span class="op">=</span> name<span class="op">.</span>to_string()<span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">{</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>as_str()</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> my_function() <span class="op">{</span> <span class="op">}</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">// Macro to generate exports</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">extendr_module!</span> <span class="op">{</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mod</span> classes<span class="op">;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">impl</span> Person<span class="op">;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> my_function;</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Build blazingly fast R packages 📦 with ease. The extendr ecosystem is <strong>developer-friendly</strong> and <strong>CRAN</strong>-ready. extendr let’s you write ergonomic and idomatic Rust without having to worry about R’s internals (much 😅).</p>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
+<ul>
+<li>Don’t have Rust installed yet? <a href="./get-started.html">Start here</a>.</li>
+<li>Familiar with Rust and want to get your hands dirty? Follow along with a <a href="./user-guide/complete-example.html">complete example</a>.</li>
+</ul>
+</section>
+<section id="the-ecosystem" class="level2">
+<h2 class="anchored" data-anchor-id="the-ecosystem">The ecosystem</h2>
+<p><strong>Rust crates</strong> 🦀 :</p>
+<ul>
+<li><code>extendr-api</code>—ergonomic, opinionated, and safe interface between R and Rust</li>
+<li><code>extendr-engine</code>—embed and use R in Rust</li>
+<li><code>extendr-ffi</code>hand-crafted bindings to R’s C-API</li>
+</ul>
+<p><strong>rextendr</strong> 📦 for seamless development:</p>
+<p>A <code>{usethis}</code>-like package that scaffolds extendr-powered R packages</p>
+</section>
+<section id="quickstart" class="level2">
+<h2 class="anchored" data-anchor-id="quickstart">Quickstart</h2>
+<p>We recommend using the development version of <code>{rextendr}</code> from GitHub.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install from CRAN</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rextendr"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Development version</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"extendr/rextendr"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new R package </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="st">"helloextendr"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use extendr</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">use_extendr</span>()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Document and build the package</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">document</span>()</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># run hello_world()</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">hello_world</span>()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Hello, world!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="example-calling-structs-from-r" class="level3">
+<h3 class="anchored" data-anchor-id="example-calling-structs-from-r">Example: calling structs from R</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span><span class="op">*;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="at">)]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Person <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Person <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> new() <span class="op">-&gt;</span> <span class="dt">Self</span> <span class="op">{</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Self</span> <span class="op">{</span> name<span class="op">:</span> <span class="st">""</span><span class="op">.</span>to_string() <span class="op">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> set_name(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> name<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">{</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name <span class="op">=</span> name<span class="op">.</span>to_string()<span class="op">;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">{</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>as_str()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> my_function() <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">// Macro to generate exports</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="pp">extendr_module!</span> <span class="op">{</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mod</span> classes<span class="op">;</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">impl</span> Person<span class="op">;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> my_function;</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>#[extendr]</code> attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded, thus allowing one to access Rust functions and structures in an R session:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># call function</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_function</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create Person object</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> Person<span class="sc">$</span><span class="fu">new</span>()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">set_name</span>(<span class="st">"foo"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">name</span>()   <span class="co"># "foo" is returned</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># call function</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_function</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create Person object</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> Person<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">set_name</span>(<span class="st">"foo"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">name</span>()   <span class="co"># "foo" is returned</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This, of course, is just the tip of the iceberg, for there are many ways to use extendr in R:</p>
 <ul>
 <li><p>In an interactive R session one may use <a href="https://extendr.github.io/rextendr/reference/rust_source.html"><code>rextendr::rust_function</code> and friends</a> to quickly prototype Rust code.</p></li>
 <li><p>In an R package context, one may use <a href="https://extendr.github.io/rextendr/reference/use_extendr.html"><code>rextendr::use_extendr()</code></a> to setup a Rust powered R-package. See also the <a href="https://extendr.github.io/rextendr/articles/package.html">vignette on R-packages</a>.</p></li>
 <li><p>It is also possible to inline Rust code in <code>Quarto</code> documents, see <a href="https://extendr.github.io/rextendr/articles/rmarkdown.html">vignette on extendr <code>knitr-engine</code></a>.</p></li>
 </ul>
-<section id="software-overview" class="level2">
-<h2 class="anchored" data-anchor-id="software-overview">Software Overview</h2>
-<p>The software packages that make up extendr include:</p>
-<ul>
-<li>Rust crates:
-<ul>
-<li><a href="https://extendr.github.io/extendr/extendr_api"><code>extendr-api</code></a> - provides the ergonomic, opinionated, and safe interface to R in Rust</li>
-<li><a href="https://extendr.github.io/extendr/extendr_macros"><code>extendr-macros</code></a> - crate responsible generation of wrappers, derive macros for conversion to R, etc.</li>
-<li><a href="https://extendr.github.io/extendr/extendr_engine"><code>extendr-engine</code></a> - crate that enables launching R sessions from Rust code;</li>
-</ul></li>
-<li>An R package <a href="https://extendr.github.io/rextendr"><code>rextendr</code></a> that helps scaffolding extendr-enabled packages or compiling Rust code interactively; and</li>
-<li><a href="https://extendr.github.io/libR-sys/libR_sys"><code>libR-sys</code></a> - provides auto-generated bindings to R’s C-facilities (or C-API) in Rust</li>
-</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -662,4 +680,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
