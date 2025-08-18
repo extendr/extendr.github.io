@@ -260,6 +260,11 @@ bench::mark(
 )
 ```
 
+::: callout-note
+The memory usage for rust-based functions is likely quite understated. This is because memory allocated outside of R cannot be tracked. 
+
+See [bench::mark](https://bench.r-lib.org/reference/mark.html#value) documentation for more. 
+:::
 
 
 ## The whole thing
