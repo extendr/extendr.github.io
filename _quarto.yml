@@ -18,10 +18,10 @@ website:
         href: get-started.qmd
       - text: Documentation
         menu:
-          - text: "Rust crate docs"
-            href: "https://extendr.github.io/extendr/extendr_api/"
-          - text: "rextendr package"
-            href: https://extendr.github.io/rextendr/dev/
+          - text: "Rust crates"
+            href: "https://extendr.github.io/extendr/"
+          - text: "{rextendr} package"
+            href: https://extendr.github.io/rextendr/dev
           - user-guide/index.qmd
           - intro-rust/index.qmd
       - text: "Blog"

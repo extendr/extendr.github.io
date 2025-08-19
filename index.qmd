@@ -37,18 +37,18 @@ Build blazingly fast R packages 📦 with ease. The extendr ecosystem is **devel
 
 **Rust crates** 🦀 :
 
-- `extendr-api`—ergonomic, opinionated, and safe interface between R and Rust
-- `extendr-engine`—embed and use R in Rust
-- `extendr-ffi`hand-crafted bindings to R's C-API
+- [`extendr-api`](https://extendr.github.io/extendr/extendr_api)—ergonomic, opinionated, and safe interface between R and Rust
+- [`extendr-engine`](https://extendr.github.io/extendr/extendr_engine)—embed and use R in Rust
+- [`extendr-ffi`](https://extendr.github.io/extendr/extendr_ffi)—hand-crafted bindings to R's C-API
 
-**rextendr** 📦 for seamless development:
+**R packages** 📦 :
 
-A `{usethis}`-like package that scaffolds extendr-powered R packages
+- [`{rextendr}`](https://extendr.github.io/rextendr/dev)—A `{usethis}`-like package that scaffolds extendr-powered R packages
 
 
 ## Quickstart
 
-We recommend using the development version of `{rextendr}` from GitHub. 
+We recommend using the development version of `{rextendr}` from GitHub.
 
 ```r
 # Install from CRAN
@@ -57,7 +57,7 @@ install.packages("rextendr")
 # Development version
 remotes::install_github("extendr/rextendr")
 
-# create a new R package 
+# create a new R package
 usethis::create_package("helloextendr")
 
 # Use extendr
