@@ -137,12 +137,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
         <li>
-    <a class="dropdown-item" href="https://extendr.github.io/extendr/extendr_api/">
- <span class="dropdown-text">Rust crate docs</span></a>
+    <a class="dropdown-item" href="https://extendr.github.io/extendr/">
+ <span class="dropdown-text">Rust crates</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev/">
- <span class="dropdown-text">rextendr package</span></a>
+    <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev">
+ <span class="dropdown-text">{rextendr} package</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./user-guide/index.html">
@@ -222,12 +222,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-ecosystem">The ecosystem</h2>
 <p><strong>Rust crates</strong> 🦀 :</p>
 <ul>
-<li><code>extendr-api</code>—ergonomic, opinionated, and safe interface between R and Rust</li>
-<li><code>extendr-engine</code>—embed and use R in Rust</li>
-<li><code>extendr-ffi</code>hand-crafted bindings to R’s C-API</li>
+<li><a href="https://extendr.github.io/extendr/extendr_api"><code>extendr-api</code></a>—ergonomic, opinionated, and safe interface between R and Rust</li>
+<li><a href="https://extendr.github.io/extendr/extendr_engine"><code>extendr-engine</code></a>—embed and use R in Rust</li>
+<li><a href="https://extendr.github.io/extendr/extendr_ffi"><code>extendr-ffi</code></a>—hand-crafted bindings to R’s C-API</li>
 </ul>
-<p><strong>rextendr</strong> 📦 for seamless development:</p>
-<p>A <code>{usethis}</code>-like package that scaffolds extendr-powered R packages</p>
+<p><strong>R packages</strong> 📦 :</p>
+<ul>
+<li><a href="https://extendr.github.io/rextendr/dev"><code>{rextendr}</code></a>—A <code>{usethis}</code>-like package that scaffolds extendr-powered R packages</li>
+</ul>
 </section>
 <section id="quickstart" class="level2">
 <h2 class="anchored" data-anchor-id="quickstart">Quickstart</h2>
@@ -238,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Development version</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"extendr/rextendr"</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new R package </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new R package</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="st">"helloextendr"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use extendr</span></span>
