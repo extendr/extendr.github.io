@@ -76,6 +76,7 @@ website:
           contents:
             - user-guide/error-handling/basic-error-handling.qmd
         - user-guide/serde-integration.qmd
+        - user-guide/tokio.qmd
         - user-guide/cran-publishing.qmd
         - text: CRAN's MSRV
           href: user-guide/cran-msrv.qmd

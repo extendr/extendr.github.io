@@ -1,0 +1,134 @@
+---
+title: Async with Tokio
+date: "`r Sys.Date()`"
+---
+
+
+```{r include = FALSE}
+
+```
+
+
+Asynchronous programming enables efficient handling of I/O-bound operations like network requests, file system operations, and database queries without blocking the main program thread. This is crucial for building performant applications that can handle many concurrent operations. 
+
+Many crates in the Rust ecosystem use an **asynchronous** runtime through the [tokio](https://crates.io/crates/tokio) crate. Tokio provides a **multithreaded** runtime and is used by popular libraries like [reqwest](https://crates.io/crates/reqwest), [axum](https://crates.io/crates/axum), [DataFusion](https://crates.io/crates/datafusion), [sqlx](https://crates.io/crates/sqlx), and many more. 
+
+extendr doesn't provide an async function interface because there is not a true async runtime for R let alone any C API infrastructure for it. But that does not mean we cannot harness the vast async ecosystem in Rust. 
+
+## Add tokio
+
+
+To utilize tokio with extendr we will need to bump the msrv of our package to `1.70` as that is the MSRV of `tokio` and we will be using a langauge feature called [`OnceLock`](https://doc.rust-lang.org/std/sync/struct.OnceLock.html) that wasn't stabilized until 1.70.
+
+
+```r
+rextendr::use_msrv("1.70")
+rextendr::use_crate("tokio", features = "rt-multi-thread")
+```
+
+The `use_msrv()` function will bump the MSRV specified in your package's `DESCRIPTION` file. The `use_crate()` function will call `cargo add` on your behalf and add the crate to your `Cargo.toml`. 
+
+## Creating your runtime
+
+Your R package should share one runtime across all function calls. This approach:
+
+- Creates a global static variable using `OnceLock<>` (thread-safe, write-once)
+- Uses lazy initialization—runtime is created only when first needed
+- Returns a reference to the same runtime on subsequent calls
+
+::: callout-note
+## Futures
+
+See [Futures and the Async Syntax](https://doc.rust-lang.org/book/ch17-01-futures-and-syntax.html) section of The Book™.
+
+:::
+
+In your `lib.rs` we define a static called `TOKIO_RUNTIME` which contains a `Runtime`. 
+
+The function `get_rt()` will create a new `Runtime` the first time it is called. Each subsequent call returns a reference to that created runtime. 
+
+```rust
+use extendr_api::prelude::*;
+use std::sync::OnceLock;
+use tokio::runtime::{Builder, Runtime};
+
+// Initialize a shared tokio runtime for the package
+static TOKIO_RUNTIME: OnceLock<Runtime> = OnceLock::new();
+
+// Helper function to get a tokio runtime
+fn get_rt() -> &'static Runtime {
+    TOKIO_RUNTIME.get_or_init(|| {
+        Builder::new_multi_thread()
+            .enable_all()
+            .build()
+            .expect("Failed to create tokio runtime")
+    })
+}
+```
+
+Now, in any function we want to use the tokio run time can first call `get_rt()` to get a reference to it.
+
+## Blocking on `async` futures
+
+For a motivating example we can use the async file reader from tokio using our new runtime. 
+
+
+```rust
+#[extendr]
+fn read_file_async(path: &str) -> String {
+    // get the tokio runtime
+    let rt = get_rt();
+
+    // define a future, typically we would `.await`
+    let file_content_fut = tokio::fs::read_to_string(path);
+
+    // use `.block_on()` to await the future
+    rt.block_on(file_content_fut).expect("failed to read file")
+}
+```
+
+The first step is to get the tokio runtime. Then we call the async function, which typically we would `.await` to get the result. Instead, we call `.block_on()` to execute the future and get the result.
+
+## Example: read many files async
+
+For a more complete / complex example we can create a function that reads multiple files in parallel and awaits all of the futures asynchronously.
+
+
+```rust
+#[extendr]
+fn read_files_async(paths: Vec<String>) -> Strings {
+    // get the tokio runtime
+    let rt = get_rt();
+
+    // create a joinset to await multiple futures asynchronously
+    let mut set = tokio::task::JoinSet::new();
+
+    // spawn each future in the join set
+    for p in paths {
+        set.spawn(tokio::fs::read_to_string(p));
+    }
+
+    // wait for all futures to resolve
+    let all_file_bodies = rt.block_on(set.join_all());
+
+    // filter out any files that failed to read
+    // return the contents as a character vector
+    all_file_bodies
+        .into_iter()
+        .filter_map(|contents| contents.ok().map(Rstr::from))
+        .collect::<Strings>()
+}
+```
+
+## What this unlocks
+
+With tokio working in extendr, we now have access to the entire async Rust ecosystem. This means we can build R packages using:
+
+- [DataFusion](https://github.com/apache/datafusion) - high-performance SQL query engine
+- [DataFusion Comet](https://github.com/apache/datafusion-comet) - Spark accelerator 
+- [lancedb](https://github.com/lancedb/lancedb) - vector database for AI applications
+- [qdrant](https://github.com/qdrant/qdrant) - vector search engine for next-gen AI
+- [burn](https://github.com/tracel-ai/burn) - deep learning framework 
+- [sail](https://github.com/lakehq/sail) - unified batch and stream processing
+
+The async ecosystem is massive and growing. Now R can be part of it.
