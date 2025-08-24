@@ -9,7 +9,9 @@ date: "`r Sys.Date()`"
 ```
 
 
-Many crates in the Rust ecosystem utilize an **asynchronous** runtime through the [tokio](https://crates.io/crates/tokio) crate. Tokio provides a **multithreaded** runtime and is used by popular libraries like [reqwest](https://crates.io/crates/reqwest), [axum](https://crates.io/crates/axum), [DataFusion](https://crates.io/crates/datafusion), [sqlx](https://crates.io/crates/sqlx), and many more. 
+Asynchronous programming enables efficient handling of I/O-bound operations like network requests, file system operations, and database queries without blocking the main program thread. This is crucial for building performant applications that can handle many concurrent operations. 
+
+Many crates in the Rust ecosystem use an **asynchronous** runtime through the [tokio](https://crates.io/crates/tokio) crate. Tokio provides a **multithreaded** runtime and is used by popular libraries like [reqwest](https://crates.io/crates/reqwest), [axum](https://crates.io/crates/axum), [DataFusion](https://crates.io/crates/datafusion), [sqlx](https://crates.io/crates/sqlx), and many more. 
 
 extendr doesn't provide an async function interface because there is not a true async runtime for R let alone any C API infrastructure for it. But that does not mean we cannot harness the vast async ecosystem in Rust. 
 
