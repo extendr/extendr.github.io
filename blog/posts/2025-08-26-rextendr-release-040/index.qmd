@@ -4,7 +4,7 @@ description: |
   A new version of rextendr has arrived.
 author: Blake Vernon
 date: "2025/08/26"
-image: images/extendr-release-040.png
+image: images/rextendr-release-040.png
 image-alt: "The rextendr logo, letter R in middle of gears."
 categories: [Release, Updates]
 ---
