@@ -10,7 +10,105 @@
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.7.33</generator>
-<lastBuildDate>Sun, 30 Jun 2024 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 26 Aug 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>rextendr 0.4</title>
+  <dc:creator>Blake Vernon</dc:creator>
+  <link>https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="tl-dr" class="level2">
+<h2 class="anchored" data-anchor-id="tl-dr">TL; DR</h2>
+<ul>
+<li>New domain! Say hi to extendr.rs 👋🏼</li>
+<li>Positron &amp; VS Code Support 👩🏽‍💻</li>
+<li>CRAN compatibility out of the box</li>
+<li>WebR support 🕸️</li>
+</ul>
+<p>The extendr team is excited to announce the release of <a href="https://extendr.github.io/rextendr/dev">rextendr</a> <code>0.4</code>, along with two follow-up patch releases, that bring significant improvements to the R package ecosystem for Rust integration. These include:</p>
+<ul>
+<li>enhanced CRAN compatibility,</li>
+<li>improved developer experience,</li>
+<li>WebR support,</li>
+<li>and streamlined package scaffolding.</li>
+</ul>
+<p>A great deal of work also went into re-factoring code to reduce package dependencies and improve the maintainability to ensure the long-term viability of the project.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What is rextendr?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For those new to the project, rextendr is an R package similar to <code>usethis</code> and <code>devtools</code> for supporting development of Rust-powered R packages, with the Rust crate <code>extendr</code> handling most of the heavy lifting behind the scenes.</p>
+</div>
+</div>
+</section>
+<section id="webr" class="level2">
+<h2 class="anchored" data-anchor-id="webr">WebR support</h2>
+<p>A very exciting development in this release is <strong>WebR compatibility out of the box</strong>. All extendr-powered R packages are now compatible with <a href="https://webr.r-wasm.org/latest/">WebR</a>, meaning your packages can run in the browser without an R installation.</p>
+<p>WebR support happens without any additional work on your part. Just update your build files with <code>use_extendr()</code> and permit rextendr to update your <code>Makevars{.win}.in</code>, files in <code>tools/</code>, <code>configure</code> scripts.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+WebR for existing packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>WebR support requires that <code>lto = true</code> in your release profile. This is handled for new packages, but not existing ones. Be sure to add it to your <code>Cargo.toml</code>.</p>
+</div>
+</div>
+</section>
+<section id="cran" class="level2">
+<h2 class="anchored" data-anchor-id="cran">CRAN compatibility</h2>
+<p>The standout feature of the current release is found in rextendr’s workhorse function <code>use_extendr()</code>, which now provides <strong>CRAN-ready scaffolding out of the box</strong>. All you need to do is vendor your Rust dependencies with <code>vendor_pkgs()</code> and you’re ready for CRAN submission.</p>
+</section>
+<section id="positron" class="level2">
+<h2 class="anchored" data-anchor-id="positron">Positron &amp; VS Code Support</h2>
+<p>With <a href="http://positron.posit.co/">Positron</a> coming out of beta, we’ve introduced <code>use_positron()</code> and <code>use_vscode()</code> to generate (or update) <code>.vscode/settings.json</code> tailored to Rust development in R packages.</p>
+<p>When you run <code>use_extendr()</code>, it now automatically calls <code>use_vscode()</code> when VS Code or Positron is detected as your IDE, making the setup completely seamless.</p>
+</section>
+<section id="enhanced-developer-tools" class="level2">
+<h2 class="anchored" data-anchor-id="enhanced-developer-tools">Enhanced Developer Tools</h2>
+<p>Release of 0.4.0 and its patches also comes with additional developer tooling:</p>
+<ul>
+<li><strong>Rust diagnostics</strong>—<code>rust_sitrep()</code> provides comprehensive Rust toolchain diagnostics and guides you through fixing any installation issues</li>
+<li><strong>Dependency management</strong>—<code>use_crate()</code> makes adding Rust dependencies to your <code>Cargo.toml</code> as easy as <code>usethis::use_package()</code></li>
+<li><strong>MSRV support</strong>—<code>use_msrv()</code> helps specify the minimum supported Rust version for your package</li>
+<li><strong>Metadata access</strong>—<code>read_cargo_metadata()</code> lets you fetch detailed project information from Cargo</li>
+<li><strong>Eeasy dependency vendoring</strong>—<code>vendor_pkgs()</code> vendors and compresses your Rust dependencies for easy CRAN publication and offline installation</li>
+</ul>
+</section>
+<section id="badge" class="level2">
+<h2 class="anchored" data-anchor-id="badge">A new extendr badge!</h2>
+<p>The extendr community has grown quite a bit in the last two years, maybe as much as the codebase! First of all, we want to say <strong>thank you</strong> for being a part of the community!</p>
+<p>We wanted to make sure that new developers could boast about their extendr-powered packages—and, if we’re being honest, increase visibility for the project—by adding an extendr badge to their README files, which can now be done with <code>use_extendr_badge()</code>. This results in:</p>
+<p><a href="https://extendr.rs/extendr/extendr_api/"><img src="https://img.shields.io/badge/extendr-%5E0.8.0-276DC2" class="img-fluid"></a></p>
+<p>If you’re using extendr in your package, do us a solid and add the badge to your README! 🥺</p>
+</section>
+<section id="theres-still-more" class="level2">
+<h2 class="anchored" data-anchor-id="theres-still-more">There’s still more</h2>
+<p>Check out our recently updated <a href="https://extendr.rs/">website</a> and documentation! For the full changelog see the <a href="https://github.com/extendr/rextendr/blob/main/NEWS.md">NEWS.md</a>.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Release</category>
+  <category>Updates</category>
+  <guid>https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/</guid>
+  <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/images/extendr-release-040.png" medium="image" type="image/png"/>
+</item>
 <item>
   <title>Migration guide for extendr 0.7.0</title>
   <dc:creator>Josiah Parry</dc:creator>

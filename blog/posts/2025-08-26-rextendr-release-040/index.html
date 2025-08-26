@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Blake Vernon">
+<meta name="dcterms.date" content="2025-08-26">
+<meta name="description" content="A new version of rextendr has arrived.">
 
-<title>extendr Blog – extendr</title>
+<title>rextendr 0.4 – extendr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-505007e87eaac7de3676eb95d29adf58.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-505007e87eaac7de3676eb95d29adf58.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,80 +70,22 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
+<script type="text/javascript" src="../../../js/breadcrumb-fix.js"></script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
+</head>
 
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<script type="text/javascript" src="../js/breadcrumb-fix.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="alternate" type="application/rss+xml" title="extendr" href="index.xml" data-external="1"></head>
-
-<body class="nav-fixed quarto-light">
+<body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/feRris.png" alt="" class="navbar-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../images/feRris.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">extendr</span>
     </a>
   </div>
@@ -153,7 +96,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../get-started.html"> 
+    <a class="nav-link" href="../../../get-started.html"> 
 <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -170,17 +113,17 @@ window.Quarto = {
  <span class="dropdown-text">{rextendr} package</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../user-guide/index.html">
+    <a class="dropdown-item" href="../../../user-guide/index.html">
  <span class="dropdown-text">User Guide</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../intro-rust/index.html">
+    <a class="dropdown-item" href="../../../intro-rust/index.html">
  <span class="dropdown-text">Rust for R Developers</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="../blog/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -205,24 +148,59 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tl-dr" id="toc-tl-dr" class="nav-link active" data-scroll-target="#tl-dr">TL; DR</a></li>
+  <li><a href="#webr" id="toc-webr" class="nav-link" data-scroll-target="#webr">WebR support</a></li>
+  <li><a href="#cran" id="toc-cran" class="nav-link" data-scroll-target="#cran">CRAN compatibility</a></li>
+  <li><a href="#positron" id="toc-positron" class="nav-link" data-scroll-target="#positron">Positron &amp; VS Code Support</a></li>
+  <li><a href="#enhanced-developer-tools" id="toc-enhanced-developer-tools" class="nav-link" data-scroll-target="#enhanced-developer-tools">Enhanced Developer Tools</a></li>
+  <li><a href="#badge" id="toc-badge" class="nav-link" data-scroll-target="#badge">A new extendr badge!</a></li>
+  <li><a href="#theres-still-more" id="toc-theres-still-more" class="nav-link" data-scroll-target="#theres-still-more">There’s still more</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/blog/posts/2025-08-26-rextendr-release-040/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UmVsZWFzZQ==">Release <span class="quarto-category-count">(2)</span></div><div class="category" data-category="VXBkYXRlcw==">Updates <span class="quarto-category-count">(2)</span></div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">extendr Blog</h1>
-<p class="subtitle lead">News, tips, and commentary about all things extendr</p>
-</div>
+<h1 class="title">rextendr 0.4</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Release</div>
+    <div class="quarto-category">Updates</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    <p>A new version of rextendr has arrived.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Blake Vernon </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 26, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -232,79 +210,89 @@ window.Quarto = {
 </header>
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UmVsZWFzZSUyQ1VwZGF0ZXM=" data-listing-date-sort="1756166400000" data-listing-file-modified-sort="1756246898871" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="515">
-<div class="thumbnail"><a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">
-
-<img loading="lazy" src="../blog/posts/2025-08-26-rextendr-release-040/images/extendr-release-040.png" class="thumbnail-image" alt="The rextendr logo, letter R in middle of gears.">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">rextendr 0.4</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UmVsZWFzZQ=='); return false;">Release</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRlcw=='); return false;">Updates</div>
-
+<section id="tl-dr" class="level2">
+<h2 class="anchored" data-anchor-id="tl-dr">TL; DR</h2>
+<ul>
+<li>New domain! Say hi to extendr.rs 👋🏼</li>
+<li><a href="#positron">Positron &amp; VS Code Support 👩🏽‍💻</a></li>
+<li><a href="#cran">CRAN compatibility out of the box</a></li>
+<li><a href="#webr">WebR support 🕸️</a></li>
+</ul>
+<p>The extendr team is excited to announce the release of <a href="https://extendr.github.io/rextendr/dev">rextendr</a> <code>0.4</code>, along with two follow-up patch releases, that bring significant improvements to the R package ecosystem for Rust integration. These include:</p>
+<ul>
+<li>enhanced CRAN compatibility,</li>
+<li>improved developer experience,</li>
+<li>WebR support,</li>
+<li>and streamlined package scaffolding.</li>
+</ul>
+<p>A great deal of work also went into re-factoring code to reduce package dependencies and improve the maintainability to ensure the long-term viability of the project.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="delink listing-description"><a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">
-<p>A new version of rextendr has arrived.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">
-<div class="listing-date">
-Aug 26, 2025
-</div>
-<div class="listing-author">
-Blake Vernon
-</div>
-</a>
+<div class="callout-title-container flex-fill">
+What is rextendr?
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="UmVsZWFzZSUyQ1VwZGF0ZXM=" data-listing-date-sort="1719705600000" data-listing-file-modified-sort="1756246898871" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="862">
-<div class="thumbnail"><a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">
+<div class="callout-body-container callout-body">
+<p>For those new to the project, rextendr is an R package similar to <code>usethis</code> and <code>devtools</code> for supporting development of Rust-powered R packages, with the Rust crate <code>extendr</code> handling most of the heavy lifting behind the scenes.</p>
+</div>
+</div>
+</section>
+<section id="webr" class="level2">
+<h2 class="anchored" data-anchor-id="webr">WebR support</h2>
+<p>A very exciting development in this release is <strong>WebR compatibility out of the box</strong>. All extendr-powered R packages are now compatible with <a href="https://webr.r-wasm.org/latest/">WebR</a>, meaning your packages can run in the browser without an R installation.</p>
+<p>WebR support happens without any additional work on your part. Just update your build files with <code>use_extendr()</code> and permit rextendr to update your <code>Makevars{.win}.in</code>, files in <code>tools/</code>, <code>configure</code> scripts.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+WebR for existing packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>WebR support requires that <code>lto = true</code> in your release profile. This is handled for new packages, but not existing ones. Be sure to add it to your <code>Cargo.toml</code>.</p>
+</div>
+</div>
+</section>
+<section id="cran" class="level2">
+<h2 class="anchored" data-anchor-id="cran">CRAN compatibility</h2>
+<p>The standout feature of the current release is found in rextendr’s workhorse function <code>use_extendr()</code>, which now provides <strong>CRAN-ready scaffolding out of the box</strong>. All you need to do is vendor your Rust dependencies with <code>vendor_pkgs()</code> and you’re ready for CRAN submission.</p>
+</section>
+<section id="positron" class="level2">
+<h2 class="anchored" data-anchor-id="positron">Positron &amp; VS Code Support</h2>
+<p>With <a href="http://positron.posit.co/">Positron</a> coming out of beta, we’ve introduced <code>use_positron()</code> and <code>use_vscode()</code> to generate (or update) <code>.vscode/settings.json</code> tailored to Rust development in R packages.</p>
+<p>When you run <code>use_extendr()</code>, it now automatically calls <code>use_vscode()</code> when VS Code or Positron is detected as your IDE, making the setup completely seamless.</p>
+</section>
+<section id="enhanced-developer-tools" class="level2">
+<h2 class="anchored" data-anchor-id="enhanced-developer-tools">Enhanced Developer Tools</h2>
+<p>Release of 0.4.0 and its patches also comes with additional developer tooling:</p>
+<ul>
+<li><strong>Rust diagnostics</strong>—<code>rust_sitrep()</code> provides comprehensive Rust toolchain diagnostics and guides you through fixing any installation issues</li>
+<li><strong>Dependency management</strong>—<code>use_crate()</code> makes adding Rust dependencies to your <code>Cargo.toml</code> as easy as <code>usethis::use_package()</code></li>
+<li><strong>MSRV support</strong>—<code>use_msrv()</code> helps specify the minimum supported Rust version for your package</li>
+<li><strong>Metadata access</strong>—<code>read_cargo_metadata()</code> lets you fetch detailed project information from Cargo</li>
+<li><strong>Eeasy dependency vendoring</strong>—<code>vendor_pkgs()</code> vendors and compresses your Rust dependencies for easy CRAN publication and offline installation</li>
+</ul>
+</section>
+<section id="badge" class="level2">
+<h2 class="anchored" data-anchor-id="badge">A new extendr badge!</h2>
+<p>The extendr community has grown quite a bit in the last two years, maybe as much as the codebase! First of all, we want to say <strong>thank you</strong> for being a part of the community!</p>
+<p>We wanted to make sure that new developers could boast about their extendr-powered packages—and, if we’re being honest, increase visibility for the project—by adding an extendr badge to their README files, which can now be done with <code>use_extendr_badge()</code>. This results in:</p>
+<p><a href="https://extendr.rs/extendr/extendr_api/"><img src="https://img.shields.io/badge/extendr-%5E0.8.0-276DC2" class="img-fluid"></a></p>
+<p>If you’re using extendr in your package, do us a solid and add the badge to your README! 🥺</p>
+</section>
+<section id="theres-still-more" class="level2">
+<h2 class="anchored" data-anchor-id="theres-still-more">There’s still more</h2>
+<p>Check out our recently updated <a href="https://extendr.rs/">website</a> and documentation! For the full changelog see the <a href="https://github.com/extendr/rextendr/blob/main/NEWS.md">NEWS.md</a>.</p>
 
-<img loading="lazy" src="../blog/posts/2024-06-30-extendr-release-070/images/extendr-release-070.png" class="thumbnail-image" alt="The extendr logo, letter R in middle of gear.">
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">Migration guide for extendr 0.7.0</a>
-</h3>
-<div class="listing-categories">
+</section>
 
-<div class="listing-category" onclick="window.quartoListingCategory('UmVsZWFzZQ=='); return false;">Release</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRlcw=='); return false;">Updates</div>
-
-</div>
-<div class="delink listing-description"><a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">
-<p>A new version of extendr has arrived, so we explain how to address major changes.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">
-<div class="listing-date">
-Jun 30, 2024
-</div>
-<div class="listing-author">
-Josiah Parry
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -709,4 +697,4 @@ Josiah Parry
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/blog/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/blog/posts/2025-08-26-rextendr-release-040/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
