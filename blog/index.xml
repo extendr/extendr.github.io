@@ -107,7 +107,7 @@ WebR for existing packages
   <category>Updates</category>
   <guid>https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/</guid>
   <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
-  <media:content url="https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/images/extendr-release-040.png" medium="image" type="image/png"/>
+  <media:content url="https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/images/rextendr-release-040.png" medium="image" type="image/png" height="92" width="144"/>
 </item>
 <item>
   <title>Migration guide for extendr 0.7.0</title>
