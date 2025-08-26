@@ -1,0 +1,103 @@
+---
+title: "rextendr 0.4.0"
+description: |
+  A new version of rextendr has arrived.
+author: Blake Vernon
+date: "2025/08/26"
+image: images/extendr-release-040.png
+image-alt: "The rextendr logo, letter R in middle of gears."
+categories: [Release, Updates]
+---
+
+The extendr team is excited to announce the release of
+[rextendr](https://extendr.github.io/rextendr/dev) `0.4.0`, along with two
+follow-up patch releases, that bring significant improvements to the R package
+ecosystem for Rust integration. Those include enhanced CRAN compatibility,
+improved developer experience, and streamlined package scaffolding. A great deal
+of work also went into re-factoring code, focusing support on later versions of
+R, and reducing package dependencies to streamline maintenance and ensure the
+long-term viability of the project.
+
+::: callout-note
+## What is rextendr?
+
+For those new to the project, rextendr is an R package similar to `usethis` and
+`devtools` for supporting development of Rust-powered R packages, with the Rust
+crate `extendr` handling most of the heavy lifting behind the scenes.
+:::
+
+## CRAN compatibility
+
+The standout feature of the current release is found in rextendr's workhorse
+function `use_extendr()`, which now provides CRAN-ready scaffolding out of the
+box. This is achieved through a set of targeted updates.
+
+-   **Enhanced build configuration** - `use_extendr()` now creates
+    `tools/msrv.R` to ensure that developers have a CRAN compatible version of
+    Rust installed. It also provides updated `configure` scripts for
+    pre-compilation checks and setup on various operating systems.
+-   **Explicit system requirements** - `use_extendr()` now sets the package
+    `DESCRIPTION`'s `SystemRequirements` field to "Cargo (Rust's package
+    manager), rustc" per CRAN requirements. It also adds `xz` so packages can
+    build on Posit Package Manger.
+-   **Friendly updating** - `use_extendr()` can now be called on existing
+    extendr-powered R packages to update or generate new scaffolding. Prompts
+    allow the user to specify which updates or changes to accept or reject. This
+    is especially useful as rextendr continues to adapt to developer needs and
+    evolving CRAN policies.
+
+## Developer tools
+
+Release of 0.4.0 and its patches also comes with a host of new developer
+tooling.
+
+-   **Greater IDE support** - new functions `use_vscode()` and `use_positron()`
+    generate `.vscode/settings.json` with suitable defaults, thus enhancing
+    developer experience in VSCode and Positron. One of the big ones here is the
+    addition of `rust-analyzer.linkedProjects`, which ensures that rust analyzer
+    can find the Rust project inside the R package directory.
+-   **Cargo functions** - rextendr added or updated a few helper functions to
+    invoke Cargo commands from R. These include `rust_sitrep()` to provide Rust
+    toolchain diagnostics, `use_crate()` to add dependencies to `Cargo.toml`,
+    and `read_cargo_metadata()` to fetch project information.
+
+## WebR support
+
+A very exciting development in the project is greater support for WebR, with
+extendr-powered R packages now compatible with WASM, meaning the packages can be
+used in the browser without an R installation. A nice side-effect of these
+enhancements is that compiled extendr-packages are now substantially reduced in
+size.
+
+## A new extendr badge!
+
+The extendr community has grown quite a bit in the last two years, maybe as much
+as the codebase! We wanted to make sure that new developers could boast about
+their extendr-powered packages - and, if we're being honest, increase visibility
+for the project - by adding an extendr badge to their README files, which can
+now be done with `use_extendr_badge()`. This results in:
+
+[![](https://img.shields.io/badge/extendr-%5E0.8.0-276DC2)](https://extendr.rs/extendr/extendr_api/)
+
+## What These Changes Mean for Developers
+
+These improvements provide a host benefits to new developers:
+
+-   **Simplified CRAN submission process** - Running `use_extendr()` now creates
+    package scaffolding that's ready for CRAN submission with minimal additional
+    configurations. Invariably, developers in the R community will experience
+    many frictions and pain points on the way to publishing on CRAN, but
+    rextendr will not be one of them.
+-   **Reduced maintenance overhead** - The new updating mechanism provided by
+    `use_extendr()` means that developers can now generally count on the extendr
+    team to help implement changes that meet CRAN requirements and take
+    advantage of new developments in Rust.
+-   **Better integration with R infrastructure** - Developers can now build with
+    confidence knowing that their packages will be robust across platforms and
+    package managers.
+
+## To learn more...
+
+Check out our recently updated \[website\](<https://extendr.rs/>) and
+documentation! We are still a ways away from having complete documentation, but
+we're getting there! Did you notice our new domain?
