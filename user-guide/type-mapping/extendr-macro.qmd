@@ -141,10 +141,36 @@ error[E0277]: the trait bound `Shape: ToVectorValue` is not satisfied
    |
 ```
 
-However, if an impl block is added to the `Shape` enum, it can be returned to R. 
+However, you add the `#[extendr]` attribute to the `Shape` enum, it can be returned to R.
 
 ```{extendrsrc}
 #[derive(Debug)]
+#[extendr]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+fn make_shape(shape: &str) -> Shape {
+    match shape {
+        "triangle" => Shape::Triangle,
+        "rectangle" => Shape::Rectangle,
+        "pentagon" => Shape::Pentagon,
+        "hexagon" => Shape::Hexagon,
+        &_ => unimplemented!()
+    }
+}
+
+```
+
+It is also possible to add methods to structs/enums and their instances:
+
+```{extendrsrc}
+#[derive(Debug)]
+#[extendr]
 enum Shape {
     Triangle,
     Rectangle,
