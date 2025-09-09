@@ -3,7 +3,9 @@ title: "`h3o` is now on CRAN‼️"
 description: |
   R users now have access to a pure Rust implementation of Uber's H3, a 
   hexagonal geospatial grid and indexing system.
-author: Blake Vernon
+author: 
+  - name: Blake Vernon
+  - name: Josiah Parry
 date: "2025/09/09"
 image: thumbnail.png
 image-alt: "The letters h3o on a hexagonal sticker."
