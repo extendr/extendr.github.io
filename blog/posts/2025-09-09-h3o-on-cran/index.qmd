@@ -12,11 +12,14 @@ image-alt: "The letters h3o on a hexagonal sticker."
 categories: [Release]
 ---
 
+![](thumbnail.png)
+
 The extendr-powered R package `h3o` provides access to [a pure Rust implementation](https://github.com/HydroniumLabs/h3o) 
 of [Uber's H3 Geospatial Indexing System](https://github.com/uber/h3). 
 Originally developed by Josiah Parry, the R package has also become an official 
 product of extendr, which means community support 🤝 and maintenance 🏗️ into 
 the foreseeable future.
+
 
 ## `h3o` at a glance 👀
 
