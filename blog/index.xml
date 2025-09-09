@@ -21,6 +21,7 @@
 
 
 
+<p><img src="https://extendr.github.io/blog/posts/2025-09-09-h3o-on-cran/thumbnail.png" class="img-fluid"></p>
 <p>The extendr-powered R package <code>h3o</code> provides access to <a href="https://github.com/HydroniumLabs/h3o">a pure Rust implementation</a> of <a href="https://github.com/uber/h3">Uber’s H3 Geospatial Indexing System</a>. Originally developed by Josiah Parry, the R package has also become an official product of extendr, which means community support 🤝 and maintenance 🏗️ into the foreseeable future.</p>
 <section id="h3o-at-a-glance" class="level2">
 <h2 class="anchored" data-anchor-id="h3o-at-a-glance"><code>h3o</code> at a glance 👀</h2>
@@ -92,11 +93,9 @@ background-color: null;
 font-style: inherit;">4326</span></span>
 <span id="cb1-15">)</span>
 <span id="cb1-16"></span>
-<span id="cb1-17">pnts <span class="sc" style="color: #5E5E5E;
+<span id="cb1-17"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+font-style: inherit;">mutate</span>(pnts, <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">h3 =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -107,20 +106,20 @@ font-style: inherit;">5</span>))</span></code></pre></div>
 <pre><code>Simple feature collection with 100 features and 1 field
 Geometry type: POINT
 Dimension:     XY
-Bounding box:  xmin: -4.984872 ymin: 40.2337 xmax: 9.931386 ymax: 49.8441
+Bounding box:  xmin: -4.861231 ymin: 40.05397 xmax: 9.846006 ymax: 49.98446
 Geodetic CRS:  WGS 84
 First 10 features:
-                      geometry              h3
-1    POINT (1.470689 40.78258) 85394603fffffff
-2     POINT (3.65606 41.12884) 853941cbfffffff
-3   POINT (-2.451488 42.25655) 85392937fffffff
-4     POINT (6.997712 40.2337) 85394b93fffffff
-5   POINT (-4.045207 46.06162) 85184313fffffff
-6   POINT (0.4984067 43.33282) 8539663bfffffff
-7    POINT (2.457852 41.96973) 853944affffffff
-8    POINT (8.899564 41.77609) 851eb233fffffff
-9    POINT (1.249403 43.94849) 8539609bfffffff
-10 POINT (-0.7160074 40.27496) 85397223fffffff</code></pre>
+                     geometry              h3
+1   POINT (3.169478 45.06344) 851f92d7fffffff
+2    POINT (5.63995 44.91631) 851f9323fffffff
+3   POINT (1.263684 42.55526) 85396207fffffff
+4  POINT (0.3876174 41.06653) 853973b3fffffff
+5  POINT (-1.192501 44.22128) 85184d7bfffffff
+6    POINT (3.86172 41.56535) 8539419bfffffff
+7  POINT (-1.565639 49.98446) 851866bbfffffff
+8   POINT (3.704704 42.74759) 85396e47fffffff
+9    POINT (2.804652 47.0575) 851fb267fffffff
+10 POINT (-4.021278 47.52185) 851846affffffff</code></pre>
 </div>
 </div>
 <p>You can use the <code>st_as_sfc()</code> method to convert H3 hexagons to sf <code>POLYGON</code>s.</p>
@@ -256,8 +255,8 @@ font-style: inherit;">TRUE</span></span>
 <pre><code># A tibble: 2 × 6
   expression   min median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 h3o          1      1        17.2        1      1   
-2 h3jsr       18.5   17.8       1        275.     5.77</code></pre>
+1 h3o          1      1        26.1        1      1   
+2 h3jsr       27.0   25.6       1        268.     3.85</code></pre>
 </div>
 </div>
 </section>
@@ -332,8 +331,8 @@ font-style: inherit;">TRUE</span></span>
 <pre><code># A tibble: 2 × 6
   expression   min median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 h3o         1      1         5.16       1       2.26
-2 h3jsr       5.43   5.30      1         33.7     1   </code></pre>
+1 h3o         1      1         7.79       1       5.84
+2 h3jsr       8.96   7.82      1         33.0     1   </code></pre>
 </div>
 </div>
 </section>
@@ -380,8 +379,8 @@ font-style: inherit;">TRUE</span></span>
 <pre><code># A tibble: 2 × 6
   expression   min median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 h3o          1      1        23.8        1      1.31
-2 h3jsr       26.7   26.5       1       1178.     1   </code></pre>
+1 h3o          1      1        16.8        1      1.02
+2 h3jsr       16.7   19.4       1       1193.     1   </code></pre>
 </div>
 </div>
 </section>
@@ -420,8 +419,8 @@ font-style: inherit;">TRUE</span></span>
 <pre><code># A tibble: 2 × 6
   expression   min median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 h3o         1      1         3.10      1        1.03
-2 h3jsr       4.00   3.26      1         7.02     1   </code></pre>
+1 h3o         1      1         2.95      1        1   
+2 h3jsr       2.97   2.83      1         7.02     2.65</code></pre>
 </div>
 </div>
 </section>
@@ -481,8 +480,8 @@ font-style: inherit;">TRUE</span></span>
 <pre><code># A tibble: 2 × 6
   expression   min median `itr/sec` mem_alloc `gc/sec`
   &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 h3o          1      1        34.7      1        1.28
-2 h3jsr       45.2   35.8       1        2.52     1   </code></pre>
+1 h3o          1      1        24.6      1        1   
+2 h3jsr       21.3   26.1       1        2.52     3.01</code></pre>
 </div>
 </div>
 </section>
