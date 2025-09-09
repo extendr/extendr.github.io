@@ -46,7 +46,7 @@ pnts <- st_as_sf(
   crs = 4326
 )
 
-pnts |> mutate(h3 = h3_from_points(geometry, 5))
+mutate(pnts, h3 = h3_from_points(geometry, 5))
 ```
 
 You can use the `st_as_sfc()` method to convert H3 hexagons to sf `POLYGON`s.
