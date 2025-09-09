@@ -2,6 +2,7 @@
   {
     "listing": "/blog/index.html",
     "items": [
+      "/blog/posts/2025-09-09-h3o-on-cran/index.html",
       "/blog/posts/2025-08-26-rextendr-release-040/index.html",
       "/blog/posts/2024-06-30-extendr-release-070/index.html"
     ]
