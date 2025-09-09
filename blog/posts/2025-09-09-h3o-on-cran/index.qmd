@@ -24,6 +24,7 @@ can be converted to and from `sf` geometries.
 ```{r}
 #| label: example
 #| warning: false
+#| message: false
 library(h3o)
 library(dplyr)
 library(sf)
