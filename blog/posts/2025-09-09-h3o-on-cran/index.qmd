@@ -12,11 +12,14 @@ image-alt: "The letters h3o on a hexagonal sticker."
 categories: [Release]
 ---
 
+![](thumbnail.png)
+
 The extendr-powered R package `h3o` provides access to [a pure Rust implementation](https://github.com/HydroniumLabs/h3o) 
 of [Uber's H3 Geospatial Indexing System](https://github.com/uber/h3). 
 Originally developed by Josiah Parry, the R package has also become an official 
 product of extendr, which means community support 🤝 and maintenance 🏗️ into 
 the foreseeable future.
+
 
 ## `h3o` at a glance 👀
 
@@ -43,7 +46,7 @@ pnts <- st_as_sf(
   crs = 4326
 )
 
-pnts |> mutate(h3 = h3_from_points(geometry, 5))
+mutate(pnts, h3 = h3_from_points(geometry, 5))
 ```
 
 You can use the `st_as_sfc()` method to convert H3 hexagons to sf `POLYGON`s.
