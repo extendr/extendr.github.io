@@ -22,7 +22,7 @@ In some cases your R package's `.tar.gz` can be quite large due to the `vendor.t
 
 As of this writing the **MSRV of CRAN** is 1.81. In order to publish to CRAN, this MSRV must be met.
 
-See [CRAN's MSRV](user-guide/cran-msrv.qmd) for a detailed list of Rust versions for each check flavor.
+See [CRAN's MSRV](cran-msrv.qmd) for a detailed list of Rust versions for each check flavor.
 
 ## Nightly features
 
