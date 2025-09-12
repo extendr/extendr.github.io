@@ -2,170 +2,170 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://extendr.github.io/blog/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.002Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.501Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.002Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.501Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/get-started.html</loc>
-    <lastmod>2025-09-10T01:20:15.003Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.502Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/structs.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/parallelize.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/fizz-buzz.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/hello-world.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/iterators.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/mutable-vectors.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/references-slices.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/types.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/for-loops.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/changelog.html</loc>
-    <lastmod>2025-09-10T01:20:15.003Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.502Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/cran-msrv.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/error-handling/basic-error-handling.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/type-mapping/vectors.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.507Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/type-mapping/scalars.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.507Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/cran-publishing.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/r-pkgs/package-structure.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/webr.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.507Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/faq.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/r-pkgs/package-setup.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/tokio.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/type-mapping/extendr-macro.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/type-mapping/characters.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/type-mapping/missing-values.html</loc>
-    <lastmod>2025-09-10T01:20:15.008Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/serde-integration.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/complete-example.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.506Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/CONTRIBUTING.html</loc>
-    <lastmod>2025-09-10T01:20:14.999Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.497Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/mutability.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/why-rust.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/is-odd.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/struct-methods.html</loc>
-    <lastmod>2025-09-10T01:20:15.007Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/collections.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/iter-map.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/enums.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/options.html</loc>
-    <lastmod>2025-09-10T01:20:15.006Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.505Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.003Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.501Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2025-09-09-h3o-on-cran/index.html</loc>
-    <lastmod>2025-09-10T01:20:15.003Z</lastmod>
+    <lastmod>2025-09-12T01:09:21.501Z</lastmod>
   </url>
 </urlset>
