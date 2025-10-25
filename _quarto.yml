@@ -1,5 +1,9 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "*.md"
+    - "!CLAUDE.md"
 
 execute:
   freeze: true
@@ -70,6 +74,7 @@ website:
             - user-guide/type-mapping/extendr-macro.qmd
             - user-guide/type-mapping/scalars.qmd
             - user-guide/type-mapping/vectors.qmd
+            - user-guide/type-mapping/collections.qmd
             - user-guide/type-mapping/missing-values.qmd
             - user-guide/type-mapping/characters.qmd
         - section: "Error Handling"
