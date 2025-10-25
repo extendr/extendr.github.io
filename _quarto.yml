@@ -75,6 +75,7 @@ website:
         - section: "Error Handling"
           contents:
             - user-guide/error-handling/basic-error-handling.qmd
+        - user-guide/default-args.qmd
         - user-guide/serde-integration.qmd
         - user-guide/tokio.qmd
         - user-guide/cran-publishing.qmd
