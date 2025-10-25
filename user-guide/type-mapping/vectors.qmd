@@ -7,14 +7,12 @@ title: "Vector Type Mapping"
 library(rextendr)
 ```
 
-## Vector Type Mapping with Rust Types
-
 What happens if we try to pass more than one value to `scalar_double()`?
 
 ```{extendrsrc, echo=FALSE}
 #[extendr]
-fn scalar_double(x: f64) { 
-    rprintln!("The value of x is {x}"); 
+fn scalar_double(x: f64) {
+    rprintln!("The value of x is {x}");
 }
 ```
 
@@ -88,8 +86,8 @@ followed by a `;`.
 
 ```{extendrsrc}
 #[extendr]
-fn vector_double(x: Vec<f64>) -> Vec<f64> { 
-    x 
+fn vector_double(x: Vec<f64>) -> Vec<f64> {
+    x
 }
 ```
 
@@ -108,13 +106,13 @@ These same principles can be extended to other supported vector types such as
 
 ```{extendrsrc}
 #[extendr]
-fn vector_integer(x: Vec<i32>) -> Vec<i32> { 
+fn vector_integer(x: Vec<i32>) -> Vec<i32> {
     x
 }
 
 #[extendr]
 fn vector_character(x: Vec<String>) -> Vec<String> {
-    x 
+    x
 }
 ```
 
