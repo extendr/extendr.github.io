@@ -1,0 +1,108 @@
+---
+title: Default function arguments
+date: "`r Sys.Date()`"
+freeze: true
+---
+
+```{r, include = FALSE}
+library(rextendr)
+```
+
+In Rust, all function arguments are required—there are no default arguments. However, for R packages, having default arguments is essential for creating ergonomic and user-friendly APIs. The `#[extendr]` macro provides the `default` parameter allowing you to specify default values that will be added to the generated R wrapper functions.
+
+## The `default` attribute
+
+The `default` attribute is applied to individual function arguments using the syntax `#[extendr(default = "value")]`. The value you provide is a string that will be inserted directly into the generated R function signature. This means you can use any valid R expression as a default value.
+
+```rust
+#[extendr]
+fn my_function(#[extendr(default = "NULL")] x: Robj) {
+    // function body
+}
+```
+
+This generates an R function with the signature `my_function(x = NULL)`.
+
+## Basic examples
+
+Let's start with a simple function that checks if an argument is `NULL`. By setting the default to `"NULL"`, users can call the function without providing any arguments:
+
+```{extendrsrc engine.opts = list(use_dev_extendr=TRUE)}
+#[extendr]
+fn check_default(#[extendr(default = "NULL")] x: Robj) -> bool {
+    x.is_null()
+}
+```
+
+Now you can call this function without any arguments, and it will use the default value:
+
+```{r}
+check_default()
+```
+
+Or provide an explicit value:
+
+```{r}
+check_default(42)
+```
+
+## Working with logical defaults
+
+Default arguments work with any R type. Here's an example with a logical default value:
+
+```{extendrsrc engine.opts = list(use_dev_extendr=TRUE)}
+#[extendr]
+fn greet(name: &str, #[extendr(default = "FALSE")] loud: bool) -> String {
+    let greeting = format!("Hello, {}", name);
+    if loud {
+        greeting.to_uppercase()
+    } else {
+        greeting
+    }
+}
+```
+
+```{r}
+# Using the default (quiet greeting)
+greet("Alice")
+
+# Override the default
+greet("Alice", loud = TRUE)
+```
+
+## Multiple defaults
+
+You can use multiple default arguments in a single function. Just remember that in R, arguments with defaults should typically come after required arguments for best practices:
+
+```{extendrsrc engine.opts = list(use_dev_extendr=TRUE)}
+#[extendr]
+fn multiply(
+    x: f64,
+    #[extendr(default = "1.0")] multiplier: f64,
+    #[extendr(default = "FALSE")] round_result: bool
+) -> f64 {
+    let result = x * multiplier;
+    if round_result {
+        result.round()
+    } else {
+        result
+    }
+}
+```
+
+```{r}
+# All defaults
+multiply(5.5)
+
+# Custom multiplier
+multiply(5.5, multiplier = 2.5)
+
+# Custom multiplier and rounding
+multiply(5.5, multiplier = 2.5, round_result = TRUE)
+```
+
+## Important notes
+
+- The value in `default = "..."` is inserted directly into the R function signature, so it must be valid R code
+- You can use any R expression, including function calls: `#[extendr(default = "getOption('my_option')")]`
+- The default values only affect the R wrapper—your Rust function still receives whatever value the R user provides (or the default if they don't)
