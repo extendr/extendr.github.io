@@ -11,7 +11,7 @@ When returning structured data from Rust to R, named lists are often the most na
 
 ## Basic Usage
 
-Derive `IntoList` on a struct to convert it into a named R list. Each field is converted to an `Robj` and assembled into a named list. This approach has some overhead but provides a straightforward way to return structured results. Note that this creates a one-way conversion—there is no built-in method to convert the list back into the Rust struct. For stateful objects that need methods, use `#[extendr]` on an `impl` block with external pointers instead.
+Derive `IntoList` on a struct to convert it into a named R list. Each field is converted to an `Robj` and assembled into a named list. This approach has some overhead but provides a straightforward way to return structured results. Note that this creates a one-way conversion—there is no built-in method to convert the list back into the Rust struct. For stateful objects that need methods, use `#[extendr]` on an `impl` block with external pointers instead. See [IntoList vs External Pointers](#intolist-vs-external-pointers) below for additional details.
 
 ```{extendrsrc engine.opts = list(use_dev_extendr=TRUE)}
 #[derive(IntoList)]
