@@ -13,6 +13,76 @@ We welcome contributions to the extendr project. Contributions come in many form
 * [Authorship](#authorship)
 * [Attribution](#attribution)
 
+## Repo structure
+
+This is the source of the extendr project's website.
+
+- `user-guide` Is the user guide for using `extendr-api`
+- `blog` is the source code for blogs for the extendr-project
+- `intro-rust` contains souce code for an Introduction to Rust for R developers
+
+## Using extendr code chunks
+
+Whenever using extendr code, use the `extendrsrc` and `extendr` knitr engines.
+The user-guide/serde-integration.qmd is the best example. Try to emulate this style.
+
+## User guide
+
+The user guide is a friendly introduction to the `extendr-api` crate. Any entries into the user guide should be **concise** and use **simple language**. Always use code chunks whenever using extendr code.
+
+The structure is roughly as follows:
+
+````
+```
+---
+title: "An informative title"
+---
+
+- Motivate the functionality that the entry will cover
+- No more than 4 sentences
+
+## The feature
+
+- Describe the functionality that will be covered
+- Discuss pre-reqs if any
+
+## Basic usage
+
+- Provide a basic example
+- Discuss your code prior to showing the code
+
+```{extendrsrc}
+// your rust code
+```
+
+- Summarise and explicate
+
+## Advanced usage
+
+- Motivate advanced usage
+- Provide an example
+
+```{extendrsrc}
+// your rust code
+```
+
+- Summarize and explicate
+
+## See also
+
+- Provide useful links to other docs on the site or externally
+```
+````
+
+### Writing style
+
+- use of second person is fine, but you cannot write about one's intention in the second person.
+- Banned phrases ❌:
+  - "you want to"
+  - "you need to"
+- never use `print()` to print an R object
+
+
 ## Code of Conduct
 
 We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct.](https://github.com/extendr/extendr/blob/master/CODE-OF-CONDUCT.md)
