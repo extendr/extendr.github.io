@@ -10,7 +10,332 @@
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.9.36</generator>
-<lastBuildDate>Tue, 09 Sep 2025 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 25 Mar 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>arrow-extendr: 🏹 Polars support 🐻‍❄️</title>
+  <dc:creator>Josiah Parry</dc:creator>
+  <link>https://extendr.github.io/blog/posts/2026-03-25-arrow-extendr-polars/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<ul>
+<li><a href="https://josiah.rs/posts/cross-language-ds/">Arrow is the future of cross-language data science</a></li>
+<li>New ✨ Polars support for arrow-extendr</li>
+<li>Example: <a href="https://pola-rs.github.io/r-polars/">round-trip from <code>{polars}</code></a></li>
+</ul>
+<hr>
+<p>The latest release of <a href="https://github.com/extendr/arrow-extendr">arrow-extendr</a> adds support for <a href="https://pola.rs/">Polars</a>, bridging the gap between Polars DataFrames and R’s Arrow ecosystem.</p>
+</section>
+<section id="what-is-arrow-extendr" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-arrow-extendr">What is arrow-extendr?</h2>
+<p><a href="https://github.com/extendr/arrow-extendr">arrow-extendr</a> is a Rust crate that makes it straightforward to pass Apache Arrow memory between R and Rust. Rather than serializing and deserializing at every boundary, Arrow lets R and Rust share the same in-memory representation. This means your extendr package can talk directly to <a href="https://arrow.apache.org/nanoarrow/latest/r/index.html"><code>{nanoarrow}</code></a>, the <a href="https://arrow.apache.org/docs/r/"><code>{arrow}</code></a> R package, <a href="https://github.com/duckdb/duckdb-r">DuckDB</a>, <a href="https://datafusion.apache.org/">DataFusion</a>, and now Polars, without any copying or conversion.</p>
+<p>Arrow is, in our view, <a href="https://josiah.rs/posts/cross-language-ds/">the standard for cross-language data science</a>. Supporting it natively from extendr, rather than routing through a single R package, is a deliberate choice.</p>
+</section>
+<section id="polars-feature" class="level2">
+<h2 class="anchored" data-anchor-id="polars-feature">Use Polars from extendr</h2>
+<p>Polars ships its own Arrow implementation, <code>polars-arrow</code>, which is separate from <a href="https://docs.rs/arrow"><code>arrow-rs</code></a>. That difference has historically made it awkward to pass data between Polars and the rest of the Arrow ecosystem. The new <code>polars</code> feature flag handles the translation.</p>
+<p>Add it to your <code>Cargo.toml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[dependencies]</span></span>
+<span id="cb1-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">arrow_extendr</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb1-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    </span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">version</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"58"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb1-4"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    </span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">features</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> =</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"polars"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">],</span></span>
+<span id="cb1-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    </span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">default-features</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">false</span></span>
+<span id="cb1-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb1-7"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">polars-core</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.53.0"</span></span>
+<span id="cb1-8"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">anyhow</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"1"</span></span></code></pre></div></div>
+<p>You can also find the latest version on <a href="https://crates.io/crates/arrow-extendr">crates.io</a>.</p>
+<p>This gives you the following conversions via the Arrow C Stream interface:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 42%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Direction</th>
+<th>R object</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>polars_core::frame::DataFrame</code></td>
+<td><code>IntoArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr class="even">
+<td><code>polars_core::frame::DataFrame</code></td>
+<td><code>FromArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr class="odd">
+<td><code>polars_arrow::ffi::ArrowArrayStream</code></td>
+<td><code>IntoArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr class="even">
+<td><code>polars_arrow::ffi::ArrowArrayStreamReader</code></td>
+<td><code>FromArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="round-trip" class="level2">
+<h2 class="anchored" data-anchor-id="round-trip">Round-trip a Polars DataFrame through R</h2>
+<p>Accept a <code>nanoarrow_array_stream</code> from R, load it into a Polars <code>DataFrame</code>, and return it back to R as a stream.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">use</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">extendr_api::prelude::</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*;</span></span>
+<span id="cb2-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">use</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">anyhow::</span>anyhow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">use</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">arrow_extendr::</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>FromArrowRobj<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> IntoArrowRobj<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">};</span></span>
+<span id="cb2-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">use</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">polars_core::frame::</span>DataFrame<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-5"></span>
+<span id="cb2-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">#[</span>extendr<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb2-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/// @export</span></span>
+<span id="cb2-8"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">fn</span> polars_round_trip(x<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> Robj) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">anyhow::</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Result</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>Robj<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-9">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">let</span> df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">DataFrame::</span>from_arrow_robj(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span>x)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">?;</span></span>
+<span id="cb2-10">    <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">rprintln!</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"{df:?}"</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-11">    df<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>into_arrow_robj()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>map_err(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span>e<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">anyhow!</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"{e:?}"</span>))</span>
+<span id="cb2-12"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<p>On the R side, pass any Arrow-compatible object. Here we use <a href="https://pola-rs.github.io/r-polars/"><code>{polars}</code></a> directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(polars)</span>
+<span id="cb3-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(nanoarrow)</span>
+<span id="cb3-3"></span>
+<span id="cb3-4">df <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> pl<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">DataFrame</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">a =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">b =</span> letters[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>])</span>
+<span id="cb3-5">stream <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as_nanoarrow_array_stream</span>(df)</span>
+<span id="cb3-6">result <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">polars_round_trip</span>(stream)</span>
+<span id="cb3-7"></span>
+<span id="cb3-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># convert back to a polars DataFrame</span></span>
+<span id="cb3-9">pl<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">DataFrame</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as_arrow_table</span>(result))</span></code></pre></div></div>
+<p>The return value is a <code>nanoarrow_array_stream</code>, so callers can convert to whatever they need: <code>{arrow}</code>, <code>{polars}</code>, DuckDB, or anything else that speaks Arrow.</p>
+</section>
+<section id="what-changed" class="level2">
+<h2 class="anchored" data-anchor-id="what-changed">What changed</h2>
+<p><strong>Breaking changes</strong></p>
+<ul>
+<li><code>FromArrowRobj</code>, <code>ToArrowRobj</code>, and <code>IntoArrowRobj</code> moved to the crate root (<code>arrow_extendr</code>). Update imports accordingly.</li>
+<li><code>FromArrowRobj::from_arrow_robj</code> now returns <code>std::result::Result&lt;Self, anyhow::Error&gt;</code> instead of <code>Result&lt;Self, ArrowError&gt;</code>, providing a uniform error type across both feature implementations.</li>
+<li><code>arrow-rs</code> is now an optional dependency behind the <code>arrow</code> feature flag, which is on by default. Add <code>features = ["arrow"]</code> explicitly if you depend on <code>arrow-rs</code> types.</li>
+<li><code>ErrArrowRobj</code> type alias removed. Use <code>anyhow::Error</code> directly.</li>
+</ul>
+<p><strong>New features</strong></p>
+<ul>
+<li><code>polars</code> feature flag enabling interop with <code>polars-core</code>.</li>
+<li><code>FromArrowRobj</code> for <code>polars_arrow::ffi::ArrowArrayStreamReader</code>.</li>
+<li><code>IntoArrowRobj</code> for <code>polars_arrow::ffi::ArrowArrayStream</code>.</li>
+<li><code>IntoArrowRobj</code> for <code>polars_core::frame::DataFrame</code>, preserving chunking.</li>
+<li><code>FromArrowRobj</code> for <code>polars_core::frame::DataFrame</code>.</li>
+</ul>
+</section>
+<section id="community" class="level2">
+<h2 class="anchored" data-anchor-id="community">Community-driven development</h2>
+<p>This feature came directly out of a conversation with the <a href="https://www.bioconductor.org/">Bioconductor</a> community last August. The topic was <a href="https://github.com/SingleRust/SingleRust">SingleRust</a>, a single-cell analysis library in Rust, and how to expose its results to R. SingleRust’s core data structure is a Polars <code>DataFrame</code>, which meant crossing the polars-arrow/R boundary. That thread, between myself, <a href="https://github.com/cgmossa">Mossa (<span class="citation" data-cites="cgmossa">@cgmossa</span>)</a>, and <a href="https://github.com/Artur-man">Artür (<span class="citation" data-cites="Artur-man">@Artur-man</span>)</a>, is what motivated Mossa to build this out.</p>
+<p>The only way we know what matters to <strong>you</strong> is for you to tell us. We really do listen 👂🏼. We’re a small team, but when you need something, we’ll provide, or do our best at least!</p>
+<p><strong>Get involved:</strong></p>
+<ul>
+<li>Join the <a href="https://discord.gg/7hmApuc">Discord</a>.</li>
+<li>Open an issue on <a href="https://github.com/extendr/arrow-extendr/issues">arrow-extendr</a>, <a href="https://github.com/extendr/extendr/issues">extendr</a>, or <a href="https://github.com/extendr/rextendr/issues">rextendr</a>.</li>
+<li>Contribute, PRs are always welcome.</li>
+</ul>
+<p>The full changelog is on <a href="https://github.com/extendr/arrow-extendr">GitHub</a>.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>arrow-extendr</category>
+  <category>arrow</category>
+  <category>release</category>
+  <category>polars</category>
+  <guid>https://extendr.github.io/blog/posts/2026-03-25-arrow-extendr-polars/</guid>
+  <pubDate>Wed, 25 Mar 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>h3o is now on CRAN‼️</title>
   <dc:creator>Blake Vernon</dc:creator>

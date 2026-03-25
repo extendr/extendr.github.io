@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Josiah Parry">
+<meta name="dcterms.date" content="2026-03-25">
+<meta name="description" content="The latest release of arrow-extendr adds support for Polars, making it straightforward to move data between R and Polars DataFrames via the Arrow C Stream interface.">
 
-<title>extendr Blog – extendr</title>
+<title>arrow-extendr: 🏹 Polars support 🐻‍❄️ – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,33 +26,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../..//images/extendr-gears-logo.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,69 +113,11 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
+</head>
 
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="alternate" type="application/rss+xml" title="extendr" href="index.xml" data-external="1"></head>
-
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -308,7 +286,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">extendr</span>
     </a>
   </div>
@@ -319,7 +297,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../get-started.html"> 
+    <a class="nav-link" href="../../../get-started.html"> 
 <span class="menu-text">INSTALL</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -336,21 +314,21 @@ window.Quarto = {
  <span class="dropdown-text">{rextendr} package</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../intro-rust/index.html">
+    <a class="dropdown-item" href="../../../intro-rust/index.html">
  <span class="dropdown-text">Rust Basics</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../user-guide/index.html">
+    <a class="dropdown-item" href="../../../user-guide/index.html">
  <span class="dropdown-text">User Guide</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../contributing/index.html">
+    <a class="dropdown-item" href="../../../contributing/index.html">
  <span class="dropdown-text">Contributing</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="../blog/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../blog/index.html"> 
 <span class="menu-text">NEWS</span></a>
   </li>  
   <li class="nav-item compact">
@@ -374,25 +352,61 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TL;DR</a></li>
+  <li><a href="#what-is-arrow-extendr" id="toc-what-is-arrow-extendr" class="nav-link" data-scroll-target="#what-is-arrow-extendr">What is arrow-extendr?</a></li>
+  <li><a href="#polars-feature" id="toc-polars-feature" class="nav-link" data-scroll-target="#polars-feature">Use Polars from extendr</a></li>
+  <li><a href="#round-trip" id="toc-round-trip" class="nav-link" data-scroll-target="#round-trip">Round-trip a Polars DataFrame through R</a></li>
+  <li><a href="#what-changed" id="toc-what-changed" class="nav-link" data-scroll-target="#what-changed">What changed</a></li>
+  <li><a href="#community" id="toc-community" class="nav-link" data-scroll-target="#community">Community-driven development</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/blog/posts/2026-03-25-arrow-extendr-polars/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="YXJyb3c=">arrow <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YXJyb3ctZXh0ZW5kcg==">arrow-extendr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cG9sYXJz">polars <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVsZWFzZQ==">release <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UmVsZWFzZQ==">Release <span class="quarto-category-count">(3)</span></div><div class="category" data-category="VXBkYXRlcw==">Updates <span class="quarto-category-count">(2)</span></div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">extendr Blog</h1>
-<p class="subtitle lead">News, tips, and commentary about all things extendr</p>
-</div>
+<h1 class="title">arrow-extendr: 🏹 Polars support 🐻‍❄️</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">arrow-extendr</div>
+    <div class="quarto-category">arrow</div>
+    <div class="quarto-category">release</div>
+    <div class="quarto-category">polars</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    <p>The latest release of arrow-extendr adds support for Polars, making it straightforward to move data between R and Polars DataFrames via the Arrow C Stream interface.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Josiah Parry </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 25, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -402,145 +416,133 @@ window.Quarto = {
 </header>
 
 
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<ul>
+<li><a href="https://josiah.rs/posts/cross-language-ds/">Arrow is the future of cross-language data science</a></li>
+<li>New ✨ Polars support for arrow-extendr</li>
+<li>Example: <a href="https://pola-rs.github.io/r-polars/">round-trip from <code>{polars}</code></a></li>
+</ul>
+<hr>
+<p>The latest release of <a href="https://github.com/extendr/arrow-extendr">arrow-extendr</a> adds support for <a href="https://pola.rs/">Polars</a>, bridging the gap between Polars DataFrames and R’s Arrow ecosystem.</p>
+</section>
+<section id="what-is-arrow-extendr" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-arrow-extendr">What is arrow-extendr?</h2>
+<p><a href="https://github.com/extendr/arrow-extendr">arrow-extendr</a> is a Rust crate that makes it straightforward to pass Apache Arrow memory between R and Rust. Rather than serializing and deserializing at every boundary, Arrow lets R and Rust share the same in-memory representation. This means your extendr package can talk directly to <a href="https://arrow.apache.org/nanoarrow/latest/r/index.html"><code>{nanoarrow}</code></a>, the <a href="https://arrow.apache.org/docs/r/"><code>{arrow}</code></a> R package, <a href="https://github.com/duckdb/duckdb-r">DuckDB</a>, <a href="https://datafusion.apache.org/">DataFusion</a>, and now Polars, without any copying or conversion.</p>
+<p>Arrow is, in our view, <a href="https://josiah.rs/posts/cross-language-ds/">the standard for cross-language data science</a>. Supporting it natively from extendr, rather than routing through a single R package, is a deliberate choice.</p>
+</section>
+<section id="polars-feature" class="level2">
+<h2 class="anchored" data-anchor-id="polars-feature">Use Polars from extendr</h2>
+<p>Polars ships its own Arrow implementation, <code>polars-arrow</code>, which is separate from <a href="https://docs.rs/arrow"><code>arrow-rs</code></a>. That difference has historically made it awkward to pass data between Polars and the rest of the Arrow ecosystem. The new <code>polars</code> feature flag handles the translation.</p>
+<p>Add it to your <code>Cargo.toml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">arrow_extendr</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">    </span><span class="dt">version</span><span class="op"> =</span> <span class="st">"58"</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">    </span><span class="dt">features</span><span class="op"> =</span> <span class="op">[</span><span class="st">"polars"</span><span class="op">],</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">    </span><span class="dt">default-features</span><span class="op"> =</span> <span class="cn">false</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">polars-core</span> <span class="op">=</span> <span class="st">"0.53.0"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">anyhow</span> <span class="op">=</span> <span class="st">"1"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can also find the latest version on <a href="https://crates.io/crates/arrow-extendr">crates.io</a>.</p>
+<p>This gives you the following conversions via the Arrow C Stream interface:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 42%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Direction</th>
+<th>R object</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>polars_core::frame::DataFrame</code></td>
+<td><code>IntoArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr class="even">
+<td><code>polars_core::frame::DataFrame</code></td>
+<td><code>FromArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr class="odd">
+<td><code>polars_arrow::ffi::ArrowArrayStream</code></td>
+<td><code>IntoArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr class="even">
+<td><code>polars_arrow::ffi::ArrowArrayStreamReader</code></td>
+<td><code>FromArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="round-trip" class="level2">
+<h2 class="anchored" data-anchor-id="round-trip">Round-trip a Polars DataFrame through R</h2>
+<p>Accept a <code>nanoarrow_array_stream</code> from R, load it into a Polars <code>DataFrame</code>, and return it back to R as a stream.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span><span class="op">*;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">anyhow::</span>anyhow<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">arrow_extendr::</span><span class="op">{</span>FromArrowRobj<span class="op">,</span> IntoArrowRobj<span class="op">};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">polars_core::frame::</span>DataFrame<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">/// @export</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> polars_round_trip(x<span class="op">:</span> Robj) <span class="op">-&gt;</span> <span class="pp">anyhow::</span><span class="dt">Result</span><span class="op">&lt;</span>Robj<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> df <span class="op">=</span> <span class="pp">DataFrame::</span>from_arrow_robj(<span class="op">&amp;</span>x)<span class="op">?;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">rprintln!</span>(<span class="st">"{df:?}"</span>)<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    df<span class="op">.</span>into_arrow_robj()<span class="op">.</span>map_err(<span class="op">|</span>e<span class="op">|</span> <span class="pp">anyhow!</span>(<span class="st">"{e:?}"</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On the R side, pass any Arrow-compatible object. Here we use <a href="https://pola-rs.github.io/r-polars/"><code>{polars}</code></a> directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(polars)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nanoarrow)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pl<span class="sc">$</span><span class="fu">DataFrame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">b =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>stream <span class="ot">&lt;-</span> <span class="fu">as_nanoarrow_array_stream</span>(df)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">polars_round_trip</span>(stream)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># convert back to a polars DataFrame</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>pl<span class="sc">$</span><span class="fu">DataFrame</span>(<span class="fu">as_arrow_table</span>(result))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The return value is a <code>nanoarrow_array_stream</code>, so callers can convert to whatever they need: <code>{arrow}</code>, <code>{polars}</code>, DuckDB, or anything else that speaks Arrow.</p>
+</section>
+<section id="what-changed" class="level2">
+<h2 class="anchored" data-anchor-id="what-changed">What changed</h2>
+<p><strong>Breaking changes</strong></p>
+<ul>
+<li><code>FromArrowRobj</code>, <code>ToArrowRobj</code>, and <code>IntoArrowRobj</code> moved to the crate root (<code>arrow_extendr</code>). Update imports accordingly.</li>
+<li><code>FromArrowRobj::from_arrow_robj</code> now returns <code>std::result::Result&lt;Self, anyhow::Error&gt;</code> instead of <code>Result&lt;Self, ArrowError&gt;</code>, providing a uniform error type across both feature implementations.</li>
+<li><code>arrow-rs</code> is now an optional dependency behind the <code>arrow</code> feature flag, which is on by default. Add <code>features = ["arrow"]</code> explicitly if you depend on <code>arrow-rs</code> types.</li>
+<li><code>ErrArrowRobj</code> type alias removed. Use <code>anyhow::Error</code> directly.</li>
+</ul>
+<p><strong>New features</strong></p>
+<ul>
+<li><code>polars</code> feature flag enabling interop with <code>polars-core</code>.</li>
+<li><code>FromArrowRobj</code> for <code>polars_arrow::ffi::ArrowArrayStreamReader</code>.</li>
+<li><code>IntoArrowRobj</code> for <code>polars_arrow::ffi::ArrowArrayStream</code>.</li>
+<li><code>IntoArrowRobj</code> for <code>polars_core::frame::DataFrame</code>, preserving chunking.</li>
+<li><code>FromArrowRobj</code> for <code>polars_core::frame::DataFrame</code>.</li>
+</ul>
+</section>
+<section id="community" class="level2">
+<h2 class="anchored" data-anchor-id="community">Community-driven development</h2>
+<p>This feature came directly out of a conversation with the <a href="https://www.bioconductor.org/">Bioconductor</a> community last August. The topic was <a href="https://github.com/SingleRust/SingleRust">SingleRust</a>, a single-cell analysis library in Rust, and how to expose its results to R. SingleRust’s core data structure is a Polars <code>DataFrame</code>, which meant crossing the polars-arrow/R boundary. That thread, between myself, <a href="https://github.com/cgmossa">Mossa (<span class="citation" data-cites="cgmossa">@cgmossa</span>)</a>, and <a href="https://github.com/Artur-man">Artür (<span class="citation" data-cites="Artur-man">@Artur-man</span>)</a>, is what motivated Mossa to build this out.</p>
+<p>The only way we know what matters to <strong>you</strong> is for you to tell us. We really do listen 👂🏼. We’re a small team, but when you need something, we’ll provide, or do our best at least!</p>
+<p><strong>Get involved:</strong></p>
+<ul>
+<li>Join the <a href="https://discord.gg/7hmApuc">Discord</a>.</li>
+<li>Open an issue on <a href="https://github.com/extendr/arrow-extendr/issues">arrow-extendr</a>, <a href="https://github.com/extendr/extendr/issues">extendr</a>, or <a href="https://github.com/extendr/rextendr/issues">rextendr</a>.</li>
+<li>Contribute, PRs are always welcome.</li>
+</ul>
+<p>The full changelog is on <a href="https://github.com/extendr/arrow-extendr">GitHub</a>.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="YXJyb3ctZXh0ZW5kciUyQ2Fycm93JTJDcmVsZWFzZSUyQ3BvbGFycw==" data-listing-date-sort="1774396800000" data-listing-file-modified-sort="1774466382550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="544">
-<div class="thumbnail"><a href="../blog/posts/2026-03-25-arrow-extendr-polars/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../blog/posts/2026-03-25-arrow-extendr-polars/index.html" class="no-external">arrow-extendr: 🏹 Polars support 🐻‍❄️</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('YXJyb3ctZXh0ZW5kcg=='); return false;">arrow-extendr</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YXJyb3c='); return false;">arrow</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVsZWFzZQ=='); return false;">release</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cG9sYXJz'); return false;">polars</div>
-
-</div>
-<div class="delink listing-description"><a href="../blog/posts/2026-03-25-arrow-extendr-polars/index.html" class="no-external">
-<p>The latest release of arrow-extendr adds support for Polars, making it straightforward to move data between R and Polars DataFrames via the Arrow C Stream interface.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../blog/posts/2026-03-25-arrow-extendr-polars/index.html" class="no-external">
-<div class="listing-date">
-Mar 25, 2026
-</div>
-<div class="listing-author">
-Josiah Parry
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UmVsZWFzZQ==" data-listing-date-sort="1757376000000" data-listing-file-modified-sort="1774466382550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="405">
-<div class="thumbnail"><a href="../blog/posts/2025-09-09-h3o-on-cran/index.html" class="no-external">
-
-<img loading="lazy" src="../blog/posts/2025-09-09-h3o-on-cran/thumbnail.png" class="thumbnail-image" alt="The letters h3o on a hexagonal sticker.">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../blog/posts/2025-09-09-h3o-on-cran/index.html" class="no-external"><code>h3o</code> is now on CRAN‼️</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UmVsZWFzZQ=='); return false;">Release</div>
-
-</div>
-<div class="delink listing-description"><a href="../blog/posts/2025-09-09-h3o-on-cran/index.html" class="no-external">
-<p>R users now have access to a pure Rust implementation of Uber’s H3, a hexagonal geospatial grid and indexing system.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../blog/posts/2025-09-09-h3o-on-cran/index.html" class="no-external">
-<div class="listing-date">
-Sep 9, 2025
-</div>
-<div class="listing-author">
-Blake Vernon, Josiah Parry
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UmVsZWFzZSUyQ1VwZGF0ZXM=" data-listing-date-sort="1756166400000" data-listing-file-modified-sort="1774466382550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="515">
-<div class="thumbnail"><a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">
-
-<img loading="lazy" src="../blog/posts/2025-08-26-rextendr-release-040/images/rextendr-release-040.png" class="thumbnail-image" alt="The rextendr logo, letter R in middle of gears.">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">rextendr 0.4</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UmVsZWFzZQ=='); return false;">Release</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRlcw=='); return false;">Updates</div>
-
-</div>
-<div class="delink listing-description"><a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">
-<p>A new version of rextendr has arrived.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../blog/posts/2025-08-26-rextendr-release-040/index.html" class="no-external">
-<div class="listing-date">
-Aug 26, 2025
-</div>
-<div class="listing-author">
-Blake Vernon
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="UmVsZWFzZSUyQ1VwZGF0ZXM=" data-listing-date-sort="1719705600000" data-listing-file-modified-sort="1774466382549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="862">
-<div class="thumbnail"><a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">
-
-<img loading="lazy" src="../blog/posts/2024-06-30-extendr-release-070/images/extendr-release-070.png" class="thumbnail-image" alt="The extendr logo, letter R in middle of gear.">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">Migration guide for extendr 0.7.0</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UmVsZWFzZQ=='); return false;">Release</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRlcw=='); return false;">Updates</div>
-
-</div>
-<div class="delink listing-description"><a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">
-<p>A new version of extendr has arrived, so we explain how to address major changes.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../blog/posts/2024-06-30-extendr-release-070/index.html" class="no-external">
-<div class="listing-date">
-Jun 30, 2024
-</div>
-<div class="listing-author">
-Josiah Parry
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -959,4 +961,4 @@ Josiah Parry
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/blog/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/blog/posts/2026-03-25-arrow-extendr-polars/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

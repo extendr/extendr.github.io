@@ -449,7 +449,7 @@
     "href": "blog/index.html",
     "title": "extendr Blog",
     "section": "",
-    "text": "h3o is now on CRAN‼️\n\n\n\nRelease\n\n\n\nR users now have access to a pure Rust implementation of Uber’s H3, a hexagonal geospatial grid and indexing system.\n\n\n\n\n\nSep 9, 2025\n\n\nBlake Vernon, Josiah Parry\n\n\n\n\n\n\n\n\n\n\n\n\nrextendr 0.4\n\n\n\nRelease\n\nUpdates\n\n\n\nA new version of rextendr has arrived.\n\n\n\n\n\nAug 26, 2025\n\n\nBlake Vernon\n\n\n\n\n\n\n\n\n\n\n\n\nMigration guide for extendr 0.7.0\n\n\n\nRelease\n\nUpdates\n\n\n\nA new version of extendr has arrived, so we explain how to address major changes.\n\n\n\n\n\nJun 30, 2024\n\n\nJosiah Parry\n\n\n\n\n\nNo matching items"
+    "text": "arrow-extendr: 🏹 Polars support 🐻‍❄️\n\n\n\narrow-extendr\n\narrow\n\nrelease\n\npolars\n\n\n\nThe latest release of arrow-extendr adds support for Polars, making it straightforward to move data between R and Polars DataFrames via the Arrow C Stream interface.\n\n\n\n\n\nMar 25, 2026\n\n\nJosiah Parry\n\n\n\n\n\n\n\n\n\n\n\n\nh3o is now on CRAN‼️\n\n\n\nRelease\n\n\n\nR users now have access to a pure Rust implementation of Uber’s H3, a hexagonal geospatial grid and indexing system.\n\n\n\n\n\nSep 9, 2025\n\n\nBlake Vernon, Josiah Parry\n\n\n\n\n\n\n\n\n\n\n\n\nrextendr 0.4\n\n\n\nRelease\n\nUpdates\n\n\n\nA new version of rextendr has arrived.\n\n\n\n\n\nAug 26, 2025\n\n\nBlake Vernon\n\n\n\n\n\n\n\n\n\n\n\n\nMigration guide for extendr 0.7.0\n\n\n\nRelease\n\nUpdates\n\n\n\nA new version of extendr has arrived, so we explain how to address major changes.\n\n\n\n\n\nJun 30, 2024\n\n\nJosiah Parry\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "contributing/colors-and-fonts.html",
