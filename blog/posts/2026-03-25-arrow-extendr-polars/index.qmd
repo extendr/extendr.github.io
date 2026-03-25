@@ -1,0 +1,167 @@
+---
+title: "arrow-extendr: 🏹 Polars support 🐻‍❄️"
+description: |
+  The latest release of arrow-extendr adds support for Polars,
+  making it straightforward to move data between R and Polars
+  DataFrames via the Arrow C Stream interface.
+author: Josiah Parry
+date: "2026/03/25"
+categories: [arrow-extendr, arrow, release, polars]
+freeze: true
+---
+
+## TL;DR
+
+- [Arrow is the future of cross-language data science](https://josiah.rs/posts/cross-language-ds/)
+- New ✨ Polars support for arrow-extendr
+- Example: [round-trip from `{polars}`](https://pola-rs.github.io/r-polars/)
+
+---
+
+The latest release of
+[arrow-extendr](https://github.com/extendr/arrow-extendr) adds
+support for [Polars](https://pola.rs/), bridging the gap between
+Polars DataFrames and R's Arrow ecosystem.
+
+## What is arrow-extendr?
+
+[arrow-extendr](https://github.com/extendr/arrow-extendr) is a Rust
+crate that makes it straightforward to pass Apache Arrow memory
+between R and Rust. Rather than serializing and deserializing at
+every boundary, Arrow lets R and Rust share the same in-memory
+representation. This means your extendr package can talk directly to
+[`{nanoarrow}`](https://arrow.apache.org/nanoarrow/latest/r/index.html),
+the [`{arrow}`](https://arrow.apache.org/docs/r/) R package,
+[DuckDB](https://github.com/duckdb/duckdb-r),
+[DataFusion](https://datafusion.apache.org/), and now Polars, without
+any copying or conversion.
+
+Arrow is, in our view, [the standard for cross-language data
+science](https://josiah.rs/posts/cross-language-ds/). Supporting it
+natively from extendr, rather than routing through a single R package,
+is a deliberate choice.
+
+## Use Polars from extendr {#polars-feature}
+
+Polars ships its own Arrow implementation, `polars-arrow`, which is
+separate from [`arrow-rs`](https://docs.rs/arrow). That difference
+has historically made it awkward to pass data between Polars and the
+rest of the Arrow ecosystem. The new `polars` feature flag handles
+the translation.
+
+Add it to your `Cargo.toml`:
+
+```toml
+[dependencies]
+arrow_extendr = {
+    version = "58",
+    features = ["polars"],
+    default-features = false
+}
+polars-core = "0.53.0"
+anyhow = "1"
+```
+
+You can also find the latest version on
+[crates.io](https://crates.io/crates/arrow-extendr).
+
+This gives you the following conversions via the Arrow C Stream
+interface:
+
+| Type | Direction | R object |
+| ---- | --------- | -------- |
+| `polars_core::frame::DataFrame` | `IntoArrowRobj` | `nanoarrow_array_stream` |
+| `polars_core::frame::DataFrame` | `FromArrowRobj` | `nanoarrow_array_stream` |
+| `polars_arrow::ffi::ArrowArrayStream` | `IntoArrowRobj` | `nanoarrow_array_stream` |
+| `polars_arrow::ffi::ArrowArrayStreamReader` | `FromArrowRobj` | `nanoarrow_array_stream` |
+
+## Round-trip a Polars DataFrame through R {#round-trip}
+
+Accept a `nanoarrow_array_stream` from R, load it into a Polars
+`DataFrame`, and return it back to R as a stream.
+
+```rust
+use extendr_api::prelude::*;
+use anyhow::anyhow;
+use arrow_extendr::{FromArrowRobj, IntoArrowRobj};
+use polars_core::frame::DataFrame;
+
+#[extendr]
+/// @export
+fn polars_round_trip(x: Robj) -> anyhow::Result<Robj> {
+    let df = DataFrame::from_arrow_robj(&x)?;
+    rprintln!("{df:?}");
+    df.into_arrow_robj().map_err(|e| anyhow!("{e:?}"))
+}
+```
+
+On the R side, pass any Arrow-compatible object. Here we use
+[`{polars}`](https://pola-rs.github.io/r-polars/) directly:
+
+```r
+library(polars)
+library(nanoarrow)
+
+df <- pl$DataFrame(a = 1:5, b = letters[1:5])
+stream <- as_nanoarrow_array_stream(df)
+result <- polars_round_trip(stream)
+
+# convert back to a polars DataFrame
+pl$DataFrame(as_arrow_table(result))
+```
+
+The return value is a `nanoarrow_array_stream`, so callers can
+convert to whatever they need: `{arrow}`, `{polars}`, DuckDB, or
+anything else that speaks Arrow.
+
+## What changed
+
+**Breaking changes**
+
+- `FromArrowRobj`, `ToArrowRobj`, and `IntoArrowRobj` moved to the
+  crate root (`arrow_extendr`). Update imports accordingly.
+- `FromArrowRobj::from_arrow_robj` now returns
+  `std::result::Result<Self, anyhow::Error>` instead of
+  `Result<Self, ArrowError>`, providing a uniform error type across
+  both feature implementations.
+- `arrow-rs` is now an optional dependency behind the `arrow` feature
+  flag, which is on by default. Add `features = ["arrow"]` explicitly
+  if you depend on `arrow-rs` types.
+- `ErrArrowRobj` type alias removed. Use `anyhow::Error` directly.
+
+**New features**
+
+- `polars` feature flag enabling interop with `polars-core`.
+- `FromArrowRobj` for `polars_arrow::ffi::ArrowArrayStreamReader`.
+- `IntoArrowRobj` for `polars_arrow::ffi::ArrowArrayStream`.
+- `IntoArrowRobj` for `polars_core::frame::DataFrame`, preserving
+  chunking.
+- `FromArrowRobj` for `polars_core::frame::DataFrame`.
+
+## Community-driven development {#community}
+
+This feature came directly out of a conversation with the
+[Bioconductor](https://www.bioconductor.org/) community last August.
+The topic was [SingleRust](https://github.com/SingleRust/SingleRust),
+a single-cell analysis library in Rust, and how to expose its results
+to R. SingleRust's core data structure is a Polars `DataFrame`, which
+meant crossing the polars-arrow/R boundary. That thread, between
+myself, [Mossa (@cgmossa)](https://github.com/cgmossa), and
+[Artür (@Artur-man)](https://github.com/Artur-man), is what motivated
+Mossa to build this out.
+
+The only way we know what matters to **you** is for you to tell us.
+We really do listen 👂🏼. We're a small team, but when you need
+something, we'll provide, or do our best at least!
+
+**Get involved:**
+
+- Join the [Discord](https://discord.gg/7hmApuc).
+- Open an issue on
+  [arrow-extendr](https://github.com/extendr/arrow-extendr/issues),
+  [extendr](https://github.com/extendr/extendr/issues), or
+  [rextendr](https://github.com/extendr/rextendr/issues).
+- Contribute, PRs are always welcome.
+
+The full changelog is on
+[GitHub](https://github.com/extendr/arrow-extendr).
