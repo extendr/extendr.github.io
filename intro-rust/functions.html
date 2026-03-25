@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hello, World! – extendr</title>
+<title>Functions – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro-rust/types.html" rel="next">
-<link href="../intro-rust/index.html" rel="prev">
+<link href="../intro-rust/ownership.html" rel="next">
+<link href="../intro-rust/mutability.html" rel="prev">
 <link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/functions.html">Functions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link active">
+  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
@@ -411,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro-rust/functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Functions</span></a>
   </div>
 </li>
@@ -459,9 +459,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/functions.html">Functions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Hello, World!</h1>
+<h1 class="title">Functions</h1>
 </div>
 
 
@@ -478,61 +478,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this tutorial, you will learn how to setup a new Rust crate and get a sense for what it includes. You will also learn how to build and run your new crate with <code>cargo</code>, a package manager and build system for Rust. You do not need to install <code>cargo</code> because it comes bundled with Rust.</p>
-<p>When you first setup a Rust crate, you will have to choose between one of two types: binary crates and library crates. Binary crates are standalone applications or executables that you can run, like command line tools. Library crates are typically small bundles of code that are used in the development of other crates. In this tutorial, we will focus on building a binary crate.</p>
-<p>To create a new binary crate, open a terminal and run the following:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create a new directory called <code>hello-world</code> that you can then navigate into using <code>cd hello-world</code>. Once inside that directory, you will find all of the following:</p>
-<pre><code>hello-world/
-├── Cargo.toml
-├── Cargo.lock
-└── src/
-    └── main.rs</code></pre>
-<p>The <code>Cargo.toml</code> file is a document in which you specify metadata and dependencies for your crate similar to an R package’s <code>DESCRIPTION</code>. The <code>Cargo.lock</code> file maintains copies of those dependencies, similar to <code>renv.lock</code>. A lot more can be said about those two files, which are absolutely crucial to programming in Rust, but for now let’s focus on the Rust file in the source directory. If you open that file in Positron (or your preferred IDE), you will see the following text:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
+<p>So far, we have been modifying the <code>main()</code> function, but Rust lets us define as many functions as we need. In R, functions are objects created with <code>&lt;- function()</code>. In Rust, they are declared with the <code>fn</code> keyword. Just like everything else in Rust, arguments are typed - each argument takes the form <code>arg_name: type</code>, and the return type is specified after <code>-&gt;</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> name_of_function(arg1<span class="op">:</span> ArgType) <span class="op">-&gt;</span> ReturnType <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// function body</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    my_return_object</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As in R, the last expression in a function body is returned automatically — no explicit <code>return</code> keyword is needed unless you are returning early. Functions can also be declared anywhere in the file, outside of <code>main()</code>.</p>
+<p>Identifying whether a number is odd or even is a classic example. The <a href="https://www.npmjs.com/package/is-odd">is-odd npm package</a> became famous for being a remarkably small and widely depended-upon piece of code:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/is-odd.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, world!"</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>In just those three short lines, we see examples of many Rust coding patterns:</p>
-<ul>
-<li>Functions are declared using the <code>fn</code> keyword,</li>
-<li>The <code>main()</code> function defines what happens when you run your binary,</li>
-<li>Blocks of code are delimited using curly brackets (just like R), and</li>
-<li>Statements end with <code>;</code>.</li>
-</ul>
-<p>Right now, our app uses the <code>println!()</code> macro to print “Hello, world!” to the terminal. When a program writes to the console, it does so through file connections called standard output (<code>stdout</code>) and standard error (<code>stderr</code>). In R, when we print a message with <code>print()</code> or <code>message()</code>, we print to stdout. Similarly, when we make a warning or error using <code>stop()</code> or <code>warning()</code>, that is writing to <code>stderr</code>. The Rust <code>println!()</code> macro also has the nice feature of supporting string interpolation like <code>sprintf()</code> and <code>glue()</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// indirect interpolation</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> name)<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// direct interpolation</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If we add one or the other of those lines to <code>main()</code> like so</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>we can then call the application and get it to execute in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$ cargo run</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   Compiling hello_world v0.1.0 (/hello-world)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     Running `target/debug/hello_world`</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Hello, Josiah!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice that <code>cargo</code> provides detailed information about the build process (printed to stderr) before actually running the program (and printing to stdout). This is a useful reminder that Rust, unlike R, is a compiled language - Rust programs have to be built before they can be run. For those coming from R, that might sound rather mysterious, and in some respects it is, but we want to emphasize how easy it was to get a program up and running. It was just three lines of code in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>$ cd hello-world</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>$ cargo run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That’s it! Those three lines were sufficient to build and run our simple binary. Now we can move on to learning about basic data types in Rust.</p>
+<p>Here is the Rust equivalent. We define <code>is_even()</code> first, taking an <code>i32</code> and returning a <code>bool</code>, then use it inside <code>is_odd()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> is_even(x<span class="op">:</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> is_odd(x<span class="op">:</span> <span class="dt">i32</span>) <span class="op">-&gt;</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">!</span>is_even(x)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Since <code>x % 2 == 0</code> is an expression that evaluates to a <code>bool</code>, it is returned directly without a <code>return</code> statement. Building new functions from existing ones like this is idiomatic Rust.</p>
 
 
 
@@ -952,13 +918,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro-rust/index.html" class="pagination-link" aria-label="Rust Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Rust Basics</span>
+      <a href="../intro-rust/mutability.html" class="pagination-link" aria-label="Mutability">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Mutability</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro-rust/types.html" class="pagination-link" aria-label="Basic Types">
-        <span class="nav-page-text">Basic Types</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../intro-rust/ownership.html" class="pagination-link" aria-label="Ownership">
+        <span class="nav-page-text">Ownership</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -967,4 +933,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/hello-world.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

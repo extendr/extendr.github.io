@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hello, World! – extendr</title>
+<title>Enumerations – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro-rust/types.html" rel="next">
-<link href="../intro-rust/index.html" rel="prev">
+<link href="../intro-rust/implementations.html" rel="prev">
 <link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -352,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/enumerations.html">Enumerations</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -375,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link active">
+  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
@@ -441,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/enumerations.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro-rust/enumerations.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Enumerations</span></a>
   </div>
 </li>
@@ -452,16 +451,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#matching" id="toc-matching" class="nav-link active" data-scroll-target="#matching">Matching</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a></li>
+  <li><a href="#optional-arguments" id="toc-optional-arguments" class="nav-link" data-scroll-target="#optional-arguments">Optional arguments</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/enumerations.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/enumerations.html">Enumerations</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Hello, World!</h1>
+<h1 class="title">Enumerations</h1>
 </div>
 
 
@@ -478,63 +486,168 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this tutorial, you will learn how to setup a new Rust crate and get a sense for what it includes. You will also learn how to build and run your new crate with <code>cargo</code>, a package manager and build system for Rust. You do not need to install <code>cargo</code> because it comes bundled with Rust.</p>
-<p>When you first setup a Rust crate, you will have to choose between one of two types: binary crates and library crates. Binary crates are standalone applications or executables that you can run, like command line tools. Library crates are typically small bundles of code that are used in the development of other crates. In this tutorial, we will focus on building a binary crate.</p>
-<p>To create a new binary crate, open a terminal and run the following:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create a new directory called <code>hello-world</code> that you can then navigate into using <code>cd hello-world</code>. Once inside that directory, you will find all of the following:</p>
-<pre><code>hello-world/
-├── Cargo.toml
-├── Cargo.lock
-└── src/
-    └── main.rs</code></pre>
-<p>The <code>Cargo.toml</code> file is a document in which you specify metadata and dependencies for your crate similar to an R package’s <code>DESCRIPTION</code>. The <code>Cargo.lock</code> file maintains copies of those dependencies, similar to <code>renv.lock</code>. A lot more can be said about those two files, which are absolutely crucial to programming in Rust, but for now let’s focus on the Rust file in the source directory. If you open that file in Positron (or your preferred IDE), you will see the following text:</p>
+<p>Sometimes a value can only take on one of a fixed set of possibilities. In R, this pattern appears constantly as function arguments. For example, the <code>cor()</code> function has the argument <code>method = c("pearson", "kendall", "spearman")</code>. Rust formalizes this idea with <em>enumerations</em> or<code>enum</code>s, types that can take on exactly one of a defined set of <em>variants</em>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The tidyverse design style guide has a great section on enums. See <a href="https://design.tidyverse.org/enumerate-options.html#whats-the-pattern">enumerate options</a>.</p>
+<p>Josiah Parry’s blog also has a nice discussion of this. See <a href="https://josiahparry.com/posts/2023-11-10-enums-in-r/">Enums in R: towards type safe R</a>.</p>
+</div>
+</div>
+<p>Like structs, enum names use PascalCase, and variants are created using <code>EnumName::Variant</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> Shape <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    Triangle<span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Rectangle<span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Pentagon<span class="op">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    Hexagon<span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> my_shape <span class="op">=</span> <span class="pp">Shape::</span>Triangle<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="matching" class="level2">
+<h2 class="anchored" data-anchor-id="matching">Matching</h2>
+<p>How do we actually determine behavior based on a variant? This is done using <em>pattern matching</em>, specifically the keyword <code>match</code>, which works similar to <code>switch()</code> in R. The pattern match format uses the syntax <code>Enum::Variant =&gt; action</code>. When using <code>match</code> each variant much be <em>enumerated</em>:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src/main.rs</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, world!"</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> Shape <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    Triangle<span class="op">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    Rectangle<span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    Pentagon<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Hexagon<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> my_shape <span class="op">=</span> <span class="pp">Shape::</span>Triangle<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">match</span> my_shape <span class="op">{</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Shape::</span>Triangle <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"A triangle has 3 vertices"</span>)<span class="op">,</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Shape::</span>Rectangle <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"A rectangle has 4 vertices"</span>)<span class="op">,</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Shape::</span>Pentagon <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"A pentagon has 5 vertices"</span>)<span class="op">,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Shape::</span>Hexagon <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"A hexagon has 6 vertices"</span>)<span class="op">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>In just those three short lines, we see examples of many Rust coding patterns:</p>
-<ul>
-<li>Functions are declared using the <code>fn</code> keyword,</li>
-<li>The <code>main()</code> function defines what happens when you run your binary,</li>
-<li>Blocks of code are delimited using curly brackets (just like R), and</li>
-<li>Statements end with <code>;</code>.</li>
-</ul>
-<p>Right now, our app uses the <code>println!()</code> macro to print “Hello, world!” to the terminal. When a program writes to the console, it does so through file connections called standard output (<code>stdout</code>) and standard error (<code>stderr</code>). In R, when we print a message with <code>print()</code> or <code>message()</code>, we print to stdout. Similarly, when we make a warning or error using <code>stop()</code> or <code>warning()</code>, that is writing to <code>stderr</code>. The Rust <code>println!()</code> macro also has the nice feature of supporting string interpolation like <code>sprintf()</code> and <code>glue()</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// indirect interpolation</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> name)<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// direct interpolation</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If we add one or the other of those lines to <code>main()</code> like so</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A triangle has 3 vertices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When you only care about specific variants, use <code>_</code> as a catch-all for everything else:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src/main.rs</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> Shape <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    Triangle<span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    Rectangle<span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    Pentagon<span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    Hexagon<span class="op">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> my_shape <span class="op">=</span> <span class="pp">Shape::</span>Triangle<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">match</span> my_shape <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Shape::</span>Hexagon <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"Hexagons are the bestagons"</span>)<span class="op">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"Every other polygon is mid"</span>)<span class="op">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>we can then call the application and get it to execute in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$ cargo run</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   Compiling hello_world v0.1.0 (/hello-world)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     Running `target/debug/hello_world`</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Hello, Josiah!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice that <code>cargo</code> provides detailed information about the build process (printed to stderr) before actually running the program (and printing to stdout). This is a useful reminder that Rust, unlike R, is a compiled language - Rust programs have to be built before they can be run. For those coming from R, that might sound rather mysterious, and in some respects it is, but we want to emphasize how easy it was to get a program up and running. It was just three lines of code in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>$ cd hello-world</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>$ cargo run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That’s it! Those three lines were sufficient to build and run our simple binary. Now we can move on to learning about basic data types in Rust.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Every other polygon is mid</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>Enums can have <code>impl</code> blocks just like structs. Inside the method, <code>match self</code> branches on the variant:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.rs</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> Shape <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    Triangle<span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Rectangle<span class="op">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    Pentagon<span class="op">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    Hexagon<span class="op">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Shape <span class="op">{</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> n_vertices(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">i32</span> <span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">match</span> <span class="kw">self</span> <span class="op">{</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Self</span><span class="pp">::</span>Triangle  <span class="op">=&gt;</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Self</span><span class="pp">::</span>Rectangle <span class="op">=&gt;</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Self</span><span class="pp">::</span>Pentagon  <span class="op">=&gt;</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Self</span><span class="pp">::</span>Hexagon   <span class="op">=&gt;</span> <span class="dv">6</span><span class="op">,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> my_shape <span class="op">=</span> <span class="pp">Shape::</span>Triangle<span class="op">;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n_vertices <span class="op">=</span> my_shape<span class="op">.</span>n_vertices()<span class="op">;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"my shape has {} vertices"</span><span class="op">,</span> n_vertices)<span class="op">;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>my shape has 3 vertices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
+<p>Because of its memory model and strong safety guarantees, Rust has no concept of a <code>NULL</code> type. Null values are actually quite dangerous and have their own category of errors and security issues. In fact, <a href="https://en.wikipedia.org/wiki/Tony_Hoare">C.A.R. Hoare</a>, who invented null pointers, called them his “billion-dollar mistake.” Rust, therefore, makes it impossible to use null values, requiring instead that the concept of missingness be implemented using a special kind of <code>enum</code> known as an <code>Option&lt;&gt;</code>, which has exactly two variants:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> <span class="dt">Option</span><span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Some</span>(T)<span class="op">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cn">None</span><span class="op">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As a reminder, the <code>T</code> here stands for any generic type. When a value is present, it is wrapped in <code>Some(T)</code>. When it is absent, the variant is <code>None</code>. The type system forces you to acknowledge the possibility of <code>None</code> before you can use the inner value — there is no way to accidentally treat a missing value as if it were present.</p>
+<p>Since <code>Option&lt;T&gt;</code> is just an enum, we can match on the variants to access its values.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// create an Option&lt;Measure&gt; that contains a value</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> measure <span class="op">=</span> <span class="cn">Some</span>(<span class="pp">Measure::</span>Euclidean)<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">match</span> measure <span class="op">{</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Some</span>(v) <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"The measure is: {}"</span><span class="op">,</span> v)<span class="op">,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">None</span> <span class="op">=&gt;</span> <span class="pp">println!</span>(<span class="st">"Oh no! The measure is missing!"</span>)<span class="op">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This makes missing values visible - the code cannot compile unless both arms are handled.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sometimes dealing with options is a headache, particularly when we’re in the early stages of developing. While we can use <code>.unwrap()</code> or <code>.expect()</code> to grab the inner value of an option <em>without matching</em>, this is <strong>dangerous!!</strong> because we are ignoring the possibility of a <code>None</code>. Unwrapping on a <code>None</code> leads to a <strong>panic</strong>. Panics cause your program to abort.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>thread <span class="ot">'mai</span>n<span class="ch">'</span> panicked at src<span class="op">/</span>main<span class="op">.</span>rs<span class="op">:</span><span class="dv">4</span><span class="op">:</span><span class="dv">41</span><span class="op">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>called `<span class="pp">Option::</span>unwrap()` on a `None` value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="optional-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="optional-arguments">Optional arguments</h2>
+<p>A common use is to make function arguments optional — call with a value when you have one, and fall back to a default when you do not, similar to how we use <code>function(x = NULL)</code> in R. This can be achieved using an option in Rust.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.rs</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> greet_user(name<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> user_name <span class="op">=</span> name<span class="op">.</span>unwrap_or(<span class="dt">String</span><span class="pp">::</span>from(<span class="st">"world"</span>))<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> user_name)<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    greet_user(<span class="cn">None</span>)<span class="op">;</span> <span class="co">// Output: Hello, world!</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    greet_user(<span class="cn">Some</span>(<span class="st">"Ferris"</span><span class="op">.</span>to_string()))<span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Hello, world!</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Hello, Ferris!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -952,14 +1065,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro-rust/index.html" class="pagination-link" aria-label="Rust Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Rust Basics</span>
+      <a href="../intro-rust/implementations.html" class="pagination-link" aria-label="Implementations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Implementations</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro-rust/types.html" class="pagination-link" aria-label="Basic Types">
-        <span class="nav-page-text">Basic Types</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -967,4 +1077,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/hello-world.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/enumerations.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

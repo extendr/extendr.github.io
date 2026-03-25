@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>collections – extendr</title>
+<title>Collections – extendr</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -65,17 +68,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../intro-rust/loops.html" rel="next">
+<link href="../intro-rust/control-flow.html" rel="prev">
+<link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-de3ea1abee24d3572b538905487f0852.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,22 +112,179 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script type="text/javascript" src="../js/breadcrumb-fix.js"></script>
 
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/feRris.png" alt="" class="navbar-logo light-content">
-    <img src="../images/feRris.png" alt="" class="navbar-logo dark-content">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">extendr</span>
     </a>
@@ -128,40 +294,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../get-started.html"> 
-<span class="menu-text">Get Started</span></a>
+<span class="menu-text">INSTALL</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Documentation</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-docs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DOCS</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-docs">    
         <li>
     <a class="dropdown-item" href="https://extendr.github.io/extendr/">
- <span class="dropdown-text">Rust crates</span></a>
+ <span class="dropdown-text">{extendr} crates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev">
  <span class="dropdown-text">{rextendr} package</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../intro-rust/index.html">
+ <span class="dropdown-text">Rust Basics</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../user-guide/index.html">
  <span class="dropdown-text">User Guide</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../intro-rust/index.html">
- <span class="dropdown-text">Rust for R Developers</span></a>
+    <a class="dropdown-item" href="../contributing/index.html">
+ <span class="dropdown-text">Contributing</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="../blog/index.html"> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text">NEWS</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/extendr/extendr"> <i class="bi bi-github" role="img">
 </i> 
@@ -175,6 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -183,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/collections.html">Arrays and Vectors</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/collections.html">Collections</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -195,246 +364,162 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Rust for R Developers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/why-rust.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Why Rust?</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rust Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro-rust/types.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Basic Types</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/fizz-buzz.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro-rust/control-flow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Control Flow</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro-rust/collections.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Arrays and Vectors</span></a>
+ <span class="menu-text">Collections</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/for-loops.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>for</code>-loops</span></a>
+  <a href="../intro-rust/loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Loops</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro-rust/mutability.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mutability</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/mutable-vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Mutable Vectors</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/is-odd.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro-rust/functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/references-slices.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro-rust/ownership.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ownership</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../intro-rust/iterators.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Iterators</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/iter-map.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Mapping over Iterators</span></a>
+  <a href="../intro-rust/structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structures</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/structs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Defining Struct(ure)s</span></a>
+  <a href="../intro-rust/implementations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Implementations</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/struct-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Struct Methods</span></a>
+  <a href="../intro-rust/enumerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Enumerations</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/enums.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Enum(eration)s</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/options.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>Some()</code> or <code>None</code>?</span></a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#arrays-and-vectors" id="toc-arrays-and-vectors" class="nav-link active" data-scroll-target="#arrays-and-vectors">Arrays and Vectors</a>
-  <ul class="collapse">
-  <li><a href="#arrays" id="toc-arrays" class="nav-link" data-scroll-target="#arrays">Arrays</a></li>
-  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a>
-  <ul class="collapse">
-  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/collections.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/collections.html">Collections</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Collections</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="arrays-and-vectors" class="level1">
-<h1>Arrays and Vectors</h1>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Objective
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Learn how to store multiple values of the same type in arrays and vectors. Understand the difference between arrays and vectors.</p>
-</div>
-</div>
-<section id="arrays" class="level2">
-<h2 class="anchored" data-anchor-id="arrays">Arrays</h2>
-<p>Arrays in Rust are fixed in size and hold values of the same type. Since the size is known ahead of time, it makes them fast but inflexible.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arr <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Array: {:?}"</span><span class="op">,</span> arr)<span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The <code>{:?}</code> syntax is used for a <a href="https://doc.rust-lang.org/std/fmt/trait.Debug.html"><strong>Debug</strong></a> representation of a variable. Using <code>{}</code> is used for <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html"><strong>Displaying</strong></a> data.</p>
-<p>More often than not, using <code>{:?}</code> will be your best option.</p>
-</div>
-</div>
-<ul>
-<li>Arrays use square brackets: <code>[1, 2, 3]</code></li>
-<li>Their size is known at compile time.</li>
-<li>You can’t add or remove elements.</li>
-<li>Mostly used when performance is critical and size is known.</li>
-</ul>
-<p>The type of an array is specified as <code>[type; length]</code>, e.g.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> arr<span class="op">:</span> [<span class="dt">i32</span><span class="op">;</span> <span class="dv">4</span>] <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="vectors" class="level2">
-<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
-<p>Vectors are like growable arrays. They are much more common in everyday Rust code. To create a vector with known values, use the <code>vec![]</code> macro. Like an array, they must all be the same type.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Vector: {:?}"</span><span class="op">,</span> v)<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The type of a vector is specified using <code>Vec&lt;T&gt;</code> where <code>T</code> is shorthand for any type.</p>
-<p>An empty vector can be created using <code>Vec::new()</code> or <code>vec![]</code>. If creating an empty vector, the type must be inferred or made explicit. Vectors also have <strong>methods</strong>. Two handy ones are <code>.len()</code> for length, and <code>.is_empty()</code> (equivalent of <code>.len() == 0</code>)</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Cannot compile
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x <span class="op">=</span> <span class="dt">Vec</span><span class="pp">::</span>new()<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"x is empty: {}"</span><span class="op">,</span> x<span class="op">.</span>is_empty())<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<p>This cannot compile because the type of <code>x</code> is not known. Rust can infer the type if the vector is used elsewhere where the type is known. To make it compile we must specify the type.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="dt">Vec</span><span class="pp">::</span>new()<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"x is empty: {}"</span><span class="op">,</span> x<span class="op">.</span>is_empty())<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="exercise" class="level2">
-<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
-<ul>
-<li>Create an array of 4 integers and print it.</li>
-<li>Create a vector with 5 numbers and print it using <code>{:?}</code>.</li>
-<li>Compare the length of the array and the vector.</li>
-<li>Bonus: create an empty i32 vector.</li>
-</ul>
-<section id="solution" class="level3">
-<h3 class="anchored" data-anchor-id="solution">Solution</h3>
-<details>
-<summary>
-View solution
-</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> arr <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Array: {:?}"</span><span class="op">,</span> arr)<span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Vector: {:?}"</span><span class="op">,</span> v)<span class="op">;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Bonus:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">42_i32</span><span class="op">;</span> <span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+    
+  
+    
+  </div>
+  
 
 
-</section>
-</section>
-</section>
+</header>
+
+
+<p>Rust has two primary ways to store multiple values of the same type: arrays and vectors. Arrays are fixed in size — their length is known at compile time, which makes them fast but inflexible. You cannot add or remove elements after creation. Vectors are like growable arrays, making them more flexible and also more common in everyday Rust code. The syntax for creating arrays and vectors also differs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// array</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> a <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// vector</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> v <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here, the array is created using square brackets, the vector by calling the <code>vec!</code> macro. In this case, the types are inferred. If we want to make those explicit, the syntax also differs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// array</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> a<span class="op">:</span> [<span class="dt">i32</span><span class="op">;</span> <span class="dv">4</span>] <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">// vector</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> v<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">40</span>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this example, the array type and length are both declared with <code>[type; length]</code>, but the vector only requires specifying that it is a vector of 32-bit integers or <code>Vec&lt;i32&gt;</code>, which can have any given length.</p>
+<p>One nice thing about both vectors and arrays is that you can initialize them to a specific constant value and size. The syntax here is similar, though again the vector version requires the use of the <code>vec!</code> macro:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// array</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> a<span class="op">:</span> [<span class="dt">i32</span><span class="op">;</span> <span class="dv">4</span>] <span class="op">=</span> [<span class="dv">0</span><span class="op">;</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">// vector</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> v<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0</span><span class="op">;</span> <span class="dv">4</span>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In each case, we put the initial value <code>0</code> followed by the size <code>4</code>.</p>
+<p>One last thing to note here, specifically about vectors. An empty vector can also be created with <code>Vec::new()</code> or <code>vec![]</code>. When creating an empty vector, however, Rust needs to know the element type either from context or from an explicit type annotation, since it cannot infer type from the empty vector itself:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> v<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="dt">Vec</span><span class="pp">::</span>new()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Vectors also have a number of useful <strong>methods</strong>: <code>.len()</code> returns the number of elements and <code>.is_empty()</code> returns <code>true</code> if there are no elements. We will encounter more methods like these as we work through the guide.</p>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -833,9 +918,21 @@ View solution
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../intro-rust/control-flow.html" class="pagination-link" aria-label="Control Flow">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Control Flow</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../intro-rust/loops.html" class="pagination-link" aria-label="Loops">
+        <span class="nav-page-text">Loops</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/collections.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/collections.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

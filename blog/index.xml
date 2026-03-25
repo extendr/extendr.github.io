@@ -9,7 +9,7 @@
 <link>https://extendr.github.io/blog/</link>
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.8.27</generator>
+<generator>quarto-1.9.36</generator>
 <lastBuildDate>Tue, 09 Sep 2025 00:00:00 GMT</lastBuildDate>
 <item>
   <title>h3o is now on CRAN‼️</title>
@@ -17,6 +17,7 @@
   <dc:creator>Josiah Parry</dc:creator>
   <link>https://extendr.github.io/blog/posts/2025-09-09-h3o-on-cran/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -529,6 +530,7 @@ font-style: inherit;">"extendr/h3o"</span>)</span></code></pre></div></div>
 
 
 
+
 <section id="tl-dr" class="level2">
 <h2 class="anchored" data-anchor-id="tl-dr">TL; DR</h2>
 <ul>
@@ -623,6 +625,7 @@ font-style: inherit;">"extendr/h3o"</span>)</span></code></pre></div></div>
   <dc:creator>Josiah Parry</dc:creator>
   <link>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/</link>
   <description><![CDATA[ 
+
 
 
 

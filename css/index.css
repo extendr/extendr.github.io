@@ -1,0 +1,99 @@
+#quarto-content {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.hero-banner {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: 100%;
+}
+
+
+#hero-header {
+    font-family: var(--font-mono);
+    color: var(--silver-4);
+}
+
+#hero-header h1 {
+    font-family: var(--font-sans);
+    color: black;
+    font-weight: 500;
+}
+
+body.quarto-dark #hero-header h1 {
+    color: white;
+}
+
+#hero-header p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+@media (min-width: 992px) {
+    .hero-banner {
+        max-width: 50%;
+    }
+
+    #hero-header p {
+        font-size: 1.1rem;
+    }
+
+    #hero-header h1 {
+        font-size: 3.8rem;
+    }
+}
+
+#hero-cli {
+    margin-top: 3em;
+}
+
+/* tab buttons look like shell commands */
+#hero-cli .nav-tabs {
+    border-bottom: none;
+    gap: 0.25rem;
+}
+
+#hero-cli .nav-tabs .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--silver-4);
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    padding: 0.25rem 0.5rem;
+}
+
+#hero-cli .nav-tabs .nav-link::before {
+    content: "$ ";
+    color: var(--orange-4);
+}
+
+#hero-cli .nav-tabs .nav-link:hover {
+    color: var(--dark-blue-4);
+    border-color: transparent;
+}
+
+#hero-cli .nav-tabs .nav-link.active {
+    color: var(--dark-blue-4);
+    font-weight: 600;
+    background: none;
+    border-color: transparent;
+    border-bottom: 2px solid var(--orange-4);
+}
+
+/* tab content looks like terminal output */
+#hero-cli .tab-content {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    background-color: var(--bs-gray-100);
+    border: none;
+    border-left: 3px solid var(--orange-4);
+    padding: 1rem 1.25rem;
+    margin-top: 0.5rem;
+}
+
+/* dark mode */
+body.quarto-dark #hero-cli .tab-content {
+    background-color: var(--bs-gray-800);
+}

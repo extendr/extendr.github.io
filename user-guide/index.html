@@ -2,13 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-03-25">
 
 <title>User Guide – extendr</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -30,17 +34,22 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../user-guide/complete-example.html" rel="next">
+<link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-de3ea1abee24d3572b538905487f0852.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,22 +77,179 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script type="text/javascript" src="../js/breadcrumb-fix.js"></script>
 
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/feRris.png" alt="" class="navbar-logo light-content">
-    <img src="../images/feRris.png" alt="" class="navbar-logo dark-content">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">extendr</span>
     </a>
@@ -93,40 +259,42 @@ ul.task-list li input[type="checkbox"] {
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../get-started.html"> 
-<span class="menu-text">Get Started</span></a>
+<span class="menu-text">INSTALL</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Documentation</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-docs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DOCS</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-docs">    
         <li>
     <a class="dropdown-item" href="https://extendr.github.io/extendr/">
- <span class="dropdown-text">Rust crates</span></a>
+ <span class="dropdown-text">{extendr} crates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev">
  <span class="dropdown-text">{rextendr} package</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../intro-rust/index.html">
+ <span class="dropdown-text">Rust Basics</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../user-guide/index.html">
  <span class="dropdown-text">User Guide</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../intro-rust/index.html">
- <span class="dropdown-text">Rust for R Developers</span></a>
+    <a class="dropdown-item" href="../contributing/index.html">
+ <span class="dropdown-text">Contributing</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="../blog/index.html"> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text">NEWS</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/extendr/extendr"> <i class="bi bi-github" role="img">
 </i> 
@@ -140,6 +308,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -160,166 +329,60 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link active">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">User Guide</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A Complete Example</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Package Setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/r-pkgs/package-structure.html" class="sidebar-item-text sidebar-link">
+  <a href="../user-guide/package-structure.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Project Structure</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Type Mapping</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/extendr-macro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The extendr Macro</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/scalars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Scalar Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/vectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vector Type Mapping</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/collections.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using HashMaps</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/into-list.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Rust Structs to Lists</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Missing Values</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/type-mapping/characters.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Character Strings</span></a>
-  </div>
-</li>
+          <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Publishing</span></span>
+  </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Error Handling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/error-handling/basic-error-handling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Error Handling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/default-args.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Default function arguments</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/serde-integration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>serde</code> integration</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/tokio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Async with Tokio</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-publishing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Publishing to CRAN</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/cran-msrv.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CRAN’s MSRV</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/webr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">WebR</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../user-guide/faq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">FAQ</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">User Guide</h1>
-<p class="subtitle lead">A comprehensive guide to using extendr.</p>
+<p class="subtitle lead">A comprehensive guide to using extendr</p>
 </div>
 
 
@@ -327,6 +390,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 25, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -336,20 +405,26 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This user guide serves two primary functions:</p>
-<ul>
-<li>First, and more generally, it explains how to call Rust code in R (and, as it happens, how to call R code in Rust).</li>
-<li>Second, and more narrowly, it provides sufficient information and resources to empower developers to build R packages with Rust extensions and publish them to CRAN.</li>
-</ul>
-<p>Given these goals, the guide is primarily geared towards R users and R developers who also have a decent grasp of Rust.</p>
+<p>This user guide focuses on developing R packages that call Rust code and publishing them to CRAN, so it is assumed that the reader has a basic understanding of Rust.</p>
 <section id="whats-in-this-guide" class="level2">
 <h2 class="anchored" data-anchor-id="whats-in-this-guide">What’s in this guide?</h2>
 <p>We’re working on that…</p>
 </section>
 <section id="whats-not-in-this-guide" class="level2">
 <h2 class="anchored" data-anchor-id="whats-not-in-this-guide">What’s <em>not</em> in this guide?</h2>
-<p>This book is not intended to be a comprehensive introduction to Rust. While do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. That said, we do try to include copious references and links to additional resources that the reader can follow to learn more about specific topics. Of course, the biggest reference will be <a href="https://doc.rust-lang.org/stable/book/">“The Book”</a>.</p>
-<p>This book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably <a href="https://r-pkgs.org/">R Packages (2e)</a>. As with Rust specifics, we will strive to point you in the right direction to get more details and advice when you need it.</p>
+<p>This book is not intended to be a comprehensive introduction to Rust. While we do go over some of the basics, more often than not, concepts are introduced only to help explain extendr tools. To learn more about Rust, you should consult <a href="https://doc.rust-lang.org/stable/book/">“The Book”</a>.</p>
+<p>This book is also not intended to be a comprehensive guide to R package development! There are, quite frankly, better resources for that, notably <a href="https://r-pkgs.org/">R Packages (2e)</a>. As with Rust specifics, we will strive to point you in the right direction to get more details and advice if you should need it.</p>
+</section>
+<section id="software-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="software-requirements">Software requirements</h2>
+<p>This guide assumes the following versions of necessary software:</p>
+<ul>
+<li>R: 4.2</li>
+<li>Rust 1.65.0</li>
+<li>extendr-api 0.8.1</li>
+<li>rextendr 0.4.2.9000</li>
+</ul>
+<p>Please see <a href="get-started.qmd">Get Started</a> if you have not already installed this software.</p>
 
 
 </section>
@@ -357,6 +432,19 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -755,6 +843,15 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../user-guide/complete-example.html" class="pagination-link" aria-label="A Complete Example">
+        <span class="nav-page-text">A Complete Example</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

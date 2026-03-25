@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>extendr</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -20,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,17 +33,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href=".//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-de3ea1abee24d3572b538905487f0852.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/iconify-3.0.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,22 +75,180 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script type="text/javascript" src="./js/breadcrumb-fix.js"></script>
 
 
+<link rel="stylesheet" href="css/index.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/feRris.png" alt="" class="navbar-logo light-content">
-    <img src="./images/feRris.png" alt="" class="navbar-logo dark-content">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">extendr</span>
     </a>
@@ -128,40 +258,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="./get-started.html"> 
-<span class="menu-text">Get Started</span></a>
+<span class="menu-text">INSTALL</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-documentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Documentation</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-docs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DOCS</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-documentation">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-docs">    
         <li>
     <a class="dropdown-item" href="https://extendr.github.io/extendr/">
- <span class="dropdown-text">Rust crates</span></a>
+ <span class="dropdown-text">{extendr} crates</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="https://extendr.github.io/rextendr/dev">
  <span class="dropdown-text">{rextendr} package</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./intro-rust/index.html">
+ <span class="dropdown-text">Rust Basics</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./user-guide/index.html">
  <span class="dropdown-text">User Guide</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./intro-rust/index.html">
- <span class="dropdown-text">Rust for R Developers</span></a>
+    <a class="dropdown-item" href="./contributing/index.html">
+ <span class="dropdown-text">Contributing</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="./blog/index.html"> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text">NEWS</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/extendr/extendr"> <i class="bi bi-github" role="img">
 </i> 
@@ -175,148 +307,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-layout-custom page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting Started</a></li>
-  <li><a href="#the-ecosystem" id="toc-the-ecosystem" class="nav-link" data-scroll-target="#the-ecosystem">The ecosystem</a></li>
-  <li><a href="#quickstart" id="toc-quickstart" class="nav-link" data-scroll-target="#quickstart">Quickstart</a>
-  <ul class="collapse">
-  <li><a href="#example-calling-structs-from-r" id="toc-example-calling-structs-from-r" class="nav-link" data-scroll-target="#example-calling-structs-from-r">Example: calling structs from R</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">extendr - extending R with Rust 🦀</h1></header>
 
 
 
 
-<div style="margin:0; width: 100%;">
-<section id="extendr---extending-r-with-rust" class="level1" style="margin:0; width: 81%; float: left;">
 
+<div class="hero-banner">
+<div id="hero-header">
+<section id="build-blazingly-fast-r-packages-with-rust" class="level1">
+<h1>Build blazingly fast R packages with Rust</h1>
+<p>Use tools that put developers first.<br>
+Get support for publishing to CRAN.</p>
+<div class="mt-3">
 <p><a href="https://github.com/extendr/extendr/actions"><img src="https://github.com/extendr/extendr/workflows/Tests/badge.svg" class="img-fluid" alt="Github Actions Build Status"></a> <a href="https://crates.io/crates/extendr-api"><img src="https://img.shields.io/crates/v/extendr-api.svg" class="img-fluid" alt="Crates.io"></a> <a href="https://docs.rs/extendr-api"><img src="https://docs.rs/extendr-api/badge.svg" class="img-fluid" alt="Documentation"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a></p>
+</div>
 </section>
-<div style="margin: 0.25rem 0 0 0; width: 19%; float: right;">
-<p><img src="images/extendr-logo-256.png" class="img-fluid" style="width:100.0%" alt="rextendr logo"></p>
+</div>
+<div id="hero-cli">
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">init</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">run example</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">–help</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Get Started</strong> <iconify-icon role="img" inline="" icon="fluent-color:checkmark-circle-32" aria-label="Icon checkmark-circle-32 from fluent-color Iconify.design set." title="Icon checkmark-circle-32 from fluent-color Iconify.design set."></iconify-icon><br>
+Build your first Rust-powered R package in minutes. Follow our step-by-step guide or dive straight into a complete example.</p>
+<p>→ <a href="./get-started.html">Installation</a><br>
+→ <a href="./user-guide/index.html">User Guide</a></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>See What’s Possible</strong> <iconify-icon role="img" inline="" icon="fluent-color:lightbulb-filament-32" aria-label="Icon lightbulb-filament-32 from fluent-color Iconify.design set." title="Icon lightbulb-filament-32 from fluent-color Iconify.design set."></iconify-icon><br>
+Explore R packages built with extendr. From high-performance data processing to system integrations, see what the community has built.</p>
+<p>→ <a href="https://github.com/extendr/awesome-extendr">Browse awesome-extendr</a></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Join the Community</strong> <iconify-icon role="img" inline="" icon="fluent-color:people-interwoven-32" aria-label="Icon people-interwoven-32 from fluent-color Iconify.design set." title="Icon people-interwoven-32 from fluent-color Iconify.design set."></iconify-icon><br>
+extendr has a welcoming and active community of R and Rust developers. Come ask questions, share your work, or just hang out.</p>
+<p>→ <a href="https://discord.gg/7hmApuc">Discord</a><br>
+→ <a href="https://github.com/extendr/extendr">GitHub</a></p>
 </div>
 </div>
-<p>Build blazingly fast R packages 📦 with ease. The extendr ecosystem is <strong>developer-friendly</strong> and <strong>CRAN</strong>-ready. extendr let’s you write ergonomic and idomatic Rust without having to worry about R’s internals (much 😅).</p>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<ul>
-<li>Don’t have Rust installed yet? <a href="./get-started.html">Start here</a>.</li>
-<li>Familiar with Rust and want to get your hands dirty? Follow along with a <a href="./user-guide/complete-example.html">complete example</a>.</li>
-</ul>
-</section>
-<section id="the-ecosystem" class="level2">
-<h2 class="anchored" data-anchor-id="the-ecosystem">The ecosystem</h2>
-<p><strong>Rust crates</strong> 🦀 :</p>
-<ul>
-<li><a href="https://extendr.github.io/extendr/extendr_api"><code>extendr-api</code></a>—ergonomic, opinionated, and safe interface between R and Rust</li>
-<li><a href="https://extendr.github.io/extendr/extendr_engine"><code>extendr-engine</code></a>—embed and use R in Rust</li>
-<li><a href="https://extendr.github.io/extendr/extendr_ffi"><code>extendr-ffi</code></a>—hand-crafted bindings to R’s C-API</li>
-</ul>
-<p><strong>R packages</strong> 📦 :</p>
-<ul>
-<li><a href="https://extendr.github.io/rextendr/dev"><code>{rextendr}</code></a>—A <code>{usethis}</code>-like package that scaffolds extendr-powered R packages</li>
-</ul>
-</section>
-<section id="quickstart" class="level2">
-<h2 class="anchored" data-anchor-id="quickstart">Quickstart</h2>
-<p>We recommend using the development version of <code>{rextendr}</code> from GitHub.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install from CRAN</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rextendr"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Development version</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"extendr/rextendr"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new R package</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="st">"helloextendr"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use extendr</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">use_extendr</span>()</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Document and build the package</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">document</span>()</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># run hello_world()</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">hello_world</span>()</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Hello, world!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="example-calling-structs-from-r" class="level3">
-<h3 class="anchored" data-anchor-id="example-calling-structs-from-r">Example: calling structs from R</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span><span class="op">*;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">Debug</span><span class="at">)]</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Person <span class="op">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">pub</span> name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> Person <span class="op">{</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> new() <span class="op">-&gt;</span> <span class="dt">Self</span> <span class="op">{</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Self</span> <span class="op">{</span> name<span class="op">:</span> <span class="st">""</span><span class="op">.</span>to_string() <span class="op">}</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> set_name(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span><span class="op">,</span> name<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">{</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name <span class="op">=</span> name<span class="op">.</span>to_string()<span class="op">;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> name(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="dt">str</span> <span class="op">{</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">self</span><span class="op">.</span>name<span class="op">.</span>as_str()</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> my_function() <span class="op">{</span> <span class="op">}</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">// Macro to generate exports</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="pp">extendr_module!</span> <span class="op">{</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mod</span> classes<span class="op">;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">impl</span> Person<span class="op">;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> my_function;</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>#[extendr]</code> attribute causes the compiler to generate wrapper and registration functions for R which are called when the package is loaded, thus allowing one to access Rust functions and structures in an R session:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># call function</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">my_function</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create Person object</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> Person<span class="sc">$</span><span class="fu">new</span>()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">set_name</span>(<span class="st">"foo"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span><span class="fu">name</span>()   <span class="co"># "foo" is returned</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This, of course, is just the tip of the iceberg, for there are many ways to use extendr in R:</p>
-<ul>
-<li><p>In an interactive R session one may use <a href="https://extendr.github.io/rextendr/reference/rust_source.html"><code>rextendr::rust_function</code> and friends</a> to quickly prototype Rust code.</p></li>
-<li><p>In an R package context, one may use <a href="https://extendr.github.io/rextendr/reference/use_extendr.html"><code>rextendr::use_extendr()</code></a> to setup a Rust powered R-package. See also the <a href="https://extendr.github.io/rextendr/articles/package.html">vignette on R-packages</a>.</p></li>
-<li><p>It is also possible to inline Rust code in <code>Quarto</code> documents, see <a href="https://extendr.github.io/rextendr/articles/rmarkdown.html">vignette on extendr <code>knitr-engine</code></a>.</p></li>
-</ul>
+</div>
+</div>
+</div>
 
 
-</section>
-</section>
 
-</main> <!-- /main -->
+
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -713,4 +773,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hello, World! – extendr</title>
+<title>Ownership – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro-rust/types.html" rel="next">
-<link href="../intro-rust/index.html" rel="prev">
+<link href="../intro-rust/iterators.html" rel="next">
+<link href="../intro-rust/functions.html" rel="prev">
 <link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/ownership.html">Ownership</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link active">
+  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, World!</span></a>
   </div>
 </li>
@@ -417,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/ownership.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro-rust/ownership.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Ownership</span></a>
   </div>
 </li>
@@ -452,16 +452,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cloning" id="toc-cloning" class="nav-link active" data-scroll-target="#cloning">Cloning</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#borrowing" id="toc-borrowing" class="nav-link" data-scroll-target="#borrowing">Borrowing</a></li>
+  <li><a href="#slices" id="toc-slices" class="nav-link" data-scroll-target="#slices">Slices</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/ownership.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/ownership.html">Ownership</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Hello, World!</h1>
+<h1 class="title">Ownership</h1>
 </div>
 
 
@@ -478,63 +487,132 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this tutorial, you will learn how to setup a new Rust crate and get a sense for what it includes. You will also learn how to build and run your new crate with <code>cargo</code>, a package manager and build system for Rust. You do not need to install <code>cargo</code> because it comes bundled with Rust.</p>
-<p>When you first setup a Rust crate, you will have to choose between one of two types: binary crates and library crates. Binary crates are standalone applications or executables that you can run, like command line tools. Library crates are typically small bundles of code that are used in the development of other crates. In this tutorial, we will focus on building a binary crate.</p>
-<p>To create a new binary crate, open a terminal and run the following:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create a new directory called <code>hello-world</code> that you can then navigate into using <code>cd hello-world</code>. Once inside that directory, you will find all of the following:</p>
-<pre><code>hello-world/
-├── Cargo.toml
-├── Cargo.lock
-└── src/
-    └── main.rs</code></pre>
-<p>The <code>Cargo.toml</code> file is a document in which you specify metadata and dependencies for your crate similar to an R package’s <code>DESCRIPTION</code>. The <code>Cargo.lock</code> file maintains copies of those dependencies, similar to <code>renv.lock</code>. A lot more can be said about those two files, which are absolutely crucial to programming in Rust, but for now let’s focus on the Rust file in the source directory. If you open that file in Positron (or your preferred IDE), you will see the following text:</p>
+<p>Rust is notorious for its <strong>borrow checker</strong>, the mechanism that enforces memory safety at compile time. The core rule is that every value has a single owner, and once that ownership is transferred, the original variable can no longer be used. This is called a <strong>move</strong>. A move occurs whenever a variable is passed to a function or assigned to another variable. After the move, the original binding is invalid. Consider this example from The Book:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.rs</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s1 <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">"hello"</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s2 <span class="op">=</span> s1<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{s1}, world!"</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Running this code will cause the following error:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>error[E0382]: borrow of moved value: `s1`</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> --&gt; src/main.rs:4:16</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  |</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>2 |     let s1 = String::from("hello");</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  |         -- move occurs because `s1` has type `String`, which does not implement the `Copy` trait</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>3 |     let s2 = s1;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  |              -- value moved here</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>4 |     println!("{s1}, world!");</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  |                ^^ value borrowed here after move</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  |</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>help: consider cloning the value if the performance cost is acceptable</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  |</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>3 |     let s2 = s1.clone();</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  |                ++++++++</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>For more information about this error, try `rustc --explain E0382`.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There is a lot of output here, but let us focus on the source of the error for now. First, we see that <code>let s2 = s1;</code> moves the value in <code>s1</code> to <code>s2</code>, and then we are told that the <code>println!</code> macro mistakenly seeks to borrow the value that has been moved. Since that value is no longer <em>owned</em> by <code>s1</code>, it causes an error.</p>
+<section id="cloning" class="level2">
+<h2 class="anchored" data-anchor-id="cloning">Cloning</h2>
+<p>In the example above, we are also given helpful advice about how to fix the error using <code>.clone()</code>, which copies the value rather than moving it. Cloning is probably the simplest way to reuse the original value, as almost everything in Rust can be cloned.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src/main.rs</strong></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, world!"</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s1 <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">"hello"</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s2 <span class="op">=</span> s1<span class="op">.</span>clone()<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{s1}, world!"</span>)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>In just those three short lines, we see examples of many Rust coding patterns:</p>
-<ul>
-<li>Functions are declared using the <code>fn</code> keyword,</li>
-<li>The <code>main()</code> function defines what happens when you run your binary,</li>
-<li>Blocks of code are delimited using curly brackets (just like R), and</li>
-<li>Statements end with <code>;</code>.</li>
-</ul>
-<p>Right now, our app uses the <code>println!()</code> macro to print “Hello, world!” to the terminal. When a program writes to the console, it does so through file connections called standard output (<code>stdout</code>) and standard error (<code>stderr</code>). In R, when we print a message with <code>print()</code> or <code>message()</code>, we print to stdout. Similarly, when we make a warning or error using <code>stop()</code> or <code>warning()</code>, that is writing to <code>stderr</code>. The Rust <code>println!()</code> macro also has the nice feature of supporting string interpolation like <code>sprintf()</code> and <code>glue()</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// indirect interpolation</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> name)<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// direct interpolation</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If we add one or the other of those lines to <code>main()</code> like so</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hello, world!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<p>The above example also highlights that the <code>println</code> macro seeks to <em>borrow</em> the value in <code>s1</code>. In fact, any time you pass a variable to a function, its value is moved, meaning the originally defined variable can no longer be used to access the value outside of the function. For example, let’s define a <code>mean()</code> function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> mean(x<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> total <span class="op">=</span> <span class="dv">0.0</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n <span class="op">=</span> x<span class="op">.</span>len()<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xi <span class="kw">in</span> x <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        total <span class="op">+=</span> xi<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    total <span class="op">/</span> (n <span class="kw">as</span> <span class="dt">f64</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Calling this function twice on the same vector will fail because the first call moves <code>x</code> into the function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0.0</span><span class="op">,</span> <span class="dv">3.14</span><span class="op">,</span> <span class="dv">10.1</span><span class="op">,</span> <span class="dv">44.8</span>]<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> avg1 <span class="op">=</span> mean(x)<span class="op">;</span> <span class="co">// ⬅️ x moved here!</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> avg2 <span class="op">=</span> mean(x)<span class="op">;</span> <span class="co">// ❌ compiler error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As we just saw, one way of handling this is to clone the data before passing it to the function.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x  <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">0.0</span><span class="op">,</span> <span class="dv">3.14</span><span class="op">,</span> <span class="dv">10.1</span><span class="op">,</span> <span class="dv">44.8</span>]<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> avg1 <span class="op">=</span> mean(x<span class="op">.</span>clone())<span class="op">;</span> <span class="co">// ⬅️ x cloned here!</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> avg2 <span class="op">=</span> mean(x)<span class="op">;</span>         <span class="co">// ✅ compiler happy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>While cloning in this way is safe and correct, it has the unfortunate downside of allocating a new copy of the data each time — not an issue for small vectors like <code>x</code>, but as they grow, finding a better approach will become more urgent.</p>
+</section>
+<section id="borrowing" class="level2">
+<h2 class="anchored" data-anchor-id="borrowing">Borrowing</h2>
+<p>Fortunately, there is a more efficient approach known as <em>borrowing</em>, which involves passing a reference to a value rather than moving it. In Rust, we signal a reference by placing an ampersand <code>&amp;</code> in front of a variable or type name, for example, <code>&amp;x</code> or <code>&amp;Vec&lt;f64&gt;</code>. These tell the compiler that we are borrowing a value rather than taking ownership. To use the <code>mean()</code>function with a reference, notice that we have to update its signature to make the reference type explicit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> mean(x<span class="op">:</span> <span class="op">&amp;</span><span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">f64</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> total <span class="op">=</span> <span class="dv">0.0</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n <span class="op">=</span> x<span class="op">.</span>len()<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xi <span class="kw">in</span> x <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        total <span class="op">+=</span> <span class="op">*</span>xi<span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    total <span class="op">/</span> (n <span class="kw">as</span> <span class="dt">f64</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1.0</span><span class="op">,</span> <span class="dv">2.0</span><span class="op">,</span> <span class="dv">3.0</span>]<span class="op">;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> avg <span class="op">=</span> mean(<span class="op">&amp;</span>x)<span class="op">;</span> <span class="co">// 👈 borrowing `x`</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"x is still usable: {:?}"</span><span class="op">,</span> x)<span class="op">;</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x is still usable: [1.0, 2.0, 3.0]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>An important restriction on referencing is that borrowed values cannot be moved or mutated — only read. You can borrow a value as many times as you like, you just cannot change it.</p>
+</section>
+<section id="slices" class="level2">
+<h2 class="anchored" data-anchor-id="slices">Slices</h2>
+<p>Rather than reference the entire array or vector, we can reference a slice, or a contiguous sequence of elements within it. These are denoted in Rust using <code>&amp;[T]</code> where <code>T</code> stands for a generic type. For example, <code>&amp;[f64]</code> means a reference slice of 64-bit floating points. If we want to demonstrate the use of reference slices with our <code>mean()</code> function, we will as before have to update its signature to make that type explicit:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src/main.rs</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> mean(x<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">f64</span>]) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> total <span class="op">=</span> <span class="dv">0.0</span><span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> n <span class="op">=</span> x<span class="op">.</span>len()<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xi <span class="kw">in</span> x <span class="op">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        total <span class="op">+=</span> <span class="op">*</span>xi<span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    total <span class="op">/</span> (n <span class="kw">as</span> <span class="dt">f64</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x <span class="op">=</span> [<span class="dv">0.0</span><span class="op">,</span> <span class="dv">20.0</span><span class="op">,</span> <span class="dv">742.3</span>]<span class="op">;</span>  <span class="co">// array</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1.0</span><span class="op">,</span> <span class="dv">2.0</span><span class="op">,</span> <span class="dv">3.0</span>]<span class="op">;</span> <span class="co">// vector</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"the mean of x is: {}"</span><span class="op">,</span> mean(<span class="op">&amp;</span>x))<span class="op">;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"the mean of y is: {}"</span><span class="op">,</span> mean(<span class="op">&amp;</span>y))<span class="op">;</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>we can then call the application and get it to execute in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$ cargo run</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   Compiling hello_world v0.1.0 (/hello-world)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     Running `target/debug/hello_world`</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Hello, Josiah!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice that <code>cargo</code> provides detailed information about the build process (printed to stderr) before actually running the program (and printing to stdout). This is a useful reminder that Rust, unlike R, is a compiled language - Rust programs have to be built before they can be run. For those coming from R, that might sound rather mysterious, and in some respects it is, but we want to emphasize how easy it was to get a program up and running. It was just three lines of code in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>$ cd hello-world</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>$ cargo run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That’s it! Those three lines were sufficient to build and run our simple binary. Now we can move on to learning about basic data types in Rust.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>the mean of x is: 254.1</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>the mean of y is: 2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>There are two things to note about this example. The first is very subtle. We updated the signature for mean to take <code>x: &amp;[f64]</code>, a slice. However, we passed <code>&amp;x</code> and <code>&amp;y</code> to the function, which are references to arrays and vectors. What is going on here? The answer is an implicit conversion. Both arrays and vectors have methods for converting their generic references to slices, and those are invoked when passing them into a function with this signature.</p>
+<p>Following from that, the second thing to note is that a function written to accept <code>&amp;Vec&lt;f64&gt;</code> works only on vectors. That is because there is no method for converting array references to vector references. But as we just saw, both can be converted to slices. Rewriting a function to accept <code>&amp;[f64]</code>, thus, makes it more general at no cost. So, in practice, we should prefer slices over vector references whenever the function only needs to read the data — it is more flexible and equally efficient.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -952,13 +1030,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro-rust/index.html" class="pagination-link" aria-label="Rust Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Rust Basics</span>
+      <a href="../intro-rust/functions.html" class="pagination-link" aria-label="Functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Functions</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro-rust/types.html" class="pagination-link" aria-label="Basic Types">
-        <span class="nav-page-text">Basic Types</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../intro-rust/iterators.html" class="pagination-link" aria-label="Iterators">
+        <span class="nav-page-text">Iterators</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -967,4 +1045,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/hello-world.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/ownership.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

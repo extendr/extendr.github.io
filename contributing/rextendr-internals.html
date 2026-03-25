@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Hello, World! – extendr</title>
+<title>{rextendr} Internals – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro-rust/types.html" rel="next">
-<link href="../intro-rust/index.html" rel="prev">
+<link href="../contributing/colors-and-fonts.html" rel="next">
+<link href="../contributing/extendr-internals.html" rel="prev">
 <link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -85,6 +85,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/iconify-3.0.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -352,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contributing/index.html">Contributing</a></li><li class="breadcrumb-item"><a href="../contributing/rextendr-internals.html">{rextendr} Internals</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -366,8 +367,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Rust Basics</span></a>
+            <a href="../contributing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -375,74 +376,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Hello, World!</span></a>
+  <a href="../contributing/writing-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writing Code</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/types.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Types</span></a>
+  <a href="../contributing/documenting-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Documenting Code</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/control-flow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Control Flow</span></a>
+  <a href="../contributing/testing-code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Testing Code</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/collections.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Collections</span></a>
+  <a href="../contributing/extendr-internals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">{extendr} Internals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/loops.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Loops</span></a>
+  <a href="../contributing/rextendr-internals.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">{rextendr} Internals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/mutability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Mutability</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Functions</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/ownership.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ownership</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/iterators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Iterators</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Structures</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/implementations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Implementations</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/enumerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Enumerations</span></a>
+  <a href="../contributing/colors-and-fonts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Colors and Fonts</span></a>
   </div>
 </li>
       </ul>
@@ -452,16 +417,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#package-setup" id="toc-package-setup" class="nav-link active" data-scroll-target="#package-setup">Package Setup</a></li>
+  <li><a href="#package-build" id="toc-package-build" class="nav-link" data-scroll-target="#package-build">Package Build</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build">Build</a></li>
+  <li><a href="#registration" id="toc-registration" class="nav-link" data-scroll-target="#registration">Registration</a></li>
+  <li><a href="#cleanup" id="toc-cleanup" class="nav-link" data-scroll-target="#cleanup">Cleanup</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/contributing/rextendr-internals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/hello-world.html">Hello, World!</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contributing/index.html">Contributing</a></li><li class="breadcrumb-item"><a href="../contributing/rextendr-internals.html">{rextendr} Internals</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Hello, World!</h1>
+<h1 class="title">{rextendr} Internals</h1>
 </div>
 
 
@@ -478,63 +456,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this tutorial, you will learn how to setup a new Rust crate and get a sense for what it includes. You will also learn how to build and run your new crate with <code>cargo</code>, a package manager and build system for Rust. You do not need to install <code>cargo</code> because it comes bundled with Rust.</p>
-<p>When you first setup a Rust crate, you will have to choose between one of two types: binary crates and library crates. Binary crates are standalone applications or executables that you can run, like command line tools. Library crates are typically small bundles of code that are used in the development of other crates. In this tutorial, we will focus on building a binary crate.</p>
-<p>To create a new binary crate, open a terminal and run the following:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create a new directory called <code>hello-world</code> that you can then navigate into using <code>cd hello-world</code>. Once inside that directory, you will find all of the following:</p>
-<pre><code>hello-world/
-├── Cargo.toml
-├── Cargo.lock
-└── src/
-    └── main.rs</code></pre>
-<p>The <code>Cargo.toml</code> file is a document in which you specify metadata and dependencies for your crate similar to an R package’s <code>DESCRIPTION</code>. The <code>Cargo.lock</code> file maintains copies of those dependencies, similar to <code>renv.lock</code>. A lot more can be said about those two files, which are absolutely crucial to programming in Rust, but for now let’s focus on the Rust file in the source directory. If you open that file in Positron (or your preferred IDE), you will see the following text:</p>
+<p>This page describes various internal functions and processes used by rextendr to setup and build R packages. It is designed to get contributors up-to-speed on the internal mechanics of rextendr, so that they can more efficiently contribute to development and maintenance.</p>
+<section id="package-setup" class="level2">
+<h2 class="anchored" data-anchor-id="package-setup">Package Setup</h2>
+<p>General R package setup is achieved with <code>usethis::create_package()</code>. Scaffolding files required to call Rust code in R using extendr is then added to the package directory with <code>rextendr::use_extendr()</code>. This involves interpolating strings into template files in <code>inst/templates/</code>, which are then written to the user’s package directory via the internal function <code>use_rextendr_template()</code>:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
+<pre><strong>R/use_extendr.R</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, world!"</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="R/use_extendr.R"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>use_rextendr_template <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  template,        <span class="co"># filename in inst/templates/</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  save_as,         <span class="co"># destination path in the user's package</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">list</span>(),   <span class="co"># named list of variables to interpolate into the template</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">overwrite =</span> <span class="cn">NULL</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>In just those three short lines, we see examples of many Rust coding patterns:</p>
-<ul>
-<li>Functions are declared using the <code>fn</code> keyword,</li>
-<li>The <code>main()</code> function defines what happens when you run your binary,</li>
-<li>Blocks of code are delimited using curly brackets (just like R), and</li>
-<li>Statements end with <code>;</code>.</li>
-</ul>
-<p>Right now, our app uses the <code>println!()</code> macro to print “Hello, world!” to the terminal. When a program writes to the console, it does so through file connections called standard output (<code>stdout</code>) and standard error (<code>stderr</code>). In R, when we print a message with <code>print()</code> or <code>message()</code>, we print to stdout. Similarly, when we make a warning or error using <code>stop()</code> or <code>warning()</code>, that is writing to <code>stderr</code>. The Rust <code>println!()</code> macro also has the nice feature of supporting string interpolation like <code>sprintf()</code> and <code>glue()</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// indirect interpolation</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> name)<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// direct interpolation</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If we add one or the other of those lines to <code>main()</code> like so</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
+<p>When <code>usethis</code> is available and <code>overwrite = NULL</code>, this delegates to <code>usethis::use_template()</code>, which handles interactive prompting if the file already exists. Otherwise it reads the template file directly, performs interpolation, and writes the result. The templates directory currently includes all of the following:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="fu">system.file</span>(<span class="st">"templates"</span>, <span class="at">package =</span> <span class="st">"rextendr"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C:/Users/kenne/AppData/Local/R/win-library/4.5/rextendr/templates</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── Cargo.toml</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── cleanup</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── cleanup.win</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── config.R</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── configure</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── configure.win</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── document.rs</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── entrypoint.c</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── extendr-wrappers.R</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── lib.rs</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── Makevars.in</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── Makevars.win.in</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── msrv.R</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── settings.json</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ├── win.def</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; └── _gitignore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> name <span class="op">=</span> <span class="st">"Josiah"</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {name}!"</span>)<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>we can then call the application and get it to execute in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$ cargo run</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   Compiling hello_world v0.1.0 (/hello-world)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     Running `target/debug/hello_world`</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Hello, Josiah!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice that <code>cargo</code> provides detailed information about the build process (printed to stderr) before actually running the program (and printing to stdout). This is a useful reminder that Rust, unlike R, is a compiled language - Rust programs have to be built before they can be run. For those coming from R, that might sound rather mysterious, and in some respects it is, but we want to emphasize how easy it was to get a program up and running. It was just three lines of code in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>$ cargo new hello-world</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>$ cd hello-world</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>$ cargo run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That’s it! Those three lines were sufficient to build and run our simple binary. Now we can move on to learning about basic data types in Rust.</p>
+<p>The exceptions to simple string interpolation are <code>Cargo.toml</code>, whose content is generated programmatically before being written to file, and <code>Makevars.in</code> / <code>Makevars.win.in</code>, which use a second layer of <code>@PLACEHOLDER@</code> substitution performed at package build time by <code>tools/config.R</code>.</p>
+<p>You can see the content of these template files on main in the rextendr repository here: <iconify-icon role="img" inline="" icon="bi:github" aria-label="Icon github from bi Iconify.design set." title="Icon github from bi Iconify.design set."></iconify-icon> <a href="https://github.com/extendr/rextendr/tree/main/inst/templates">source</a>. For a description of what each generated file does, see the <a href="../user-guide/package-structure.html">Project Structure</a> page in the user guide.</p>
+</section>
+<section id="package-build" class="level2">
+<h2 class="anchored" data-anchor-id="package-build">Package Build</h2>
+<p>When a developer calls <code>devtools::document()</code>, they initiate a set of steps to build, document, and register functions in their R package. Here are those steps in order:</p>
+<ol type="1">
+<li>Check Rust and cargo versions</li>
+<li>Generate <code>Makevars</code> from template</li>
+<li>Compile the Rust crate into a static library</li>
+<li>Generate R wrappers</li>
+<li>Compile <code>entrypoint.c</code> and link the static library</li>
+<li>Register exported routines with R on load</li>
+<li>Clean up build artifacts</li>
+</ol>
+<p>These steps are driven by <code>R CMD INSTALL</code>, which <code>devtools::document()</code> calls implicitly.</p>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<p>The first thing that gets called is <code>configure</code> (<code>configure.win</code> on Windows). The sole purpose of the configure script is to source the R script <code>tools/config.R</code>, which in broad outline does two things. First, it runs <code>tools/msrv.R</code> to check that the Rust version is consistent across metadata files like <code>DESCRIPTION</code> and <code>Cargo.toml</code> (step 1). Second, it substitutes <code>@PLACEHOLDER@</code> variables in the <code>Makevars.in</code> and <code>Makevars.win.in</code> templates (signaled by <code>.in</code>) with relevant data to generate the actual Makevars file (step 2).</p>
+</section>
+<section id="build" class="level3">
+<h3 class="anchored" data-anchor-id="build">Build</h3>
+<p>The R package build process next invokes Makevars, which was just generated by the configuration file. The Makevars in turn does two things. First, it calls <code>cargo build</code> to compile the static library (step 3). Then it calls <code>cargo run</code> to compile and execute the associated <code>document</code> binary, which generates all extendr wrappers (basically <code>.Call()</code>) and writes them into <code>R/extendr-wrappers.R</code> (step 4). Note that if a <code>vendor/</code> directory or <code>rust/vendor.tar.xz</code> tarball is present, the Makevars also ensures that Cargo is configured to use it for offline compilation — this is the essential mechanism required for CRAN submissions.</p>
+</section>
+<section id="registration" class="level3">
+<h3 class="anchored" data-anchor-id="registration">Registration</h3>
+<p>Because we are building an R package with compiled code, R requires that we register all routines via a C-level initialization function named <code>R_init_&lt;pkgname&gt;</code>. This is where <code>entrypoint.c</code> comes in. Currently, extendr generates its own version of this function — <code>R_init_{{{mod_name}}}_extendr</code> — inside the Rust library. The C entrypoint then bridges the two, calling the Rust-generated function through the R-facing <code>R_init_{{{mod_name}}}</code>. Compiling <code>entrypoint.c</code> makes that symbol available on package load (step 5). When the package next gets loaded, the C function is called to register compiled routines (step 6). If you inspect <code>R/extendr-wrappers.R</code>, you will see where this happens. The call is <code>@useDynLib(pkgname, .registration = TRUE)</code>.</p>
+</section>
+<section id="cleanup" class="level3">
+<h3 class="anchored" data-anchor-id="cleanup">Cleanup</h3>
+<p>To prevent the <code>Makevars</code> generated by <code>configure</code> from being committed to git, a <code>cleanup</code> is invoked (<code>cleanup.win</code> on Windows) that calls the shell command <code>rm</code> to remove that file (step 7).</p>
+<p>Once these steps are taken, the compiled Rust should become available in the current R session.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -952,13 +946,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro-rust/index.html" class="pagination-link" aria-label="Rust Basics">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Rust Basics</span>
+      <a href="../contributing/extendr-internals.html" class="pagination-link" aria-label="{extendr} Internals">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">{extendr} Internals</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro-rust/types.html" class="pagination-link" aria-label="Basic Types">
-        <span class="nav-page-text">Basic Types</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../contributing/colors-and-fonts.html" class="pagination-link" aria-label="Colors and Fonts">
+        <span class="nav-page-text">Colors and Fonts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -967,4 +961,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/hello-world.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/contributing/rextendr-internals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
