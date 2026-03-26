@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>General writing conventions – extendr</title>
+<title>Writing Code – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -47,9 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-23827cd5af1f8ff1a760f3c79ce225ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d8e16109a5958c79a171b724c83ef7c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-23827cd5af1f8ff1a760f3c79ce225ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -386,8 +386,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r-code" id="toc-r-code" class="nav-link active" data-scroll-target="#r-code">R code</a></li>
-  <li><a href="#rust-code" id="toc-rust-code" class="nav-link" data-scroll-target="#rust-code">Rust code</a></li>
+  <li><a href="#rust-code" id="toc-rust-code" class="nav-link active" data-scroll-target="#rust-code">Rust Code</a></li>
+  <li><a href="#r-code" id="toc-r-code" class="nav-link" data-scroll-target="#r-code">R Code</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/contributing/writing-code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -397,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contributing/index.html">Contributing</a></li><li class="breadcrumb-item"><a href="../contributing/writing-code.html">Writing Code</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">General writing conventions</h1>
+<h1 class="title">Writing Code</h1>
 </div>
 
 
@@ -415,15 +415,22 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>This page covers code formatting conventions for the extendr project. Following these conventions keeps code consistent and readable across contributors.</p>
-<section id="r-code" class="level2">
-<h2 class="anchored" data-anchor-id="r-code">R code</h2>
+<section id="rust-code" class="level2">
+<h2 class="anchored" data-anchor-id="rust-code">Rust Code</h2>
+<p>Rust code should be written to conform with conventions outlined in the <a href="https://rust-lang.github.io/api-guidelines/about.html">Rust API Guidelines</a>. It’s a good idea to read this document, but it may take time to gain some familiarity with all of its ins and outs. In the meantime, the following tools will prove very beneficial to keeping your Rust code consistent with those conventions.</p>
 <ul>
-<li>Never use <code>print()</code> to display an R object. Let R print it implicitly.</li>
-<li>Use the <code>extendrsrc</code> and <code>extendr</code> knitr engines for all extendr code. See <code>user-guide/serde-integration.qmd</code> for a worked example to emulate.</li>
+<li><p>Use <a href="https://rust-lang.github.io/rustfmt/?version=v1.9.0">rustfmt</a> to format Rust code. rustfmt is the standard Rust formatter and can be configured to run on save in most editors.</p></li>
+<li><p>Use <a href="https://doc.rust-lang.org/stable/clippy/">Clippy</a> to lint Rust code. Clippy catches common mistakes and enforces idiomatic Rust style.</p></li>
+<li><p>Use <a href="https://rust-analyzer.github.io/">rust-analyzer</a> for IDE support. It provides code completion, inline errors, and other features in VS Code, Positron, Zed, and other editors.</p></li>
 </ul>
 </section>
-<section id="rust-code" class="level2">
-<h2 class="anchored" data-anchor-id="rust-code">Rust code</h2>
+<section id="r-code" class="level2">
+<h2 class="anchored" data-anchor-id="r-code">R Code</h2>
+<p>R code should be written to conform with conventions outlined in the <a href="https://style.tidyverse.org/">Tidyverse style guide</a>. What we said about the Rust API guidelines, it applies here, too. In your effort to abide by those conventions, you will find a great deal of advantage in these tools.</p>
+<ul>
+<li><p>Use <a href="https://posit-dev.github.io/air/">Air</a> to format R code. Air can be configured to automatically format R scripts on save in your editor. Air supports VS Code, Positron, Zed, and the command line.</p></li>
+<li><p>Use <a href="https://lintr.r-lib.org/">lintr</a> to lint R code. rextendr’s CI uses lintr, so having it configured in your editor will catch issues before they are flagged in review. lintr supports most IDEs, include RStudio, VS Code, and Positron. You may also like <a href="https://jarl.etiennebacher.com/">jarl</a>, an R lintr written in Rust, which is much faster than lintr and supports additional IDEs.</p></li>
+</ul>
 
 
 </section>

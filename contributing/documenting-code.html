@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -47,9 +82,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-23827cd5af1f8ff1a760f3c79ce225ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d8e16109a5958c79a171b724c83ef7c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-23827cd5af1f8ff1a760f3c79ce225ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -426,12 +461,22 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="rust-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="rust-documentation">Rust Documentation</h2>
+<p>All Rust code in extendr should be documented with <a href="https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html">rustdoc</a> following conventions recommended in the <a href="https://rust-lang.github.io/api-guidelines/about.html">Rust API Guidelines</a>.</p>
+<p>Doc examples that call the R API must be wrapped in <code>with_r</code>. Bare doctests without it will fail at runtime.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/// ```</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">/// use extendr_api::prelude::*;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/// with_r(|| {</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">///     let x = r!([1, 2, 3]);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">///     assert_eq!(x.len(), 3);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">///     Ok(())</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">/// });</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">/// ```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="r-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="r-documentation">R Documentation</h2>
 <p>Functions in rextendr should be documented with <a href="https://roxygen2.r-lib.org">roxygen2</a>, following the conventions recommended by the <a href="https://style.tidyverse.org/documentation.html">tidyverse style guide</a>.</p>
 <ul>
-<li>Every exported function in rextendr must include the following roxygen variables:
+<li>Roxygen documentation for every exported function must include the following roclets:
 <ul>
 <li><code>@title</code></li>
 <li><code>@description</code> — a concise description of what the function does.</li>
@@ -442,9 +487,11 @@ ul.task-list li input[type="checkbox"] {
 <li>the default value, if one exists</li>
 </ul></li>
 <li><code>@return</code> — what the function returns, including the R type.</li>
+<li><code>@examples</code></li>
 </ul></li>
-<li>The <code>@details</code> and <code>@examples</code> sections are optional, but should in general be included.</li>
+<li>The <code>@details</code> section are optional, but should be included for most functions in rextendr.</li>
 <li>Internal functions should include roxygen comments if their use in rextendr is fairly complex, important, and not easy to discern. Simple helper functions do not need to be documented.</li>
+<li>In vignettes and online guides, use the <code>extendrsrc</code> and <code>extendr</code> knitr engines for examples involving Rust code. See <code>user-guide/serde-integration.qmd</code> for a worked example to emulate.</li>
 </ul>
 
 

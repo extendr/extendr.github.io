@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -47,9 +82,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ec9079e4465d38b69a0a1a3680430765.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-46a32f8ebe29bc406ed85ed46af8410c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-23827cd5af1f8ff1a760f3c79ce225ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d8e16109a5958c79a171b724c83ef7c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-23827cd5af1f8ff1a760f3c79ce225ee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -381,8 +416,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#rust-tests" id="toc-rust-tests" class="nav-link active" data-scroll-target="#rust-tests">Rust Tests</a>
+  <ul class="collapse">
+  <li><a href="#tests-using-r-symbols" id="toc-tests-using-r-symbols" class="nav-link" data-scroll-target="#tests-using-r-symbols">Tests using R symbols</a></li>
+  <li><a href="#ffi-tests" id="toc-ffi-tests" class="nav-link" data-scroll-target="#ffi-tests">FFI tests</a></li>
+  <li><a href="#additional-guidance" id="toc-additional-guidance" class="nav-link" data-scroll-target="#additional-guidance">Additional guidance</a></li>
+  </ul></li>
+  <li><a href="#r-tests" id="toc-r-tests" class="nav-link" data-scroll-target="#r-tests">R Tests</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/contributing/testing-code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -407,8 +454,55 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Testing is mission critical for extendr. For all new functionality we require tests to ensure they continue to work as intended. For bug fixes we require a test to cover the bug fix (if one didn’t exist yet).</p>
+<p>Note that we have a justfile that you can use to run tests locally:</p>
+<ul>
+<li>for R, <code>just document</code> then <code>just devtools-test</code> and</li>
+<li>for Rust, <code>just test</code> and then also ensure that things are formatted with <code>just fmt</code>.</li>
+</ul>
+<section id="rust-tests" class="level2">
+<h2 class="anchored" data-anchor-id="rust-tests">Rust Tests</h2>
+<p>Rust tests in extendr follow standard Rust conventions: <code>#[test]</code> functions in <code>#[cfg(test)]</code> modules, either inline in the source file or in a separate file under <code>tests/</code>. For details, see <a href="https://doc.rust-lang.org/book/ch11-00-testing.html">Writing Automated Tests</a> in The Book.</p>
+<section id="tests-using-r-symbols" class="level3">
+<h3 class="anchored" data-anchor-id="tests-using-r-symbols">Tests using R symbols</h3>
+<p>There is an important wrinkle for testing Rust code in extendr as many Rust tests will need a live R session to handle R objects and symbols. The <code>test!</code> macro is useful for this purpose. It wraps test code in a call to the R API and allows <code>?</code> to be used inside the block:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>test<span class="at">]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> my_test() <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">test!</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> x <span class="op">=</span> <span class="pp">r!</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>])<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="pp">assert_eq!</span>(x<span class="op">.</span>len()<span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If a test does not call the R API at all — for example, testing pure Rust arithmetic on scalar wrapper types — <code>test!</code> is not needed.</p>
+</section>
+<section id="ffi-tests" class="level3">
+<h3 class="anchored" data-anchor-id="ffi-tests">FFI tests</h3>
+<p>Rust primarily supports unit and integration tests for testing individual functions and the public API, but extendr needs a third layer of integration tests to account for the Rust-R interface. These tests should go in the workspace level <a href="https://github.com/extendr/extendr/tree/main/tests/extendrtests"><code>tests/extendrtests</code></a> directory, which holds the R package <code>{extendrtests}</code> that implements all extendr functionality.</p>
+<p>Because this is an R package with internal Rust code, we actually get access to many varieties of tests: on the R side, documentation examples and testthat tests along with <code>R CMD CHECK</code>, and on the Rust side, standard testing with unit and integration tests. For our purposes, however, we have chosen to rely only on testthat tests, which get called during <code>R CMD CHECK</code>. We do not really care so much about the Rust code passing tests in the R package as we do that the traffic back and forth with R is robust.</p>
+<p>See <a href="https://github.com/extendr/extendr/blob/main/tests/extendrtests/src/rust/src/tuple_conversions.rs"><code>src/rust/src/tuple_conversions.rs</code></a> and <a href="https://github.com/extendr/extendr/blob/main/tests/extendrtests/tests/testthat/test-tuples.R"><code>tests/testthat/tuples.rs</code></a> for an example of how we implement these tests.</p>
+</section>
+<section id="additional-guidance" class="level3">
+<h3 class="anchored" data-anchor-id="additional-guidance">Additional guidance</h3>
+<p>Here are some other important guidelines for Rust testing:</p>
+<ul>
+<li>Following standard Rust conventions, integration tests should go in the crate <code>/src</code> folder and unit tests at the end of each module file. See <a href="https://github.com/extendr/extendr/tree/main/extendr-api/tests">extendr-api/tests</a> for an example of integration tests.</li>
+<li>All tests should go in a test module <code>mod tests {}</code>.</li>
+<li>All tests should be annotated with <code>#[cfg(test)]</code> to ensure that tests are not compiled with extendr.</li>
+<li>Do not use documentation tests.</li>
+</ul>
+</section>
+</section>
+<section id="r-tests" class="level2">
+<h2 class="anchored" data-anchor-id="r-tests">R Tests</h2>
+<p>R code in rextendr is tested with <a href="https://testthat.r-lib.org">testthat</a>, following standard R package testing conventions.</p>
+<p>Here are some guidelines specific to rextendr:</p>
+<ul>
+<li>Documentation for all exported functions should include examples that run during <code>R CMD CHECK</code> on CRAN.</li>
+<li>Avoid introducing new snapshot tests whenever possible. We should prefer more explicit testing.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -841,4 +935,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/contributing/testing-code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/contributing/testing-code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

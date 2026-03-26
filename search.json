@@ -301,7 +301,7 @@
   {
     "objectID": "contributing/writing-code.html",
     "href": "contributing/writing-code.html",
-    "title": "General writing conventions",
+    "title": "Writing Code",
     "section": "",
     "text": "This page covers code formatting conventions for the extendr project. Following these conventions keeps code consistent and readable across contributors.",
     "crumbs": [
@@ -310,25 +310,58 @@
     ]
   },
   {
-    "objectID": "contributing/writing-code.html#r-code",
-    "href": "contributing/writing-code.html#r-code",
-    "title": "General writing conventions",
-    "section": "R code",
-    "text": "R code\n\nNever use print() to display an R object. Let R print it implicitly.\nUse the extendrsrc and extendr knitr engines for all extendr code. See user-guide/serde-integration.qmd for a worked example to emulate.",
+    "objectID": "contributing/writing-code.html#rust-code",
+    "href": "contributing/writing-code.html#rust-code",
+    "title": "Writing Code",
+    "section": "Rust Code",
+    "text": "Rust Code\nRust code should be written to conform with conventions outlined in the Rust API Guidelines. It’s a good idea to read this document, but it may take time to gain some familiarity with all of its ins and outs. In the meantime, the following tools will prove very beneficial to keeping your Rust code consistent with those conventions.\n\nUse rustfmt to format Rust code. rustfmt is the standard Rust formatter and can be configured to run on save in most editors.\nUse Clippy to lint Rust code. Clippy catches common mistakes and enforces idiomatic Rust style.\nUse rust-analyzer for IDE support. It provides code completion, inline errors, and other features in VS Code, Positron, Zed, and other editors.",
     "crumbs": [
       "Contributing",
       "Writing Code"
     ]
   },
   {
-    "objectID": "contributing/writing-code.html#rust-code",
-    "href": "contributing/writing-code.html#rust-code",
-    "title": "General writing conventions",
-    "section": "Rust code",
-    "text": "Rust code",
+    "objectID": "contributing/writing-code.html#r-code",
+    "href": "contributing/writing-code.html#r-code",
+    "title": "Writing Code",
+    "section": "R Code",
+    "text": "R Code\nR code should be written to conform with conventions outlined in the Tidyverse style guide. What we said about the Rust API guidelines, it applies here, too. In your effort to abide by those conventions, you will find a great deal of advantage in these tools.\n\nUse Air to format R code. Air can be configured to automatically format R scripts on save in your editor. Air supports VS Code, Positron, Zed, and the command line.\nUse lintr to lint R code. rextendr’s CI uses lintr, so having it configured in your editor will catch issues before they are flagged in review. lintr supports most IDEs, include RStudio, VS Code, and Positron. You may also like jarl, an R lintr written in Rust, which is much faster than lintr and supports additional IDEs.",
     "crumbs": [
       "Contributing",
       "Writing Code"
+    ]
+  },
+  {
+    "objectID": "contributing/testing-code.html",
+    "href": "contributing/testing-code.html",
+    "title": "Testing Code",
+    "section": "",
+    "text": "Testing is mission critical for extendr. For all new functionality we require tests to ensure they continue to work as intended. For bug fixes we require a test to cover the bug fix (if one didn’t exist yet).\nNote that we have a justfile that you can use to run tests locally:",
+    "crumbs": [
+      "Contributing",
+      "Testing Code"
+    ]
+  },
+  {
+    "objectID": "contributing/testing-code.html#rust-tests",
+    "href": "contributing/testing-code.html#rust-tests",
+    "title": "Testing Code",
+    "section": "Rust Tests",
+    "text": "Rust Tests\nRust tests in extendr follow standard Rust conventions: #[test] functions in #[cfg(test)] modules, either inline in the source file or in a separate file under tests/. For details, see Writing Automated Tests in The Book.\n\nTests using R symbols\nThere is an important wrinkle for testing Rust code in extendr as many Rust tests will need a live R session to handle R objects and symbols. The test! macro is useful for this purpose. It wraps test code in a call to the R API and allows ? to be used inside the block:\n#[test]\nfn my_test() {\n    test! {\n        let x = r!([1, 2, 3]);\n        assert_eq!(x.len(), 3);\n    }\n}\nIf a test does not call the R API at all — for example, testing pure Rust arithmetic on scalar wrapper types — test! is not needed.\n\n\nFFI tests\nRust primarily supports unit and integration tests for testing individual functions and the public API, but extendr needs a third layer of integration tests to account for the Rust-R interface. These tests should go in the workspace level tests/extendrtests directory, which holds the R package {extendrtests} that implements all extendr functionality.\nBecause this is an R package with internal Rust code, we actually get access to many varieties of tests: on the R side, documentation examples and testthat tests along with R CMD CHECK, and on the Rust side, standard testing with unit and integration tests. For our purposes, however, we have chosen to rely only on testthat tests, which get called during R CMD CHECK. We do not really care so much about the Rust code passing tests in the R package as we do that the traffic back and forth with R is robust.\nSee src/rust/src/tuple_conversions.rs and tests/testthat/tuples.rs for an example of how we implement these tests.\n\n\nAdditional guidance\nHere are some other important guidelines for Rust testing:\n\nFollowing standard Rust conventions, integration tests should go in the crate /src folder and unit tests at the end of each module file. See extendr-api/tests for an example of integration tests.\nAll tests should go in a test module mod tests {}.\nAll tests should be annotated with #[cfg(test)] to ensure that tests are not compiled with extendr.\nDo not use documentation tests.",
+    "crumbs": [
+      "Contributing",
+      "Testing Code"
+    ]
+  },
+  {
+    "objectID": "contributing/testing-code.html#r-tests",
+    "href": "contributing/testing-code.html#r-tests",
+    "title": "Testing Code",
+    "section": "R Tests",
+    "text": "R Tests\nR code in rextendr is tested with testthat, following standard R package testing conventions.\nHere are some guidelines specific to rextendr:\n\nDocumentation for all exported functions should include examples that run during R CMD CHECK on CRAN.\nAvoid introducing new snapshot tests whenever possible. We should prefer more explicit testing.",
+    "crumbs": [
+      "Contributing",
+      "Testing Code"
     ]
   },
   {
@@ -378,7 +411,7 @@
     "href": "contributing/documenting-code.html#rust-documentation",
     "title": "Documenting Code",
     "section": "Rust Documentation",
-    "text": "Rust Documentation",
+    "text": "Rust Documentation\nAll Rust code in extendr should be documented with rustdoc following conventions recommended in the Rust API Guidelines.\nDoc examples that call the R API must be wrapped in with_r. Bare doctests without it will fail at runtime.\n/// ```\n/// use extendr_api::prelude::*;\n/// with_r(|| {\n///     let x = r!([1, 2, 3]);\n///     assert_eq!(x.len(), 3);\n///     Ok(())\n/// });\n/// ```",
     "crumbs": [
       "Contributing",
       "Documenting Code"
@@ -389,7 +422,7 @@
     "href": "contributing/documenting-code.html#r-documentation",
     "title": "Documenting Code",
     "section": "R Documentation",
-    "text": "R Documentation\nFunctions in rextendr should be documented with roxygen2, following the conventions recommended by the tidyverse style guide.\n\nEvery exported function in rextendr must include the following roxygen variables:\n\n@title\n@description — a concise description of what the function does.\n@param — one tag per parameter, specifying:\n\nthe data type (e.g. integer, character, logical)\nwhether it is a scalar or vector\nthe default value, if one exists\n\n@return — what the function returns, including the R type.\n\nThe @details and @examples sections are optional, but should in general be included.\nInternal functions should include roxygen comments if their use in rextendr is fairly complex, important, and not easy to discern. Simple helper functions do not need to be documented.",
+    "text": "R Documentation\nFunctions in rextendr should be documented with roxygen2, following the conventions recommended by the tidyverse style guide.\n\nRoxygen documentation for every exported function must include the following roclets:\n\n@title\n@description — a concise description of what the function does.\n@param — one tag per parameter, specifying:\n\nthe data type (e.g. integer, character, logical)\nwhether it is a scalar or vector\nthe default value, if one exists\n\n@return — what the function returns, including the R type.\n@examples\n\nThe @details section are optional, but should be included for most functions in rextendr.\nInternal functions should include roxygen comments if their use in rextendr is fairly complex, important, and not easy to discern. Simple helper functions do not need to be documented.\nIn vignettes and online guides, use the extendrsrc and extendr knitr engines for examples involving Rust code. See user-guide/serde-integration.qmd for a worked example to emulate.",
     "crumbs": [
       "Contributing",
       "Documenting Code"
