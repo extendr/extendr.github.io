@@ -2,130 +2,130 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://extendr.github.io/user-guide/package-structure.html</loc>
-    <lastmod>2026-03-27T02:03:48.056Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.428Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/complete-example.html</loc>
-    <lastmod>2026-03-27T02:03:48.056Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.428Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/structures.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/mutability.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/iterators.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/implementations.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/functions.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/control-flow.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.054Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.426Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/writing-code.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/testing-code.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/documenting-code.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/changelog.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.421Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2025-09-09-h3o-on-cran/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.049Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.421Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2024-06-30-extendr-release-070/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.049Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.421Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.049Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.420Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2025-08-26-rextendr-release-040/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.049Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.421Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/blog/posts/2026-03-25-arrow-extendr-polars/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.421Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/colors-and-fonts.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.421Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/extendr-internals.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/rextendr-internals.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/contributing/user-guide-pages.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/get-started.html</loc>
-    <lastmod>2026-03-27T02:03:48.050Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.422Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/collections.html</loc>
-    <lastmod>2026-03-27T02:03:48.054Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.426Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/enumerations.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/hello-world.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/loops.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/ownership.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/intro-rust/types.html</loc>
-    <lastmod>2026-03-27T02:03:48.055Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.427Z</lastmod>
   </url>
   <url>
     <loc>https://extendr.github.io/user-guide/index.html</loc>
-    <lastmod>2026-03-27T02:03:48.056Z</lastmod>
+    <lastmod>2026-04-03T02:02:07.428Z</lastmod>
   </url>
 </urlset>
