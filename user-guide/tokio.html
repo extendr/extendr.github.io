@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-08-24">
 
-<title>Loops – extendr</title>
+<title>Async with Tokio – extendr</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro-rust/mutability.html" rel="next">
-<link href="../intro-rust/collections.html" rel="prev">
+<link href="../user-guide/webr.html" rel="next">
+<link href="../user-guide/serde-integration.html" rel="prev">
 <link href="..//images/extendr-gears-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -352,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/loops.html">Loops</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../user-guide/serde-integration.html">Integrations</a></li><li class="breadcrumb-item"><a href="../user-guide/tokio.html">Async with Tokio</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -366,8 +367,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../intro-rust/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Rust Basics</span></a>
+            <a href="../user-guide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">User Guide</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -375,74 +376,147 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/hello-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Hello, World!</span></a>
+  <a href="../user-guide/complete-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Complete Example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Concepts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/data-types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R to Rust type mapping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/types.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Types</span></a>
+  <a href="../user-guide/extendr-macro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Rust types in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Type Mapping</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/scalars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scalar Type Mapping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/control-flow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Control Flow</span></a>
+  <a href="../user-guide/vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Type Mapping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/collections.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Collections</span></a>
+  <a href="../user-guide/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using HashMaps</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/loops.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Loops</span></a>
+  <a href="../user-guide/into-list.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Rust Structs to Lists</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/mutability.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Mutability</span></a>
+  <a href="../user-guide/default-args.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Default function arguments</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">R Packages</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/package-structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Project Structure</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Integrations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/serde-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>serde</code> integration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Functions</span></a>
+  <a href="../user-guide/tokio.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Async with Tokio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/ownership.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ownership</span></a>
+  <a href="../user-guide/webr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building for WebR</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Publishing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../user-guide/cran-publishing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Publishing to CRAN</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/iterators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Iterators</span></a>
+  <a href="../user-guide/cran-msrv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CRAN’s Rust versions</span></a>
   </div>
 </li>
+      </ul>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-rust/structures.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Structures</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/implementations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Implementations</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro-rust/enumerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Enumerations</span></a>
+  <a href="../user-guide/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions</span></a>
   </div>
 </li>
       </ul>
@@ -452,16 +526,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#add-tokio" id="toc-add-tokio" class="nav-link active" data-scroll-target="#add-tokio">Add tokio</a></li>
+  <li><a href="#creating-your-runtime" id="toc-creating-your-runtime" class="nav-link" data-scroll-target="#creating-your-runtime">Creating your runtime</a></li>
+  <li><a href="#blocking-on-async-futures" id="toc-blocking-on-async-futures" class="nav-link" data-scroll-target="#blocking-on-async-futures">Blocking on <code>async</code> futures</a></li>
+  <li><a href="#example-read-many-files-async" id="toc-example-read-many-files-async" class="nav-link" data-scroll-target="#example-read-many-files-async">Example: read many files async</a></li>
+  <li><a href="#what-this-unlocks" id="toc-what-this-unlocks" class="nav-link" data-scroll-target="#what-this-unlocks">What this unlocks</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/tokio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro-rust/index.html">Rust Basics</a></li><li class="breadcrumb-item"><a href="../intro-rust/loops.html">Loops</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../user-guide/serde-integration.html">Integrations</a></li><li class="breadcrumb-item"><a href="../user-guide/tokio.html">Async with Tokio</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Loops</h1>
+<h1 class="title">Async with Tokio</h1>
 </div>
 
 
@@ -469,6 +553,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 24, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -478,63 +568,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In Rust, the easiest way to iterate over items in a collection is with a <code>for</code> loop. The syntax should look familiar to R programmers. Each item in the collection is bound to the name you provide before <code>in</code> at each iteration of the loop:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> collection <span class="op">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// do something with value</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>As with control flow, the content of a for-loop must be delimited by curly brackets, but the in-statement does not require parantheses. As an example, consider a program for printing each number in a vector:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
+<p>Many crates in the Rust ecosystem utilize an <strong>asynchronous</strong> runtime through the <a href="https://crates.io/crates/tokio">tokio</a> crate. Tokio provides a <strong>multithreaded</strong> runtime and is used by popular libraries like <a href="https://crates.io/crates/reqwest">reqwest</a>, <a href="https://crates.io/crates/axum">axum</a>, <a href="https://crates.io/crates/datafusion">DataFusion</a>, <a href="https://crates.io/crates/sqlx">sqlx</a>, and many more.</p>
+<p>extendr doesn’t provide an async function interface because there is not a true async runtime for R let alone any C API infrastructure for it. But that does not mean we cannot harness the vast async ecosystem in Rust.</p>
+<section id="add-tokio" class="level2">
+<h2 class="anchored" data-anchor-id="add-tokio">Add tokio</h2>
+<p>To utilize tokio with extendr we will need to bump the msrv of our package to <code>1.70</code> as that is the MSRV of <code>tokio</code> and we will be using a langauge feature called <a href="https://doc.rust-lang.org/std/sync/struct.OnceLock.html"><code>OnceLock</code></a> that wasn’t stabilized until 1.70.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">use_msrv</span>(<span class="st">"1.70"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">use_crate</span>(<span class="st">"tokio"</span>, <span class="at">features =</span> <span class="st">"rt-multi-thread"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>use_msrv()</code> function will bump the MSRV specified in your package’s <code>DESCRIPTION</code> file. The <code>use_crate()</code> function will call <code>cargo add</code> on your behalf and add the crate to your <code>Cargo.toml</code>.</p>
+</section>
+<section id="creating-your-runtime" class="level2">
+<h2 class="anchored" data-anchor-id="creating-your-runtime">Creating your runtime</h2>
+<p>Your R package should share one runtime across all function calls. This approach:</p>
+<ul>
+<li>Creates a global static variable using <code>OnceLock&lt;&gt;</code> (thread-safe, write-once)</li>
+<li>Uses lazy initialization—runtime is created only when first needed</li>
+<li>Returns a reference to the same runtime on subsequent calls</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> nums <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> nums <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"n is: {n}"</span>)<span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Futures
 </div>
-<p>Running <code>cargo run --quiet</code> (the <code>quiet</code> suppresses compiler logs) should print the following to your terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n is: 1</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n is: 2</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n is: 3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>In the context of for-loops, Rust’s scoping rules are important to be aware of. They are, in fact, much stricter than R’s. Like R, values declared outside a for-loop are accessible inside it, but unlike R, values created inside the loop cannot be used outside it. In the following example, <code>greeting</code> is defined in the outer scope and is accessible inside the loop:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> greeting <span class="op">=</span> <span class="st">"Hi"</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> names <span class="op">=</span> <span class="pp">vec!</span>[<span class="st">"Alice"</span><span class="op">,</span> <span class="st">"Bob"</span>]<span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name <span class="kw">in</span> names <span class="op">{</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{greeting}, {name}!"</span>)<span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout-body-container callout-body">
+<p>See <a href="https://doc.rust-lang.org/book/ch17-01-futures-and-syntax.html">Futures and the Async Syntax</a> section of The Book™.</p>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Hi, Alice!</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Hi, Bob!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>In contrast, <code>doubled</code> in the next example is defined inside the loop and cannot be accessed after it ends:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>src/main.rs</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="src/main.rs"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> numbers <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> numbers <span class="op">{</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> doubled <span class="op">=</span> n <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{n} doubled is {doubled}"</span>)<span class="op">;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ❌ `doubled` doesn't exist here</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// println!("Last doubled: {}", doubled);</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>In the next section we will see how to get around this scoping rule using a mutable variable declared in the outer scope to collect values produced inside the loop.</p>
+<p>In your <code>lib.rs</code> we define a static called <code>TOKIO_RUNTIME</code> which contains a <code>Runtime</code>.</p>
+<p>The function <code>get_rt()</code> will create a new <code>Runtime</code> the first time it is called. Each subsequent call returns a reference to that created runtime.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">extendr_api::prelude::</span><span class="op">*;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::sync::</span>OnceLock<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">tokio::runtime::</span><span class="op">{</span>Builder<span class="op">,</span> Runtime<span class="op">};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Initialize a shared tokio runtime for the package</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> TOKIO_RUNTIME<span class="op">:</span> OnceLock<span class="op">&lt;</span>Runtime<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">OnceLock::</span>new()<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Helper function to get a tokio runtime</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> get_rt() <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">'static</span> Runtime <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    TOKIO_RUNTIME<span class="op">.</span>get_or_init(<span class="op">||</span> <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="pp">Builder::</span>new_multi_thread()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>enable_all()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>build()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>expect(<span class="st">"Failed to create tokio runtime"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now, in any function we want to use the tokio run time can first call <code>get_rt()</code> to get a reference to it.</p>
+</section>
+<section id="blocking-on-async-futures" class="level2">
+<h2 class="anchored" data-anchor-id="blocking-on-async-futures">Blocking on <code>async</code> futures</h2>
+<p>For a motivating example we can use the async file reader from tokio using our new runtime.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> read_file_async(path<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the tokio runtime</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rt <span class="op">=</span> get_rt()<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// define a future, typically we would `.await`</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> file_content_fut <span class="op">=</span> <span class="pp">tokio::fs::</span>read_to_string(path)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// use `.block_on()` to await the future</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    rt<span class="op">.</span>block_on(file_content_fut)<span class="op">.</span>expect(<span class="st">"failed to read file"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The first step is to get the tokio runtime. Then we call the async function, which typically we would <code>.await</code> to get the result. Instead, we call <code>.block_on()</code> to execute the future and get the result.</p>
+</section>
+<section id="example-read-many-files-async" class="level2">
+<h2 class="anchored" data-anchor-id="example-read-many-files-async">Example: read many files async</h2>
+<p>For a more complete / complex example we can create a function that reads multiple files in parallel and awaits all of the futures asynchronously.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>extendr<span class="at">]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> read_files_async(paths<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> Strings <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the tokio runtime</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> rt <span class="op">=</span> get_rt()<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// create a joinset to await multiple futures asynchronously</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> set <span class="op">=</span> <span class="pp">tokio::task::JoinSet::</span>new()<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// spawn each future in the join set</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> paths <span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        set<span class="op">.</span>spawn(<span class="pp">tokio::fs::</span>read_to_string(p))<span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// wait for all futures to resolve</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> all_file_bodies <span class="op">=</span> rt<span class="op">.</span>block_on(set<span class="op">.</span>join_all())<span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// filter out any files that failed to read</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// return the contents as a character vector</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    all_file_bodies</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>into_iter()</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>filter_map(<span class="op">|</span>contents<span class="op">|</span> contents<span class="op">.</span>ok()<span class="op">.</span>map(<span class="pp">Rstr::</span>from))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="pp">collect::</span><span class="op">&lt;</span>Strings<span class="op">&gt;</span>()</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="what-this-unlocks" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-unlocks">What this unlocks</h2>
+<p>With tokio working in extendr, we now have access to the entire async Rust ecosystem. This means we can build R packages using:</p>
+<ul>
+<li><a href="https://github.com/apache/datafusion">DataFusion</a> - high-performance SQL query engine</li>
+<li><a href="https://github.com/apache/datafusion-comet">DataFusion Comet</a> - Spark accelerator</li>
+<li><a href="https://github.com/lancedb/lancedb">lancedb</a> - vector database for AI applications</li>
+<li><a href="https://github.com/qdrant/qdrant">qdrant</a> - vector search engine for next-gen AI</li>
+<li><a href="https://github.com/tracel-ai/burn">burn</a> - deep learning framework</li>
+<li><a href="https://github.com/lakehq/sail">sail</a> - unified batch and stream processing</li>
+</ul>
+<p>The async ecosystem is massive and growing. Now R can be part of it.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -952,13 +1093,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro-rust/collections.html" class="pagination-link" aria-label="Collections">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Collections</span>
+      <a href="../user-guide/serde-integration.html" class="pagination-link" aria-label="`serde` integration">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><code>serde</code> integration</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro-rust/mutability.html" class="pagination-link" aria-label="Mutability">
-        <span class="nav-page-text">Mutability</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../user-guide/webr.html" class="pagination-link" aria-label="Building for WebR">
+        <span class="nav-page-text">Building for WebR</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -967,4 +1108,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/intro-rust/loops.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/extendr/extendr.github.io/edit/main/user-guide/tokio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/extendr/extendr.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
