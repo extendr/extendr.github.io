@@ -23,4 +23,4 @@ Run `rextendr::use_extendr()` to regenerate the `Makevars.in`, `Makevars.win.in`
 
 ## What is the MSRV of extendr?
 
-The MSRV of extendr as of August, 2025 is 1.65. However, we do plan on raising this for better FFI support and unwinding capabilities in the future. It can be expected for the MSRV to be raised to 1.76 in the near future. 
+The MSRV of extendr as of April, 2026 is 1.78. However, we do plan on raising this for better FFI support and unwinding capabilities in the future. It can be expected for the MSRV to be raised in near future.

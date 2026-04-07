@@ -1,0 +1,140 @@
+---
+title: "`ExternalPtr`: returning arbitrary Rust types"
+---
+
+```{r}
+#| include: false
+library(rextendr)
+```
+
+In the event that you need to return a Rust type to R that doesn't have a
+compatible impl or is a type that you don't own, you can use `ExternalPtr<T>`.
+The `ExternalPtr` struct allows any item to be captured as a pointer and
+returned to R.
+
+Here, for example, an `ExternalPtr<Shape>` is returned from the `shape_ptr()`
+function.
+
+::: callout-tip
+Anything that is wrapped in `ExternalPtr<T>` must implement the `Debug` trait.
+:::
+
+```{extendrsrc}
+#| label: external-ptr
+#[derive(Debug)]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+fn shape_ptr(shape: &str) -> ExternalPtr<Shape> {
+    let variant = match shape {
+        "triangle" => Shape::Triangle,
+        "rectangle" => Shape::Rectangle,
+        "pentagon" => Shape::Pentagon,
+        "hexagon" => Shape::Hexagon,
+        &_ => unimplemented!(),
+    };
+
+    ExternalPtr::new(variant)
+}
+```
+
+Using an external pointer, however, is far more limiting than the `impl` block.
+For example, you cannot access any of its methods.
+
+```{r, error = TRUE}
+tri_ptr <- shape_ptr("triangle")
+tri_ptr$n_coords()
+```
+
+To use an `ExternalPtr<T>`, you have to go through a bit of extra work for it.
+
+```{extendrsrc}
+#| label: external-ptr-hidden
+#| include: false
+#[extendr]
+#[derive(Debug)]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+impl Shape {
+    fn new(x: &str) -> Self {
+        match x {
+            "triangle" => Self::Triangle,
+            "rectangle" => Self::Rectangle,
+            "pentagon" => Self::Pentagon,
+            "hexagon" => Self::Hexagon,
+            &_ => unimplemented!(),
+        }
+    }
+
+    fn n_coords(&self) -> usize {
+        match &self {
+            Shape::Triangle => 3,
+            Shape::Rectangle => 4,
+            Shape::Pentagon => 4,
+            Shape::Hexagon => 5,
+        }
+    }
+}
+
+#[extendr]
+fn shape_ptr(shape: &str) -> ExternalPtr<Shape> {
+    let variant = match shape {
+        "triangle" => Shape::Triangle,
+        "rectangle" => Shape::Rectangle,
+        "pentagon" => Shape::Pentagon,
+        "hexagon" => Shape::Hexagon,
+        &_ => unimplemented!(),
+    };
+
+    ExternalPtr::new(variant)
+}
+
+#[extendr]
+fn n_coords_ptr(x: Robj) -> i32 {
+    let shape = TryInto::<ExternalPtr<Shape>>::try_into(x);
+
+    match shape {
+        Ok(shp) => shp.n_coords() as i32,
+        Err(_) => 0
+    }
+}
+```
+
+```rust
+#[extendr]
+fn n_coords_ptr(x: Robj) -> i32 {
+    let shape = TryInto::<ExternalPtr<Shape>>::try_into(x);
+
+    match shape {
+        Ok(shp) => shp.n_coords() as i32,
+        Err(_) => 0
+    }
+}
+```
+
+This function definition takes an `Robj` and from it, tries to create an
+`ExternalPtr<Shape>`. Then, if the conversion did not error, it returns the
+number of coordinates as an `i32` (R's version of an integer) and if there was
+an error converting, it returns 0.
+
+```{r}
+tri_ptr <- shape_ptr("triangle")
+
+n_coords_ptr(tri_ptr)
+
+n_coords_ptr(list())
+```
+
+For a good example of using `ExternalPtr<T>` within an R package, refer to the
+[`b64` R package](https://github.com/extendr/b64).

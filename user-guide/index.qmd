@@ -8,26 +8,58 @@ date: today
 date-format: long
 ---
 
-This user guide focuses on developing R packages that call Rust code and 
-publishing them to CRAN, so it is assumed that the reader has a basic 
-understanding of Rust.
+This user guide focuses on developing R packages that call Rust code and
+publishing them to CRAN. A basic understanding of Rust is assumed. If you
+are new to Rust, start with the [Rust Basics](../intro-rust/index.qmd)
+section.
 
-## What's in this guide?
+## Core Concepts
 
-We're working on that...
+- [The `#[extendr]` macro](extendr-macro.qmd): How to expose Rust functions
+  and structs to R.
+- [R to Rust type mapping](data-types.qmd): An overview of how R types map
+  to extendr types.
+- [Conversion to and from R data](conversion.qmd): Converting between R
+  and Rust values using `From`, `Into`, and `TryFrom`.
+
+## Type Mapping
+
+- [Scalar Type Mapping](scalars.qmd): Working with R scalar values in Rust.
+- [Vector Type Mapping](vectors.qmd): Working with R vectors in Rust.
+- [Using HashMaps](collections.qmd): Working with R named lists and
+  Rust `HashMap`s.
+- [Rust Structs to Lists](into-list.qmd): Exposing Rust structs as R lists.
+- [Default function arguments](default-args.qmd): Handling optional and
+  default arguments.
+
+## Integrations
+
+- [`serde` integration](serde-integration.qmd): Serializing and deserializing
+  Rust types with `serde`.
+- [Async with Tokio](tokio.qmd): Using async Rust with Tokio inside extendr.
+- [Building for WebR](webr.qmd): Compiling extendr packages for WebR.
+
+## Publishing
+
+- [Publishing to CRAN](cran-publishing.qmd): Steps and considerations for
+  submitting an extendr package to CRAN.
+- [CRAN's Rust versions](cran-msrv.qmd): Understanding CRAN's minimum
+  supported Rust version policy.
+
+## FAQ
+
+- [Frequently Asked Questions](faq.qmd)
 
 ## What's *not* in this guide?
 
-This book is not intended to be a comprehensive introduction to Rust. While we 
-do go over some of the basics, more often than not, concepts are introduced only 
-to help explain extendr tools. To learn more about Rust, you should consult 
-["The Book"](<https://doc.rust-lang.org/stable/book/>).
+This guide is not a comprehensive introduction to Rust. Concepts are
+introduced only to explain extendr tools. To learn more about Rust, consult
+["The Book"](https://doc.rust-lang.org/stable/book/).
 
-This book is also not intended to be a comprehensive guide to R package
-development! There are, quite frankly, better resources for that, notably [R
-Packages (2e)](<https://r-pkgs.org/>). As with Rust specifics, we will strive
-to point you in the right direction to get more details and advice if you should 
-need it.
+This guide is also not a comprehensive guide to R package development.
+Better resources exist for that, notably
+[R Packages (2e)](https://r-pkgs.org/). We will point you to relevant
+external resources as needed.
 
 ## Software requirements
 
@@ -38,5 +70,5 @@ This guide assumes the following versions of necessary software:
 - extendr-api {{< var version.extendr >}}
 - rextendr {{< var version.rextendr >}}
 
-Please see [Get Started](get-started.qmd) if you have not already installed this 
-software.
+Please see [Get Started](../get-started.qmd) if you have not already
+installed this software.

@@ -1,0 +1,379 @@
+---
+title: "Using Rust types in R"
+---
+
+The `#[extendr]` attribute macro is how Rust types are made available to R.
+This chapter covers how to use it on structs, enums, and impl blocks.
+
+::: {.callout-note}
+If you would like to learn more about Rust macros, check The Book,
+specifically
+[Part 5 of Ch. 20](https://doc.rust-lang.org/book/ch20-05-macros.html). You
+may also want to consult the section on
+[procedural macros](https://doc.rust-lang.org/reference/procedural-macros.html)
+in the official Rust reference manual.
+:::
+
+```{r}
+#| include: false
+library(rextendr)
+```
+
+## Exporting `impl` blocks
+
+The `#[extendr]` macro works with inherent implementations on a type such as
+an `enum` or a `struct`. extendr *does not* support using `#[extendr]` on
+trait impls.
+
+::: callout-note
+You can only add an inherent implementation on a type that you own and not one
+provided by a third-party crate. Doing so would violate the [orphan
+rules](https://github.com/Ixrec/rust-orphan-rules?tab=readme-ov-file#what-are-the-orphan-rules).
+See [Wrapping third-party types](#wrapping-third-party-types) for how to
+handle that case.
+:::
+
+Without `#[extendr]` on the type itself, trying to return it from a function
+results in a compilation error:
+
+```{.rust}
+#[derive(Debug)]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+fn make_shape(shape: &str) -> Shape {
+    match shape {
+        "triangle" => Shape::Triangle,
+        "rectangle" => Shape::Rectangle,
+        "pentagon" => Shape::Pentagon,
+        "hexagon" => Shape::Hexagon,
+        &_ => unimplemented!()
+    }
+}
+```
+```
+error[E0277]: the trait bound `Shape: ToVectorValue` is not satisfied
+  --> src/lib.rs:11:1
+   |
+11 | #[extendr]
+   | ^^^^^^^^^^ unsatisfied trait bound
+   |
+help: the trait `ToVectorValue` is not implemented for `Shape`
+  --> src/lib.rs:4:1
+   |
+ 4 | enum Shape {
+   | ^^^^^^^^^^
+   = help: the following other types implement trait `ToVectorValue`:
+             &&str
+             &(f64, f64)
+             &Rbool
+             &Rcplx
+             &Rfloat
+             &Rint
+             &String
+             &bool
+           and 48 others
+   = note: required for `extendr_api::Robj` to implement `From<Shape>`
+   = note: this error originates in the attribute macro `extendr` (in Nightly builds, run with -Z macro-backtrace for more info)
+```
+
+Adding `#[extendr]` to the enum itself generates the necessary `From`/`TryFrom`
+implementations between the type and `Robj`, making it returnable to R:
+
+```{extendrsrc}
+#| label: shape-enum-no-impl
+#[derive(Debug)]
+#[extendr]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+fn make_shape(shape: &str) -> Shape {
+    match shape {
+        "triangle" => Shape::Triangle,
+        "rectangle" => Shape::Rectangle,
+        "pentagon" => Shape::Pentagon,
+        "hexagon" => Shape::Hexagon,
+        &_ => unimplemented!()
+    }
+}
+```
+
+It is also possible to add methods to structs/enums and their instances:
+
+```{extendrsrc}
+#| label: shape-enum-with-impl
+#[derive(Debug)]
+#[extendr]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+impl Shape {
+    fn new(x: &str) -> Self {
+        match x {
+            "triangle" => Self::Triangle,
+            "rectangle" => Self::Rectangle,
+            "pentagon" => Self::Pentagon,
+            "hexagon" => Self::Hexagon,
+            &_ => unimplemented!(),
+        }
+    }
+
+    fn n_coords(&self) -> usize {
+        match &self {
+            Shape::Triangle => 3,
+            Shape::Rectangle => 4,
+            Shape::Pentagon => 4,
+            Shape::Hexagon => 5,
+        }
+    }
+}
+```
+
+In this example two new methods are added to the `Shape` enum. The first,
+`new()`, is like the `make_shape()` function that was shown earlier: it takes
+a `&str` and returns an enum variant. Now that the enum has an `impl` block
+with the `#[extendr]` attribute macro, it can be exported to R by inclusion in
+the `extendr_module! {}` macro.
+
+```rust
+extendr_module! {
+    mod hellorust;
+    impl Shape;
+}
+```
+
+::: callout-important
+You can only have **one** `#[extendr]` impl block per type per module.
+:::
+
+Doing so creates an environment in your package called `Shape`. The environment
+contains all of the methods that are available to you.
+
+If you run `as.list(Shape)` you will see that there are two functions in the
+environment which enable you to call the methods defined in the impl block. You
+might think that this feels like an [R6
+object](https://r6.r-lib.org/articles/Introduction.html) and you'd be right
+because an R6 object essentially is an environment!
+
+```{r}
+as.list(Shape)
+```
+
+Calling the `new()` method instantiates a new enum variant.
+
+```{r}
+tri <- Shape$new("triangle")
+tri
+```
+
+The newly made `tri` object is an [external
+pointer](https://cran.r-project.org/doc/manuals/R-exts.html#External-pointers-and-weak-references)
+to the `Shape` enum in Rust. This pointer has the same methods as the Shape
+environment—though they cannot be seen in the same way. For example you can
+run the `n_coords()` method on the newly created object.
+
+```{r}
+tri$n_coords()
+```
+
+::: callout-tip
+To make the methods visible to the `Shape` class you can define a
+`.DollarNames` method which will allow you to preview the methods and
+attributes when using the `$` syntax. This is very handy to define when making
+an impl a core part of your package.
+
+```{r}
+.DollarNames.Shape = function(env, pattern = "") {
+  ls(Shape, pattern = pattern)
+}
+```
+:::
+
+### `impl` ownership
+
+Adding the `#[extendr]` macro to an impl allows the struct or enum to be made
+available to R as an external pointer. Once you create an external pointer,
+that is then owned by R. So you can only get references to it or mutable
+references. If you need an owned version of the type, then you will need to
+clone it.
+
+## Accessing exported `impl`s from Rust
+
+Invariably, if you have made an impl available to R via the `#[extendr]` macro,
+you may want to define functions that take the impl as a function argument.
+
+Due to R owning the `impl`'s external pointer, these functions cannot take an
+owned version of the impl as an input. For example, trying to define a function
+that subtracts an integer from the `n_coords()` output like below returns a
+compiler error:
+
+```{.rust}
+#[extendr]
+#[derive(Debug)]
+enum Shape {
+    Triangle,
+    Rectangle,
+    Pentagon,
+    Hexagon,
+}
+
+#[extendr]
+impl Shape {
+    fn new(x: &str) -> Self {
+        match x {
+            "triangle" => Self::Triangle,
+            "rectangle" => Self::Rectangle,
+            "pentagon" => Self::Pentagon,
+            "hexagon" => Self::Hexagon,
+            &_ => unimplemented!(),
+        }
+    }
+
+    fn n_coords(&self) -> usize {
+        match &self {
+            Shape::Triangle => 3,
+            Shape::Rectangle => 4,
+            Shape::Pentagon => 4,
+            Shape::Hexagon => 5,
+        }
+    }
+}
+
+#[extendr]
+fn subtract_coord(x: Shape, n: i32) -> i32 {
+    (x.n_coords() as i32) - n
+}
+```
+```
+error[E0277]: the trait bound `Shape: TryFrom<...>` is not satisfied
+  --> src/lib.rs:33:1
+   |
+33 | #[extendr]
+   | ^^^^^^^^^^ unsatisfied trait bound
+   |
+help: the trait `From<&extendr_api::Robj>` is not implemented for `Shape`
+  --> src/lib.rs:4:1
+   |
+ 4 | enum Shape {
+   | ^^^^^^^^^^
+   = note: required for `&extendr_api::Robj` to implement `Into<Shape>`
+   = note: required for `Shape` to implement `TryFrom<&Robj>`
+   = note: required for `&extendr_api::Robj` to implement `TryInto<Shape>`
+   = note: the full name for the type has been written to 
+```
+
+In this case, we can take a reference to `&Shape` instead since the struct is owned by R now.
+
+## Wrapping third-party types
+
+Sometimes you want to expose a type from a third-party crate to R. Because you
+don't own that type, you cannot add `#[extendr]` directly to it—doing so would
+violate the orphan rules. The solution is a *newtype wrapper*: a struct you own
+that contains the foreign type as its only field.
+
+Applying `#[extendr]` to the wrapper struct generates the `From`/`TryFrom`
+implementations between the wrapper and `Robj`, and an `#[extendr]` impl block
+then exposes methods just as with any type you own. The
+[`tomledit`](https://github.com/extendr/tomledit/blob/main/src/rust/src/lib.rs)
+package is a good real-world example: it wraps `toml_edit::DocumentMut` in a
+`Toml` newtype and exposes parsing, reading, and writing methods to R.
+
+As a simplified illustration:
+
+```{extendrsrc}
+#| label: newtype-wrapper
+// Pretend `Inner` comes from a third-party crate we don't own.
+#[derive(Debug, Clone)]
+struct Inner(i32);
+
+// Our newtype wrapper — we own this, so #[extendr] is allowed.
+#[extendr]
+#[derive(Debug, Clone)]
+struct Wrapper(Inner);
+
+#[extendr]
+impl Wrapper {
+    fn new(x: i32) -> Self {
+        Wrapper(Inner(x))
+    }
+
+    fn value(&self) -> i32 {
+        self.0.0
+    }
+}
+```
+
+```{r}
+w <- Wrapper$new(42L)
+w$value()
+```
+
+::: callout-tip
+Deriving `Clone` on your newtype wrapper is often necessary. Because R owns
+the external pointer, methods that produce a modified copy must clone the inner
+value and return the new wrapper rather than mutating in place.
+:::
+
+## Documenting methods
+
+Methods on `#[extendr]` impl blocks can be documented with Roxygen-style `///`
+doc comments. These are picked up by `rextendr` when generating R wrappers,
+so the documentation surfaces in R's help system via `?`. The
+[`fiorefactor`](https://github.com/albersonmiranda/fiorefactor/blob/main/src/rust/src/leontief.rs)
+package is a good example of this in practice.
+
+The `///` prefix is Rust's item-level doc comment syntax. Tags follow standard
+Roxygen2 conventions: `@param`, `@return`, `@details`, `@examples`, and so on.
+
+```{extendrsrc}
+#| label: doc-comments
+#[extendr]
+#[derive(Debug, Clone)]
+struct Counter(i32);
+
+#[extendr]
+impl Counter {
+    /// Create a new Counter starting at zero.
+    /// @return A `Counter` object.
+    /// @export
+    fn new() -> Self {
+        Counter(0)
+    }
+
+    /// Increment the counter by one.
+    /// @return Self (invisibly)
+    /// @export
+    fn increment(&mut self) {
+        self.0 += 1;
+    }
+
+    /// Return the current count.
+    /// @return An integer.
+    /// @export
+    fn value(&self) -> i32 {
+        self.0
+    }
+}
+```
+
+```{r}
+c1 <- Counter$new()
+c1$increment()
+c1$increment()
+c1$value()
+```

@@ -49,7 +49,7 @@ website:
       contents:
         - section: "Rust Basics"
           href: intro-rust/index.qmd
-          contents: 
+          contents:
             - intro-rust/hello-world.qmd
             - intro-rust/types.qmd
             - intro-rust/control-flow.qmd
@@ -71,10 +71,30 @@ website:
           href: user-guide/index.qmd
           contents:
             - user-guide/complete-example.qmd
+            - section: "Core Concepts"
+              contents:
+                - user-guide/data-types.qmd
+                - user-guide/extendr-macro.qmd
+            - section: "Type Mapping"
+              contents:
+                - user-guide/scalars.qmd
+                - user-guide/vectors.qmd
+                - user-guide/collections.qmd
+                - user-guide/into-list.qmd
+                - user-guide/default-args.qmd
             - section: "R Packages"
-              contents:                
+              contents:
                 - user-guide/package-structure.qmd
+            - section: "Integrations"
+              contents:
+                - user-guide/serde-integration.qmd
+                - user-guide/tokio.qmd
+                - user-guide/webr.qmd
             - section: "Publishing"
+              contents:
+                - user-guide/cran-publishing.qmd
+                - user-guide/cran-msrv.qmd
+            - user-guide/faq.qmd
 
     - id: contributing
       title: "Contributing"
@@ -103,11 +123,11 @@ format:
       body-width: 900px
       margin-width: 300px
 
-# this currently does not work 
+# this currently does not work
 # see: https://github.com/quarto-dev/quarto-cli/issues/3157
 engine: knitr
 
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
-    comment: "#>" 
+    comment: "#>"
