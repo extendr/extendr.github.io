@@ -25,14 +25,14 @@ website:
         href: get-started.qmd
       - text: DOCS
         menu:
+          - text: "User Guide"
+            href: user-guide/index.qmd
           - text: "{extendr} crates"
             href: https://extendr.github.io/extendr/
           - text: "{rextendr} package"
             href: https://extendr.github.io/rextendr/dev
-          - text: "Rust Basics"
+          - text: "Intro to Rust"
             href: intro-rust/index.qmd
-          - text: "User Guide"
-            href: user-guide/index.qmd
           - text: "Contributing"
             href: contributing/index.qmd
       - text: "NEWS"
