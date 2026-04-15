@@ -54,13 +54,8 @@ Backports are defined at https://github.com/extendr/extendr/blob/main/extendr-ff
 
 if you encounter a note or a warning, please create an issue or mention it on our discord if we havent addressed it yet! its tough business!
 
-## 👋🏼 self documenting build! 
 
-Due to the hard work [Mossa](https://github.com/cgmossa) and [Blake](https://github.com/kbvernon)
-
-TODO fill this out! 
-
-## Custom Error types
+## Custom `Error` types — anyhow integration
 
 - the prelude previously exported `extendr_api::prelude::Result` masking the `Result` type
   - this is bad form and caused bad developer experience
@@ -72,10 +67,28 @@ TODO fill this out!
 - This release deprecates _a lot_ of methods in favor of trait impolementations from base 
 - for exmaple `from_hashmap()`, `into_hashmap()`
 
-## Updating extendr
+## rextendr changes
+
+- [ilia kosenkov](https://www.linkedin.com/in/ilia-kosenkov/) has stepped down as maintainer and blake vernon will be taking over this role
+- join us in extending a heartfelt thank you to ilia for their years of hardwork and dedication in this project and getting it to where this is today
+- their contribution cannot be understated! 
+- also, lets thank blake on their [r-consortium sponsored work](link here) that is going well! 
+
+###👋🏼 self documenting build! 
+
+Due to the hard work [Mossa](https://github.com/cgmossa) and [Blake](https://github.com/kbvernon)
+
+TODO fill this out! 
 
 - `rextendr::update_scaffold()` to update build process 
 
 ## Migration Guide
 
 - fill this out
+
+## what to look forward to next? 
+
+- extendr-vctrs integration 
+- altrep???? maybe?
+- r6??
+- @mossa help here
