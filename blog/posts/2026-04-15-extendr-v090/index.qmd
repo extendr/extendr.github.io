@@ -1,0 +1,81 @@
+---
+title: "extendr v0.9.0"
+subtitle: "towards improved DX"
+description: ""
+author: Josiah Parry
+date: "2026-04-15"
+categories: [release]
+freeze: true
+---
+
+This release is (hopefully) our last minor release before extendr v1.0.0. This release is focused almost entirely on improved developer experience. 
+
+- this release has been expedited due to the non-API changes from R-cores C API stabilization
+
+Read the full [CHANGELOG](https://github.com/extendr/extendr/blob/main/CHANGELOG.md).
+
+
+
+## TL;DR
+
+
+- moving towards semver
+- `rextendr::document()` is deprecated
+- Use any error type (e.g. `anyhow::Error`)
+- `Result` has been removed from the prelude
+- use From/TryFrom 
+
+:::{.callout-tip}
+skip to the migration 
+:::
+
+- as you may note, this minor version contains breaking changes and that is intentional! 
+- breaking changes should be done only across major versions. but, given that we don't have a v1.0.0 yet, we don't want to alarm anyone 
+- after thi
+
+## A note on semantic versioning
+
+The Rust ecosystem encourages the use of [**semantic versioning**](https://doc.rust-lang.org/cargo/reference/semver.html) (SemVer) to keep expectations managed.
+
+To oversimplify: any time something in your crate's API changes, is removed, or otherwise requires changing the users behavior, that requires a **major** version increment. If a feature is added, that requires a **minor** version increment. If a bug is fixed that is a **patch** version increment.
+
+All too often in the rust ecosystem a minor or patch version  introduces breaking changes. We want to practice what we preach and follow SemVer to the best of our abilities. 
+
+You can expect the next time that there is a breaking change, that there will be a major version bump! That doesn't mean it is an entirely new crate or anything. 
+
+## CRAN & non-API Entrypoints
+
+- we have to be reactive to changes from R core on removal of C API usage
+- v0.8.0 was replaced libR-sys with extendr-ffi which contains hand curated bindings to R's C API
+- as changes are made to the C api we are addressing them in the main branch and adding [**backports**](link to definition somewhere)
+- we want your extendr-powered packages to be as stable as we can make them to this end, we create backports to ensure that upgrading extendr doesn't mean your R packages need to depend on R 4.6+
+
+Backports are defined at https://github.com/extendr/extendr/blob/main/extendr-ffi/src/backports.rs
+
+if you encounter a note or a warning, please create an issue or mention it on our discord if we havent addressed it yet! its tough business!
+
+## 👋🏼 self documenting build! 
+
+Due to the hard work [Mossa](https://github.com/cgmossa) and [Blake](https://github.com/kbvernon)
+
+TODO fill this out! 
+
+## Custom Error types
+
+- the prelude previously exported `extendr_api::prelude::Result` masking the `Result` type
+  - this is bad form and caused bad developer experience
+  - we want to work on trimming back the prelude to only symbols that are unique to extendr or wont cause conflict
+- Use anyhow! or build your own custom error type! anything that 
+
+## Removal of non-standard methods and traits
+
+- This release deprecates _a lot_ of methods in favor of trait impolementations from base 
+- for exmaple `from_hashmap()`, `into_hashmap()`
+
+## Updating extendr
+
+- `rextendr::update_scaffold()` to update build process 
+
+## Migration Guide
+
+- fill this out
