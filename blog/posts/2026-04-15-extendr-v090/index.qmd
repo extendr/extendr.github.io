@@ -2,93 +2,133 @@
 title: "extendr v0.9.0"
 subtitle: "towards improved DX"
 description: ""
-author: Josiah Parry
+author:
+  - name: Josiah Parry
+  - name: Blake Vernon
 date: "2026-04-15"
 categories: [release]
 freeze: true
 ---
 
-This release is (hopefully) our last minor release before extendr v1.0.0. This release is focused almost entirely on improved developer experience. 
-
-- this release has been expedited due to the non-API changes from R-cores C API stabilization
+This is (hopefully) our last minor release before extendr v1.0.0, focused almost 
+entirely on improved developer experience. While technically a minor release, it 
+does contain intentional breaking changes. Ordinarily, those would belong in 
+major versions, but since we haven't yet reached v1.0.0 we want to be 
+transparent rather than alarming. We also expedited this release to address 
+non-API changes from R Core's C API stabilization.
 
 Read the full [CHANGELOG](https://github.com/extendr/extendr/blob/main/CHANGELOG.md).
 
-
-
 ## TL;DR
 
-
-- moving towards semver
-- `rextendr::document()` is deprecated
+- Move towards semver
+- Deprecate `rextendr::document()`
+- Remove `Result` from the prelude
 - Use any error type (e.g. `anyhow::Error`)
-- `Result` has been removed from the prelude
-- use From/TryFrom 
+- Use `From`/`TryFrom`
 
 :::{.callout-tip}
-skip to the migration 
+If you are not interested in the nitty-gritty of current changes, feel free to 
+skip to the [migration guide](#migration-guide). It will explain updates you 
+need to make in your packages to address breaking changes.
 :::
-
-- as you may note, this minor version contains breaking changes and that is intentional! 
-- breaking changes should be done only across major versions. but, given that we don't have a v1.0.0 yet, we don't want to alarm anyone 
-- after thi
 
 ## A note on semantic versioning
 
-The Rust ecosystem encourages the use of [**semantic versioning**](https://doc.rust-lang.org/cargo/reference/semver.html) (SemVer) to keep expectations managed.
+The Rust ecosystem encourages the use of [**semantic
+versioning**](https://doc.rust-lang.org/cargo/reference/semver.html)
+(SemVer) to keep expectations managed. 
 
-To oversimplify: any time something in your crate's API changes, is removed, or otherwise requires changing the users behavior, that requires a **major** version increment. If a feature is added, that requires a **minor** version increment. If a bug is fixed that is a **patch** version increment.
+To oversimplify: any time something in your crate's API changes, gets removed, 
+or otherwise requires changes to user behavior, that should be a **major** 
+version increment. If a feature is added, that should be a **minor** version 
+increment. If a bug is fixed, that is a **patch** version increment.
 
-All too often in the rust ecosystem a minor or patch version  introduces breaking changes. We want to practice what we preach and follow SemVer to the best of our abilities. 
+All too often in the rust ecosystem a minor or patch version introduces breaking 
+changes. We want to practice what we preach and follow SemVer to the best of our 
+abilities. You can expect the next time that there is a breaking change, there 
+will be a major version bump!
 
-You can expect the next time that there is a breaking change, that there will be a major version bump! That doesn't mean it is an entirely new crate or anything. 
+## CRAN and non-API entry points
 
-## CRAN & non-API Entrypoints
+R Core's C API is a moving target these days, so we have to be vigilant to keep
+extendr going, addressing changes to the C API in the main branch using 
+[**backports**](https://en.wikipedia.org/wiki/Backporting). We also want your 
+extendr-powered packages to be as stable as possible. Backports ensure that 
+upgrading extendr should not require your R packages to depend on R 4.6+.
 
-- we have to be reactive to changes from R core on removal of C API usage
-- v0.8.0 was replaced libR-sys with extendr-ffi which contains hand curated bindings to R's C API
-- as changes are made to the C api we are addressing them in the main branch and adding [**backports**](link to definition somewhere)
-- we want your extendr-powered packages to be as stable as we can make them to this end, we create backports to ensure that upgrading extendr doesn't mean your R packages need to depend on R 4.6+
+Before extendr v0.8.0, we interfaced with the C API using `libR-sys`, but this
+was replaced with `extendr-ffi`, which contains hand-curated bindings to R's C 
+API. Backports are defined in `extendr-ffi` at 
+[`extendr-ffi/src/backports.rs`](https://github.com/extendr/extendr/blob/main/extendr-ffi/src/backports.rs).
 
-Backports are defined at https://github.com/extendr/extendr/blob/main/extendr-ffi/src/backports.rs
-
-if you encounter a note or a warning, please create an issue or mention it on our discord if we havent addressed it yet! its tough business!
-
+If you encounter a CRAN note or warning that we haven't addressed, please open 
+an issue or mention it on our Discord.
 
 ## Custom `Error` types — anyhow integration
 
-- the prelude previously exported `extendr_api::prelude::Result` masking the `Result` type
-  - this is bad form and caused bad developer experience
-  - we want to work on trimming back the prelude to only symbols that are unique to extendr or wont cause conflict
-- Use anyhow! or build your own custom error type! anything that 
+Previously, `extendr_api::prelude::Result` masked the standard `Result` type — a 
+bad choice on our part that hurt developer experience. It also introduced 
+unnecessary bloat into the prelude, which should really target symbols unique to 
+extendr. Fortunately, some recent developments in extendr allow you to return
+`anyhow::Result` or build your own custom error type with `thiserror`, for 
+example:
+
+```rust
+use anyhow::Result;
+use extendr_api::prelude::*;
+
+#[extendr]
+fn foo() -> Result<()> {
+  bail!()
+}
+```
 
 ## Removal of non-standard methods and traits
 
-- This release deprecates _a lot_ of methods in favor of trait impolementations from base 
-- for exmaple `from_hashmap()`, `into_hashmap()`
+This release deprecates *a lot* of methods in favor of standard trait
+implementations. For example, `from_hashmap()` and `into_hashmap()`
+are replaced with `From`/`TryFrom` implementations.
 
-## rextendr changes
+## Changes to the extendr team
 
-- [ilia kosenkov](https://www.linkedin.com/in/ilia-kosenkov/) has stepped down as maintainer and blake vernon will be taking over this role
-- join us in extending a heartfelt thank you to ilia for their years of hardwork and dedication in this project and getting it to where this is today
-- their contribution cannot be understated! 
-- also, lets thank blake on their [r-consortium sponsored work](link here) that is going well! 
+[Ilia Kosenkov](https://www.linkedin.com/in/ilia-kosenkov/) has passed the torch 
+of maintaining the rextendr package to Blake Vernon. Please join us in extending 
+a heartfelt thank you to Ilia for their years of hard work and dedication. 
+Ilia's contributions to the project cannot be overstated.
 
-###👋🏼 self documenting build! 
+We also want to thank Blake for their [R Consortium-sponsored work](https://r-consortium.org/all-projects/2025-group-2.html#rextendr-community-focused-development-for-scientific-computing-with-rust-and-r), 
+which is ongoing!
 
-Due to the hard work [Mossa](https://github.com/cgmossa) and [Blake](https://github.com/kbvernon)
+### 👋🏼 Self-documenting build
 
-TODO fill this out! 
+Due to the hard work of [Mossa](https://github.com/cgmossa) and
+[Blake](https://github.com/kbvernon), extendr has a vastly simplified build and
+documentation process. In fact, we have deprecated `rextendr::document()`, which
+relied on some dynamic loading voodoo in R to generate extendr wrappers before 
+calling `devtools::document()`. Now developers only need to call 
+`devtools::document()`, making the process a much more natural-feeling R 
+experience.
 
-- `rextendr::update_scaffold()` to update build process 
+What allows for this under the hood is effort offloaded to cargo and Rust. Our
+strategy now is to use a small linked binary called `document.rs` that does the
+necessary string manipulation and writes all the `.Call()` business to 
+`R/extendr-wrappers.R`. The linking allows us to access extendr-macro metadata
+directly in Rust, hence bypassing dynamic loading and just doing some basic 
+string manipulation before writing to file as part of the package build process.
 
-## Migration Guide
+## Migration guide {#migration-guide}
 
-- fill this out
+`rextendr::update_scaffold()` to update the build process
 
-## what to look forward to next? 
+if for whatever reason, `src/.cargo/` and `src/vendor/` still exist, you may run
+into issues updating extendr with `use_crate("extendr", version = "0.9.0")`. you 
+will likely need to remove those directories first. 
 
-- extendr-vctrs integration 
-- altrep???? maybe?
-- r6??
-- @mossa help here
+## What's next
+
+- `extendr`-vctrs integration
+- ALTREP support (maybe)
+- R6 support (maybe)
+
+<!-- TODO: @mossa help here -->
