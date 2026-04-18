@@ -86,44 +86,178 @@ fn foo() -> Result<()> {
 
 ## Removal of non-standard methods and traits
 
-This release deprecates *a lot* of methods in favor of standard trait
-implementations. For example, `from_hashmap()` and `into_hashmap()`
-are replaced with `From`/`TryFrom` implementations.
+With this release, we continue our efforts to move away from custom functions 
+towards more idiomatic Rust. In fact, this release deprecates *a lot* of methods 
+in favor of standard trait implementations. For example, `from_hashmap()` and 
+`into_hashmap()`  and `from_string()` and `into_string()` are replaced with 
+`From`/`TryFrom` implementations. The `as_str()` method is also deprecated,
+replaced with the standard library's `as_ref()`.
 
 ## Changes to the extendr team
 
-[Ilia Kosenkov](https://www.linkedin.com/in/ilia-kosenkov/) has passed the torch 
-of maintaining the rextendr package to Blake Vernon. Please join us in extending 
-a heartfelt thank you to Ilia for their years of hard work and dedication. 
-Ilia's contributions to the project cannot be overstated.
+[Ilia Kosenkov](https://www.linkedin.com/in/ilia-kosenkov/) has passed the 
+rextendr torch to Blake Vernon. Please join us in extending a heartfelt thank 
+you to Ilia for his years of hard work and dedication. Ilia's contributions to 
+the project cannot be overstated.
 
-We also want to thank Blake for their [R Consortium-sponsored work](https://r-consortium.org/all-projects/2025-group-2.html#rextendr-community-focused-development-for-scientific-computing-with-rust-and-r), 
+We also want to thank Blake for his [R Consortium-sponsored work](https://r-consortium.org/all-projects/2025-group-2.html#rextendr-community-focused-development-for-scientific-computing-with-rust-and-r), 
 which is ongoing!
 
 ### 👋🏼 Self-documenting build
 
 Due to the hard work of [Mossa](https://github.com/cgmossa) and
 [Blake](https://github.com/kbvernon), extendr has a vastly simplified build and
-documentation process. In fact, we have deprecated `rextendr::document()`, which
-relied on some dynamic loading voodoo in R to generate extendr wrappers before 
-calling `devtools::document()`. Now developers only need to call 
-`devtools::document()`, making the process a much more natural-feeling R 
-experience.
+documentation process. In fact, we have deprecated `rextendr::document()`. Users 
+can now call `devtools::document()` directly to compile their Rust crate and 
+build their R package, with all linked functions seamlessly written to 
+`R/extendr-wrappers.R` and registered in NAMESPACE if exported. This makes 
+extendr-powered package development more congruent with a devtools workflow. 
 
-What allows for this under the hood is effort offloaded to cargo and Rust. Our
-strategy now is to use a small linked binary called `document.rs` that does the
-necessary string manipulation and writes all the `.Call()` business to 
-`R/extendr-wrappers.R`. The linking allows us to access extendr-macro metadata
+What allows for this under the hood is effort offloaded to cargo and Rust. 
+Before, extendr and rextendr did a fairly complicated dynamic-loading-dance, but 
+now we rely instead on a small binary called `document.rs` that links to the 
+crate's staticlib. The linking allows us to access extendr-macro metadata
 directly in Rust, hence bypassing dynamic loading and just doing some basic 
-string manipulation before writing to file as part of the package build process.
+string manipulation before writing to `R/extendr-wrappers.R` as part of the 
+package build process. 
 
 ## Migration guide {#migration-guide}
 
-`rextendr::update_scaffold()` to update the build process
+To help you get your package build up-to-date, so you can benefit from these
+changes, we have introduced `rextendr::update_scaffold()`. This is similar to 
+running `rextendr::use_extendr()` on an existing project, but instead of 
+stepping through overwriting existing scaffolding files one by one, it updates 
+the necessary scaffolding automatically. It also prints an informative update
+message about next steps.
 
-if for whatever reason, `src/.cargo/` and `src/vendor/` still exist, you may run
-into issues updating extendr with `use_crate("extendr", version = "0.9.0")`. you 
-will likely need to remove those directories first. 
+It is worth mentioning, however, that we placed two very large constraints on 
+this update tool. First, it must not edit your package's manifest `Cargo.toml`. 
+Second, it should not edit your vendor directory or anything that might affect 
+your dependencies. These constraints have the consequence that we do not fully 
+automate the update process. Some manual editing is required.
+
+The exact steps to update your package are these:
+
+1. Update scaffold with `rextendr::update_scaffold()`.
+2. Add linked binary to `Cargo.toml`.
+3. Update extendr-api version in `Cargo.toml` with `rextendr::use_crate("extendr-api", version = "0.9.0")`.
+4. Update Rust source in `rust/src` to handle deprecated extendr methods.
+5. Re-vendor crates with `rextendr::vendor_crates()`.
+6. Re-build and document package with `devtools::document()`.
+
+::: {.callout-warning}
+There are some "gotchas" you might run into while working through the update 
+that we flag below.
+:::
+
+### Update scaffold
+
+Once you run `update_scaffold()`, you will see a list of updated files followed
+by this (somewhat lengthy) update message:
+
+```
+! If your crate or library name differs from the R package name, please
+  re-run `update_scaffold()` with explicit `lib_name` and `crate_name`.
+! You will also need to update `Cargo.toml` to include the following:
+     
+    [lib]
+    crate-type = [ "rlib", "staticlib" ]
+     
+    [[bin]]
+    name = 'document'
+    path = 'document.rs'
+     
+    [dependencies]
+    extendr-api = "0.9.0"
+     
+ℹ You should now call the following in order:
+    • use_crate("extendr", version = "0.9.0")
+    • rextendr::vendor_crates()
+    • devtools::document()
+```
+
+This tells you more or less everything you need to do (same as listed above), 
+though it assumes you are not using any custom extendr methods that have been 
+deprecated in favor of the Rust standard library. 
+
+{{< iconify fluent-color:warning-28 >}} **GOTCHA ONE**: Note the warning about 
+library and crate names. Generally speaking, you should let `rextendr::use_extendr()` 
+set these for you using a Rust-sanitized version of your R package name, but if 
+for some reason you chose to do otherwise, you will need to make sure and 
+specify these explicitly in `update_scaffold()`. These are required to make sure 
+the scaffolding files actually reference your crate.
+
+### Add linked binary to manifest 
+
+The really big, super important, thing to note are the changes to `Cargo.toml`.
+In order to take advantage of the new self-documenting build process, you will
+need to manually update your `Cargo.toml`. First, you need to add `"rlib"` to
+your crate type. This signals that your Rust code should be accessible to the 
+binary. Second, you need to add the `[[bin]]` section referencing the binary
+`document.rs` directly. These edits are essential to the new build process. 
+
+Basically, `Cargo.toml` should look like this:
+
+```toml
+[lib]
+crate-type = ["rlib", "staticlib"]
+name = <your lib name>
+
+[[bin]]
+name = "document"
+path = "document.rs"
+```
+
+### Update extendr-api version
+
+The next important change is to update your version of extendr to the latest 
+release, 0.9.0. You can do this using our utility function
+
+```r
+use_crate("extendr-api", version = "0.9.0")
+```
+
+In theory, this should only bump the version, leaving any features or other 
+flags alone, but you should check this if you have any customization of this
+dependency.
+
+{{< iconify fluent-color:warning-28 >}} **GOTCHA TWO**: Dependency resolution! 
+The newest version of extendr includes new dependencies that might conflict with 
+your crate's dependencies. There is no way for us to anticipate all such 
+possibilities, so this may require some experimenting on your part to figure out 
+the necessary updates.
+
+{{< iconify fluent-color:warning-28 >}} **GOTCHA THREE**: Build artifacts! If a 
+package build is successful, artifacts will be cleaned up, meaning removed from 
+your project directory. However, if a package build fails, perhaps because of a 
+compile error you did not catch before, these artifacts will stick around! The 
+ones that can affect your update of extendr are `src/.cargo/` and `src/vendor/`. 
+If these are still in `src/`, you should remove them before updating.
+
+### Update Rust source
+
+The breaking changes to extendr-api that we mentioned above will need to be 
+addressed across your crate's source code. For this, rust-analyzer is really and
+truly your friend.
+
+### Re-vendor crates
+
+So far, so good! The next step is to re-vendor crates to meet the CRAN 
+requirement. Provided you have resolved all dependency conflicts, this should be
+as simple as running
+
+```r
+rextendr::vendor_crates()
+```
+
+{{< iconify fluent-color:warning-28 >}} **GOTCHA FOUR**: This is only kinda-sorta 
+a gotcha, but it is worth noting. This function was originally called `vendor_pkgs()`, 
+but was renamed in this release to more accurately reflect what it does.
+
+### Re-build your package
+
+If you've made it this far, congratulations! All that is left is to run 
+`devtools::document()` to re-build and document your package.
 
 ## What's next
 
