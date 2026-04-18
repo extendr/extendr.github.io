@@ -20,7 +20,7 @@ new-blog title:
     mkdir -p "$dir"
 
     # Copy template and update frontmatter
-    cp blog/.post-template.qmd "$dir/index.qmd"
+    cp blog/_post-template.qmd "$dir/index.qmd"
     sed -i '' "s/title: \"\"/title: \"{{ title }}\"/" "$dir/index.qmd"
     sed -i '' "s/date: \"\"/date: \"$date\"/" "$dir/index.qmd"
 
