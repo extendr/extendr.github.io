@@ -1,21 +1,24 @@
 ---
 title: "extendr v0.9.0"
-subtitle: "towards improved DX"
-description: ""
+subtitle: "Improving DX"
+description: |
+  This is (hopefully) our last minor release before extendr v1.0.0, focused 
+  almost entirely on improved developer experience. 
 author:
   - name: Josiah Parry
   - name: Blake Vernon
-date: "2026-04-15"
+date: "2026-04-19"
+image: thumbnail.png
 categories: [release]
 freeze: true
 ---
 
-This is (hopefully) our last minor release before extendr v1.0.0, focused almost 
-entirely on improved developer experience. While technically a minor release, it 
-does contain intentional breaking changes. Ordinarily, those would belong in 
-major versions, but since we haven't yet reached v1.0.0 we want to be 
-transparent rather than alarming. We also expedited this release to address 
-non-API changes from R Core's C API stabilization.
+This update of extendr comes with a lot of new features we are excited to share. 
+While technically a minor release, some of those new features do involve 
+intentional breaking changes. Ordinarily, breaking changes would belong in major 
+versions, but since we haven't yet reached v1.0.0 we want to be transparent 
+rather than alarming. We also expedited this release to address non-API changes 
+from R Core's C API stabilization.
 
 Read the full [CHANGELOG](https://github.com/extendr/extendr/blob/main/CHANGELOG.md).
 
