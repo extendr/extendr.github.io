@@ -99,7 +99,7 @@ replaced with the standard library's `as_ref()`.
 ## Changes to the extendr team
 
 [Ilia Kosenkov](https://www.linkedin.com/in/ilia-kosenkov/) has passed the 
-rextendr torch to Blake Vernon. Please join us in extending a heartfelt thank 
+`{rextender}` torch to Blake Vernon. Please join us in extending a heartfelt thank 
 you to Ilia for his years of hard work and dedication. Ilia's contributions to 
 the project cannot be overstated.
 
