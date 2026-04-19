@@ -67,8 +67,8 @@ an issue or mention it on our Discord.
 
 ## Custom `Error` types — anyhow integration
 
-Previously, `extendr_api::prelude::Result` masked the standard `Result` type — a 
-bad choice on our part that hurt developer experience. It also introduced 
+Previously, `extendr_api::prelude::Result` masked the standard `Result` type --- 
+a bad choice on our part that hurt developer experience. It also introduced 
 unnecessary bloat into the prelude, which should really target symbols unique to 
 extendr. Fortunately, some recent developments in extendr allow you to return
 `anyhow::Result` or build your own custom error type with `thiserror`, for 
@@ -261,8 +261,32 @@ If you've made it this far, congratulations! All that is left is to run
 
 ## What's next
 
-- `extendr`-vctrs integration
-- ALTREP support (maybe)
-- R6 support (maybe)
+We are mainly focused on developer experience at the moment, so these are some 
+of our current priorities.
 
-<!-- TODO: @mossa help here -->
+1. **Better CRAN submission experience.**
+   We want a seamless transition between developer-mode and CRAN-compatible
+   builds, notably improvements to Makevars and vendoring.  
+2. **More support for R.**
+   The two big ones are better error handling, having Rust panics return as R 
+   errors, and support for dots, which would allow us to integrate vctrs. Our 
+   support wish list also includes ALTREP and R6 (but these require some more 
+   thought and careful planning).
+3. **More ergonomic type mapping.**
+   Currently, if you have a custom Rust struct or enum you want to return to R,
+   you have to manually implement `IntoRobj`/`TryFrom<Robj>` yourself. We want a 
+   more ergonomic trait-based system so that common mappings (e.g. a Rust enum → 
+   R character or factor) require less boilerplate.
+4. **Introduce parallelism.**
+   Rayon is Rust's data parallelism library, and we are experimenting with
+   different methods for integrating it into extendr.
+5. **Introduce TypedExternal.**
+   Right now, `ExternalPtr<T>` in extendr wraps a Rust value as an R external 
+   pointer, but it's essentially untyped from R's perspective — R just sees a 
+   raw pointer. `TypedExternal` would attach type information so you can safely 
+   pass Rust objects around as R objects without losing track of what type they 
+   are.
+
+That said, we take feedback seriously, so if you have a feature request for 
+extendr or rextendr, please post a GitHub issue or come discuss it with us on 
+Discord!
