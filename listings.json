@@ -2,6 +2,7 @@
   {
     "listing": "/blog/index.html",
     "items": [
+      "/blog/posts/2026-04-15-extendr-v090/index.html",
       "/blog/posts/2026-03-25-arrow-extendr-polars/index.html",
       "/blog/posts/2025-09-09-h3o-on-cran/index.html",
       "/blog/posts/2025-08-26-rextendr-release-040/index.html",

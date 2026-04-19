@@ -10,7 +10,282 @@
 <atom:link href="https://extendr.github.io/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.9.37</generator>
-<lastBuildDate>Wed, 25 Mar 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 19 Apr 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>extendr v0.9.0</title>
+  <dc:creator>Josiah Parry</dc:creator>
+  <dc:creator>Blake Vernon</dc:creator>
+  <link>https://extendr.github.io/blog/posts/2026-04-15-extendr-v090/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This update of extendr comes with a lot of new features we are excited to share. While technically a minor release, some of those new features do involve intentional breaking changes. Ordinarily, breaking changes would belong in major versions, but since we haven’t yet reached v1.0.0 we want to be transparent rather than alarming. We also expedited this release to address non-API changes from R Core’s C API stabilization.</p>
+<p>Read the full <a href="https://github.com/extendr/extendr/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<ul>
+<li>Move towards semver (semantic versioning)</li>
+<li>Deprecate <code>rextendr::document()</code></li>
+<li>Remove <code>Result</code> from the prelude</li>
+<li>Use any error type (e.g.&nbsp;<code>anyhow::Error</code>)</li>
+<li>Use <code>From</code>/<code>TryFrom</code></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are not interested in the nitty-gritty of current changes, feel free to skip to the migration guide. It will explain updates you need to make in your packages to address breaking changes.</p>
+</div>
+</div>
+</section>
+<section id="a-note-on-semantic-versioning" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-on-semantic-versioning">A note on semantic versioning</h2>
+<p>The Rust ecosystem encourages the use of <a href="https://doc.rust-lang.org/cargo/reference/semver.html"><strong>semantic versioning</strong></a> (SemVer) to keep expectations managed.</p>
+<p>To oversimplify: any time something in your crate’s API changes, gets removed, or otherwise requires changes to user behavior, that should be a <strong>major</strong> version increment. If a feature is added, that should be a <strong>minor</strong> version increment. If a bug is fixed, that is a <strong>patch</strong> version increment.</p>
+<p>All too often in the rust ecosystem a minor or patch version introduces breaking changes. We want to practice what we preach and follow semver to the best of our abilities. You can expect the next time that there is a breaking change, there will be a major version bump!</p>
+</section>
+<section id="cran-and-non-api-entry-points" class="level2">
+<h2 class="anchored" data-anchor-id="cran-and-non-api-entry-points">CRAN and non-API entry points</h2>
+<p>R Core’s C API is a moving target these days, so we have to be vigilant to keep extendr going, addressing changes to the C API in the main branch using <a href="https://en.wikipedia.org/wiki/Backporting"><strong>backports</strong></a>. We also want your extendr-powered packages to be as stable as possible. Backports ensure that upgrading extendr should not require your R packages to depend on R 4.6+.</p>
+<p>Before extendr v0.8.0, we interfaced with the C API using <code>libR-sys</code>, but this was replaced with <code>extendr-ffi</code>, which contains hand-curated bindings to R’s C API. Backports are defined in <code>extendr-ffi</code> at <a href="https://github.com/extendr/extendr/blob/main/extendr-ffi/src/backports.rs"><code>extendr-ffi/src/backports.rs</code></a>.</p>
+<p>If you encounter a CRAN note or warning that we haven’t addressed, please open an issue or mention it on our Discord.</p>
+</section>
+<section id="custom-error-types-anyhow-integration" class="level2">
+<h2 class="anchored" data-anchor-id="custom-error-types-anyhow-integration">Custom <code>Error</code> types — anyhow integration</h2>
+<p>Previously, <code>extendr_api::prelude::Result</code> masked the standard <code>Result</code> type — a bad choice on our part that hurt developer experience. It also introduced unnecessary bloat into the prelude, which should really target symbols unique to extendr. Fortunately, some recent developments in extendr allow you to return <code>anyhow::Result</code> or build your own custom error type with <code>thiserror</code>, for example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">use</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">anyhow::</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Result</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb1-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">use</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">extendr_api::prelude::</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*;</span></span>
+<span id="cb1-3"></span>
+<span id="cb1-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">#[</span>extendr<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb1-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">fn</span> foo() <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Result</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span>()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb1-6">  <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">bail!</span>()</span>
+<span id="cb1-7"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div></div>
+</section>
+<section id="removal-of-non-standard-methods-and-traits" class="level2">
+<h2 class="anchored" data-anchor-id="removal-of-non-standard-methods-and-traits">Removal of non-standard methods and traits</h2>
+<p>With this release, we continue our efforts to move away from custom functions towards more idiomatic Rust. In fact, this release deprecates <em>a lot</em> of methods in favor of standard trait implementations. For example, <code>from_hashmap()</code> and <code>into_hashmap()</code> and <code>from_string()</code> and <code>into_string()</code> are replaced with <code>From</code>/<code>TryFrom</code> implementations. The <code>as_str()</code> method is also deprecated, replaced with the standard library’s <code>as_ref()</code>.</p>
+</section>
+<section id="changes-to-the-extendr-team" class="level2">
+<h2 class="anchored" data-anchor-id="changes-to-the-extendr-team">Changes to the extendr team</h2>
+<p><a href="https://www.linkedin.com/in/ilia-kosenkov/">Ilia Kosenkov</a> has passed the <code>{rextender}</code> torch to Blake Vernon. Please join us in extending a heartfelt thank you to Ilia for his years of hard work and dedication. Ilia’s contributions to the project cannot be overstated.</p>
+<p>We also want to thank Blake for his <a href="https://r-consortium.org/all-projects/2025-group-2.html#rextendr-community-focused-development-for-scientific-computing-with-rust-and-r">R Consortium-sponsored work</a>, which is ongoing!</p>
+<section id="self-documenting-build" class="level3">
+<h3 class="anchored" data-anchor-id="self-documenting-build">👋🏼 Self-documenting build</h3>
+<p>Due to the hard work of <a href="https://github.com/cgmossa">Mossa</a> and <a href="https://github.com/kbvernon">Blake</a>, extendr has a vastly simplified build and documentation process. In fact, we have deprecated <code>rextendr::document()</code>. Users can now call <code>devtools::document()</code> directly to compile their Rust crate and build their R package, with all linked functions seamlessly written to <code>R/extendr-wrappers.R</code> and registered in NAMESPACE if exported. This makes extendr-powered package development more congruent with a devtools workflow.</p>
+<p>What allows for this under the hood is effort offloaded to cargo and Rust. Before, extendr and rextendr did a fairly complicated dynamic-loading-dance, but now we rely instead on a small binary called <code>document.rs</code> that links to the crate’s staticlib. The linking allows us to access extendr-macro metadata directly in Rust, hence bypassing dynamic loading and just doing some basic string manipulation before writing to <code>R/extendr-wrappers.R</code> as part of the package build process.</p>
+</section>
+</section>
+<section id="migration-guide" class="level2">
+<h2 class="anchored" data-anchor-id="migration-guide">Migration guide</h2>
+<p>To help you get your package build up-to-date, so you can benefit from these changes, we have introduced <code>rextendr::update_scaffold()</code>. This is similar to running <code>rextendr::use_extendr()</code> on an existing project, but instead of stepping through overwriting existing scaffolding files one by one, it updates the necessary scaffolding automatically. It also prints an informative update message about next steps.</p>
+<p>It is worth mentioning, however, that we placed two very large constraints on this update tool. First, it must not edit your package’s manifest <code>Cargo.toml</code>. Second, it should not edit your vendor directory or anything that might affect your dependencies. These constraints have the consequence that we do not fully automate the update process. Some manual editing is required.</p>
+<p>The exact steps to update your package are these:</p>
+<ol type="1">
+<li>Update scaffold with <code>rextendr::update_scaffold()</code>.</li>
+<li>Add linked binary to <code>Cargo.toml</code>.</li>
+<li>Update extendr-api version in <code>Cargo.toml</code> with <code>rextendr::use_crate("extendr-api", version = "0.9.0")</code>.</li>
+<li>Update Rust source in <code>rust/src</code> to handle deprecated extendr methods.</li>
+<li>Re-vendor crates with <code>rextendr::vendor_crates()</code>.</li>
+<li>Re-build and document package with <code>devtools::document()</code>.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are some “gotchas” you might run into while working through the update that we flag below.</p>
+</div>
+</div>
+<section id="update-scaffold" class="level3">
+<h3 class="anchored" data-anchor-id="update-scaffold">Update scaffold</h3>
+<p>Once you run <code>update_scaffold()</code>, you will see a list of updated files followed by this (somewhat lengthy) update message:</p>
+<pre><code>! If your crate or library name differs from the R package name, please
+  re-run `update_scaffold()` with explicit `lib_name` and `crate_name`.
+! You will also need to update `Cargo.toml` to include the following:
+     
+    [lib]
+    crate-type = [ "rlib", "staticlib" ]
+     
+    [[bin]]
+    name = 'document'
+    path = 'document.rs'
+     
+    [dependencies]
+    extendr-api = "0.9.0"
+     
+ℹ You should now call the following in order:
+    • use_crate("extendr", version = "0.9.0")
+    • rextendr::vendor_crates()
+    • devtools::document()</code></pre>
+<p>This tells you more or less everything you need to do (same as listed above), though it assumes you are not using any custom extendr methods that have been deprecated in favor of the Rust standard library.</p>
+<p><iconify-icon inline="" icon="fluent-color:warning-28" aria-label="Icon warning-28 from fluent-color Iconify.design set." title="Icon warning-28 from fluent-color Iconify.design set."></iconify-icon> <strong>GOTCHA ONE</strong>: Note the warning about library and crate names. Generally speaking, you should let <code>rextendr::use_extendr()</code> set these for you using a Rust-sanitized version of your R package name, but if for some reason you chose to do otherwise, you will need to make sure and specify these explicitly in <code>update_scaffold()</code>. These are required to make sure the scaffolding files actually reference your crate.</p>
+</section>
+<section id="add-linked-binary-to-manifest" class="level3">
+<h3 class="anchored" data-anchor-id="add-linked-binary-to-manifest">Add linked binary to manifest</h3>
+<p>The really big, super important, thing to note are the changes to <code>Cargo.toml</code>. In order to take advantage of the new self-documenting build process, you will need to manually update your <code>Cargo.toml</code>. First, you need to add <code>"rlib"</code> to your crate type. This signals that your Rust code should be accessible to the binary. Second, you need to add the <code>[[bin]]</code> section referencing the binary <code>document.rs</code> directly. These edits are essential to the new build process.</p>
+<p>Basically, <code>Cargo.toml</code> should look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[lib]</span></span>
+<span id="cb3-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">crate-type</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rlib"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"staticlib"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-3"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">your</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">lib</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">&gt;</span></span>
+<span id="cb3-4"></span>
+<span id="cb3-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[[bin]]</span></span>
+<span id="cb3-6"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"document"</span></span>
+<span id="cb3-7"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">path</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"document.rs"</span></span></code></pre></div></div>
+</section>
+<section id="update-extendr-api-version" class="level3">
+<h3 class="anchored" data-anchor-id="update-extendr-api-version">Update extendr-api version</h3>
+<p>The next important change is to update your version of extendr to the latest release, 0.9.0. You can do this using our utility function</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">use_crate</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"extendr-api"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">version =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"0.9.0"</span>)</span></code></pre></div></div>
+<p>In theory, this should only bump the version, leaving any features or other flags alone, but you should check this if you have any customization of this dependency.</p>
+<p><iconify-icon inline="" icon="fluent-color:warning-28" aria-label="Icon warning-28 from fluent-color Iconify.design set." title="Icon warning-28 from fluent-color Iconify.design set."></iconify-icon> <strong>GOTCHA TWO</strong>: Dependency resolution! The newest version of extendr includes new dependencies that might conflict with your crate’s dependencies. There is no way for us to anticipate all such possibilities, so this may require some experimenting on your part to figure out the necessary updates.</p>
+<p><iconify-icon inline="" icon="fluent-color:warning-28" aria-label="Icon warning-28 from fluent-color Iconify.design set." title="Icon warning-28 from fluent-color Iconify.design set."></iconify-icon> <strong>GOTCHA THREE</strong>: Build artifacts! If a package build is successful, artifacts will be cleaned up, meaning removed from your project directory. However, if a package build fails, perhaps because of a compile error you did not catch before, these artifacts will stick around! The ones that can affect your update of extendr are <code>src/.cargo/</code> and <code>src/vendor/</code>. If these are still in <code>src/</code>, you should remove them before updating.</p>
+</section>
+<section id="update-rust-source" class="level3">
+<h3 class="anchored" data-anchor-id="update-rust-source">Update Rust source</h3>
+<p>The breaking changes to extendr-api that we mentioned above will need to be addressed across your crate’s source code. For this, rust-analyzer is really and truly your friend.</p>
+</section>
+<section id="re-vendor-crates" class="level3">
+<h3 class="anchored" data-anchor-id="re-vendor-crates">Re-vendor crates</h3>
+<p>So far, so good! The next step is to re-vendor crates to meet the CRAN requirement. Provided you have resolved all dependency conflicts, this should be as simple as running</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">rextendr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">vendor_crates</span>()</span></code></pre></div></div>
+<p><iconify-icon inline="" icon="fluent-color:warning-28" aria-label="Icon warning-28 from fluent-color Iconify.design set." title="Icon warning-28 from fluent-color Iconify.design set."></iconify-icon> <strong>GOTCHA FOUR</strong>: This is only kinda-sorta a gotcha, but it is worth noting. This function was originally called <code>vendor_pkgs()</code>, but was renamed in this release to more accurately reflect what it does.</p>
+</section>
+<section id="re-build-your-package" class="level3">
+<h3 class="anchored" data-anchor-id="re-build-your-package">Re-build your package</h3>
+<p>If you’ve made it this far, congratulations! All that is left is to run <code>devtools::document()</code> to re-build and document your package.</p>
+</section>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next</h2>
+<p>We are mainly focused on developer experience at the moment, so these are some of our current priorities.</p>
+<ol type="1">
+<li><strong>Better CRAN submission experience.</strong> We want a seamless transition between developer-mode and CRAN-compatible builds, notably improvements to Makevars and vendoring.<br>
+</li>
+<li><strong>More support for R.</strong> The two big ones are better error handling, having Rust panics return as R errors, and support for dots, which would allow us to integrate vctrs. Our support wish list also includes ALTREP and R6 (but these require some more thought and careful planning).</li>
+<li><strong>More ergonomic type mapping.</strong> Currently, if you have a custom Rust struct or enum you want to return to R, you have to manually implement <code>IntoRobj</code>/<code>TryFrom&lt;Robj&gt;</code> yourself. We want a more ergonomic trait-based system so that common mappings (e.g.&nbsp;a Rust enum → R character or factor) require less boilerplate.</li>
+<li><strong>Introduce parallelism.</strong> Rayon is Rust’s data parallelism library, and we are experimenting with different methods for integrating it into extendr.</li>
+<li><strong>Introduce TypedExternal.</strong> Right now, <code>ExternalPtr&lt;T&gt;</code> in extendr wraps a Rust value as an R external pointer, but it’s essentially untyped from R’s perspective — R just sees a raw pointer. <code>TypedExternal</code> would attach type information so you can safely pass Rust objects around as R objects without losing track of what type they are.</li>
+</ol>
+<p>That said, we take feedback seriously, so if you have a feature request for extendr or rextendr, please post a GitHub issue or come discuss it with us on Discord!</p>
+
+
+</section>
+
+ ]]></description>
+  <category>release</category>
+  <guid>https://extendr.github.io/blog/posts/2026-04-15-extendr-v090/</guid>
+  <pubDate>Sun, 19 Apr 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://extendr.github.io/blog/posts/2026-04-15-extendr-v090/thumbnail.png" medium="image" type="image/png" height="75" width="144"/>
+</item>
 <item>
   <title>arrow-extendr: 🏹 Polars support 🐻‍❄️</title>
   <dc:creator>Josiah Parry</dc:creator>
