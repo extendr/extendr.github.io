@@ -24,7 +24,7 @@ Read the full [CHANGELOG](https://github.com/extendr/extendr/blob/main/CHANGELOG
 
 ## TL;DR
 
-- Move towards semver
+- Move towards semver (semantic versioning)
 - Deprecate `rextendr::document()`
 - Remove `Result` from the prelude
 - Use any error type (e.g. `anyhow::Error`)
