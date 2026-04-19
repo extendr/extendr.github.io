@@ -48,7 +48,7 @@ version increment. If a feature is added, that should be a **minor** version
 increment. If a bug is fixed, that is a **patch** version increment.
 
 All too often in the rust ecosystem a minor or patch version introduces breaking 
-changes. We want to practice what we preach and follow SemVer to the best of our 
+changes. We want to practice what we preach and follow semver to the best of our 
 abilities. You can expect the next time that there is a breaking change, there 
 will be a major version bump!
 
