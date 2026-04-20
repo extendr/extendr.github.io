@@ -592,7 +592,7 @@
     "href": "intro-rust/index.html#software-requirements",
     "title": "A Brief Introduction to Rust",
     "section": "Software requirements",
-    "text": "Software requirements\nThis guide assumes that you have Rust 1.65.0 installed. Please see Get Started if you do not.\nIf you are not yet comfortable with installing Rust, you may find it helpful to try out examples in this tutorial using the open source Rust Playground browser app.",
+    "text": "Software requirements\nThis guide assumes that you have Rust 1.65.0 installed. Please see Installation Guide if you do not.\nIf you are not yet comfortable with installing Rust, you may find it helpful to try out examples in this tutorial using the open source Rust Playground browser app.",
     "crumbs": [
       "Rust Basics"
     ]
@@ -683,13 +683,6 @@
       "Rust Basics",
       "Collections"
     ]
-  },
-  {
-    "objectID": "get-started.html",
-    "href": "get-started.html",
-    "title": "Get Started",
-    "section": "",
-    "text": "Step 1 Install Rust\nFollow the rustup installation instructions to install Rust. Note that the current minimum supported Rust version (msrv) in extendr is 1.65.0. This is to ensure CRAN compliance. Windows users will also need to install the GNU toolchain as it matches Rtools. This can be done via rustup in the terminal: rustup target add x86_64-pc-windows-gnu.\n\n\n\n\n\n\n\n\n\n\n\nStep 2 Update R\nWe recommend using a moderately new version of R (&gt;= 4.2). You can get that from CRAN, but we highly recommend that you use rig for this. With rig, installing R is as simple as rig add release.\n\n\n\n\n\n\n\n\n\n\n\nStep 3 Install rextendr\nThe R package {rextendr} provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest release version, use install.packages(\"rextendr\"). For the latest development version, use pak::pak(\"extendr/rextendr\"). You can then run rextendr::rust_sitrep() to check your Rust installation.\n\n\n\n\n\n\n\n\n\n\n\nStep 4 Use rust-analyzer\nThis is optional, but strongly recommended. If you use Visual Studio Code (VS Code) or a similar IDE, the rust-analyzer will provide you type hinting and auto-completion suggestions. It is very helpful!"
   },
   {
     "objectID": "contributing/user-guide-pages.html",
@@ -901,7 +894,7 @@
     "href": "contributing/index.html#software-requirements",
     "title": "Contributing",
     "section": "Software requirements",
-    "text": "Software requirements\nThis guide assumes the following versions of necessary software:\n\nR: 4.2\nRust 1.65.0\nextendr-api 0.8.1\nrextendr 0.4.2.9000\n\nPlease see Get Started if you have not already installed this software.",
+    "text": "Software requirements\nThis guide assumes the following versions of necessary software:\n\nR: 4.2\nRust 1.65.0\nextendr-api 0.8.1\nrextendr 0.4.2.9000\n\nPlease see Installation Guide if you have not already installed this software.",
     "crumbs": [
       "Contributing"
     ]
@@ -971,6 +964,13 @@
       "Contributing",
       "Writing Code"
     ]
+  },
+  {
+    "objectID": "installation-guide.html",
+    "href": "installation-guide.html",
+    "title": "Installation Guide",
+    "section": "",
+    "text": "Step 1 Install Rust\nFollow the rustup installation instructions to install Rust. Note that the current minimum supported Rust version (msrv) in extendr is 1.65.0. This is to ensure CRAN compliance. Windows users will also need to install the GNU toolchain as it matches Rtools. This can be done via rustup in the terminal: rustup target add x86_64-pc-windows-gnu.\n\n\n\n\n\n\n\n\n\n\n\nStep 2 Update R\nWe recommend using a moderately new version of R (&gt;= 4.2). You can get that from CRAN, but we highly recommend that you use rig for this. With rig, installing R is as simple as rig add release.\n\n\n\n\n\n\n\n\n\n\n\nStep 3 Install rextendr\nThe R package {rextendr} provides scaffolding for extendr projects and tools for documenting Rust functions and objects. To install the latest release version, use install.packages(\"rextendr\"). For the latest development version, use pak::pak(\"extendr/rextendr\"). You can then run rextendr::rust_sitrep() to check your Rust installation.\n\n\n\n\n\n\n\n\n\n\n\nStep 4 Use rust-analyzer\nThis is optional, but strongly recommended. If you use Visual Studio Code (VS Code) or a similar IDE, the rust-analyzer will provide you type hinting and auto-completion suggestions. It is very helpful!"
   },
   {
     "objectID": "intro-rust/control-flow.html",
@@ -1402,7 +1402,7 @@
     "href": "user-guide/index.html#software-requirements",
     "title": "User Guide",
     "section": "Software requirements",
-    "text": "Software requirements\nThis guide assumes the following versions of necessary software:\n\nR: 4.2\nRust 1.65.0\nextendr-api 0.8.1\nrextendr 0.4.2.9000\n\nPlease see Get Started if you have not already installed this software.",
+    "text": "Software requirements\nThis guide assumes the following versions of necessary software:\n\nR: 4.2\nRust 1.65.0\nextendr-api 0.8.1\nrextendr 0.4.2.9000\n\nPlease see Installation Guide if you have not already installed this software.",
     "crumbs": [
       "User Guide"
     ]

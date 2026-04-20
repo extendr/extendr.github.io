@@ -32,7 +32,7 @@ body.quarto-dark #hero-header h1 {
 
 @media (min-width: 992px) {
     .hero-banner {
-        max-width: 50%;
+        max-width: 65%;
     }
 
     #hero-header p {
@@ -41,6 +41,12 @@ body.quarto-dark #hero-header h1 {
 
     #hero-header h1 {
         font-size: 3.8rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    .hero-banner {
+        max-width: 50%;
     }
 }
 
