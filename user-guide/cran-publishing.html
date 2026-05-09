@@ -561,7 +561,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>extendr-based packges are CRAN compatible <strong>out of the box</strong>! You only have to do <em>one</em> additional step—vendor your Rust dependencies.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">vendor_pkgs</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rextendr<span class="sc">::</span><span class="fu">vendor_crates</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>That’s it!</p>
 <section id="cran-comments.md" class="level2">
 <h2 class="anchored" data-anchor-id="cran-comments.md">cran-comments.md</h2>
@@ -583,7 +583,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="why-vendor" class="level2">
 <h2 class="anchored" data-anchor-id="why-vendor">Why vendor?</h2>
 <p>One of the reasons we love CRAN is that they take portability seriously. Because of this, an R package must contain everything it needs to build. This means that the Rust dependencies must not be downloaded as the package is installed.</p>
-<p>Vendoring is the process of embedding the source code of our dependencies into our R package. <code>vendor_pkgs()</code> creates a <code>vendor.tar.xz</code> file which contains the compressed source of all the dependencies.</p>
+<p>Vendoring is the process of embedding the source code of our dependencies into our R package. <code>vendor_crates()</code> creates a <code>vendor.tar.xz</code> file which contains the compressed source of all the dependencies.</p>
 
 
 </section>

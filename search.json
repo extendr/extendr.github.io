@@ -385,7 +385,7 @@
     "href": "user-guide/cran-publishing.html#why-vendor",
     "title": "Publishing to CRAN",
     "section": "Why vendor?",
-    "text": "Why vendor?\nOne of the reasons we love CRAN is that they take portability seriously. Because of this, an R package must contain everything it needs to build. This means that the Rust dependencies must not be downloaded as the package is installed.\nVendoring is the process of embedding the source code of our dependencies into our R package. vendor_pkgs() creates a vendor.tar.xz file which contains the compressed source of all the dependencies.",
+    "text": "Why vendor?\nOne of the reasons we love CRAN is that they take portability seriously. Because of this, an R package must contain everything it needs to build. This means that the Rust dependencies must not be downloaded as the package is installed.\nVendoring is the process of embedding the source code of our dependencies into our R package. vendor_crates() creates a vendor.tar.xz file which contains the compressed source of all the dependencies.",
     "crumbs": [
       "User Guide",
       "Publishing",
