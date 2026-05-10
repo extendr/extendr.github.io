@@ -460,59 +460,91 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">CRAN&#x27;s Rust versions</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>CRAN does not coordinate versions of Rust across build machines, so it can be
+challenging to ensure your package builds on <em>any</em> CRAN machine. The only sure
+fire way to do that is to ensure that your package builds under the lowest
+version of Rust currently supported by a CRAN build machine, that being the
+minimal supported Rust version (or MSRV) on CRAN. That includes your package’s
+Rust dependencies, too. Any crate or feature you list in your manifest must also
+fall under CRAN’s MSRV.</p>
+<p>The below table reports CRAN versions per check flavor based on the
+<a rel="external" href="https://cran.r-project.org/web/checks/check_results_fio.htm">check results</a> of
+the extendr package <a rel="external" href="https://albersonmiranda.github.io/fio/"><code>{fio}</code></a>.</p>
+<p><strong>CRAN’s MSRV</strong> is 1.91.1.</p>
+
+<table class="table">
+  
+  <thead>
+    <tr>
+      <th>Check flavor</th><th>rustc</th><th>cargo</th>
+    </tr>
+  </thead>
+  <tbody class="[&>tr:not(:last-child)]:border-none [&>tr:last-child]:border-b">
+    
+    <tr><td>r-oldrel-macos-arm64</td><td>1.91.1</td><td>1.91.1</td></tr>
+    
+    <tr><td>r-devel-windows-x86_64</td><td>1.92.0</td><td>1.92.0</td></tr>
+    
+    <tr><td>r-release-windows-x86_64</td><td>1.92.0</td><td>1.92.0</td></tr>
+    
+    <tr><td>r-oldrel-windows-x86_64</td><td>1.92.0</td><td>1.92.0</td></tr>
+    
+    <tr><td>r-release-macos-arm64</td><td>1.93.0</td><td>1.93.0</td></tr>
+    
+    <tr><td>r-release-macos-x86_64</td><td>1.93.0</td><td>1.93.0</td></tr>
+    
+    <tr><td>r-oldrel-macos-x86_64</td><td>1.93.0</td><td>1.93.0</td></tr>
+    
+    <tr><td>r-devel-linux-x86_64-fedora-clang</td><td>1.93.1</td><td>1.93.1</td></tr>
+    
+    <tr><td>r-devel-linux-x86_64-fedora-gcc</td><td>1.93.1</td><td>1.93.1</td></tr>
+    
+    <tr><td>r-devel-linux-x86_64-debian-clang</td><td>1.94.1</td><td>1.94.1</td></tr>
+    
+    <tr><td>r-devel-linux-x86_64-debian-gcc</td><td>1.94.1</td><td>1.94.1</td></tr>
+    
+    <tr><td>r-patched-linux-x86_64</td><td>1.94.1</td><td>1.94.1</td></tr>
+    
+    <tr><td>r-release-linux-x86_64</td><td>1.94.1</td><td>1.94.1</td></tr>
+    
+  </tbody>
+  
+</table>
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;publishing&#x2F;cran-publishing&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Publishing to CRAN</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+    </aside>
 </div>
 
                 </main>

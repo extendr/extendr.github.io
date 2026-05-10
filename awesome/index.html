@@ -1,0 +1,2953 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="mx-auto w-full max-w-screen-md">
+    <header>
+        <h1 class="mt-0 text-4xl font-mono">Awesome extendr</h1>
+        
+        <p class="text-muted-foreground mt-1 mb-0">A curated list of R packages that use extendr.</p>
+        
+        <div class="flex flex-wrap items-center gap-2 mt-3">
+            <a href="https://awesome.re" target="_blank" rel="noopener noreferrer">
+                <img src="https://awesome.re/badge.svg" alt="Awesome">
+            </a>
+            <img src="https://img.shields.io/badge/Last_Updated-2026--05--10-276DC2"
+                 alt="Last updated 2026-05-10">
+            <img src="https://img.shields.io/badge/Packages-45-276DC2"
+                 alt="45 packages">
+            <img src="https://img.shields.io/badge/CRAN_Downloads-1415605-276DC2"
+                 alt="1415605 CRAN downloads">
+        </div>
+    </header>
+    <div class="flex gap-4 mt-6">
+        <div data-filterable-list
+             class="flex flex-1 flex-col gap-4">
+            <div>
+                <div class="flex-1 relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span
+                              class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none">
+                        </span>
+                    </div>
+                    <input type="search"
+                           data-filter-search
+                           placeholder="Search packages"
+                           class="input pl-8 h-8">
+                </div>
+                <div class="flex items-center gap-2 text-sm text-muted-foreground mt-3">
+                    <span>Sort by:</span>
+                    <button type="button"
+                            data-filter-sort="title"
+                            class="hover:underline">title</button>
+                    <span>|</span>
+                    <button type="button"
+                            data-filter-sort="author"
+                            class="hover:underline">author</button>
+                    <span>|</span>
+                    <button type="button"
+                            data-filter-sort="count"
+                            class="hover:underline">downloads</button>
+                </div>
+            </div>
+
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;belian-earth&#x2F;a5R"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="a5R &#x27;A5&#x27; Discrete Global Grid System"
+               data-description="Bindings for the &quot;A5 geospatial index&quot;
+    &lt;https:&#x2F;&#x2F;a5geo.org&#x2F;&gt;. &#x27;A5&#x27; partitions the Earth&#x27;s surface into
+    pentagonal cells across 31 resolution levels using an equal-area
+    projection onto a dodecahedron. Provides functions for indexing
+    coordinates to cells, traversing the cell hierarchy, computing cell
+    boundaries, and compacting&#x2F;uncompacting cell sets. Powered by the
+    &#x27;A5&#x27; &#x27;Rust&#x27; crate via &#x27;extendr&#x27;. Hugh Graham"
+               data-sort-name="a5r"
+               data-sort-author="hugh graham"
+               data-sort-count="1448">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">a5R</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">&#x27;A5&#x27; Discrete Global Grid System</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Bindings for the &quot;A5 geospatial index&quot;
+    &lt;https:&#x2F;&#x2F;a5geo.org&#x2F;&gt;. &#x27;A5&#x27; partitions the Earth&#x27;s surface into
+    pentagonal cells across 31 resolution levels using an equal-area
+    projection onto a dodecahedron. Provides functions for indexing
+    coordinates to cells, traversing the cell hierarchy, computing cell
+    boundaries, and compacting&#x2F;uncompacting cell sets. Powered by the
+    &#x27;A5&#x27; &#x27;Rust&#x27; crate via &#x27;extendr&#x27;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Hugh Graham
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1448
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;R-ArcGIS&#x2F;arcgis&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="arcgis ArcGIS Location Services Meta-Package"
+               data-description="Provides easy installation and loading of core ArcGIS
+    location services packages &#x27;arcgislayers&#x27;, &#x27;arcgisutils&#x27;,
+    &#x27;arcgisgeocode&#x27;, and &#x27;arcgisplaces&#x27;. Enabling developers to interact
+    with spatial data and services from &#x27;ArcGIS Online&#x27;, &#x27;ArcGIS
+    Enterprise&#x27;, and &#x27;ArcGIS Platform&#x27;. Learn more about the &#x27;arcgis&#x27;
+    meta-package at &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;r-bridge&#x2F;&gt;. Josiah Parry"
+               data-sort-name="arcgis"
+               data-sort-author="josiah parry"
+               data-sort-count="13650">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">arcgis</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">ArcGIS Location Services Meta-Package</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides easy installation and loading of core ArcGIS
+    location services packages &#x27;arcgislayers&#x27;, &#x27;arcgisutils&#x27;,
+    &#x27;arcgisgeocode&#x27;, and &#x27;arcgisplaces&#x27;. Enabling developers to interact
+    with spatial data and services from &#x27;ArcGIS Online&#x27;, &#x27;ArcGIS
+    Enterprise&#x27;, and &#x27;ArcGIS Platform&#x27;. Learn more about the &#x27;arcgis&#x27;
+    meta-package at &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;r-bridge&#x2F;&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            13650
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;r-arcgis&#x2F;arcgisgeocode"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="arcgisgeocode A Robust Interface to ArcGIS &#x27;Geocoding Services&#x27;"
+               data-description="A very fast and robust interface to ArcGIS &#x27;Geocoding
+    Services&#x27;. Provides capabilities for reverse geocoding, finding
+    address candidates, character-by-character search autosuggestion, and
+    batch geocoding. The public &#x27;ArcGIS World Geocoder&#x27; is accessible for
+    free use via &#x27;arcgisgeocode&#x27; for all services except batch geocoding.
+    &#x27;arcgisgeocode&#x27; also integrates with &#x27;arcgisutils&#x27; to provide access
+    to custom locators or private &#x27;ArcGIS World Geocoder&#x27; hosted on
+    &#x27;ArcGIS Enterprise&#x27;. Learn more in the &#x27;Geocode service&#x27; API reference
+    &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;rest&#x2F;geocode&#x2F;api-reference&#x2F;overview-world-geocoding-service.htm&gt;. Josiah Parry"
+               data-sort-name="arcgisgeocode"
+               data-sort-author="josiah parry"
+               data-sort-count="12905">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">arcgisgeocode</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">A Robust Interface to ArcGIS &#x27;Geocoding Services&#x27;</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A very fast and robust interface to ArcGIS &#x27;Geocoding
+    Services&#x27;. Provides capabilities for reverse geocoding, finding
+    address candidates, character-by-character search autosuggestion, and
+    batch geocoding. The public &#x27;ArcGIS World Geocoder&#x27; is accessible for
+    free use via &#x27;arcgisgeocode&#x27; for all services except batch geocoding.
+    &#x27;arcgisgeocode&#x27; also integrates with &#x27;arcgisutils&#x27; to provide access
+    to custom locators or private &#x27;ArcGIS World Geocoder&#x27; hosted on
+    &#x27;ArcGIS Enterprise&#x27;. Learn more in the &#x27;Geocode service&#x27; API reference
+    &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;rest&#x2F;geocode&#x2F;api-reference&#x2F;overview-world-geocoding-service.htm&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            12905
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;R-ArcGIS&#x2F;arcgisplaces"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="arcgisplaces Search for POIs using ArcGIS &#x27;Places Service&#x27;"
+               data-description="The ArcGIS &#x27;Places service&#x27; is a ready-to-use location
+    service that can search for businesses and geographic locations around
+    the world. It allows you to find, locate, and discover detailed
+    information about each place. Query for places near a point, within a
+    bounding box, filter based on categories, or provide search text.
+    &#x27;arcgisplaces&#x27; integrates with &#x27;sf&#x27; for out of the box compatibility
+    with other spatial libraries. Learn more in the &#x27;Places service&#x27; API reference &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;rest&#x2F;places&#x2F;&gt;. Josiah Parry"
+               data-sort-name="arcgisplaces"
+               data-sort-author="josiah parry"
+               data-sort-count="193022">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">arcgisplaces</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Search for POIs using ArcGIS &#x27;Places Service&#x27;</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">The ArcGIS &#x27;Places service&#x27; is a ready-to-use location
+    service that can search for businesses and geographic locations around
+    the world. It allows you to find, locate, and discover detailed
+    information about each place. Query for places near a point, within a
+    bounding box, filter based on categories, or provide search text.
+    &#x27;arcgisplaces&#x27; integrates with &#x27;sf&#x27; for out of the box compatibility
+    with other spatial libraries. Learn more in the &#x27;Places service&#x27; API reference &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;rest&#x2F;places&#x2F;&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            193022
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;R-ArcGIS&#x2F;arcgisutils"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="arcgisutils R-ArcGIS Bridge Utility Functions"
+               data-description="Developer oriented utility functions designed to be used as
+    the building blocks of R packages that work with ArcGIS Location
+    Services. It provides functionality for authorization, Esri JSON
+    construction and parsing, as well as other utilities pertaining to
+    geometry and Esri type conversions. To support &#x27;ArcGIS Pro&#x27; users,
+    authorization can be done via &#x27;arcgisbinding&#x27;. Installation
+    instructions for &#x27;arcgisbinding&#x27; can be found at
+    &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;r-bridge&#x2F;installation&#x2F;&gt;. Josiah Parry"
+               data-sort-name="arcgisutils"
+               data-sort-author="josiah parry"
+               data-sort-count="30221">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">arcgisutils</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">R-ArcGIS Bridge Utility Functions</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Developer oriented utility functions designed to be used as
+    the building blocks of R packages that work with ArcGIS Location
+    Services. It provides functionality for authorization, Esri JSON
+    construction and parsing, as well as other utilities pertaining to
+    geometry and Esri type conversions. To support &#x27;ArcGIS Pro&#x27; users,
+    authorization can be done via &#x27;arcgisbinding&#x27;. Installation
+    instructions for &#x27;arcgisbinding&#x27; can be found at
+    &lt;https:&#x2F;&#x2F;developers.arcgis.com&#x2F;r-bridge&#x2F;installation&#x2F;&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            30221
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;r.esri.com&#x2F;arcpbf&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="arcpbf Process ArcGIS Protocol Buffer FeatureCollections"
+               data-description="Fast processing of ArcGIS FeatureCollection protocol buffers in R.
+  It is designed to work seamlessly with &#x27;httr2&#x27; and integrates with &#x27;sf&#x27;.  Josiah Parry"
+               data-sort-name="arcpbf"
+               data-sort-author="josiah parry"
+               data-sort-count="22284">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">arcpbf</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Process ArcGIS Protocol Buffer FeatureCollections</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Fast processing of ArcGIS FeatureCollection protocol buffers in R.
+  It is designed to work seamlessly with &#x27;httr2&#x27; and integrates with &#x27;sf&#x27;. </p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            22284
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;etiennebacher&#x2F;astgrepr"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="astgrepr Parse and Manipulate R Code"
+               data-description="Parsing R code is key to build tools such as linters and stylers.
+    This package provides a binding to the &#x27;Rust&#x27; crate &#x27;ast-grep&#x27; so that one
+    can parse and explore R code. Etienne Bacher"
+               data-sort-name="astgrepr"
+               data-sort-author="etienne bacher"
+               data-sort-count="4462">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">astgrepr</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Parse and Manipulate R Code</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Parsing R code is key to build tools such as linters and stylers.
+    This package provides a binding to the &#x27;Rust&#x27; crate &#x27;ast-grep&#x27; so that one
+    can parse and explore R code.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Etienne Bacher
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            4462
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;kbvernon&#x2F;awdb"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="awdb Query the USDA NWCC Air and Water Database REST API"
+               data-description="Query the four endpoints of the &#x27;Air and Water Database (AWDB) REST
+    API&#x27; maintained by the National Water and Climate Center (NWCC) at the 
+    United States Department of Agriculture (USDA). Endpoints include data, 
+    forecast, reference-data, and metadata. The package is extremely light 
+    weight, with &#x27;Rust&#x27; via &#x27;extendr&#x27; doing most of the heavy lifting to 
+    deserialize and flatten deeply nested &#x27;JSON&#x27; responses. The AWDB can be 
+    found at &lt;https:&#x2F;&#x2F;wcc.sc.egov.usda.gov&#x2F;awdbRestApi&#x2F;swagger-ui&#x2F;index.html&gt;. Kenneth Blake Vernon"
+               data-sort-name="awdb"
+               data-sort-author="kenneth blake vernon"
+               data-sort-count="5968">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">awdb</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Query the USDA NWCC Air and Water Database REST API</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Query the four endpoints of the &#x27;Air and Water Database (AWDB) REST
+    API&#x27; maintained by the National Water and Climate Center (NWCC) at the 
+    United States Department of Agriculture (USDA). Endpoints include data, 
+    forecast, reference-data, and metadata. The package is extremely light 
+    weight, with &#x27;Rust&#x27; via &#x27;extendr&#x27; doing most of the heavy lifting to 
+    deserialize and flatten deeply nested &#x27;JSON&#x27; responses. The AWDB can be 
+    found at &lt;https:&#x2F;&#x2F;wcc.sc.egov.usda.gov&#x2F;awdbRestApi&#x2F;swagger-ui&#x2F;index.html&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Kenneth Blake Vernon
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            5968
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;b32"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="b32 Fast and Vectorized Base32 Encoding"
+               data-description="Fast, dependency free, and vectorized base32 encoding and
+    decoding. &#x27;b32&#x27; supports the Crockford, Z, RFC 4648 lower, hex, and
+    lower hex alphabets. Josiah Parry"
+               data-sort-name="b32"
+               data-sort-author="josiah parry"
+               data-sort-count="881">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">b32</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Fast and Vectorized Base32 Encoding</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Fast, dependency free, and vectorized base32 encoding and
+    decoding. &#x27;b32&#x27; supports the Crockford, Z, RFC 4648 lower, hex, and
+    lower hex alphabets.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            881
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;extendr.github.io&#x2F;b64&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="b64 Fast and Vectorized Base 64 Engine"
+               data-description="Provides a fast, lightweight, and vectorized base 64 engine
+    to encode and decode character and raw vectors as well as files stored
+    on disk. Common base 64 alphabets are supported out of the box
+    including the standard, URL-safe, bcrypt, crypt, &#x27;BinHex&#x27;, and
+    IMAP-modified UTF-7 alphabets. Custom engines can be created to
+    support unique base 64 encoding and decoding needs. Josiah Parry"
+               data-sort-name="b64"
+               data-sort-author="josiah parry"
+               data-sort-count="43111">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">b64</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Fast and Vectorized Base 64 Engine</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides a fast, lightweight, and vectorized base 64 engine
+    to encode and decode character and raw vectors as well as files stored
+    on disk. Common base 64 alphabets are supported out of the box
+    including the standard, URL-safe, bcrypt, crypt, &#x27;BinHex&#x27;, and
+    IMAP-modified UTF-7 alphabets. Custom engines can be created to
+    support unique base 64 encoding and decoding needs.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            43111
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;caugi.org&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="caugi Causal Graph Interface"
+               data-description="Create, query, and modify causal graphs. &#x27;caugi&#x27; (Causal Graph
+    Interface) is a causality-first, high performance graph package that
+    provides a simple interface to build, structure, and examine causal
+    relationships. Frederik Fabricius-Bjerre"
+               data-sort-name="caugi"
+               data-sort-author="frederik fabricius-bjerre"
+               data-sort-count="8879">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">caugi</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Causal Graph Interface</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Create, query, and modify causal graphs. &#x27;caugi&#x27; (Causal Graph
+    Interface) is a causality-first, high performance graph package that
+    provides a simple interface to build, structure, and examine causal
+    relationships.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Frederik Fabricius-Bjerre
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            8879
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;cifly.dev&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="ciflyr Reachability-Based Primitives for Graphical Causal Inference"
+               data-description="Provides a framework for specifying and running flexible
+    linear-time reachability-based algorithms for graphical causal inference. Rule
+    tables are used to encode and customize the reachability algorithm to typical
+    causal and probabilistic reasoning tasks such as finding d-connected nodes or
+    more advanced applications. For more information, see Wienöbst, Weichwald and
+    Henckel (2025) &lt;doi:10.48550&#x2F;arXiv.2506.15758&gt;. Marcel Wienöbst"
+               data-sort-name="ciflyr"
+               data-sort-author="marcel wienöbst"
+               data-sort-count="1866">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">ciflyr</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Reachability-Based Primitives for Graphical Causal Inference</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides a framework for specifying and running flexible
+    linear-time reachability-based algorithms for graphical causal inference. Rule
+    tables are used to encode and customize the reachability algorithm to typical
+    causal and probabilistic reasoning tasks such as finding d-connected nodes or
+    more advanced applications. For more information, see Wienöbst, Weichwald and
+    Henckel (2025) &lt;doi:10.48550&#x2F;arXiv.2506.15758&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Marcel Wienöbst
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1866
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;docs.ropensci.org&#x2F;datefixR&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="datefixR Standardize Dates in Different Formats or with Missing Data"
+               data-description="There are many different formats dates are commonly
+    represented with: the order of day, month, or year can differ,
+    different separators (&quot;-&quot;, &quot;&#x2F;&quot;, or whitespace) can be used, months can
+    be numerical, names, or abbreviations and year given as two digits or
+    four. &#x27;datefixR&#x27; takes dates in all these different formats and
+    converts them to R&#x27;s built-in date class. If &#x27;datefixR&#x27; cannot
+    standardize a date, such as because it is too malformed, then the user
+    is told which date cannot be standardized and the corresponding ID for
+    the row. &#x27;datefixR&#x27; also allows the imputation of missing days and
+    months with user-controlled behavior. Nathan Constantine-Cooke"
+               data-sort-name="datefixr"
+               data-sort-author="nathan constantine-cooke"
+               data-sort-count="20154">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">datefixR</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Standardize Dates in Different Formats or with Missing Data</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">There are many different formats dates are commonly
+    represented with: the order of day, month, or year can differ,
+    different separators (&quot;-&quot;, &quot;&#x2F;&quot;, or whitespace) can be used, months can
+    be numerical, names, or abbreviations and year given as two digits or
+    four. &#x27;datefixR&#x27; takes dates in all these different formats and
+    converts them to R&#x27;s built-in date class. If &#x27;datefixR&#x27; cannot
+    standardize a date, such as because it is too malformed, then the user
+    is told which date cannot be standardized and the corresponding ID for
+    the row. &#x27;datefixR&#x27; also allows the imputation of missing days and
+    months with user-controlled behavior.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Nathan Constantine-Cooke
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            20154
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;ipeaGIT&#x2F;enderecobr"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="enderecobr Padronizador de Endereços Brasileiros (Brazilian Addresses
+Standardizer)"
+               data-description="Padroniza endereços brasileiros a partir de diferentes
+    critérios. Os métodos de padronização incluem apenas manipulações
+    básicas de strings, não oferecendo suporte a correspondências
+    probabilísticas entre strings. (Standardizes brazilian addresses using
+    different criteria. Standardization methods include only basic string
+    manipulation, not supporting probabilistic matches between strings.) Daniel Herszenhut"
+               data-sort-name="enderecobr"
+               data-sort-author="daniel herszenhut"
+               data-sort-count="70366">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">enderecobr</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Padronizador de Endereços Brasileiros (Brazilian Addresses
+Standardizer)</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Padroniza endereços brasileiros a partir de diferentes
+    critérios. Os métodos de padronização incluem apenas manipulações
+    básicas de strings, não oferecendo suporte a correspondências
+    probabilísticas entre strings. (Standardizes brazilian addresses using
+    different criteria. Standardization methods include only basic string
+    manipulation, not supporting probabilistic matches between strings.)</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Daniel Herszenhut
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            70366
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;firstzeroenergy&#x2F;fastgeojson"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="fastgeojson High-Performance &#x27;GeoJSON&#x27; and &#x27;JSON&#x27; Serialization"
+               data-description="Converts R data frames and &#x27;sf&#x27; spatial objects into &#x27;JSON&#x27; and 
+    &#x27;GeoJSON&#x27; strings. The core encoders are implemented in &#x27;Rust&#x27; using the 
+    &#x27;extendr&#x27; framework and are designed to efficiently serialize large 
+    tabular and spatial datasets. Returns serialized &#x27;JSON&#x27; text, allowing 
+    applications such as &#x27;shiny&#x27; or web APIs to transfer data to 
+    client-side &#x27;JavaScript&#x27; libraries without additional encoding overhead. Alex Jorion"
+               data-sort-name="fastgeojson"
+               data-sort-author="alex jorion"
+               data-sort-count="1006">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">fastgeojson</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">High-Performance &#x27;GeoJSON&#x27; and &#x27;JSON&#x27; Serialization</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Converts R data frames and &#x27;sf&#x27; spatial objects into &#x27;JSON&#x27; and 
+    &#x27;GeoJSON&#x27; strings. The core encoders are implemented in &#x27;Rust&#x27; using the 
+    &#x27;extendr&#x27; framework and are designed to efficiently serialize large 
+    tabular and spatial datasets. Returns serialized &#x27;JSON&#x27; text, allowing 
+    applications such as &#x27;shiny&#x27; or web APIs to transfer data to 
+    client-side &#x27;JavaScript&#x27; libraries without additional encoding overhead.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Alex Jorion
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1006
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;shrektan&#x2F;fcl"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="fcl A Financial Calculator"
+               data-description="A financial calculator that provides very fast implementations
+    of common financial indicators using &#x27;Rust&#x27; code. It includes functions for
+    bond-related indicators, such as yield to maturity (&#x27;YTM&#x27;), modified duration,
+    and Macaulay duration, as well as functions for calculating time-weighted
+    and money-weighted rates of return (using &#x27;Modified Dietz&#x27; method) for multiple portfolios,
+    given their market values and profit and loss (&#x27;PnL&#x27;) data. &#x27;fcl&#x27; is designed
+    to be efficient and accurate for financial analysis and computation. The methods
+    used in this package are based on the following references:
+    &lt;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Modified_Dietz_method&gt;,
+    &lt;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Time-weighted_return&gt;. Xianying Tan"
+               data-sort-name="fcl"
+               data-sort-author="xianying tan"
+               data-sort-count="351606">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">fcl</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">A Financial Calculator</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A financial calculator that provides very fast implementations
+    of common financial indicators using &#x27;Rust&#x27; code. It includes functions for
+    bond-related indicators, such as yield to maturity (&#x27;YTM&#x27;), modified duration,
+    and Macaulay duration, as well as functions for calculating time-weighted
+    and money-weighted rates of return (using &#x27;Modified Dietz&#x27; method) for multiple portfolios,
+    given their market values and profit and loss (&#x27;PnL&#x27;) data. &#x27;fcl&#x27; is designed
+    to be efficient and accurate for financial analysis and computation. The methods
+    used in this package are based on the following references:
+    &lt;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Modified_Dietz_method&gt;,
+    &lt;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Time-weighted_return&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Xianying Tan
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            351606
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;albersonmiranda.github.io&#x2F;fio&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="fio Friendly Input-Output Analysis"
+               data-description="Simplifies the process of economic input-output analysis by combining
+  user-friendly interfaces with high-performance computation. It provides tools
+  for analyzing both single-region and multi-regional economic systems through a
+  hybrid architecture that pairs R&#x27;s accessibility with Rust&#x27;s computational efficiency. Alberson da Silva Miranda"
+               data-sort-name="fio"
+               data-sort-author="alberson da silva miranda"
+               data-sort-count="194006">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">fio</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Friendly Input-Output Analysis</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Simplifies the process of economic input-output analysis by combining
+  user-friendly interfaces with high-performance computation. It provides tools
+  for analyzing both single-region and multi-regional economic systems through a
+  hybrid architecture that pairs R&#x27;s accessibility with Rust&#x27;s computational efficiency.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Alberson da Silva Miranda
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            194006
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;fozzieverse&#x2F;fozziejoin"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="fozziejoin Utilities for Joining Dataframes with Inexact Matching"
+               data-description="Provides functions for joining data frames based on inexact
+    criteria, including string distance, Manhattan distance, Euclidean
+    distance, and interval overlap. This API is designed as a modern,
+    performance-oriented alternative to the &#x27;fuzzyjoin&#x27; package (Robinson 2026)
+    &lt;doi:10.32614&#x2F;CRAN.package.fuzzyjoin&gt;. String distance functions utilizing
+    &#x27;q-grams&#x27; are adapted with permission from the &#x27;textdistance&#x27; &#x27;Rust&#x27; crate
+    (Orsinium 2024) &lt;https:&#x2F;&#x2F;docs.rs&#x2F;textdistance&#x2F;latest&#x2F;textdistance&#x2F;&gt;. Other
+    string distance calculations rely on the &#x27;rapidfuzz&#x27; &#x27;Rust&#x27; crate (Bachmann
+    2023) &lt;https:&#x2F;&#x2F;docs.rs&#x2F;rapidfuzz&#x2F;0.5.0&#x2F;rapidfuzz&#x2F;&gt;. Interval joins are
+    backed by a Adelson-Velsky and Landis tree as implemented by the &#x27;interavl&#x27;
+    &#x27;Rust&#x27; crate &lt;https:&#x2F;&#x2F;docs.rs&#x2F;interavl&#x2F;0.5.0&#x2F;interavl&#x2F;&gt;. Jon Downs"
+               data-sort-name="fozziejoin"
+               data-sort-author="jon downs"
+               data-sort-count="661">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">fozziejoin</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Utilities for Joining Dataframes with Inexact Matching</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides functions for joining data frames based on inexact
+    criteria, including string distance, Manhattan distance, Euclidean
+    distance, and interval overlap. This API is designed as a modern,
+    performance-oriented alternative to the &#x27;fuzzyjoin&#x27; package (Robinson 2026)
+    &lt;doi:10.32614&#x2F;CRAN.package.fuzzyjoin&gt;. String distance functions utilizing
+    &#x27;q-grams&#x27; are adapted with permission from the &#x27;textdistance&#x27; &#x27;Rust&#x27; crate
+    (Orsinium 2024) &lt;https:&#x2F;&#x2F;docs.rs&#x2F;textdistance&#x2F;latest&#x2F;textdistance&#x2F;&gt;. Other
+    string distance calculations rely on the &#x27;rapidfuzz&#x27; &#x27;Rust&#x27; crate (Bachmann
+    2023) &lt;https:&#x2F;&#x2F;docs.rs&#x2F;rapidfuzz&#x2F;0.5.0&#x2F;rapidfuzz&#x2F;&gt;. Interval joins are
+    backed by a Adelson-Velsky and Landis tree as implemented by the &#x27;interavl&#x27;
+    &#x27;Rust&#x27; crate &lt;https:&#x2F;&#x2F;docs.rs&#x2F;interavl&#x2F;0.5.0&#x2F;interavl&#x2F;&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Jon Downs
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            661
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;walker-data.com&#x2F;freestiler&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="freestiler Create Vector Tiles from Spatial Data"
+               data-description="Create vector tile archives in &#x27;PMTiles&#x27; format from &#x27;sf&#x27; spatial
+    data frames. Supports &#x27;Mapbox Vector Tile&#x27; (&#x27;MVT&#x27;) and &#x27;MapLibre Tile&#x27;
+    (&#x27;MLT&#x27;) output formats. Uses a &#x27;Rust&#x27; backend via &#x27;extendr&#x27; for fast,
+    in-memory tiling with zero external system dependencies. Kyle Walker"
+               data-sort-name="freestiler"
+               data-sort-author="kyle walker"
+               data-sort-count="408">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">freestiler</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Create Vector Tiles from Spatial Data</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Create vector tile archives in &#x27;PMTiles&#x27; format from &#x27;sf&#x27; spatial
+    data frames. Supports &#x27;Mapbox Vector Tile&#x27; (&#x27;MVT&#x27;) and &#x27;MapLibre Tile&#x27;
+    (&#x27;MLT&#x27;) output formats. Uses a &#x27;Rust&#x27; backend via &#x27;extendr&#x27; for fast,
+    in-memory tiling with zero external system dependencies.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Kyle Walker
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            408
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;CausalDisco&#x2F;gadjid"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="gadjid Graph Adjustment Identification Distances for Causal Graphs"
+               data-description="Make efficient Rust implementations of graph adjustment
+    identification distances available in R. These distances (based on ancestor,
+    optimal, and parent adjustment) count how often the respective adjustment
+    identification strategy leads to causal inferences that are incorrect
+    relative to a ground-truth graph when applied to a candidate graph instead.
+    See also Henckel, Würtzen, Weichwald (2024) &lt;doi:10.48550&#x2F;arXiv.2402.08616&gt;. Sebastian Weichwald"
+               data-sort-name="gadjid"
+               data-sort-author="sebastian weichwald"
+               data-sort-count="1422">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">gadjid</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Graph Adjustment Identification Distances for Causal Graphs</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Make efficient Rust implementations of graph adjustment
+    identification distances available in R. These distances (based on ancestor,
+    optimal, and parent adjustment) count how often the respective adjustment
+    identification strategy leads to causal inferences that are incorrect
+    relative to a ground-truth graph when applied to a candidate graph instead.
+    See also Henckel, Würtzen, Weichwald (2024) &lt;doi:10.48550&#x2F;arXiv.2402.08616&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Sebastian Weichwald
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1422
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href=""
+               target=""
+               rel=""
+               data-filter-item
+               data-title="geodensity Geodesic Kernel Density Estimation for Spatial Data"
+               data-description="Compute kernel density estimates on geographic data using geodesic distances.
+Combines the terra package&#x27;s efficient raster processing with a parallelized Rust backend
+to deliver scalable, accurate density estimation for large geospatial datasets without. Andrew Brown"
+               data-sort-name="geodensity"
+               data-sort-author="andrew brown"
+               data-sort-count="0">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">geodensity</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Geodesic Kernel Density Estimation for Spatial Data</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Compute kernel density estimates on geographic data using geodesic distances.
+Combines the terra package&#x27;s efficient raster processing with a parallelized Rust backend
+to deliver scalable, accurate density estimation for large geospatial datasets without.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Andrew Brown
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            NA
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;h3o"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="h3o H3 Geospatial Indexing System"
+               data-description="A dependency free interface to the H3 geospatial indexing system utilizing the Rust library &#x27;h3o&#x27; &lt;https:&#x2F;&#x2F;github.com&#x2F;HydroniumLabs&#x2F;h3o&gt; via the &#x27;extendr&#x27; library &lt;https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&gt;. Josiah Parry"
+               data-sort-name="h3o"
+               data-sort-author="josiah parry"
+               data-sort-count="4521">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">h3o</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">H3 Geospatial Indexing System</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A dependency free interface to the H3 geospatial indexing system utilizing the Rust library &#x27;h3o&#x27; &lt;https:&#x2F;&#x2F;github.com&#x2F;HydroniumLabs&#x2F;h3o&gt; via the &#x27;extendr&#x27; library &lt;https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            4521
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;DyfanJones&#x2F;heck"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="heck Highly Performant String Case Converter"
+               data-description="Provides a case conversion between common cases like CamelCase and 
+    snake_case. Using the &#x27;rust crate heck&#x27; &lt;https:&#x2F;&#x2F;github.com&#x2F;withoutboats&#x2F;heck&gt;
+    as the backend for a highly performant case conversion for &#x27;R&#x27;. Josiah Parry"
+               data-sort-name="heck"
+               data-sort-author="josiah parry"
+               data-sort-count="9596">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">heck</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Highly Performant String Case Converter</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides a case conversion between common cases like CamelCase and 
+    snake_case. Using the &#x27;rust crate heck&#x27; &lt;https:&#x2F;&#x2F;github.com&#x2F;withoutboats&#x2F;heck&gt;
+    as the backend for a highly performant case conversion for &#x27;R&#x27;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            9596
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;DyfanJones&#x2F;llmjson"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="llmjson Repair Malformed JSON Strings"
+               data-description="Repairs malformed JSON strings, particularly those generated by
+    Large Language Models. Handles missing quotes, trailing commas, unquoted
+    keys, and other common JSON syntax errors. Dyfan Jones"
+               data-sort-name="llmjson"
+               data-sort-author="dyfan jones"
+               data-sort-count="1078">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">llmjson</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Repair Malformed JSON Strings</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Repairs malformed JSON strings, particularly those generated by
+    Large Language Models. Handles missing quotes, trailing commas, unquoted
+    keys, and other common JSON syntax errors.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Dyfan Jones
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1078
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;ixpantia&#x2F;orbweaver-r"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="orbweaver Fast and Efficient Graph Data Structures"
+               data-description="Seamlessly build and manipulate graph structures, leveraging
+    its high-performance methods for filtering, joining, and mutating
+    data. Ensures that mutations and changes to the graph are performed in
+    place, streamlining your workflow for optimal productivity. ixpantia, SRL"
+               data-sort-name="orbweaver"
+               data-sort-author="ixpantia, srl"
+               data-sort-count="8221">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">orbweaver</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Fast and Efficient Graph Data Structures</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Seamlessly build and manipulate graph structures, leveraging
+    its high-performance methods for filtering, joining, and mutating
+    data. Ensures that mutations and changes to the graph are performed in
+    place, streamlining your workflow for optimal productivity.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        ixpantia, SRL
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            8221
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;lapkb.github.io&#x2F;Pmetrics&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="Pmetrics Pmetrics for Population Modeling and Simulation"
+               data-description="Pmetrics is short for pharmacometrics, the discipline of modeling drug kinetics and effects on biologic systems, including disease progression. Models can be used to simulate novel therapeutic dosing regimens and&#x2F;or populations, informing trial design and dosing strategies. The package supports primarily non-parametric but also parametric pharmacometric modeling and simulation with functions to run and analyze the output from all three components of the Pmetrics software suite for population pharmacometric data analysis: 1) IT2B (Iterative Two-Stage Bayesian) for parametric models; 2) NPAG (Non-parametric Adaptive Grid) for non-paramametric models; 3) Simulator for semi-parametric Monte-Carlo simulations. Michael Neely"
+               data-sort-name="pmetrics"
+               data-sort-author="michael neely"
+               data-sort-count="0">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">Pmetrics</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Pmetrics for Population Modeling and Simulation</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Pmetrics is short for pharmacometrics, the discipline of modeling drug kinetics and effects on biologic systems, including disease progression. Models can be used to simulate novel therapeutic dosing regimens and&#x2F;or populations, informing trial design and dosing strategies. The package supports primarily non-parametric but also parametric pharmacometric modeling and simulation with functions to run and analyze the output from all three components of the Pmetrics software suite for population pharmacometric data analysis: 1) IT2B (Iterative Two-Stage Bayesian) for parametric models; 2) NPAG (Non-parametric Adaptive Grid) for non-paramametric models; 3) Simulator for semi-parametric Monte-Carlo simulations.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Michael Neely
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            NA
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;davzim.github.io&#x2F;rbm25&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="rbm25 A Light Wrapper Around the &#x27;BM25&#x27; &#x27;Rust&#x27; Crate for Okapi BM25
+Text Search"
+               data-description="
+    BM25 is a ranking function used by search engines to rank matching documents according to their relevance to a user&#x27;s search query.
+    This package provides a light wrapper around the &#x27;BM25&#x27; &#x27;rust&#x27; crate for Okapi BM25 text search.
+    For more information, see Robertson et al. (1994) &lt;https:&#x2F;&#x2F;trec.nist.gov&#x2F;pubs&#x2F;trec3&#x2F;t3_proceedings.html&gt;. David Zimmermann-Kollenda"
+               data-sort-name="rbm25"
+               data-sort-author="david zimmermann-kollenda"
+               data-sort-count="2897">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">rbm25</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">A Light Wrapper Around the &#x27;BM25&#x27; &#x27;Rust&#x27; Crate for Okapi BM25
+Text Search</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">
+    BM25 is a ranking function used by search engines to rank matching documents according to their relevance to a user&#x27;s search query.
+    This package provides a light wrapper around the &#x27;BM25&#x27; &#x27;rust&#x27; crate for Okapi BM25 text search.
+    For more information, see Robertson et al. (1994) &lt;https:&#x2F;&#x2F;trec.nist.gov&#x2F;pubs&#x2F;trec3&#x2F;t3_proceedings.html&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        David Zimmermann-Kollenda
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            2897
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;cboettig&#x2F;roxigraph"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="roxigraph &#x27;RDF&#x27; and &#x27;SPARQL&#x27; for R using &#x27;Oxigraph&#x27;"
+               data-description="Provides &#x27;RDF&#x27; storage and &#x27;SPARQL&#x27; 1.1 query capabilities by wrapping
+    the &#x27;Oxigraph&#x27; graph database library &lt;https:&#x2F;&#x2F;github.com&#x2F;oxigraph&#x2F;oxigraph&gt;. 
+    Supports in-memory and persistent (&#x27;RocksDB&#x27;) storage, multiple &#x27;RDF&#x27; 
+    serialization formats (&#x27;Turtle&#x27;, &#x27;N-Triples&#x27;, &#x27;RDF-XML&#x27;, &#x27;N-Quads&#x27;, &#x27;TriG&#x27;), 
+    and full &#x27;SPARQL&#x27; 1.1 Query and Update support. Built using the &#x27;extendr&#x27; 
+    framework for &#x27;Rust&#x27;-R bindings. Carl Boettiger"
+               data-sort-name="roxigraph"
+               data-sort-author="carl boettiger"
+               data-sort-count="878">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">roxigraph</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">&#x27;RDF&#x27; and &#x27;SPARQL&#x27; for R using &#x27;Oxigraph&#x27;</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides &#x27;RDF&#x27; storage and &#x27;SPARQL&#x27; 1.1 query capabilities by wrapping
+    the &#x27;Oxigraph&#x27; graph database library &lt;https:&#x2F;&#x2F;github.com&#x2F;oxigraph&#x2F;oxigraph&gt;. 
+    Supports in-memory and persistent (&#x27;RocksDB&#x27;) storage, multiple &#x27;RDF&#x27; 
+    serialization formats (&#x27;Turtle&#x27;, &#x27;N-Triples&#x27;, &#x27;RDF-XML&#x27;, &#x27;N-Quads&#x27;, &#x27;TriG&#x27;), 
+    and full &#x27;SPARQL&#x27; 1.1 Query and Update support. Built using the &#x27;extendr&#x27; 
+    framework for &#x27;Rust&#x27;-R bindings.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Carl Boettiger
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            878
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href=""
+               target=""
+               rel=""
+               data-filter-item
+               data-title="RPesto Phylogenetic Estimation of Shifts in the Tempo of Origination"
+               data-description="Implements diversification analyses using the phylogenetic birth-death-shift model. It leverages belief propagation techniques to calculate branch-specific diversification rates, see Kopperud &amp; Hoehna (2025) &lt;doi:10.1093&#x2F;sysbio&#x2F;syaf041&gt;. Bjørn Tore Kopperud"
+               data-sort-name="rpesto"
+               data-sort-author="bjørn tore kopperud"
+               data-sort-count="907">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">RPesto</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Phylogenetic Estimation of Shifts in the Tempo of Origination</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Implements diversification analyses using the phylogenetic birth-death-shift model. It leverages belief propagation techniques to calculate branch-specific diversification rates, see Kopperud &amp; Hoehna (2025) &lt;doi:10.1093&#x2F;sysbio&#x2F;syaf041&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Bjørn Tore Kopperud
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            907
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;alexhroom&#x2F;rshift"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="rshift Paleoecology Functions for Regime Shift Analysis"
+               data-description="Contains a variety of functions, based around
+    regime shift analysis of paleoecological data.
+    Citations:
+    Rodionov() from Rodionov (2004) &lt;doi:10.1029&#x2F;2004GL019448&gt;
+    Lanzante() from Lanzante (1996) &lt;doi:10.1002&#x2F;(SICI)1097-0088(199611)16:11%3C1197::AID-JOC89%3E3.0.CO;2-L&gt;
+    Hellinger_trans from Numerical Ecology, Legendre &amp; Legendre (ISBN 9780444538680)
+    rolling_autoc from Liu, Gao &amp; Wang (2018) &lt;doi:10.1016&#x2F;j.scitotenv.2018.06.276&gt;
+    Sample data sets lake_data &amp; lake_RSI processed from Bush, Silman &amp; Urrego (2004) &lt;doi:10.1126&#x2F;science.1090795&gt;
+    Sample data set January_PDO from NOAA: &lt;https:&#x2F;&#x2F;www.ncei.noaa.gov&#x2F;access&#x2F;monitoring&#x2F;pdo&#x2F;&gt;. Alex H. Room"
+               data-sort-name="rshift"
+               data-sort-author="alex h. room"
+               data-sort-count="204363">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">rshift</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Paleoecology Functions for Regime Shift Analysis</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Contains a variety of functions, based around
+    regime shift analysis of paleoecological data.
+    Citations:
+    Rodionov() from Rodionov (2004) &lt;doi:10.1029&#x2F;2004GL019448&gt;
+    Lanzante() from Lanzante (1996) &lt;doi:10.1002&#x2F;(SICI)1097-0088(199611)16:11%3C1197::AID-JOC89%3E3.0.CO;2-L&gt;
+    Hellinger_trans from Numerical Ecology, Legendre &amp; Legendre (ISBN 9780444538680)
+    rolling_autoc from Liu, Gao &amp; Wang (2018) &lt;doi:10.1016&#x2F;j.scitotenv.2018.06.276&gt;
+    Sample data sets lake_data &amp; lake_RSI processed from Bush, Silman &amp; Urrego (2004) &lt;doi:10.1126&#x2F;science.1090795&gt;
+    Sample data set January_PDO from NOAA: &lt;https:&#x2F;&#x2F;www.ncei.noaa.gov&#x2F;access&#x2F;monitoring&#x2F;pdo&#x2F;&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Alex H. Room
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            204363
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;davzim.github.io&#x2F;rtiktoken&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="rtiktoken A Byte-Pair-Encoding (BPE) Tokenizer for OpenAI&#x27;s Large Language
+Models"
+               data-description="A thin wrapper around the tiktoken-rs crate, allowing to encode text into Byte-Pair-Encoding (BPE) tokens and decode tokens back to text. This is useful to understand how Large Language Models (LLMs) perceive text.  David Zimmermann-Kollenda"
+               data-sort-name="rtiktoken"
+               data-sort-author="david zimmermann-kollenda"
+               data-sort-count="5119">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">rtiktoken</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">A Byte-Pair-Encoding (BPE) Tokenizer for OpenAI&#x27;s Large Language
+Models</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A thin wrapper around the tiktoken-rs crate, allowing to encode text into Byte-Pair-Encoding (BPE) tokens and decode tokens back to text. This is useful to understand how Large Language Models (LLMs) perceive text. </p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        David Zimmermann-Kollenda
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            5119
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;ryanzomorrodi.github.io&#x2F;socratadata&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="socratadata Explore Socrata Data with Ease"
+               data-description="Provides an interface to search, read, query, and retrieve metadata for 
+    datasets hosted on &#x27;Socrata&#x27; open data portals. Supports all &#x27;Socrata&#x27; data types, 
+    including spatial data returned as &#x27;sf&#x27; objects.  Ryan Zomorrodi"
+               data-sort-name="socratadata"
+               data-sort-author="ryan zomorrodi"
+               data-sort-count="1949">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">socratadata</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Explore Socrata Data with Ease</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides an interface to search, read, query, and retrieve metadata for 
+    datasets hosted on &#x27;Socrata&#x27; open data portals. Supports all &#x27;Socrata&#x27; data types, 
+    including spatial data returned as &#x27;sf&#x27; objects. </p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Ryan Zomorrodi
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1949
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;walker-data.com&#x2F;spopt-r&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="spopt Spatial Optimization for Regionalization, Facility Location, and
+Market Analysis"
+               data-description="Implements spatial optimization algorithms across several
+    problem families including contiguity-constrained regionalization, discrete
+    facility location, market share analysis, and least-cost corridor and
+    route optimization over raster cost surfaces. Facility location
+    problems also accept user-supplied network travel-time matrices. Uses
+    a &#x27;Rust&#x27; backend via &#x27;extendr&#x27; for graph and routing algorithms, and
+    the &#x27;HiGHS&#x27; solver via the &#x27;highs&#x27; package for facility location
+    mixed-integer programs. Method-level references are provided in the
+    documentation of the individual functions. Kyle Walker"
+               data-sort-name="spopt"
+               data-sort-author="kyle walker"
+               data-sort-count="421">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">spopt</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Spatial Optimization for Regionalization, Facility Location, and
+Market Analysis</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Implements spatial optimization algorithms across several
+    problem families including contiguity-constrained regionalization, discrete
+    facility location, market share analysis, and least-cost corridor and
+    route optimization over raster cost surfaces. Facility location
+    problems also accept user-supplied network travel-time matrices. Uses
+    a &#x27;Rust&#x27; backend via &#x27;extendr&#x27; for graph and routing algorithms, and
+    the &#x27;HiGHS&#x27; solver via the &#x27;highs&#x27; package for facility location
+    mixed-integer programs. Method-level references are provided in the
+    documentation of the individual functions.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Kyle Walker
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            421
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;dataupsurge.github.io&#x2F;SQLFormatteR&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="SQLFormatteR Format SQL Queries"
+               data-description="A convenient interface for formatting &#x27;SQL&#x27; queries directly
+    within &#x27;R&#x27;. It acts as a wrapper around the &#x27;sql_format&#x27; Rust crate.
+    The package allows you to format &#x27;SQL&#x27; code with customizable options,
+    including indentation, case formatting, and more, ensuring your &#x27;SQL&#x27;
+    queries are clean, readable, and consistent. Morgan Durand"
+               data-sort-name="sqlformatter"
+               data-sort-author="morgan durand"
+               data-sort-count="2962">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">SQLFormatteR</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Format SQL Queries</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A convenient interface for formatting &#x27;SQL&#x27; queries directly
+    within &#x27;R&#x27;. It acts as a wrapper around the &#x27;sql_format&#x27; Rust crate.
+    The package allows you to format &#x27;SQL&#x27; code with customizable options,
+    including indentation, case formatting, and more, ensuring your &#x27;SQL&#x27;
+    queries are clean, readable, and consistent.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Morgan Durand
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            2962
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;rtergo.pagacz.io"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="tergo Style Your Code Fast"
+               data-description="Provides a set of functions
+    that allow users for styling their R code according to
+    the &#x27;tidyverse&#x27; style guide. The package uses a native
+    Rust implementation to ensure the highest performance.
+    Learn more about &#x27;tergo&#x27; at &lt;https:&#x2F;&#x2F;rtergo.pagacz.io&gt;. Konrad Pagacz"
+               data-sort-name="tergo"
+               data-sort-author="konrad pagacz"
+               data-sort-count="3157">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">tergo</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Style Your Code Fast</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides a set of functions
+    that allow users for styling their R code according to
+    the &#x27;tidyverse&#x27; style guide. The package uses a native
+    Rust implementation to ensure the highest performance.
+    Learn more about &#x27;tergo&#x27; at &lt;https:&#x2F;&#x2F;rtergo.pagacz.io&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Konrad Pagacz
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            3157
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;yihui&#x2F;tinyimg"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="tinyimg Optimize and Compress Images"
+               data-description="Optimize and compress images using &#x27;Rust&#x27; libraries to reduce
+    file sizes while maintaining image quality. Supports PNG palette
+    reduction and dithering via the &#x27;exoquant&#x27; crate before lossless PNG
+    optimization via the &#x27;oxipng&#x27; crate, and JPEG re-encoding via the
+    &#x27;mozjpeg&#x27; crate. The package provides functions to optimize individual
+    image files or entire directories, with configurable compression levels.
+    Use tinyimg() as a convenient entry point for mixed PNG&#x2F;JPEG workflows. Yihui Xie"
+               data-sort-name="tinyimg"
+               data-sort-author="yihui xie"
+               data-sort-count="1290">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">tinyimg</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Optimize and Compress Images</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Optimize and compress images using &#x27;Rust&#x27; libraries to reduce
+    file sizes while maintaining image quality. Supports PNG palette
+    reduction and dithering via the &#x27;exoquant&#x27; crate before lossless PNG
+    optimization via the &#x27;oxipng&#x27; crate, and JPEG re-encoding via the
+    &#x27;mozjpeg&#x27; crate. The package provides functions to optimize individual
+    image files or entire directories, with configurable compression levels.
+    Use tinyimg() as a convenient entry point for mixed PNG&#x2F;JPEG workflows.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Yihui Xie
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1290
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;mlverse&#x2F;tok"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="tok Fast Text Tokenization"
+               data-description="
+  Interfaces with the &#x27;Hugging Face&#x27; tokenizers library to provide implementations
+  of today&#x27;s most used tokenizers such as the &#x27;Byte-Pair Encoding&#x27; algorithm 
+  &lt;https:&#x2F;&#x2F;huggingface.co&#x2F;docs&#x2F;tokenizers&#x2F;index&gt;. It&#x27;s extremely fast for both 
+  training new vocabularies and tokenizing texts. Tomasz Kalinowski"
+               data-sort-name="tok"
+               data-sort-author="tomasz kalinowski"
+               data-sort-count="152901">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">tok</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Fast Text Tokenization</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">
+  Interfaces with the &#x27;Hugging Face&#x27; tokenizers library to provide implementations
+  of today&#x27;s most used tokenizers such as the &#x27;Byte-Pair Encoding&#x27; algorithm 
+  &lt;https:&#x2F;&#x2F;huggingface.co&#x2F;docs&#x2F;tokenizers&#x2F;index&gt;. It&#x27;s extremely fast for both 
+  training new vocabularies and tokenizing texts.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Tomasz Kalinowski
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            152901
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;extendr.github.io&#x2F;tomledit&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="tomledit Parse, Read, and Edit &#x27;TOML&#x27;"
+               data-description="A toolkit for working with &#x27;TOML&#x27; files in R while preserving
+    formatting, comments, and structure. &#x27;tomledit&#x27; enables serialization of R
+    objects such as lists, data.frames, numeric, logical, and date vectors. Josiah Parry"
+               data-sort-name="tomledit"
+               data-sort-author="josiah parry"
+               data-sort-count="9221">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">tomledit</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Parse, Read, and Edit &#x27;TOML&#x27;</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A toolkit for working with &#x27;TOML&#x27; files in R while preserving
+    formatting, comments, and structure. &#x27;tomledit&#x27; enables serialization of R
+    objects such as lists, data.frames, numeric, logical, and date vectors.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Josiah Parry
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            9221
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;lhdjung&#x2F;unsum"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="unsum Reconstruct Raw Data from Summary Statistics"
+               data-description="Reconstructs all possible raw data that could have led to reported
+    summary statistics. Provides a wrapper for the &#x27;Rust&#x27; implementation of the
+    &#x27;CLOSURE&#x27; algorithm. Lukas Jung"
+               data-sort-name="unsum"
+               data-sort-author="lukas jung"
+               data-sort-count="1726">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">unsum</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Reconstruct Raw Data from Summary Statistics</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Reconstructs all possible raw data that could have led to reported
+    summary statistics. Provides a wrapper for the &#x27;Rust&#x27; implementation of the
+    &#x27;CLOSURE&#x27; algorithm.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Lukas Jung
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1726
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href=""
+               target=""
+               rel=""
+               data-filter-item
+               data-title="uuidx Modern UUIDs for R with a Rust Backend"
+               data-description="Generate, parse, and validate RFC 9562 UUIDs from R using the
+    Rust &#x27;uuid&#x27; crate via &#x27;extendr&#x27;. Developed by Thomas Bryce Kelly at Icy
+    Seas Co-Laboratory LLC. Version 7 UUIDs are the default for new
+    identifiers, while versions 4, 5, 6, and legacy version 1 are also
+    supported. Functions return character vectors by default and can also
+    expose 16-byte raw representations for low-level workflows. Thomas Bryce Kelly"
+               data-sort-name="uuidx"
+               data-sort-author="thomas bryce kelly"
+               data-sort-count="473">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">uuidx</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Modern UUIDs for R with a Rust Backend</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Generate, parse, and validate RFC 9562 UUIDs from R using the
+    Rust &#x27;uuid&#x27; crate via &#x27;extendr&#x27;. Developed by Thomas Bryce Kelly at Icy
+    Seas Co-Laboratory LLC. Version 7 UUIDs are the default for new
+    identifiers, while versions 4, 5, 6, and legacy version 1 are also
+    supported. Functions return character vectors by default and can also
+    expose 16-byte raw representations for low-level workflows.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Thomas Bryce Kelly
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            473
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;github.com&#x2F;thomasp85&#x2F;waysign"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="waysign Multi-Purpose and High-Performance Routing"
+               data-description="Provides routing based on the &#x27;path-tree&#x27; &#x27;Rust&#x27; crate. The routing
+    is general purpose in the sense that any type of R object can be associated
+    with a path, not just a handler function. Thomas Lin Pedersen"
+               data-sort-name="waysign"
+               data-sort-author="thomas lin pedersen"
+               data-sort-count="3784">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">waysign</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Multi-Purpose and High-Performance Routing</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Provides routing based on the &#x27;path-tree&#x27; &#x27;Rust&#x27; crate. The routing
+    is general purpose in the sense that any type of R object can be associated
+    with a path, not just a handler function.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Thomas Lin Pedersen
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            3784
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;sachsmc.github.io&#x2F;xactonomial&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="xactonomial Inference for Functions of Multinomial Parameters"
+               data-description="We consider the problem where we observe k vectors (possibly of different lengths), each representing an independent multinomial random vector. For a given function that takes in the concatenated vector of multinomial probabilities and outputs a real number, this is a Monte Carlo estimation procedure of an exact p-value and confidence interval. The resulting inference is valid even in small samples, when the parameter is on the boundary, and when the function is not differentiable at the parameter value, all situations where asymptotic methods and the bootstrap would fail. For more details see Sachs, Fay, and Gabriel (2025) &lt;doi:10.48550&#x2F;arXiv.2406.19141&gt;. Michael C Sachs"
+               data-sort-name="xactonomial"
+               data-sort-author="michael c sachs"
+               data-sort-count="1963">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">xactonomial</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Inference for Functions of Multinomial Parameters</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">We consider the problem where we observe k vectors (possibly of different lengths), each representing an independent multinomial random vector. For a given function that takes in the concatenated vector of multinomial probabilities and outputs a real number, this is a Monte Carlo estimation procedure of an exact p-value and confidence interval. The resulting inference is valid even in small samples, when the parameter is on the boundary, and when the function is not differentiable at the parameter value, all situations where asymptotic methods and the bootstrap would fail. For more details see Sachs, Fay, and Gabriel (2025) &lt;doi:10.48550&#x2F;arXiv.2406.19141&gt;.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Michael C Sachs
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            1963
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;posit-dev.github.io&#x2F;r-yaml12&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="yaml12 Fast &#x27;YAML&#x27; 1.2 Parser and Formatter"
+               data-description="A fast, correct, safe, and ergonomic &#x27;YAML&#x27; 1.2 parser and
+    generator written in &#x27;Rust&#x27;. Convert between &#x27;YAML&#x27; and simple &#x27;R&#x27;
+    objects with full support for multi-document streams, tags, anchors,
+    and aliases. Offers opt-in handlers for custom tag behavior and
+    round-trips common &#x27;R&#x27; data structures. Implements the &#x27;YAML&#x27; 1.2.2
+    specification from the &#x27;YAML&#x27; Language Development Team (2021)
+    &lt;https:&#x2F;&#x2F;yaml.org&#x2F;spec&#x2F;1.2.2&#x2F;&gt;. Proudly supported by Posit. Tomasz Kalinowski"
+               data-sort-name="yaml12"
+               data-sort-author="tomasz kalinowski"
+               data-sort-count="2854">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">yaml12</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Fast &#x27;YAML&#x27; 1.2 Parser and Formatter</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">A fast, correct, safe, and ergonomic &#x27;YAML&#x27; 1.2 parser and
+    generator written in &#x27;Rust&#x27;. Convert between &#x27;YAML&#x27; and simple &#x27;R&#x27;
+    objects with full support for multi-document streams, tags, anchors,
+    and aliases. Offers opt-in handlers for custom tag behavior and
+    round-trips common &#x27;R&#x27; data structures. Implements the &#x27;YAML&#x27; 1.2.2
+    specification from the &#x27;YAML&#x27; Language Development Team (2021)
+    &lt;https:&#x2F;&#x2F;yaml.org&#x2F;spec&#x2F;1.2.2&#x2F;&gt;. Proudly supported by Posit.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Tomasz Kalinowski
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            2854
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;shrektan.github.io&#x2F;ymd&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="ymd Parse &#x27;YMD&#x27; Format Number or String to Date"
+               data-description="Convert &#x27;YMD&#x27; format number or string to Date efficiently, using Rust&#x27;s
+    standard library. It also provides helper functions to handle Date, e.g., quick
+    finding the beginning or end of the given period, adding months to Date, etc. Xianying Tan"
+               data-sort-name="ymd"
+               data-sort-author="xianying tan"
+               data-sort-count="9730">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">ymd</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Parse &#x27;YMD&#x27; Format Number or String to Date</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Convert &#x27;YMD&#x27; format number or string to Date efficiently, using Rust&#x27;s
+    standard library. It also provides helper functions to handle Date, e.g., quick
+    finding the beginning or end of the given period, adding months to Date, etc.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Xianying Tan
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            9730
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+            
+            
+            
+            
+            
+            
+            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+               href="https:&#x2F;&#x2F;beniamino.org&#x2F;zoomerjoin&#x2F;"
+               target="_blank"
+               rel="noopener noreferrer"
+               data-filter-item
+               data-title="zoomerjoin Superlatively Fast Fuzzy Joins"
+               data-description="Empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage.  The package uses the locality sensitive hashing algorithms developed by Datar, Immorlica, Indyk and Mirrokni (2004) &lt;doi:10.1145&#x2F;997817.997857&gt;, and Broder (1998) &lt;doi:10.1109&#x2F;SEQUEN.1997.666900&gt; to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time. Beniamino Green"
+               data-sort-name="zoomerjoin"
+               data-sort-author="beniamino green"
+               data-sort-count="7268">
+                <header class="flex items-start justify-between gap-2">
+                    <h2 class="font-mono">zoomerjoin</h2>
+                    <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
+                </header>
+                <section>
+                    <p class="font-medium">Superlatively Fast Fuzzy Joins</p>
+                    <p class="text-sm text-muted-foreground line-clamp-5">Empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage.  The package uses the locality sensitive hashing algorithms developed by Datar, Immorlica, Indyk and Mirrokni (2004) &lt;doi:10.1145&#x2F;997817.997857&gt;, and Broder (1998) &lt;doi:10.1109&#x2F;SEQUEN.1997.666900&gt; to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time.</p>
+                </section>
+                <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
+                    <span class="truncate flex items-center gap-1 mr-auto shrink-0">
+                        <span class="iconify lucide--users mr-1"></span>
+                        Beniamino Green
+                    </span>
+                    <span class="flex items-center gap-1 shrink-0">
+                        <span class="iconify lucide--download"></span>
+                        <span>Downloads:</span>
+                        <span>
+                            
+                            7268
+                            
+                        </span>
+                    </span>
+                </footer>
+            </a>
+            
+
+            <p data-filter-empty
+               class="hidden text-sm text-muted-foreground mt-2">No packages match your search.</p>
+        </div>
+    </div>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>

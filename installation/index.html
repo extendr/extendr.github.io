@@ -460,59 +460,165 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Installation</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Get setup for development with extendr.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
-        </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
+        </header>
+        <div class="prose">
+            <div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+     role="note" aria-label="Note">
+    <header class="flex items-center gap-3">
+        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
+        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+            Note
+        </h2>
     </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        This page does not try to be a comprehensive installation guide. Instead, it
+provides a quick overview of the software you need to get started with extendr.
+For more detailed instructions, please refer to the official documentation of
+each software package.
+    </section>
+</div><h2 id="required-software">Required software</h2>
+<div class="flex flex-col gap-6 [&_h3]:text-lg [&_h3]:lg:text-xl">
+<div class="group/item bg-card flex flex-row items-center gap-6 p-3 border border-border">
+<div class="basis-1/6 [&_img]:w-full">
+<img src="/images/cuddlyferris.svg" alt="Rust language logo"/>
+</div>
+<div class="[&_h3]:mt-0 [&_p]:mb-0 basis-5/6">
+<h3 id="rust-docs">Rust <span class="text-sm text-muted-foreground">[<a rel="external" href="https://rust-lang.org/learn/">docs</a>]</span></h3>
+<p>Follow the <a rel="external" href="https://www.rust-lang.org/tools/install">rustup installation
+instructions</a> to install Rust. Note
+that the current minimum supported Rust version (msrv) in <strong>extendr</strong> is
+<span class="rust-version">1.65.0</span>. This is to ensure CRAN compliance. Windows users will
+also need to install the GNU toolchain as it matches Rtools. This can be done
+via rustup in the terminal: <code>rustup target add x86_64-pc-windows-gnu</code>.</p>
+</div>
+</div>
+<div class="group/item flex flex-row items-center gap-6 p-3">
+<div class="basis-1/6 [&_img]:w-full">
+<img src="/images/Rlogo.svg" alt="R language logo"/>
+</div>
+<div class="[&_h3]:mt-0 [&_p]:mb-0 basis-5/6">
+<h3 id="r-docs">R <span class="text-sm text-muted-foreground">[<a rel="external" href="https://www.r-project.org/">docs</a>]</span></h3>
+<p>We recommend using a moderately new version of R (&gt;= 4.2), which you can
+download from <a rel="external" href="https://cran.r-project.org/">CRAN</a>. You can check your current R
+version with <code>getRversion()</code>.</p>
+</div>
+</div>
+<div class="group/item bg-card flex flex-row items-center gap-6 p-3 border border-border">
+<div class="basis-1/6 [&_img]:w-full">
+<img src="/images/rextendr-logo.png" alt="rextendr"/>
+</div>
+<div class="[&_h3]:mt-0 [&_p]:mb-0 basis-5/6">
+<h3 id="rextendr-docs">rextendr <span class="text-sm text-muted-foreground">[<a rel="external" href="https://extendr.rs/rextendr/">docs</a>]</span></h3>
+<p>The R package <code>rextendr</code> will help you setup the necessary scaffolding for
+extendr projects. It also provides tools for documenting Rust functions and
+objects. To install the release version, use <code>install.packages("rextendr")</code>. For
+the development version, use <code>pak::pak("extendr/rextendr")</code>. You can then run
+<code>rextendr::rust_sitrep()</code> to check your Rust installation.</p>
+</div>
+</div>
+</div>
+<h2 id="recommended-software">Recommended software</h2>
+<div class="flex flex-col gap-6 [&_h3]:text-lg [&_h3]:lg:text-xl">
+<div class="group/item flex flex-row items-center gap-6 p-3">
+<div class="basis-1/6 [&_img]:w-full">
+<!-- ![rig logo](/images/rig.svg) -->
+</div>
+<div class="[&_h3]:mt-0 [&_p]:mb-0 basis-5/6">
+<h3 id="rig-docs">rig <span class="text-sm text-muted-foreground">[<a rel="external" href="https://rust-analyzer.github.io/">docs</a>]</span></h3>
+<p>The R installation manager, <a rel="external" href="https://github.com/r-lib/rig">rig</a>, is a cli tool
+that makes installing R a breeze. With rig, installing R is as simple as
+<code>rig add release</code>.</p>
+</div>
+</div>
+<div class="group/item bg-card flex flex-row items-center gap-6 p-3 border border-border">
+<div class="basis-1/6 [&_img]:w-full">
+<img src="/images/ra-logo-square.svg" alt="rust-analyzer logo"/>
+</div>
+<div class="[&_h3]:mt-0 [&_p]:mb-0 basis-5/6">
+<h3 id="rust-analyzer-docs">rust-analyzer <span class="text-sm text-muted-foreground">[<a rel="external" href="https://rust-analyzer.github.io/">docs</a>]</span></h3>
+<p>While this is optional, we cannot recommend it enough. If you use <a rel="external" href="https://code.visualstudio.com/download">Visual Studio
+Code (VS Code)</a> or a similar IDE, the
+<a rel="external" href="https://rust-analyzer.github.io/">rust-analyzer</a> will provide you type hinting
+and auto-completion suggestions. It is <strong>very</strong> helpful!</p>
+</div>
+</div>
+</div>
+
         </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                </div>
+                <div>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#required-software" class="toc-link pl-4">Required software</a>
+        
+        
+<ul class="space-y-1 ml-2">
+    
+    
+    
+    
+    
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#recommended-software" class="toc-link pl-4">Recommended software</a>
+        
+        
+<ul class="space-y-1 ml-2">
+    
+    
+    
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

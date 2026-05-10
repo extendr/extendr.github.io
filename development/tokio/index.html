@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Async with Tokio</h1>
+            
+            
+        </header>
+        <div class="prose">
+            <p>Asynchronous programming enables efficient handling of I/O-bound operations like network requests, file system operations, and database queries without blocking the main program thread. This is crucial for building performant applications that can handle many concurrent operations.</p>
+<p>Many crates in the Rust ecosystem use an <strong>asynchronous</strong> runtime through the <a rel="external" href="https://crates.io/crates/tokio">tokio</a> crate. Tokio provides a <strong>multithreaded</strong> runtime and is used by popular libraries like <a rel="external" href="https://crates.io/crates/reqwest">reqwest</a>, <a rel="external" href="https://crates.io/crates/axum">axum</a>, <a rel="external" href="https://crates.io/crates/datafusion">DataFusion</a>, <a rel="external" href="https://crates.io/crates/sqlx">sqlx</a>, and many more.</p>
+<p>extendr doesn’t provide an async function interface because there is not a true async runtime for R let alone any C API infrastructure for it. But that does not mean we cannot harness the vast async ecosystem in Rust.</p>
+<h2 id="add-tokio">Add tokio</h2>
+<p>To utilize tokio with extendr we will need to bump the msrv of our package to <code>1.70</code> as that is the MSRV of <code>tokio</code> and we will be using a langauge feature called <a rel="external" href="https://doc.rust-lang.org/std/sync/struct.OnceLock.html"><code>OnceLock</code></a> that wasn’t stabilized until 1.70.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_msrv</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">1.70</span><span class="z-string">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_crate</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">tokio</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> features</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rt-multi-thread</span><span class="z-string">&quot;</span><span>)</span></span></code></pre>
+<p>The <code>use_msrv()</code> function will bump the MSRV specified in your package’s <code>DESCRIPTION</code> file. The <code>use_crate()</code> function will call <code>cargo add</code> on your behalf and add the crate to your <code>Cargo.toml</code>.</p>
+<h2 id="creating-your-runtime">Creating your runtime</h2>
+<p>Your R package should share one runtime across all function calls. This approach:</p>
+<ul>
+<li>Creates a global static variable using <code>OnceLock&lt;&gt;</code> (thread-safe, write-once)</li>
+<li>Uses lazy initialization—runtime is created only when first needed</li>
+<li>Returns a reference to the same runtime on subsequent calls</li>
+</ul>
+<div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+     role="note" aria-label="Note">
+    <header class="flex items-center gap-3">
+        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
+        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+            Note
+        </h2>
+    </header>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        ## Futures</p>
+<p>See <a rel="external" href="https://doc.rust-lang.org/book/ch17-01-futures-and-syntax.html">Futures and the Async Syntax</a> section of The Book™.
+    </section>
+</div>
+<p>In your <code>lib.rs</code> we define a static called <code>TOKIO_RUNTIME</code> which contains a <code>Runtime</code>.</p>
+<p>The function <code>get_rt()</code> will create a new <code>Runtime</code> the first time it is called. Each subsequent call returns a reference to that created runtime.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> std</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">sync</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">OnceLock</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> tokio</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">runtime</span><span class="z-keyword z-operator">::</span><span>{</span><span class="z-entity z-name z-type">Builder</span><span>,</span><span class="z-entity z-name z-type"> Runtime</span><span>}</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Initialize a shared tokio runtime for the package</span></span>
+<span class="giallo-l"><span class="z-storage z-modifier">static</span><span> TOKIO_RUNTIME</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> OnceLock</span><span>&lt;</span><span class="z-entity z-name z-type">Runtime</span><span>&gt;</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> OnceLock</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">new</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Helper function to get a tokio runtime</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> get_rt</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-keyword z-operator"> &amp;</span><span>&#39;</span><span class="z-entity z-name z-type">static</span><span class="z-entity z-name z-type"> Runtime</span><span> {</span></span>
+<span class="giallo-l"><span>    TOKIO_RUNTIME</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">get_or_init</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-keyword z-operator">|</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-namespace">        Builder</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">new_multi_thread</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">            .</span><span class="z-entity z-name z-function">enable_all</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">            .</span><span class="z-entity z-name z-function">build</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">            .</span><span class="z-entity z-name z-function">expect</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Failed to create tokio runtime</span><span class="z-string">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Now, in any function we want to use the tokio run time can first call <code>get_rt()</code> to get a reference to it.</p>
+<h2 id="blocking-on-async-futures">Blocking on <code>async</code> futures</h2>
+<p>For a motivating example we can use the async file reader from tokio using our new runtime.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> read_file_async</span><span>(</span><span class="z-variable">path</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> String</span><span> {</span></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> get the tokio runtime</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> rt</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> get_rt</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> define a future, typically we would `.await`</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> file_content_fut</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-namespace"> tokio</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">fs</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">read_to_string</span><span>(</span><span class="z-variable">path</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> use `.block_on()` to await the future</span></span>
+<span class="giallo-l"><span class="z-variable">    rt</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">block_on</span><span>(</span><span class="z-variable">file_content_fut</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">expect</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">failed to read file</span><span class="z-string">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>The first step is to get the tokio runtime. Then we call the async function, which typically we would <code>.await</code> to get the result. Instead, we call <code>.block_on()</code> to execute the future and get the result.</p>
+<h2 id="example-read-many-files-async">Example: read many files async</h2>
+<p>For a more complete / complex example we can create a function that reads multiple files in parallel and awaits all of the futures asynchronously.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> read_files_async</span><span>(</span><span class="z-variable">paths</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-entity z-name z-type">String</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> get the tokio runtime</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> rt</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> get_rt</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> create a joinset to await multiple futures asynchronously</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-storage z-modifier"> mut</span><span class="z-variable"> set</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-namespace"> tokio</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">task</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">JoinSet</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">new</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> spawn each future in the join set</span></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span class="z-variable"> p</span><span class="z-keyword"> in</span><span class="z-variable"> paths</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">        set</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">spawn</span><span>(</span><span class="z-entity z-name z-namespace">tokio</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">fs</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">read_to_string</span><span>(</span><span class="z-variable">p</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> wait for all futures to resolve</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> all_file_bodies</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> rt</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">block_on</span><span>(</span><span class="z-variable">set</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">join_all</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> filter out any files that failed to read</span></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> return the contents as a character vector</span></span>
+<span class="giallo-l"><span class="z-variable">    all_file_bodies</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">filter_map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">contents</span><span class="z-keyword z-operator">|</span><span class="z-variable"> contents</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">ok</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-entity z-name z-namespace">Rstr</span><span class="z-keyword z-operator">::</span><span class="z-variable">from</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="what-this-unlocks">What this unlocks</h2>
+<p>With tokio working in extendr, we now have access to the entire async Rust ecosystem. This means we can build R packages using:</p>
+<ul>
+<li><a rel="external" href="https://github.com/apache/datafusion">DataFusion</a> - high-performance SQL query engine</li>
+<li><a rel="external" href="https://github.com/apache/datafusion-comet">DataFusion Comet</a> - Spark accelerator</li>
+<li><a rel="external" href="https://github.com/lancedb/lancedb">lancedb</a> - vector database for AI applications</li>
+<li><a rel="external" href="https://github.com/qdrant/qdrant">qdrant</a> - vector search engine for next-gen AI</li>
+<li><a rel="external" href="https://github.com/tracel-ai/burn">burn</a> - deep learning framework</li>
+<li><a rel="external" href="https://github.com/lakehq/sail">sail</a> - unified batch and stream processing</li>
+</ul>
+<p>The async ecosystem is massive and growing. Now R can be part of it.</p>
+
+        </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;webr&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Building for WebR</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#add-tokio" class="toc-link pl-4">Add tokio</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#creating-your-runtime" class="toc-link pl-4">Creating your runtime</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#blocking-on-async-futures" class="toc-link pl-4">Blocking on async futures</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#example-read-many-files-async" class="toc-link pl-4">Example: read many files async</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#what-this-unlocks" class="toc-link pl-4">What this unlocks</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>

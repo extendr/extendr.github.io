@@ -1,0 +1,22 @@
+project:
+  type: default
+  render:
+    - "*.qmd"
+    - "**/*.qmd"
+    - "**/_index.qmd"
+
+format:
+  commonmark:
+    from: "markdown-smart"
+    variant: "+yaml_metadata_block"
+    wrap: preserve
+
+execute:
+  freeze: false
+
+knitr:
+  opts_chunk:
+    class-output: output
+
+filters:
+  - path: _extensions/image/image.lua

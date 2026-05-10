@@ -460,59 +460,81 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+
+<div class="mx-auto w-full flex-1 shrink-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">A Brief Introduction to Rust</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Learn the basics of Rust programming with this introduction for R developers.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+            <p class="text-muted-foreground text-sm mt-4 mb-0">
+                Last updated: <time datetime="2026-05-10"
+                      class="font-mono">2026-05-10</time>
+            </p>
+        </header>
+        <div class="prose">
+            <p>Want to build Rust powered R packages but don’t know where to start? These
+tutorials will walk you through the basics of Rust programming using familiar R
+concepts.</p>
+<h2 id="why-rust-crab">Why Rust? 🦀</h2>
+<p>Unlike <em>interpreted</em> languages like R and Python, Rust is a <em>compiled</em> language.
+That means it can often be much faster and more efficient, similar to other
+compiled languages like C or C++. But where those compiled languages can be hard
+to use and easy to break, Rust was built to be both safer and easier to work
+with. Rust is also designed with developers and developer experience in mind. No
+where is this more evident than in the quality of Rust’s error messages. The
+Rust compiler provides error messages that rival — or maybe even surpass —
+the quality of tidyverse error messaging.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This introduction is designed for <strong>intermediate R developers</strong> who are familiar
+with fundamental computing concepts, including data types (like floats,
+integers, and booleans), iteration (with <code>for</code> and <code>while</code> loops, <code>purrr::map()</code>
+style iterators, and the <code>apply()</code> family of functions), control flow, and
+functions. Being comfortable with a terminal environment will be helpful, too.</p>
+<p>Regardless of whether you meet those prerequisites, you may find it helpful to
+freshen up on your R fundamentals by reading or reviewing the following
+materials:</p>
+<ul>
+<li><a rel="external" href="https://r4ds.hadley.nz">R for Data Science</a></li>
+<li><a rel="external" href="https://rstudio-education.github.io/hopr">Hands-On Programming with R</a></li>
+<li><a rel="external" href="https://adv-r.hadley.nz">Advanced R</a></li>
+</ul>
+<p>As for Rust, a lot of the materials in this brief introduction come from the
+official guide, <a rel="external" href="https://doc.rust-lang.org/book/">The Rust Programming
+Language</a>, what Rust developers affectionately
+call “The Book.”</p>
+<h2 id="software-requirements">Software requirements</h2>
+<p>This guide assumes that you have Rust <span class="rust-version">1.65.0</span> installed. Please
+see <a href="https://extendr.rs/installation/">Installation Guide</a> if you do not. If you are not
+yet comfortable with installing Rust, you may find it helpful to try out
+examples in this tutorial using the open source <a rel="external" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021">Rust
+Playground</a>
+browser app.</p>
+<h2 id="acknowledgment">Acknowledgment</h2>
+<p>These introductory tutorials are based on the <a rel="external" href="https://josiahparry.github.io/2025-cascadia-rust-for-r-devs/">Rust for R
+Developers</a>
+workshop led by Josiah Parry at the 2025 Cascadia R Conference.</p>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        
+        
+        
+        
+        <footer class="mt-10">
+            <nav class="flex justify-end items-center text-sm">
+                
+                <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;hello-world&#x2F;"
+                   class="flex items-center gap-1">
+                    <span>Hello, World!</span>
+                    <span>→</span>
+                </a>
+                
+            </nav>
+        </footer>
+        
+    </article>
 </div>
 
                 </main>

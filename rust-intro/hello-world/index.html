@@ -460,59 +460,121 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Hello, World!</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Set up your first Rust crate and run it with cargo, Rust&#x27;s bundled build tool and package manager.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>In this tutorial, you will learn how to setup a new Rust crate and get a sense
+for what it includes. You will also learn how to build and run your new crate
+with <code>cargo</code>, a package manager and build system for Rust. You do not need to
+install <code>cargo</code> because it comes bundled with Rust.</p>
+<p>When you first setup a Rust crate, you will have to choose between one of two
+types: binary crates and library crates. Binary crates are standalone
+applications or executables that you can run, like command line tools. Library
+crates are typically small bundles of code that are used in the development of
+other crates. In this tutorial, we will focus on building a binary crate.</p>
+<p>To create a new binary crate, open a terminal and run the following:</p>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>cargo new hello-world</span></span></code></pre>
+<p>This will create a new directory called <code>hello-world</code> that you can then navigate
+into using <code>cd hello-world</code>. Once inside that directory, you will find all of
+the following:</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>hello-world/</span></span>
+<span class="giallo-l"><span>├── Cargo.toml</span></span>
+<span class="giallo-l"><span>├── Cargo.lock</span></span>
+<span class="giallo-l"><span>└── src/</span></span>
+<span class="giallo-l"><span>    └── main.rs</span></span></code></pre>
+<p>The <code>Cargo.toml</code> file is a document in which you specify metadata and
+dependencies for your crate similar to an R package’s <code>DESCRIPTION</code>. The
+<code>Cargo.lock</code> file maintains copies of those dependencies, similar to
+<code>renv.lock</code>. A lot more can be said about those two files, which are absolutely
+crucial to programming in Rust, but for now let’s focus on the Rust file in the
+source directory. If you open that file in Positron (or your preferred IDE), you
+will see the following text:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, world!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>In just those three short lines, we see examples of many Rust coding patterns:</p>
+<ul>
+<li>Functions are declared using the <code>fn</code> keyword,</li>
+<li>The <code>main()</code> function defines what happens when you run your binary,</li>
+<li>Blocks of code are delimited using curly brackets (just like R), and</li>
+<li>Statements end with <code>;</code>.</li>
+</ul>
+<p>Right now, our app uses the <code>println!()</code> macro to print “Hello, world!” to the
+terminal. When a program writes to the console, it does so through file
+connections called standard output (<code>stdout</code>) and standard error (<code>stderr</code>). In
+R, when we print a message with <code>print()</code> or <code>message()</code>, we print to stdout.
+Similarly, when we make a warning or error using <code>stop()</code> or <code>warning()</code>, that
+is writing to <code>stderr</code>. The Rust <code>println!()</code> macro also has the nice feature of
+supporting string interpolation like <code>sprintf()</code> and <code>glue()</code>:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> indirect interpolation</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>,</span><span class="z-variable"> name</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> direct interpolation</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span></code></pre>
+<p>If we add one or the other of those lines to <code>main()</code> like so</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>we can then call the application and get it to execute in the terminal:</p>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>cargo run</span></span>
+<span class="giallo-l"><span>   Compiling hello_world v0.1.0 (/hello-world)</span></span>
+<span class="giallo-l"><span>    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs</span></span>
+<span class="giallo-l"><span>     Running `target/debug/hello_world`</span></span>
+<span class="giallo-l"><span>Hello, Josiah!</span></span></code></pre>
+<p>Notice that <code>cargo</code> provides detailed information about the build process
+(printed to stderr) before actually running the program (and printing to
+stdout). This is a useful reminder that Rust, unlike R, is a compiled language -
+Rust programs have to be built before they can be run. For those coming from R,
+that might sound rather mysterious, and in some respects it is, but we want to
+emphasize how easy it was to get a program up and running. It was just three
+lines of code in the terminal:</p>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>cargo new hello-world</span></span>
+<span class="giallo-l"><span>cd hello-world</span></span>
+<span class="giallo-l"><span>cargo run</span></span></code></pre>
+<p>That’s it! Those three lines were sufficient to build and run our simple binary.
+Now we can move on to learning about basic data types in Rust.</p>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;types&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Basic Types</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+    </aside>
 </div>
 
                 </main>

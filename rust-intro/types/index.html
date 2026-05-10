@@ -460,59 +460,116 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Basic Types</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Meet Rust&#x27;s scalar primitives — signed and unsigned integers, floats, and how to declare or infer their types.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
-        </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
+        </header>
+        <div class="prose">
+            <p>In R, everything is a vector or a <em>collection</em> of values. There is no concept of
+a single value variable or scalar. The closest equivalent to that is a
+length-one vector. In Rust, however, scalars are the building blocks of
+everything. When a collection is needed, it is made directly from scalars. For
+this reason, you will often hear them referred to as <strong>primitives</strong>. A primitive
+or scalar can be used to hold a single value of a specific data type, including
+strings, integers, and floats, among others. In this tutorial, we will cover
+some of those data types, focusing on how to instantiate them and convert
+between them.</p>
+<p>Integers in Rust are a good place to start. They can be either signed, meaning
+they can represent negative values, or unsigned, meaning they support only
+positive values. Both varieties come in several sizes depending on how many bits
+are needed to store the value:</p>
+<ul>
+<li>Signed integers: <code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>, <code>i128</code></li>
+<li>Unsigned integers: <code>u8</code>, <code>u16</code>, <code>u32</code>, <code>u64</code>, <code>u128</code></li>
+</ul>
+<p>The letter prefix indicates the type (<code>i</code> for signed, <code>u</code> for unsigned) and the
+number indicates the bit width. Unsigned integers can hold larger positive
+values than their signed counterparts because they do not need to use a bit to
+represent a negative value:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-type">i32</span><span class="z-keyword z-operator">::</span><span>MAX</span><span class="z-comment"> //</span><span class="z-comment"> 2147483647</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">u32</span><span class="z-keyword z-operator">::</span><span>MAX</span><span class="z-comment"> //</span><span class="z-comment"> 4294967295</span></span></code></pre>
+<p>Floating points are similar to integers but can represent decimal values, too.
+Unlike integers, floating points are also always signed and come in two sizes:
+<code>f32</code> and <code>f64</code>.</p>
+<div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+     role="note" aria-label="Note">
+    <header class="flex items-center gap-3">
+        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
+        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+            Note
+        </h2>
     </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        In R, integer vectors are comprised of only <code>i32</code> values, and floating points,
+called doubles, are always <code>f64</code> values.
+    </section>
+</div>
+<p>Rust can usually infer types. For instance, it can distinguish the integer <code>1</code>
+from the floating point <code>1.0</code>, but you can also specify the type explicitly.
+There are two ways to do this — using <code>:</code> in the assignment, or by appending a
+type suffix to the literal value:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 10</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>;</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 10</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span class="z-entity z-name z-type">f64</span><span>;</span></span></code></pre>
+<p>You can also use <code>_</code> as a visual separator when writing numeric literals. The
+following are all identical:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1000</span><span>;</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1000</span><span class="z-entity z-name z-type">i32</span><span>;</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1_000_</span><span class="z-entity z-name z-type">i32</span><span>;</span></span></code></pre>
+<p>This pattern of explicitly declaring the type of a variable may seem somewhat
+verbose to the average R user since R is very lax about types, relying as it
+does on a lot of implicit conversions. Becuase of Rust’s memory management
+model, however, Rust is a strongly, statically typed language. That means that
+all types must be known when you go to build or compile your crate. It also
+precludes running operations on different types. For example, math expressions
+can only be performed between values of the same type, so you cannot, for
+example, directly add an <code>f64</code> and an <code>i32</code>. You must first cast one to match
+the type of the other, in the simplest case using the <code>as</code> keyword:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> add2</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span><span class="z-variable"> y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator"> +</span><span> (</span><span class="z-variable">y</span><span class="z-keyword"> as</span><span class="z-entity z-name z-type"> f64</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>If you call <code>add2(3.2, 2)</code>, the function will first cast <code>y</code> to <code>f64</code> before
+doing addition, returning the <code>f64</code> value <code>5.2</code>. Before we continue, note that
+Rust supports all the same numeric operators as R: <code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>, and <code>%</code>
+for remainder (equivalent to <code>%%</code> in R).</p>
+
         </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;hello-world&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Hello, World!</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;control-flow&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Control Flow</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+    </aside>
 </div>
 
                 </main>

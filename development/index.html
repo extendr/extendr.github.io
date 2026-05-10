@@ -460,59 +460,60 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+
+<div class="mx-auto w-full flex-1 shrink-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Developing Rust-powered R Packages</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Learn how to develop an R package that calls Rust code with extendr</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+            <p class="text-muted-foreground text-sm mt-4 mb-0">
+                Last updated: <time datetime="2026-05-10"
+                      class="font-mono">2026-05-10</time>
+            </p>
+        </header>
+        <div class="prose">
+            <p>This guide focuses on developing R packages that call Rust code. A basic
+understanding of Rust and R package development is assumed. If you are new to
+Rust, you might find it helpful to start with our <a href="https://extendr.rs/rust-intro/">Rust Tutorials</a>.</p>
+<h2 id="what-s-not-in-this-guide">What’s <em>not</em> in this guide?</h2>
+<p>This guide is not a comprehensive introduction to Rust. It’s also not a
+comprehensive guide to R package development. Better resources exist for both,
+notably <a rel="external" href="https://doc.rust-lang.org/stable/book/">“The Book”</a> for writing Rust
+and <a rel="external" href="https://r-pkgs.org/">R Packages (2e)</a> for developing R packages. For this
+guide, we focus on extendr-specific tools, referencing other ideas only where
+necessary. We will also point you to relevant external resources as needed.</p>
+<h2 id="software-requirements">Software requirements</h2>
+<p>This guide assumes the following versions of necessary software:</p>
+<ul>
+<li>R: <span class="r-version">4.5</span></li>
+<li>Rust: <span class="rust-version">1.65.0</span></li>
+<li>extendr-api: <span class="extendr-version">0.9.0</span></li>
+<li>rextendr <span class="rextendr-version">0.5.0</span></li>
+</ul>
+<p>Please see the <a href="https://extendr.rs/installation/">Installation Guide</a> if you have not already
+installed this software.</p>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        
+        
+        
+        
+        <footer class="mt-10">
+            <nav class="flex justify-end items-center text-sm">
+                
+                <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;data-types&#x2F;"
+                   class="flex items-center gap-1">
+                    <span>R to Rust type mapping</span>
+                    <span>→</span>
+                </a>
+                
+            </nav>
+        </footer>
+        
+    </article>
 </div>
 
                 </main>

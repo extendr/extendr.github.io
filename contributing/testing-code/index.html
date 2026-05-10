@@ -460,59 +460,169 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Testing Code</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Testing requirements and conventions, including FFI tests via the extendrtests package.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>Testing is mission critical for extendr. For all new functionality we require
+tests to ensure they continue to work as intended. For bug fixes we require a
+test to cover the bug fix (if one didn’t exist yet).</p>
+<p>Note that we have a justfile that you can use to run tests locally:</p>
+<ul>
+<li>for R, <code>just document</code> then <code>just devtools-test</code> and</li>
+<li>for Rust, <code>just test</code> and then also ensure that things are formatted with
+<code>just fmt</code>.</li>
+</ul>
+<h2 id="rust-tests">Rust Tests</h2>
+<p>Rust tests in extendr follow standard Rust conventions: <code>#[test]</code> functions
+in <code>#[cfg(test)]</code> modules, either inline in the source file or in a separate
+file under <code>tests/</code>. For details, see <a rel="external" href="https://doc.rust-lang.org/book/ch11-00-testing.html">Writing Automated Tests</a> in The Book.</p>
+<h3 id="tests-using-r-symbols">Tests using R symbols</h3>
+<p>There is an important wrinkle for testing Rust code in extendr as many Rust
+tests will need a live R session to handle R objects and symbols. The <code>test!</code>
+macro is useful for this purpose. It wraps test code in a call to the R API and
+allows <code>?</code> to be used inside the block:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>test</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> my_test</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    test!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> r!</span><span>(</span><span>[</span><span class="z-constant z-numeric">1</span><span>,</span><span class="z-constant z-numeric"> 2</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>]</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">        assert_eq!</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">len</span><span>(</span><span>)</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>If a test does not call the R API at all — for example, testing pure Rust
+arithmetic on scalar wrapper types — <code>test!</code> is not needed.</p>
+<h3 id="ffi-tests">FFI tests</h3>
+<p>Rust primarily supports unit and integration tests for testing individual
+functions and the public API, but extendr needs a third layer of integration
+tests to account for the Rust-R interface. These tests should go in the
+workspace level <a rel="external" href="https://github.com/extendr/extendr/tree/main/tests/extendrtests"><code>tests/extendrtests</code></a>
+directory, which holds the R package <code>{extendrtests}</code> that implements all
+extendr functionality.</p>
+<p>Because this is an R package with internal Rust code, we actually get access to
+many varieties of tests: on the R side, documentation examples and testthat
+tests along with <code>R CMD CHECK</code>, and on the Rust side, standard testing with unit
+and integration tests. For our purposes, however, we have chosen to rely only on
+testthat tests, which get called during <code>R CMD CHECK</code>. We do not really care so
+much about the Rust code passing tests in the R package as we do that the
+traffic back and forth with R is robust.</p>
+<p>See
+<a rel="external" href="https://github.com/extendr/extendr/blob/main/tests/extendrtests/src/rust/src/tuple_conversions.rs"><code>src/rust/src/tuple_conversions.rs</code></a>
+and
+<a rel="external" href="https://github.com/extendr/extendr/blob/main/tests/extendrtests/tests/testthat/test-tuples.R"><code>tests/testthat/tuples.rs</code></a>
+for an example of how we implement these tests.</p>
+<h3 id="additional-guidance">Additional guidance</h3>
+<p>Here are some other important guidelines for Rust testing:</p>
+<ul>
+<li>Following standard Rust conventions, integration tests should go in the crate
+<code>/src</code> folder and unit tests at the end of each module file. See
+<a rel="external" href="https://github.com/extendr/extendr/tree/main/extendr-api/tests">extendr-api/tests</a>
+for an example of integration tests.</li>
+<li>All tests should go in a test module <code>mod tests {}</code>.</li>
+<li>All tests should be annotated with <code>#[cfg(test)]</code> to ensure that tests are
+not compiled with extendr.</li>
+<li>Do not use documentation tests.</li>
+</ul>
+<h2 id="r-tests">R Tests</h2>
+<p>R code in rextendr is tested with <a rel="external" href="https://testthat.r-lib.org">testthat</a>,
+following standard R package testing conventions.</p>
+<p>Here are some guidelines specific to rextendr:</p>
+<ul>
+<li>Documentation for all exported functions should include examples that run
+during <code>R CMD CHECK</code> on CRAN.</li>
+<li>Avoid introducing new snapshot tests whenever possible. We should prefer more
+explicit testing.</li>
+</ul>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;documenting-code&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Documenting Code</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;extendr-internals&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>extendr Internals</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#rust-tests" class="toc-link pl-4">Rust Tests</a>
+        
+        
+<ul class="space-y-1 ml-2">
+    
+    
+    <li class="toc-item">
+        <a href="#tests-using-r-symbols" class="toc-link pl-4">Tests using R symbols</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#ffi-tests" class="toc-link pl-4">FFI tests</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#additional-guidance" class="toc-link pl-4">Additional guidance</a>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#r-tests" class="toc-link pl-4">R Tests</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

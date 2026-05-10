@@ -460,59 +460,210 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">rextendr Internals</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">How rextendr scaffolds R packages and drives the build process for extendr-backed crates.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>This page describes various internal functions and processes used by rextendr to
+setup and build R packages. It is designed to get contributors up-to-speed on
+the internal mechanics of rextendr, so that they can more efficiently contribute
+to development and maintenance.</p>
+<h2 id="package-setup">Package Setup</h2>
+<p>General R package setup is achieved with <code>usethis::create_package()</code>.
+Scaffolding files required to call Rust code in R using extendr is then added to
+the package directory with <code>rextendr::use_extendr()</code>. This involves
+interpolating strings into template files in <code>inst/templates/</code>, which are then
+written to the user’s package directory via the internal function
+<code>use_rextendr_template()</code>:</p>
+<div class="code-with-filename">
+<p><strong>R/use_extendr.R</strong></p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">use_rextendr_template</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-keyword"> function</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  template</span><span class="z-keyword z-operator">,</span><span class="z-comment">        # filename in inst/templates/</span></span>
+<span class="giallo-l"><span class="z-variable">  save_as</span><span class="z-keyword z-operator">,</span><span class="z-comment">         # destination path in the user&#39;s package</span></span>
+<span class="giallo-l"><span class="z-variable">  data</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> list</span><span>(</span><span>)</span><span class="z-keyword z-operator">,</span><span class="z-comment">   # named list of variables to interpolate into the template</span></span>
+<span class="giallo-l"><span class="z-variable">  quiet</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  overwrite</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> NULL</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre></div>
+<p>When <code>usethis</code> is available and <code>overwrite = NULL</code>, this delegates to
+<code>usethis::use_template()</code>, which handles interactive prompting if the file
+already exists. Otherwise it reads the template file directly, performs
+interpolation, and writes the result. The templates directory currently includes
+all of the following:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">fs</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">dir_tree</span><span>(</span><span class="z-entity z-name z-function">system.file</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">templates</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> package</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rextendr</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>C:/Users/kenne/AppData/Local/R/win-library/4.5/rextendr/templates</span></span>
+<span class="giallo-l"><span>├── Cargo.toml</span></span>
+<span class="giallo-l"><span>├── cleanup</span></span>
+<span class="giallo-l"><span>├── cleanup.win</span></span>
+<span class="giallo-l"><span>├── config.R</span></span>
+<span class="giallo-l"><span>├── configure</span></span>
+<span class="giallo-l"><span>├── configure.win</span></span>
+<span class="giallo-l"><span>├── document.rs</span></span>
+<span class="giallo-l"><span>├── entrypoint.c</span></span>
+<span class="giallo-l"><span>├── extendr-wrappers.R</span></span>
+<span class="giallo-l"><span>├── lib.rs</span></span>
+<span class="giallo-l"><span>├── Makevars.in</span></span>
+<span class="giallo-l"><span>├── Makevars.win.in</span></span>
+<span class="giallo-l"><span>├── msrv.R</span></span>
+<span class="giallo-l"><span>├── settings.json</span></span>
+<span class="giallo-l"><span>├── win.def</span></span>
+<span class="giallo-l"><span>└── _gitignore</span></span></code></pre>
+<p>The exceptions to simple string interpolation are <code>Cargo.toml</code>, whose content is
+generated programmatically before being written to file, and <code>Makevars.in</code> /
+<code>Makevars.win.in</code>, which use a second layer of <code>@PLACEHOLDER@</code> substitution
+performed at package build time by <code>tools/config.R</code>.</p>
+<p>You can see the content of these template files on main in the rextendr
+repository here: <span class="iconify mdi--github"></span>
+<a rel="external" href="https://github.com/extendr/rextendr/tree/main/inst/templates">source</a>.
+For a description of what each generated file does, see the
+<a href="https://extendr.rs/development/package-structure/">Project Structure</a> page in the user guide.</p>
+<h2 id="package-build">Package Build</h2>
+<p>When a developer calls <code>devtools::document()</code>, they initiate a set of steps to
+build, document, and register functions in their R package. Here are those steps
+in order:</p>
+<ol>
+<li>Check Rust and cargo versions</li>
+<li>Generate <code>Makevars</code> from template</li>
+<li>Compile the Rust crate into a static library</li>
+<li>Generate R wrappers</li>
+<li>Compile <code>entrypoint.c</code> and link the static library</li>
+<li>Register exported routines with R on load</li>
+<li>Clean up build artifacts</li>
+</ol>
+<p>These steps are driven by <code>R CMD INSTALL</code>, which <code>devtools::document()</code> calls
+implicitly.</p>
+<h3 id="setup">Setup</h3>
+<p>The first thing that gets called is <code>configure</code> (<code>configure.win</code> on Windows).
+The sole purpose of the configure script is to source the R script
+<code>tools/config.R</code>, which in broad outline does two things. First, it runs
+<code>tools/msrv.R</code> to check that the Rust version is consistent across metadata
+files like <code>DESCRIPTION</code> and <code>Cargo.toml</code> (step 1). Second, it substitutes
+<code>@PLACEHOLDER@</code> variables in the <code>Makevars.in</code> and <code>Makevars.win.in</code> templates
+(signaled by <code>.in</code>) with relevant data to generate the actual Makevars file
+(step 2).</p>
+<h3 id="build">Build</h3>
+<p>The R package build process next invokes Makevars, which was just generated by
+the configuration file. The Makevars in turn does two things. First, it calls
+<code>cargo build</code> to compile the static library (step 3). Then it calls <code>cargo run</code>
+to compile and execute the associated <code>document</code> binary, which generates all
+extendr wrappers (basically <code>.Call()</code>) and writes them into
+<code>R/extendr-wrappers.R</code> (step 4). Note that if a <code>vendor/</code> directory or
+<code>rust/vendor.tar.xz</code> tarball is present, the Makevars also ensures that Cargo is
+configured to use it for offline compilation — this is the essential mechanism
+required for CRAN submissions.</p>
+<h3 id="registration">Registration</h3>
+<p>Because we are building an R package with compiled code, R requires that we
+register all routines via a C-level initialization function named
+<code>R_init_&lt;pkgname&gt;</code>. This is where <code>entrypoint.c</code> comes in. Currently, extendr
+generates its own version of this function — <code>R_init_{{{mod_name}}}_extendr</code> —
+inside the Rust library. The C entrypoint then bridges the two, calling the
+Rust-generated function through the R-facing <code>R_init_{{{mod_name}}}</code>. Compiling
+<code>entrypoint.c</code> makes that symbol available on package load (step 5). When the
+package next gets loaded, the C function is called to register compiled routines
+(step 6). If you inspect <code>R/extendr-wrappers.R</code>, you will see where this
+happens. The call is <code>@useDynLib(pkgname, .registration = TRUE)</code>.</p>
+<h3 id="cleanup">Cleanup</h3>
+<p>To prevent the <code>Makevars</code> generated by <code>configure</code> from being committed to git,
+a <code>cleanup</code> is invoked (<code>cleanup.win</code> on Windows) that calls the shell command
+<code>rm</code> to remove that file (step 7).</p>
+<p>Once these steps are taken, the compiled Rust should become available in the
+current R session.</p>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;extendr-internals&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>extendr Internals</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;colors-and-fonts&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Colors and Fonts</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#package-setup" class="toc-link pl-4">Package Setup</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#package-build" class="toc-link pl-4">Package Build</a>
+        
+        
+<ul class="space-y-1 ml-2">
+    
+    
+    <li class="toc-item">
+        <a href="#setup" class="toc-link pl-4">Setup</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#build" class="toc-link pl-4">Build</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#registration" class="toc-link pl-4">Registration</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#cleanup" class="toc-link pl-4">Cleanup</a>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

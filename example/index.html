@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">A Complete Example</h1>
+            
+            <p class="text-muted-foreground mt-1 mb-0">A package from start to finish: Making a heckin&#x27; case converter.</p>
+            
+            
+        </header>
+        <div class="prose">
+            <p>The Rust crate ecosystem is rich with very small and very powerful utility
+libraries. One of the most downloaded crates is <a rel="external" href="https://docs.rs/heck">heck</a>. It
+provides traits and structs to perform some of the most common case conversions.
+In this tutorial we’ll create a zero-dependency R package to provide the common
+case conversions. This is mainly designed to give you a sense of the development
+workflow and also showcase what can be done with extendr. The resulting R
+package will be more performant but less flexible than the R package
+<a rel="external" href="https://tazinho.github.io/snakecase/"><code>{snakecase}</code></a>.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>The first thing we need to do is create a new R package:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">heck</span><span class="z-string">&quot;</span><span>)</span></span></code></pre>
+<p>Once we have the basic R package setup, then we need to add the necessary
+<code>extendr</code> scaffolding that will link our Rust code to R and ensure the package
+builds properly.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span class="z-variable">crate_name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rheck</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> lib_name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rheck</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+     role="note" aria-label="Note">
+    <header class="flex items-center gap-3">
+        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
+        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+            Note
+        </h2>
+    </header>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        Normally, the crate and library names will default to the R package name, but in
+this case, we cannot do that because it would create a recursive dependency in
+the Rust library. To get around this, we name the internal Rust crate and
+library <code>rheck</code>, which allows us to name the R package <code>{heck}</code>.
+    </section>
+</div>
+<p>Next, <code>heck</code> is needed as a dependency. The easiest way to do that is to call</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_crate</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">heck</span><span class="z-string">&quot;</span><span>)</span></span></code></pre>
+<p>If you prefer to use your terminal, however, simply navigate to <code>src/rust</code> and
+run <code>cargo add heck</code>. With this, you have everything you need to get started.</p>
+<h2 id="scalar-snek-case-conversion">Scalar snek case conversion</h2>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> heck</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">ToSnekCase</span><span>;</span></span></code></pre>
+<p>Let’s start by creating a simple function to take a single string, and convert
+it to snake case. First, the trait <code>ToSnekCase</code> needs to be imported so that the
+method <code>to_snek_case()</code> is available to <code>&amp;str</code>.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> heck</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">ToSnekCase</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> to_snek_case</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> String</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Simple enough, right? Let’s give it a shot. To make it accessible from your R
+session, it needs to be included in your <code>extendr_module! {}</code> macro.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> heck</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_snek_case</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>From your R session, run <code>devtools::document()</code> followed by
+<code>devtools::load_all()</code> to make the function available.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">MakeMe-Snake case</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;make_me_snake_case&quot;</span></span></code></pre>
+<p>Rarely is it useful to run a function on just a scalar character value. Rust,
+though, works with scalars by default and adding vectorization is another step.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span class="z-entity z-name z-function">c</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">DontStep</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">on-Snek</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; &quot;on_snek&quot;  </span></span></code></pre>
+<p>Providing a character vector causes an error. So how do you go about
+vectorizing?</p>
+<h2 id="vectorizing-snek-case-conversion">Vectorizing snek case conversion</h2>
+<p>To vectorize this function, you need to apply the conversion to each element in
+a character vector. The extendr wrapper struct for a character vector is called
+<code>Strings</code>. To take in a character vector and also return one, the function
+signature should look like this:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> to_snek_case</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Strings</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>This says there is an argument <code>x</code> which must be a character vector and this
+function must also return the <code>Strings</code> (a character vector). The return type is
+signaled by <code>-&gt;</code>. To iterate through this you can use the <code>.into_iter()</code> method
+on the character vector.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> to_snek_case</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Strings</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> the rest of the function</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Iterators have a method called <code>.map()</code> (yes, just like <code>purrr::map()</code>). It lets
+you apply a closure (an anonymous function) to each element of the iterator. In
+this case, each element is an
+<a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/rstr/struct.Rstr.html"><code>Rstr</code></a>.
+The <code>Rstr</code> has a method <code>.as_str()</code> which will return a string slice <code>&amp;str</code>. You
+can take this slice and pass it on to <code>.to_snek_case()</code>. After having mapped
+over each element, the results are <code>.collect()</code>ed into another <code>Strings</code>.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> to_snek_case</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Strings</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">            xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">as_str</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>This new version of the function can be used in a vectorized manner:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span class="z-entity z-name z-function">c</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">DontStep</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">on-Snek</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; &quot;on_snek&quot;  </span></span></code></pre>
+<p>But can it handle a missing value out of the box?</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span class="z-entity z-name z-function">c</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">DontStep</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-constant z-language"> NA_character_</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">on-Snek</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; NA          &quot;on_snek&quot;  </span></span></code></pre>
+<p>Well, sort of. The <code>as_str()</code> method when used on a missing value will return
+<code>"NA"</code> which is not in a user’s best interest.</p>
+<h2 id="handling-missing-values">Handling missing values</h2>
+<p>Instead of returning <code>"na"</code>, it would be better to return an <em>actual</em> missing
+value. Those can be created using each scalar’s <code>na()</code> method e.g. <code>Rstr::na()</code>.</p>
+<p>You can modify the <code>.map()</code> statement to check if an <code>NA</code> is present, and, if
+so, return an <code>NA</code> value. To perform this check, use the <code>is_na()</code> method which
+returns a <code>bool</code>, a value that is either <code>true</code> or <code>false</code>. The result can then
+be <a rel="external" href="https://doc.rust-lang.org/book/ch06-02-match.html"><code>match</code>ed</a>. When it is
+missing, the match arm returns the <code>NA</code> scalar value. When it is not missing,
+the <code>Rstr</code> is converted to snek case. However, since the <code>true</code> arm is an <code>Rstr</code>
+the other <code>false</code> arm must <em>also</em> be an <code>Rstr</code>. To accomplish this use the
+<code>Rstr::from()</code> method.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> to_snek_case</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Strings</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-keyword z-control"> match</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">is_na</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-constant z-language">            true</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-namespace"> Rstr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">na</span><span>(</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-constant z-language">            false</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-namespace"> Rstr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-variable">xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">as_str</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span>        }</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>This function can now handle missing values!</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">to_snek_case</span><span>(</span><span class="z-entity z-name z-function">c</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">DontStep</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-constant z-language"> NA_character_</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">on-Snek</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; NA          &quot;on_snek&quot;  </span></span></code></pre><h2 id="automating-code-writing-with-a-macro">Automating code-writing with a macro!</h2>
+<p>There are traits for the other case conversions such as <code>ToKebabCase</code>,
+<code>ToPascalCase</code>, <code>ToShoutyKebabCase</code> and others, with each having a similar
+method name: <code>.to_kebab_case()</code>, <code>to_pascal_case()</code>, <code>.to_shouty_kebab_case()</code>.
+You can either copy the above code for <code>to_snek_case()</code> and change the method
+call multiple times, <em>or</em> you can use a macro as a form of code generation. A
+macro allows you to generate code in a short hand manner. This macro takes an
+identifier which has a placeholder called <code>$fn_name</code>: <code>$fn_name:ident</code>.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-function">macro_rules!</span><span class="z-entity z-name z-function"> make_heck_fn</span><span> {</span></span>
+<span class="giallo-l"><span>    (</span><span class="z-keyword z-operator">$</span><span class="z-variable">fn_name</span><span class="z-keyword z-operator">:</span><span class="z-variable">ident</span><span>)</span><span class="z-keyword z-operator"> =&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-comment">        ///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span>        #</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">        fn</span><span class="z-keyword z-operator"> $</span><span class="z-variable">fn_name</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Strings</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">            x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">                .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-keyword z-control"> match</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">is_na</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-constant z-language">                    true</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-namespace"> Rstr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">na</span><span>(</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-constant z-language">                    false</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-namespace"> Rstr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-variable">xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">as_str</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">fn_name</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span>                }</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">                .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>The <code>$fn_name</code> placeholder is put as the function name definition which is the
+same as the method name. To use this macro to generate the rest of the functions
+the other traits need to be imported.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> heck</span><span class="z-keyword z-operator">::</span><span>{</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    ToKebabCase</span><span>,</span><span class="z-entity z-name z-type"> ToShoutyKebabCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    ToSnekCase</span><span>,</span><span class="z-entity z-name z-type"> ToShoutySnakeCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    ToPascalCase</span><span>,</span><span class="z-entity z-name z-type"> ToUpperCamelCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    ToTrainCase</span><span>,</span><span class="z-entity z-name z-type"> ToTitleCase</span><span>,</span></span>
+<span class="giallo-l"><span>}</span><span>;</span></span></code></pre>
+<p>With the traits in scope, the macro can be invoked to generate the other
+functions.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_snek_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_shouty_snake_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_kebab_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_shouty_kebab_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_pascal_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_upper_camel_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_train_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_title_case</span><span>)</span><span>;</span></span></code></pre>
+<p>Note that each of these functions should be added to the <code>extendr_module! {}</code>
+macro in order for them to be available from R.</p>
+<p>Test it out with the <code>to_shouty_kebab_case()</code> function!</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">to_shouty_kebab_case</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">lorem:IpsumDolor__sit^amet</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;LOREM-IPSUM-DOLOR-SIT-AMET&quot;</span></span></code></pre>
+<p>And with that, you’ve created an R package that provides case conversion using
+heck, and you’ve done it with just a few lines of code!</p>
+<h2 id="bench-marking-with-snakecase">Bench marking with <code>{snakecase}</code></h2>
+<p>To illustrate the performance gains from using a vectorized Rust funciton, a
+<code>bench::mark()</code> is created between <code>to_snek_case()</code> and
+<code>snakecase::to_snake_case()</code>.</p>
+<p>The bench mark will use 5000 randomly generated lorem ipsum sentences.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">set.seed</span><span>(</span><span class="z-constant z-numeric">1701</span><span>)</span></span>
+<span class="giallo-l"><span class="z-variable">x</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> unlist</span><span>(</span><span class="z-variable">lorem</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">ipsum</span><span>(</span><span class="z-constant z-numeric">5000</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 1</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 10</span><span>)</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">head</span><span>(</span><span class="z-variable">x</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Lorem litora massa libero inceptos vehicula sociosqu bibendum.&quot;                                       </span></span>
+<span class="giallo-l"><span>[2] &quot;Sit etiam vulputate porta hendrerit egestas curabitur sed tempus arcu mattis netus gravida.&quot;          </span></span>
+<span class="giallo-l"><span>[3] &quot;Adipiscing faucibus montes nisl leo vulputate vivamus.&quot;                                               </span></span>
+<span class="giallo-l"><span>[4] &quot;Lorem mollis sodales per integer lectus proin ante nostra mattis habitant.&quot;                           </span></span>
+<span class="giallo-l"><span>[5] &quot;Consectetur mus pharetra eget non posuere lacus in turpis viverra tempor aenean condimentum pulvinar?&quot;</span></span>
+<span class="giallo-l"><span>[6] &quot;Adipiscing sociosqu vitae ridiculus platea lobortis conubia mus sed ullamcorper!&quot;                     </span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  rust</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> to_snek_case</span><span>(</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  snakecase</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> snakecase</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">to_snake_case</span><span>(</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span class="giallo-l"><span>1 rust         1      1        18.9       1        NaN</span></span>
+<span class="giallo-l"><span>2 snakecase   20.2   19.5       1        79.8      Inf</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+     role="note" aria-label="Note">
+    <header class="flex items-center gap-3">
+        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
+        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+            Note
+        </h2>
+    </header>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        The memory usage for rust-based functions is likely quite understated. This is
+because memory allocated outside of R cannot be tracked.
+See <a rel="external" href="https://bench.r-lib.org/reference/mark.html#value">bench::mark</a>
+documentation for more information.
+    </section>
+</div><h2 id="the-whole-thing">The whole thing</h2>
+<p>In just 42 lines of code (empty lines included), you can create a very
+performant R package!</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> heck</span><span class="z-keyword z-operator">::</span><span>{</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    ToKebabCase</span><span>,</span><span class="z-entity z-name z-type"> ToPascalCase</span><span>,</span><span class="z-entity z-name z-type"> ToShoutyKebabCase</span><span>,</span><span class="z-entity z-name z-type"> ToShoutySnakeCase</span><span>,</span><span class="z-entity z-name z-type"> ToSnekCase</span><span>,</span><span class="z-entity z-name z-type"> ToTitleCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    ToTrainCase</span><span>,</span><span class="z-entity z-name z-type"> ToUpperCamelCase</span><span>,</span></span>
+<span class="giallo-l"><span>}</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">macro_rules!</span><span class="z-entity z-name z-function"> make_heck_fn</span><span> {</span></span>
+<span class="giallo-l"><span>    (</span><span class="z-keyword z-operator">$</span><span class="z-variable">fn_name</span><span class="z-keyword z-operator">:</span><span class="z-variable">ident</span><span>)</span><span class="z-keyword z-operator"> =&gt;</span><span> {</span></span>
+<span class="giallo-l"><span>        #</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-comment">        ///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span class="z-keyword">        fn</span><span class="z-keyword z-operator"> $</span><span class="z-variable">fn_name</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Strings</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">            x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">                .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-keyword z-control"> match</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">is_na</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-constant z-language">                    true</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-namespace"> Rstr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">na</span><span>(</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-constant z-language">                    false</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-namespace"> Rstr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-variable">xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">as_str</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">fn_name</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span>                }</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">                .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_snek_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_shouty_snake_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_kebab_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_shouty_kebab_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_pascal_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_upper_camel_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_train_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">make_heck_fn!</span><span>(</span><span class="z-variable">to_title_case</span><span>)</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> heck</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_snek_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_shouty_snake_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_kebab_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_shouty_kebab_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_pascal_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_upper_camel_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_title_case</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> to_train_case</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+        </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                </div>
+                <div>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#getting-started" class="toc-link pl-4">Getting started</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#scalar-snek-case-conversion" class="toc-link pl-4">Scalar snek case conversion</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#vectorizing-snek-case-conversion" class="toc-link pl-4">Vectorizing snek case conversion</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#handling-missing-values" class="toc-link pl-4">Handling missing values</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#automating-code-writing-with-a-macro" class="toc-link pl-4">Automating code-writing with a macro!</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#bench-marking-with-snakecase" class="toc-link pl-4">Bench marking with {snakecase}</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#the-whole-thing" class="toc-link pl-4">The whole thing</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>

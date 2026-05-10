@@ -460,59 +460,109 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Loops</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Iterate over collections with Rust&#x27;s for-loop syntax.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>In Rust, the easiest way to iterate over items in a collection is with a <code>for</code>
+loop. The syntax should look familiar to R programmers. Each item in the
+collection is bound to the name you provide before <code>in</code> at each iteration of the
+loop:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword z-control">for</span><span class="z-variable"> value</span><span class="z-keyword"> in</span><span class="z-variable"> collection</span><span> {</span></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> do something with value</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>As with control flow, the content of a for-loop must be delimited by curly
+brackets, but the in-statement does not require parantheses. As an example,
+consider a program for printing each number in a vector:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> nums</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">1</span><span>,</span><span class="z-constant z-numeric"> 2</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span class="z-variable"> n</span><span class="z-keyword"> in</span><span class="z-variable"> nums</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">n is: </span><span class="z-string">{</span><span class="z-string">n</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>Running <code>cargo run --quiet</code> (the <code>quiet</code> suppresses compiler logs) should print
+the following to your terminal:</p>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>n is: 1</span></span>
+<span class="giallo-l"><span>n is: 2</span></span>
+<span class="giallo-l"><span>n is: 3</span></span></code></pre>
+<p>In the context of for-loops, Rust’s scoping rules are important to be aware of.
+They are, in fact, much stricter than R’s. Like R, values declared outside a
+for-loop are accessible inside it, but unlike R, values created inside the loop
+cannot be used outside it. In the following example, <code>greeting</code> is defined in
+the outer scope and is accessible inside the loop:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> greeting</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Hi</span><span class="z-string">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> names</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">Alice</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">Bob</span><span class="z-string">&quot;</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span class="z-variable"> name</span><span class="z-keyword"> in</span><span class="z-variable"> names</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">greeting</span><span class="z-string">}</span><span class="z-string">, </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>Hi, Alice!</span></span>
+<span class="giallo-l"><span>Hi, Bob!</span></span></code></pre>
+<p>In contrast, <code>doubled</code> in the next example is defined inside the loop and cannot
+be accessed after it ends:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> numbers</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">1</span><span>,</span><span class="z-constant z-numeric"> 2</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span class="z-variable"> n</span><span class="z-keyword"> in</span><span class="z-variable"> numbers</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> doubled</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> n</span><span class="z-keyword z-operator"> *</span><span class="z-constant z-numeric"> 2</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">n</span><span class="z-string">}</span><span class="z-string"> doubled is </span><span class="z-string">{</span><span class="z-string">doubled</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> ❌ `doubled` doesn&#39;t exist here</span></span>
+<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> println!(&quot;Last doubled: {}&quot;, doubled);</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>In the next section we will see how to get around this scoping rule using a
+mutable variable declared in the outer scope to collect values produced inside
+the loop.</p>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;collections&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Collections</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;mutability&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Mutability</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+    </aside>
 </div>
 
                 </main>

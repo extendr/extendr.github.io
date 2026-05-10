@@ -460,59 +460,215 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Project Structure</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>When you run <code>rextendr::use_extendr()</code> for the first time, it will generate the
+scaffolding needed to integrate Rust code into an R package. The result is a
+directory structure that is fairly unique among R packages, so this page serves
+to give a high level overview of the generated files, focusing on those that are
+relevant to you as an R package developer. The package directory should have the
+following structure:</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>.</span></span>
+<span class="giallo-l"><span>├── R</span></span>
+<span class="giallo-l"><span>│   └── extendr-wrappers.R</span></span>
+<span class="giallo-l"><span>├── cleanup</span></span>
+<span class="giallo-l"><span>├── cleanup.win</span></span>
+<span class="giallo-l"><span>├── configure</span></span>
+<span class="giallo-l"><span>├── configure.win</span></span>
+<span class="giallo-l"><span>├── src</span></span>
+<span class="giallo-l"><span>│   ├── .gitignore</span></span>
+<span class="giallo-l"><span>│   ├── Makevars.in</span></span>
+<span class="giallo-l"><span>│   ├── Makevars.win.in</span></span>
+<span class="giallo-l"><span>│   ├── entrypoint.c</span></span>
+<span class="giallo-l"><span>│   ├── &lt;pkg&gt;-win.def</span></span>
+<span class="giallo-l"><span>│   └── rust</span></span>
+<span class="giallo-l"><span>│       ├── Cargo.toml</span></span>
+<span class="giallo-l"><span>|       ├── document.rs</span></span>
+<span class="giallo-l"><span>│       └── src</span></span>
+<span class="giallo-l"><span>│           └── lib.rs</span></span>
+<span class="giallo-l"><span>└── tools</span></span>
+<span class="giallo-l"><span>    ├── config.R</span></span>
+<span class="giallo-l"><span>    └── msrv.R</span></span></code></pre>
+<p>As an R package developer, the file <code>R/extendr-wrappers.R</code> will perhaps look the
+most familiar to you. This file contains auto-generated R wrapper functions that
+call compiled Rust code via <code>.Call()</code>. The file is regenerated every time you
+call <code>devtools::document()</code>. It should never be edited by hand. In fact, with
+the exception of <code>Cargo.toml</code> and Rust scripts in <code>rust/src/</code>, none of the files
+listed above should ever be edited by hand.</p>
+<h3 id="the-cargo-manifest">The Cargo manifest</h3>
+<p>The <code>Cargo.toml</code> file, also known as a manifest, defines the crate name,
+edition, dependencies, and build profiles. By default, you should see this in
+your manifest:</p>
+<div class="code-with-filename">
+<p><strong>src/rust/Cargo.toml</strong></p>
+<pre class="giallo z-code"><code data-lang="toml"><span class="giallo-l"><span>[</span><span>package</span><span>]</span></span>
+<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">hellorust</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-variable">publish</span><span> =</span><span class="z-constant z-language"> false</span></span>
+<span class="giallo-l"><span class="z-variable">version</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">0.1.0</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-variable">edition</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">2021</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-variable">rust-version</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">1.65</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[</span><span>lib</span><span>]</span></span>
+<span class="giallo-l"><span class="z-variable">crate-type</span><span> =</span><span> [</span><span class="z-string">&#39;</span><span class="z-string">rlib</span><span class="z-string">&#39;</span><span>,</span><span class="z-string"> &#39;</span><span class="z-string">staticlib</span><span class="z-string">&#39;</span><span>]</span></span>
+<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">hellorust</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[[</span><span>bin</span><span>]]</span></span>
+<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">document</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-variable">path</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">document.rs</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[</span><span>dependencies</span><span>]</span></span>
+<span class="giallo-l"><span class="z-variable">extendr-api</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">*</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[</span><span>profile</span><span>.</span><span>release</span><span>]</span></span>
+<span class="giallo-l"><span class="z-variable">lto</span><span> =</span><span class="z-constant z-language"> true</span></span>
+<span class="giallo-l"><span class="z-variable">codegen-units</span><span> =</span><span class="z-constant z-numeric"> 1</span></span></code></pre></div>
+<p>Note that the crate is built as both an <code>rlib</code> (used by the <code>document</code> binary to
+introspect exports) and a <code>staticlib</code> (linked into the R package). The <code>[[bin]]</code>
+entry registers <code>document.rs</code> as an executable used to generate R wrappers at
+build time, the content of <code>R/extendr-wrappers.R</code>. You should never touch these
+parts of your manifest, as they are critical to the build process. If there are
+other crates you want to depend on, though, you will need to list them here
+under <code>[dependencies]</code>, similar to <code>imports</code> in <code>DESCRIPTION</code>. We provide a
+small utility <code>use_crate()</code> for this purpose. You can also add them by hand or
+call <code>cargo add</code> in the terminal if you prefer.</p>
+<h3 id="the-crate-library">The crate library</h3>
+<p>While you can add Rust scripts to <code>rust/src/</code> to organize your Rust code as you
+see fit, by default, it will consist of a single Rust file, <code>lib.rs</code>. This is
+the main Rust library file where you gather Rust code to be linked into R. The
+scaffolded version will initially contain a simple <code>hello_world()</code> example:</p>
+<div class="code-with-filename">
+<p><strong>src/rust/src/lib.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> Return string `&quot;Hello world!&quot;` to R.</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> hello_world</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-keyword z-operator"> &amp;</span><span>&#39;</span><span class="z-entity z-name z-type">static</span><span class="z-entity z-name z-type"> str</span><span> {</span></span>
+<span class="giallo-l"><span class="z-string">    &quot;</span><span class="z-string">Hello world!</span><span class="z-string">&quot;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Macro to generate exports.</span></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> This ensures exported functions are registered with R.</span></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> See corresponding C code in `entrypoint.c`.</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> hellorust</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> hello_world</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>The <code>extendr_module!</code> macro controls which functions, <code>impl</code> blocks, and
+submodules are exposed to R. Every function you want available in R must be
+listed in an <code>extendr_module!</code>.</p>
+<h3 id="git-ignore">Git ignore</h3>
+<p>One other file that you may on occasion find it helpful to edit is
+<code>src/.gitignore</code>. This local .gitignore ignores artifacts of the build process
+that should not be committed:</p>
+<div class="code-with-filename">
+<p><strong>src/.gitignore</strong></p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>*.o</span></span>
+<span class="giallo-l"><span>*.so</span></span>
+<span class="giallo-l"><span>*.dll</span></span>
+<span class="giallo-l"><span>target</span></span>
+<span class="giallo-l"><span>.cargo</span></span>
+<span class="giallo-l"><span>rust/vendor</span></span>
+<span class="giallo-l"><span>Makevars</span></span>
+<span class="giallo-l"><span>Makevars.win</span></span></code></pre></div>
+<h2 id="learn-more">Learn more</h2>
+<p>On this page, we only describe the content of files if it is helpful to you as
+an R package developer. If you want to know more about how these files are
+generated and what they are for, you can have a look at the
+<a href="https://extendr.rs/contributing/rextendr-internals/">{rextendr} Internals</a> page in the
+Contributing guide.</p>
+<p>As a reminder, we emphasize that with the exception of <code>Cargo.toml</code>,
+<code>src/rust/src</code>, and <code>src/.gitignore</code>, no scaffolding files should be edited by
+the package developer. We repeat, <strong>DO NOTE EDIT THESE FILES:</strong></p>
+<ul>
+<li><code>R/extendr-wrappers.R</code></li>
+<li><code>~/document.rs</code></li>
+<li><code>src/entrypoint.c</code></li>
+<li><code>src/Makevars.in</code> or <code>src/Makevars.win.in</code></li>
+<li><code>src/&lt;pkg&gt;-win.def</code></li>
+<li><code>configure</code> or <code>configure.win</code></li>
+<li><code>tools/msrv.R</code></li>
+<li><code>tools/config.R</code></li>
+<li><code>cleanup</code> or <code>cleanup.win</code></li>
+</ul>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;default-args&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Default function arguments</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;serde-integration&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>`serde` integration</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#the-cargo-manifest" class="toc-link pl-4">The Cargo manifest</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#the-crate-library" class="toc-link pl-4">The crate library</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#git-ignore" class="toc-link pl-4">Git ignore</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#learn-more" class="toc-link pl-4">Learn more</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

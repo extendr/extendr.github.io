@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">arrow-extendr: 🏹 Polars support 🐻‍❄️</h1>
+            
+            <p class="text-muted-foreground mt-1 mb-0">The latest release of arrow-extendr adds support for Polars,
+making it straightforward to move data between R and Polars
+DataFrames via the Arrow C Stream interface.
+</p>
+            
+            
+            <div class="mt-6">
+                
+                <p class="flex items-center text-sm text-muted-foreground my-0">
+                    <span class="iconify lucide--users mr-2"></span>
+                    Josiah Parry
+                </p>
+                
+                
+                <p class="flex items-center text-sm text-muted-foreground mt-2 mb-0">
+                    <span class="iconify lucide--calendar text-xs mr-2"></span>
+                    Mar 25, 2026
+                </p>
+                
+            </div>
+            
+        </header>
+        <div class="prose">
+            <h2 id="tl-dr">TL;DR</h2>
+<ul>
+<li><a rel="external" href="https://josiah.rs/posts/cross-language-ds/">Arrow is the future of cross-language data science</a></li>
+<li>New ✨ Polars support for arrow-extendr</li>
+<li>Example: <a rel="external" href="https://pola-rs.github.io/r-polars/">round-trip from <code>{polars}</code></a></li>
+</ul>
+<hr />
+<p>The latest release of
+<a rel="external" href="https://github.com/extendr/arrow-extendr">arrow-extendr</a> adds
+support for <a rel="external" href="https://pola.rs/">Polars</a>, bridging the gap between
+Polars DataFrames and R’s Arrow ecosystem.</p>
+<h2 id="what-is-arrow-extendr">What is arrow-extendr?</h2>
+<p><a rel="external" href="https://github.com/extendr/arrow-extendr">arrow-extendr</a> is a Rust
+crate that makes it straightforward to pass Apache Arrow memory
+between R and Rust. Rather than serializing and deserializing at
+every boundary, Arrow lets R and Rust share the same in-memory
+representation. This means your extendr package can talk directly to
+<a rel="external" href="https://arrow.apache.org/nanoarrow/latest/r/index.html"><code>{nanoarrow}</code></a>,
+the <a rel="external" href="https://arrow.apache.org/docs/r/"><code>{arrow}</code></a> R package,
+<a rel="external" href="https://github.com/duckdb/duckdb-r">DuckDB</a>,
+<a rel="external" href="https://datafusion.apache.org/">DataFusion</a>, and now Polars, without
+any copying or conversion.</p>
+<p>Arrow is, in our view, <a rel="external" href="https://josiah.rs/posts/cross-language-ds/">the standard for cross-language data
+science</a>. Supporting it
+natively from extendr, rather than routing through a single R package,
+is a deliberate choice.</p>
+<h2 id="use-polars-from-extendr">Use Polars from extendr</h2>
+<p>Polars ships its own Arrow implementation, <code>polars-arrow</code>, which is
+separate from <a rel="external" href="https://docs.rs/arrow"><code>arrow-rs</code></a>. That difference
+has historically made it awkward to pass data between Polars and the
+rest of the Arrow ecosystem. The new <code>polars</code> feature flag handles
+the translation.</p>
+<p>Add it to your <code>Cargo.toml</code>:</p>
+<pre class="giallo z-code"><code data-lang="toml"><span class="giallo-l"><span>[</span><span>dependencies</span><span>]</span></span>
+<span class="giallo-l"><span class="z-variable">arrow_extendr</span><span> =</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    version</span><span> =</span><span class="z-string"> &quot;</span><span class="z-string">58</span><span class="z-string">&quot;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-variable">    features</span><span> =</span><span> [</span><span class="z-string">&quot;</span><span class="z-string">polars</span><span class="z-string">&quot;</span><span>]</span><span>,</span></span>
+<span class="giallo-l"><span class="z-variable">    default-features</span><span> =</span><span class="z-constant z-language"> false</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span class="z-variable">polars-core</span><span> =</span><span class="z-string"> &quot;</span><span class="z-string">0.53.0</span><span class="z-string">&quot;</span></span>
+<span class="giallo-l"><span class="z-variable">anyhow</span><span> =</span><span class="z-string"> &quot;</span><span class="z-string">1</span><span class="z-string">&quot;</span></span></code></pre>
+<p>You can also find the latest version on
+<a rel="external" href="https://crates.io/crates/arrow-extendr">crates.io</a>.</p>
+<p>This gives you the following conversions via the Arrow C Stream
+interface:</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 42%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Type</th>
+<th>Direction</th>
+<th>R object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>polars_core::frame::DataFrame</code></td>
+<td><code>IntoArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr>
+<td><code>polars_core::frame::DataFrame</code></td>
+<td><code>FromArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr>
+<td><code>polars_arrow::ffi::ArrowArrayStream</code></td>
+<td><code>IntoArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+<tr>
+<td><code>polars_arrow::ffi::ArrowArrayStreamReader</code></td>
+<td><code>FromArrowRobj</code></td>
+<td><code>nanoarrow_array_stream</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="round-trip-a-polars-dataframe-through-r">Round-trip a Polars DataFrame through R</h2>
+<p>Accept a <code>nanoarrow_array_stream</code> from R, load it into a Polars
+<code>DataFrame</code>, and return it back to R as a stream.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> anyhow</span><span class="z-keyword z-operator">::</span><span>anyhow</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> arrow_extendr</span><span class="z-keyword z-operator">::</span><span>{</span><span class="z-entity z-name z-type">FromArrowRobj</span><span>,</span><span class="z-entity z-name z-type"> IntoArrowRobj</span><span>}</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> polars_core</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">frame</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">DataFrame</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> polars_round_trip</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-namespace"> anyhow</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Result</span><span>&lt;</span><span class="z-entity z-name z-type">Robj</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> df</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> DataFrame</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_arrow_robj</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    rprintln!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">df:?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-variable">    df</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_arrow_robj</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map_err</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">e</span><span class="z-keyword z-operator">|</span><span class="z-entity z-name z-function"> anyhow!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">e:?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>On the R side, pass any Arrow-compatible object. Here we use
+<a rel="external" href="https://pola-rs.github.io/r-polars/"><code>{polars}</code></a> directly:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">polars</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">nanoarrow</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">df</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> pl</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">DataFrame</span><span>(</span><span class="z-variable">a</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">5</span><span class="z-keyword z-operator">,</span><span class="z-variable"> b</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> letters</span><span>[</span><span class="z-constant z-numeric">1</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">5</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-variable">stream</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> as_nanoarrow_array_stream</span><span>(</span><span class="z-variable">df</span><span>)</span></span>
+<span class="giallo-l"><span class="z-variable">result</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> polars_round_trip</span><span>(</span><span class="z-variable">stream</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment"># convert back to a polars DataFrame</span></span>
+<span class="giallo-l"><span class="z-variable">pl</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">DataFrame</span><span>(</span><span class="z-entity z-name z-function">as_arrow_table</span><span>(</span><span class="z-variable">result</span><span>)</span><span>)</span></span></code></pre>
+<p>The return value is a <code>nanoarrow_array_stream</code>, so callers can
+convert to whatever they need: <code>{arrow}</code>, <code>{polars}</code>, DuckDB, or
+anything else that speaks Arrow.</p>
+<h2 id="what-changed">What changed</h2>
+<p><strong>Breaking changes</strong></p>
+<ul>
+<li><code>FromArrowRobj</code>, <code>ToArrowRobj</code>, and <code>IntoArrowRobj</code> moved to the
+crate root (<code>arrow_extendr</code>). Update imports accordingly.</li>
+<li><code>FromArrowRobj::from_arrow_robj</code> now returns
+<code>std::result::Result&lt;Self, anyhow::Error&gt;</code> instead of
+<code>Result&lt;Self, ArrowError&gt;</code>, providing a uniform error type across
+both feature implementations.</li>
+<li><code>arrow-rs</code> is now an optional dependency behind the <code>arrow</code> feature
+flag, which is on by default. Add <code>features = ["arrow"]</code> explicitly
+if you depend on <code>arrow-rs</code> types.</li>
+<li><code>ErrArrowRobj</code> type alias removed. Use <code>anyhow::Error</code> directly.</li>
+</ul>
+<p><strong>New features</strong></p>
+<ul>
+<li><code>polars</code> feature flag enabling interop with <code>polars-core</code>.</li>
+<li><code>FromArrowRobj</code> for <code>polars_arrow::ffi::ArrowArrayStreamReader</code>.</li>
+<li><code>IntoArrowRobj</code> for <code>polars_arrow::ffi::ArrowArrayStream</code>.</li>
+<li><code>IntoArrowRobj</code> for <code>polars_core::frame::DataFrame</code>, preserving
+chunking.</li>
+<li><code>FromArrowRobj</code> for <code>polars_core::frame::DataFrame</code>.</li>
+</ul>
+<h2 id="community-driven-development">Community-driven development</h2>
+<p>This feature came directly out of a conversation with the
+<a rel="external" href="https://www.bioconductor.org/">Bioconductor</a> community last August.
+The topic was <a rel="external" href="https://github.com/SingleRust/SingleRust">SingleRust</a>,
+a single-cell analysis library in Rust, and how to expose its results
+to R. SingleRust’s core data structure is a Polars <code>DataFrame</code>, which
+meant crossing the polars-arrow/R boundary. That thread, between
+myself, <a rel="external" href="https://github.com/cgmossa">Mossa (@cgmossa)</a>, and
+<a rel="external" href="https://github.com/Artur-man">Artür (@Artur-man)</a>, is what motivated
+Mossa to build this out.</p>
+<p>The only way we know what matters to <strong>you</strong> is for you to tell us.
+We really do listen 👂🏼. We’re a small team, but when you need
+something, we’ll provide, or do our best at least!</p>
+<p><strong>Get involved:</strong></p>
+<ul>
+<li>Join the <a rel="external" href="https://discord.gg/7hmApuc">Discord</a>.</li>
+<li>Open an issue on
+<a rel="external" href="https://github.com/extendr/arrow-extendr/issues">arrow-extendr</a>,
+<a rel="external" href="https://github.com/extendr/extendr/issues">extendr</a>, or
+<a rel="external" href="https://github.com/extendr/rextendr/issues">rextendr</a>.</li>
+<li>Contribute, PRs are always welcome.</li>
+</ul>
+<p>The full changelog is on
+<a rel="external" href="https://github.com/extendr/arrow-extendr">GitHub</a>.</p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#tl-dr" class="toc-link pl-4">TL;DR</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#what-is-arrow-extendr" class="toc-link pl-4">What is arrow-extendr?</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#use-polars-from-extendr" class="toc-link pl-4">Use Polars from extendr</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#round-trip-a-polars-dataframe-through-r" class="toc-link pl-4">Round-trip a Polars DataFrame through R</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#what-changed" class="toc-link pl-4">What changed</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#community-driven-development" class="toc-link pl-4">Community-driven development</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>

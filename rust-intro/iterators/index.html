@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Iterators</h1>
+            
+            <p class="text-muted-foreground mt-1 mb-0">Chain operations over sequences with Rust&#x27;s iterator methods — closer in spirit to purrr::map than a for-loop.</p>
+            
+            
+        </header>
+        <div class="prose">
+            <p>So far we have been using <code>for</code> loops to work through collections, but Rust has
+a more powerful and flexible mechanism: iterators. Iterators produce a sequence
+of items that can be accessed one at a time and chained with methods like
+<code>.sum()</code>, <code>.min()</code>, <code>.max()</code>, and <code>.enumerate()</code>. They are closer in spirit to
+<code>apply()</code> or <code>purrr::map()</code> than to a traditional for-loop.</p>
+<p>And actually, we were technically using iterators all along, since Rust calls
+<code>.into_iter()</code> on the vector passed to a for-loop under the hood. Both of these
+are equivalent:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> nums</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">3</span><span>,</span><span class="z-constant z-numeric"> 6</span><span>,</span><span class="z-constant z-numeric"> 9</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword z-control">for</span><span class="z-variable"> n</span><span class="z-keyword"> in</span><span class="z-variable"> nums</span><span> {</span><span class="z-keyword z-operator"> ...</span><span> }</span></span>
+<span class="giallo-l"><span class="z-keyword z-control">for</span><span class="z-variable"> n</span><span class="z-keyword"> in</span><span class="z-variable"> nums</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span><span> {</span><span class="z-keyword z-operator"> ...</span><span> }</span></span></code></pre><h2 id="borrowing">Borrowing</h2>
+<p>One important constraint on the use of <code>.into_iter()</code> is that it actually
+<em>consumes</em> the vector — ownership is moved into the iterator so that the
+vector can no longer be used afterward:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> nums</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">3</span><span>,</span><span class="z-constant z-numeric"> 6</span><span>,</span><span class="z-constant z-numeric"> 9</span><span>]</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span class="z-variable"> n</span><span class="z-keyword"> in</span><span class="z-variable"> nums</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span><span> {</span><span class="z-comment">   //</span><span class="z-comment"> ⬅️ nums is moved</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Value: </span><span class="z-string">{</span><span class="z-string">n</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">nums: </span><span class="z-string">{</span><span class="z-string">:?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>,</span><span class="z-variable"> nums</span><span>)</span><span>;</span><span class="z-comment"> //</span><span class="z-comment"> ❌ compiler error</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>To iterate without consuming the original collection, use <code>.iter()</code> instead.
+This <em>borrows</em> the collection and produces references to each element, leaving
+the original value intact:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> nums</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">3</span><span>,</span><span class="z-constant z-numeric"> 6</span><span>,</span><span class="z-constant z-numeric"> 9</span><span>]</span><span>;</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span class="z-variable"> n</span><span class="z-keyword"> in</span><span class="z-variable"> nums</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Reference to value: </span><span class="z-string">{</span><span class="z-string">n</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">nums is still usable: </span><span class="z-string">{</span><span class="z-string">:?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>,</span><span class="z-variable"> nums</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>Reference to value: 3</span></span>
+<span class="giallo-l"><span>Reference to value: 6</span></span>
+<span class="giallo-l"><span>Reference to value: 9</span></span>
+<span class="giallo-l"><span>nums is still usable: [3, 6, 9]</span></span></code></pre>
+<p>Once you have an iterator, a number of useful methods are available. Here is an
+example of the sum method:</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> nums</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">2</span><span>,</span><span class="z-constant z-numeric"> 4</span><span>,</span><span class="z-constant z-numeric"> 8</span><span>]</span><span>;</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> total</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> nums</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">sum</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Sum is: </span><span class="z-string">{</span><span class="z-string">total</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>Sum is: 14</span></span></code></pre><h2 id="enumerating">Enumerating</h2>
+<p>You can also <code>.enumerate()</code> over iterators to get the index and value of the
+current element. These are returned as a tuple <code>(i, xi)</code> where <code>i</code> is the index
+and <code>xi</code> is the value. The data type of the index <code>i</code> is <code>usize</code>, which can if
+needed be cast to <code>i32</code> with <code>i as i32</code>. Note that Rust is zero-indexed!</p>
+<div class="code-with-filename">
+<p><strong>src/main.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> is_even</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> bool</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator"> %</span><span class="z-constant z-numeric"> 2</span><span class="z-keyword z-operator"> ==</span><span class="z-constant z-numeric"> 0</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">1</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>,</span><span class="z-constant z-numeric"> 5</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-keyword z-control">    for</span><span> (</span><span class="z-variable">i</span><span>,</span><span class="z-variable"> xi</span><span>)</span><span class="z-keyword"> in</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">enumerate</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-keyword z-control">        if</span><span class="z-entity z-name z-function"> is_even</span><span>(</span><span class="z-variable">i</span><span class="z-keyword"> as</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">            println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Index </span><span class="z-string">{</span><span class="z-string">i</span><span class="z-string">}</span><span class="z-string"> is even with value </span><span class="z-string">{</span><span class="z-string">xi</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>Index 0 is even with value 1</span></span>
+<span class="giallo-l"><span>Index 2 is even with value 5</span></span></code></pre><h2 id="mapping">Mapping</h2>
+<p>Maybe the most useful method to apply to iterators is <code>.map()</code>, the Rust analog
+of <code>purrr::map()</code> and the <code>apply()</code> family of functions. Here is an example that
+squares each element of a vector:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> providing explicit type annotation in one</span></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> value so the compiler knows its f64 and not f32</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">5</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">9_</span><span class="z-entity z-name z-type">f64</span><span>,</span><span class="z-constant z-numeric"> 6</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">8</span><span>,</span><span class="z-constant z-numeric"> 4</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">5</span><span>,</span><span class="z-constant z-numeric"> 7</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">3</span><span>,</span><span class="z-constant z-numeric"> 6</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">2</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>)</span></span></code></pre>
+<p>Using <code>.map()</code> returns another iterator, so we can chain operations over
+iterators by using multiple <code>.map()</code> statements.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> providing explicit type annotation in one</span></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> value so the compiler knows its f64 and not f32</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">5</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">9_</span><span class="z-entity z-name z-type">f64</span><span>,</span><span class="z-constant z-numeric"> 6</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">8</span><span>,</span><span class="z-constant z-numeric"> 4</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">5</span><span>,</span><span class="z-constant z-numeric"> 7</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">3</span><span>,</span><span class="z-constant z-numeric"> 6</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">2</span><span>]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator"> -</span><span class="z-constant z-numeric"> 1</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>)</span></span></code></pre><h2 id="closure">Closure</h2>
+<p>In these examples we use a <em>closure</em> to modify each element of the iterator,
+which is Rust’s version of an anonymous function. The syntax of a closure is
+<code>|arg| expression</code>, similar to R’s recent adoption of <code>\(arg) expression</code>. Like
+R’s anonymous functions, they can also be multiple lines by wrapping the
+expression in curly brackets:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> squared</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-variable">    squared</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">sqrt</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span><span>)</span></span></code></pre>
+<p>When using <code>.enumerate().map()</code>, you get the Rust version of <code>purrr::imap()</code>.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">    .</span><span class="z-entity z-name z-function">enumerate</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">    .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span>(</span><span class="z-variable">i</span><span>,</span><span class="z-variable"> xi</span><span>)</span><span class="z-keyword z-operator">|</span><span> {</span></span>
+<span class="giallo-l"><span class="z-comment">        //</span><span class="z-comment"> use both i and xi here</span></span>
+<span class="giallo-l"><span>    }</span><span>)</span></span></code></pre>
+<p>Notice that the iterator is now the tuple <code>(i, xi)</code> as before in the for-loop.</p>
+<h2 id="collecting">Collecting</h2>
+<p>In R, <code>purrr::map()</code> always returns a list, but in Rust, <code>.map()</code> always returns
+another iterator, so getting back a concrete collection means you must
+<code>.collect()</code> the values in the iterator. Rust cannot always infer the type you
+want to collect, however, so you need to provide it explicitly:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x_squared</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-entity z-name z-type">f64</span><span>&gt;</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">collect</span><span>(</span><span>)</span><span>;</span></span></code></pre>
+<p>Alternatively, you can use the <em>turbofish</em> syntax <code>.collect::&lt;TYPE&gt;()</code> to
+specify the type directly on <code>.collect()</code> rather than in the assignment:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x_squared</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Vec</span><span>&lt;</span><span class="z-entity z-name z-type">f64</span><span>&gt;</span><span>&gt;</span><span>(</span><span>)</span><span>;</span></span></code></pre>
+<p>In either case, you may use a general placeholders to encourage Rust to infer
+the type, the syntax being <code>Vec&lt;_&gt;</code>:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x_squared</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-variable">_</span><span>&gt;</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">collect</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x_squared</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span class="z-variable">xi</span><span class="z-keyword z-operator">|</span><span class="z-variable"> xi</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">powi</span><span>(</span><span class="z-constant z-numeric">2</span><span>)</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Vec</span><span>&lt;</span><span class="z-variable">_</span><span>&gt;</span><span>&gt;</span><span>(</span><span>)</span><span>;</span></span></code></pre>
+<p>This lets Rust infer the element type while you specify the container type.</p>
+
+        </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;ownership&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Ownership</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;structures&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Structures</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#borrowing" class="toc-link pl-4">Borrowing</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#enumerating" class="toc-link pl-4">Enumerating</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#mapping" class="toc-link pl-4">Mapping</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#closure" class="toc-link pl-4">Closure</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#collecting" class="toc-link pl-4">Collecting</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>

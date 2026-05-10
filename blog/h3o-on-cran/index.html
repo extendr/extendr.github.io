@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">h3o is now on CRAN‼️</h1>
+            
+            <p class="text-muted-foreground mt-1 mb-0">R users now have access to a pure Rust implementation of Uber&#x27;s H3, a 
+hexagonal geospatial grid and indexing system.
+</p>
+            
+            
+            <div class="mt-6">
+                
+                <p class="flex items-center text-sm text-muted-foreground my-0">
+                    <span class="iconify lucide--users mr-2"></span>
+                    Blake Vernon, Josiah Parry
+                </p>
+                
+                
+                <p class="flex items-center text-sm text-muted-foreground mt-2 mb-0">
+                    <span class="iconify lucide--calendar text-xs mr-2"></span>
+                    Sep 9, 2025
+                </p>
+                
+            </div>
+            
+        </header>
+        <div class="prose">
+            <p>The extendr-powered R package <code>h3o</code> provides access to <a rel="external" href="https://github.com/HydroniumLabs/h3o">a pure Rust implementation</a>
+of <a rel="external" href="https://github.com/uber/h3">Uber’s H3 Geospatial Indexing System</a>.
+Originally developed by Josiah Parry, the R package has also become an official
+product of extendr, which means community support 🤝 and maintenance 🏗️ into
+the foreseeable future.</p>
+<h2 id="h3o-at-a-glance-eyes"><code>h3o</code> at a glance 👀</h2>
+<p>The package provides functionality to interact with H3’s grid as vectors, which
+can be converted to and from <code>sf</code> geometries.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">h3o</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">dplyr</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">sf</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">tibble</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">xy</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> data.frame</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> runif</span><span>(</span><span class="z-constant z-numeric">100</span><span class="z-keyword z-operator">,</span><span class="z-keyword z-operator"> -</span><span class="z-constant z-numeric">5</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 10</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  y</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> runif</span><span>(</span><span class="z-constant z-numeric">100</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 40</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 50</span><span>)</span></span>
+<span class="giallo-l"><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">pnts</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> st_as_sf</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  xy</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  coords</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> c</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">x</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">y</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  crs</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 4326</span></span>
+<span class="giallo-l"><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">mutate</span><span>(</span><span class="z-variable">pnts</span><span class="z-keyword z-operator">,</span><span class="z-variable"> h3</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_from_points</span><span>(</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 5</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>Simple feature collection with 100 features and 1 field</span></span>
+<span class="giallo-l"><span>Geometry type: POINT</span></span>
+<span class="giallo-l"><span>Dimension:     XY</span></span>
+<span class="giallo-l"><span>Bounding box:  xmin: -4.984449 ymin: 40.02991 xmax: 9.927412 ymax: 49.57376</span></span>
+<span class="giallo-l"><span>Geodetic CRS:  WGS 84</span></span>
+<span class="giallo-l"><span>First 10 features:</span></span>
+<span class="giallo-l"><span>                      geometry              h3</span></span>
+<span class="giallo-l"><span>1    POINT (6.615273 41.88461) 85394d9bfffffff</span></span>
+<span class="giallo-l"><span>2  POINT (-0.5700488 41.87264) 853970b3fffffff</span></span>
+<span class="giallo-l"><span>3    POINT (-2.33205 41.95537) 8539292ffffffff</span></span>
+<span class="giallo-l"><span>4   POINT (-2.450051 47.21917) 85184557fffffff</span></span>
+<span class="giallo-l"><span>5    POINT (6.373951 47.05955) 851f8203fffffff</span></span>
+<span class="giallo-l"><span>6    POINT (3.287704 44.73006) 851f921bfffffff</span></span>
+<span class="giallo-l"><span>7    POINT (1.477562 42.97844) 853962b7fffffff</span></span>
+<span class="giallo-l"><span>8   POINT (0.5357143 44.39415) 8539641bfffffff</span></span>
+<span class="giallo-l"><span>9     POINT (1.97672 48.76817) 851fb47bfffffff</span></span>
+<span class="giallo-l"><span>10  POINT (-4.807255 48.05959) 851846cffffffff</span></span></code></pre>
+<p>You can use the <code>st_as_sfc()</code> method to convert H3 hexagons to sf <code>POLYGON</code>s.</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># replace geometry</span></span>
+<span class="giallo-l"><span class="z-variable">h3_cells</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> pnts</span><span class="z-keyword z-operator"> |&gt;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">  mutate</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">    h3</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_from_points</span><span>(</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 4</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">    geometry</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> st_as_sfc</span><span>(</span><span class="z-variable">h3</span><span>)</span></span>
+<span class="giallo-l"><span>  )</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment"># plot the hexagons</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">plot</span><span>(</span><span class="z-entity z-name z-function">st_geometry</span><span>(</span><span class="z-variable">h3_cells</span><span>)</span><span>)</span></span></code></pre><img src="index_files/figure-commonmark/unnamed-chunk-1-1.png"/>
+<p>H3 cell centroids can be returned using <code>h3_to_points()</code>. If <code>sf</code> is avilable,
+the results will be returned as an <code>sfc</code> (sf column) object. Otherwise it will
+return a list of <code>sfg</code> (sf geometries).</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># fetch h3 column</span></span>
+<span class="giallo-l"><span class="z-variable">h3s</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> h3_cells</span><span>[</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">h3</span><span class="z-string">&quot;</span><span>]</span><span>]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment"># get there centers</span></span>
+<span class="giallo-l"><span class="z-variable">h3_centers</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> h3_to_points</span><span>(</span><span class="z-variable">h3s</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment"># plot the hexagons with the centers</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">plot</span><span>(</span><span class="z-entity z-name z-function">st_geometry</span><span>(</span><span class="z-variable">h3_cells</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">plot</span><span>(</span><span class="z-variable">h3_centers</span><span class="z-keyword z-operator">,</span><span class="z-variable"> pch</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 16</span><span class="z-keyword z-operator">,</span><span class="z-variable"> add</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span><span class="z-keyword z-operator">,</span><span class="z-variable"> col</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">black</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><img src="index_files/figure-commonmark/unnamed-chunk-2-1.png"/>
+<h2 id="h3-at-light-speed-zap">H3 at light speed ⚡</h2>
+<p>Because it builds on a pure Rust implementation, <code>h3o</code> is also very very fast.
+Here are some benchmarks, which also serve to showcase <code>h3o</code> tools.</p>
+<h3 id="creating-polygons">Creating polygons</h3>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">h3_strs</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> as.character</span><span>(</span><span class="z-variable">h3s</span><span>)</span></span>
+<span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> st_as_sfc</span><span>(</span><span class="z-variable">h3s</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">cell_to_polygon</span><span>(</span><span class="z-variable">h3_strs</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span class="giallo-l"><span>1 h3o          1      1        15.6        1      1   </span></span>
+<span class="giallo-l"><span>2 h3jsr       17.8   17.3       1        274.     7.96</span></span></code></pre><h3 id="converting-polygons-to-h3-cells">Converting polygons to H3 cells:</h3>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">nc</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> st_read</span><span>(</span><span class="z-entity z-name z-function">system.file</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">gpkg/nc.gpkg</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> package</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">sf</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">,</span><span class="z-variable"> quiet</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span><span>)</span><span class="z-keyword z-operator"> |&gt;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">  st_transform</span><span>(</span><span class="z-constant z-numeric">4326</span><span>)</span><span class="z-keyword z-operator"> |&gt;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">  st_geometry</span><span>(</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> sfc_to_cells</span><span>(</span><span class="z-variable">nc</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 5</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">centroid</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">polygon_to_cells</span><span>(</span><span class="z-variable">nc</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 5</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span class="giallo-l"><span>1 h3o         1      1         5.42       1       2.26</span></span>
+<span class="giallo-l"><span>2 h3jsr       5.81   5.61      1         34.1     1   </span></span></code></pre><h3 id="converting-points-to-cells">Converting points to cells</h3>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_from_points</span><span>(</span><span class="z-variable">pnts</span><span class="z-keyword z-operator">$</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 3</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">point_to_cell</span><span>(</span><span class="z-variable">pnts</span><span class="z-keyword z-operator">$</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 3</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span class="giallo-l"><span>1 h3o          1      1        21.2        1      1.03</span></span>
+<span class="giallo-l"><span>2 h3jsr       21.2   23.0       1        955.     1   </span></span></code></pre><h3 id="retrieve-edges">Retrieve edges</h3>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_edges</span><span>(</span><span class="z-variable">h3s</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">get_udedges</span><span>(</span><span class="z-variable">h3_strs</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span class="giallo-l"><span>1 h3o         1      1         2.90      1        1.07</span></span>
+<span class="giallo-l"><span>2 h3jsr       4.38   3.14      1         7.02     1   </span></span></code></pre><h3 id="get-origins-and-destinations-from-edges">Get origins and destinations from edges.</h3>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># get edges for a single location</span></span>
+<span class="giallo-l"><span class="z-variable">eds</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> h3_edges</span><span>(</span><span class="z-variable">h3s</span><span>[</span><span class="z-constant z-numeric">1</span><span>]</span><span>)</span><span>[</span><span>[</span><span class="z-constant z-numeric">1</span><span>]</span><span>]</span></span>
+<span class="giallo-l"><span class="z-comment"># strings for h3jsr</span></span>
+<span class="giallo-l"><span class="z-variable">eds_str</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> as.character</span><span>(</span><span class="z-variable">eds</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_edge_cells</span><span>(</span><span class="z-variable">eds</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">get_udends</span><span>(</span><span class="z-variable">eds_str</span><span>)</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
+<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span class="giallo-l"><span>1 h3o          1      1        37.9      1        1.00</span></span>
+<span class="giallo-l"><span>2 h3jsr       48.2   38.6       1        2.52     1   </span></span></code></pre><h2 id="installation-package">Installation 📦</h2>
+<p>You can install the release version of <code>h3o</code> from CRAN with:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">install.packages</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">h3o</span><span class="z-string">&quot;</span><span>)</span></span></code></pre>
+<p>Or you can install the development version from <a rel="external" href="https://github.com/">GitHub</a>
+with:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># install.packages(&quot;pak&quot;)</span></span>
+<span class="giallo-l"><span class="z-variable">pak</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">pak</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">extendr/h3o</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><h2 id="learn-more-adult-mortar-board">Learn more 🧑‍🎓</h2>
+<p>See the package documentation for more details: <a rel="external" href="http://extendr.rs/h3o/">http://extendr.rs/h3o/</a>.</p>
+<p>If you encounter a bug or would like to request new features, head over to the
+GitHub repository: <a rel="external" href="https://github.com/extendr/h3o">https://github.com/extendr/h3o</a>.</p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#h3o-at-a-glance-eyes" class="toc-link pl-4">h3o at a glance 👀</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#h3-at-light-speed-zap" class="toc-link pl-4">H3 at light speed ⚡</a>
+        
+        
+<ul class="space-y-1 ml-2">
+    
+    
+    <li class="toc-item">
+        <a href="#creating-polygons" class="toc-link pl-4">Creating polygons</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#converting-polygons-to-h3-cells" class="toc-link pl-4">Converting polygons to H3 cells:</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#converting-points-to-cells" class="toc-link pl-4">Converting points to cells</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#retrieve-edges" class="toc-link pl-4">Retrieve edges</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#get-origins-and-destinations-from-edges" class="toc-link pl-4">Get origins and destinations from edges.</a>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#installation-package" class="toc-link pl-4">Installation 📦</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#learn-more-adult-mortar-board" class="toc-link pl-4">Learn more 🧑‍🎓</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>

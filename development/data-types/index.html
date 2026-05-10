@@ -460,59 +460,148 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">R to Rust type mapping</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>extendr is allows us to create a bridge between R and Rust. When writing a function in Rust that is intended to be called from R, it is important that the input types be R types. There are many types of objects in R (almost) all of which are available in extendr via a wrapper struct.</p>
+<p>The below lists the extendr structs that wrap R object types. These types can be used as function arguments or return values.</p>
+<h2 id="scalar-types">Scalar types</h2>
+<p>R has no concept of scalar values whereas Rust does. Rust does not have the concept of an NA. As such, we have types to represent scalar values in R. The below is how they are mapped.</p>
+
+<table class="table">
+  
+  <thead>
+    <tr>
+      <th>R</th><th> Rust</th><th> extendr</th>
+    </tr>
+  </thead>
+  <tbody class="[&>tr:not(:last-child)]:border-none [&>tr:last-child]:border-b">
+    
+    <tr><td>integer(1)</td><td> i32</td><td> Rint</td></tr>
+    
+    <tr><td>logical(1)</td><td> bool</td><td> Rbool</td></tr>
+    
+    <tr><td>double(1)</td><td> f64</td><td> Rfloat</td></tr>
+    
+    <tr><td>complex(1)</td><td> Complex&lt;f64&gt;</td><td> Rcplx</td></tr>
+    
+    <tr><td>character(1)</td><td> String</td><td> Rstr</td></tr>
+    
+  </tbody>
+  
+</table><h2 id="vector-types">Vector types</h2>
+<p>Everything in R is a vector. In Rust, we have to point to R’s owned vector types rather than use Rust’s native <code>Vec</code> collection. These are mapped accordingly:</p>
+
+<table class="table">
+  
+  <thead>
+    <tr>
+      <th>R</th><th>extendr</th><th>scalar</th><th>C API</th>
+    </tr>
+  </thead>
+  <tbody class="[&>tr:not(:last-child)]:border-none [&>tr:last-child]:border-b">
+    
+    <tr><td>integer()</td><td>Integers</td><td>Rint</td><td>INTSXP</td></tr>
+    
+    <tr><td>double()</td><td>Doubles</td><td>Rfloat</td><td>REALSXP</td></tr>
+    
+    <tr><td>logical()</td><td>Logicals</td><td>Rbool</td><td>LGLSXP</td></tr>
+    
+    <tr><td>complex()</td><td>Complexes</td><td>Rcplx</td><td>CPLXSXP</td></tr>
+    
+    <tr><td>character()</td><td>Strings</td><td>Rstr</td><td>STRSXP</td></tr>
+    
+    <tr><td>raw()</td><td>Raw</td><td>&amp;\[u8\]</td><td>RAWSXP</td></tr>
+    
+    <tr><td>list()</td><td>List</td><td>Robj</td><td>VECSXP</td></tr>
+    
+  </tbody>
+  
+</table><h2 id="using-rust-library-types-vs-r-native-types">Using Rust library types vs R-native types</h2>
+<p>Whenever possible use the extendr wrapper type. Accepting or returning a <code>Vec&lt;T&gt;</code> requires additional allocations. This will always incur memory usage overhead. In some cases, the overhead will be minimal and tolerable. However, if you can use the Rust type instead, always do.</p>
+<h2 id="other-types">Other types</h2>
+<ul>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/environment/struct.Environment.html"><code>Environment</code></a> (<code>ENVSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/expr/struct.Expressions.html"><code>Expressions</code></a> (<code>EXPRSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/externalptr/struct.ExternalPtr.html"><code>ExternalPtr</code></a> (<code>EXTPTRSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/function/struct.Function.html"><code>Function</code></a> (<code>CLOSSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/lang/struct.Language.html"><code>Language</code></a> (<code>LANGSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/matrix/struct.RArray.html"><code>RArray</code></a></li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/pairlist/struct.Pairlist.html"><code>Pairlist</code></a> (<code>LISTSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/promise/struct.Promise.html"><code>Promise</code></a> (<code>PROMSXP</code>)</li>
+<li><a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/s4/struct.S4.html"><code>S4</code></a> (<code>S4SXP</code>)</li>
+</ul>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;extendr-macro&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Using Rust types in R</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#scalar-types" class="toc-link pl-4">Scalar types</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#vector-types" class="toc-link pl-4">Vector types</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#using-rust-library-types-vs-r-native-types" class="toc-link pl-4">Using Rust library types vs R-native types</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#other-types" class="toc-link pl-4">Other types</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

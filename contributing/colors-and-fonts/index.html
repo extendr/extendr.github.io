@@ -460,59 +460,322 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Colors and Fonts</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Reference for the site&#x27;s Tailwind theme tokens, brand palette, and fonts.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>The site uses <a rel="external" href="https://tailwindcss.com/">Tailwind CSS v4</a> with the
+<a rel="external" href="https://basecoatui.com/">basecoat</a> component library. Two color systems are
+exposed as Tailwind utilities:</p>
+<ol>
+<li><strong>Semantic theme tokens</strong> — <code>primary</code>, <code>muted</code>, <code>card</code>, etc. These adapt
+automatically to light and dark mode and should be preferred for general UI.</li>
+<li><strong>Brand palette tokens</strong> — fixed R Foundation and Rust Foundation colors.
+Use these when you specifically want a brand color regardless of theme.</li>
+</ol>
+<p>Anywhere a Tailwind color utility is accepted (<code>bg-*</code>, <code>text-*</code>, <code>border-*</code>,
+<code>ring-*</code>, <code>from-*</code>, <code>to-*</code>, …), both groups work the same way.</p>
+<h2 id="semantic-theme-colors">Semantic theme colors</h2>
+<p>Each semantic role comes as a pair: a background and its matching foreground.
+Tokens live in <code>css/theme.css</code> and flip automatically when the <code>.dark</code> class
+is on <code>&lt;html&gt;</code>.</p>
+<div class="flex gap-2 flex-wrap">
+<div class="bg-background text-foreground border border-border h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-background</p>
+</div>
+<div class="bg-card text-card-foreground border border-border h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-card</p>
+</div>
+<div class="bg-popover text-popover-foreground border border-border h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-popover</p>
+</div>
+</div>
+<div class="flex gap-2 flex-wrap mt-2">
+<div class="bg-primary text-primary-foreground h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-primary</p>
+</div>
+<div class="bg-secondary text-secondary-foreground h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-secondary</p>
+</div>
+<div class="bg-accent text-accent-foreground h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-accent</p>
+</div>
+</div>
+<div class="flex gap-2 flex-wrap mt-2">
+<div class="bg-muted text-muted-foreground h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-muted</p>
+</div>
+<div class="bg-destructive text-destructive-foreground h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-destructive</p>
+</div>
+</div>
+<p>Three single-purpose tokens round out the set:</p>
+<ul>
+<li><code>border-border</code> — default border color.</li>
+<li><code>bg-input</code> — form field background.</li>
+<li><code>ring-ring</code> — focus ring color.</li>
+</ul>
+<p>For text, drop the <code>bg-</code> prefix:
+<span class="text-foreground">text-foreground</span>,
+<span class="text-muted-foreground">text-muted-foreground</span>,
+<span class="text-primary">text-primary</span>,
+<span class="text-destructive">text-destructive</span>,
+<span class="text-accent-foreground">text-accent-foreground</span>.</p>
+<h2 id="chart-colors">Chart colors</h2>
+<p>Five semantic slots designed for data visualization, each with a distinct
+light/dark mapping.</p>
+<div class="flex gap-2 flex-wrap">
+<div class="bg-chart-1 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-sm font-mono">
+<p>chart-1</p>
+</div>
+<div class="bg-chart-2 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-sm font-mono">
+<p>chart-2</p>
+</div>
+<div class="bg-chart-3 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-sm font-mono">
+<p>chart-3</p>
+</div>
+<div class="bg-chart-4 h-16 flex-1 min-w-32 flex items-center justify-center text-sm font-mono">
+<p>chart-4</p>
+</div>
+<div class="bg-chart-5 h-16 flex-1 min-w-32 flex items-center justify-center text-sm font-mono">
+<p>chart-5</p>
+</div>
+</div>
+<h2 id="brand-palette">Brand palette</h2>
+<p>Defined in <code>css/colors.css</code>. These are <strong>fixed values</strong> — they don’t flip in
+dark mode. Pair them with an appropriate text color manually.</p>
+<h3 id="r-foundation">R Foundation</h3>
+<p>The blues from the <a rel="external" href="https://www.r-project.org/logo/">R logo</a>.</p>
+<div class="flex gap-2 flex-wrap">
+<div class="bg-r-blue-2 text-white h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-r-blue-2</p>
+</div>
+<div class="bg-r-blue-1 text-white h-16 flex-1 min-w-40 flex items-center justify-center text-sm font-mono">
+<p>bg-r-blue-1</p>
+</div>
+</div>
+<h3 id="rust-foundation">Rust Foundation</h3>
+<p>Tints from the Rust Foundation <a rel="external" href="https://rustfoundation.org/brand-guide/">brand guide</a>.
+Each family ships at 100, 75, 50, and 25 percent saturation.</p>
+<div class="flex gap-2 flex-wrap">
+<div class="bg-rust-dark-blue-100 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-dark-blue-100</p>
+</div>
+<div class="bg-rust-dark-blue-75 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-dark-blue-75</p>
+</div>
+<div class="bg-rust-dark-blue-50 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-dark-blue-50</p>
+</div>
+<div class="bg-rust-dark-blue-25 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-dark-blue-25</p>
+</div>
+</div>
+<div class="flex gap-2 flex-wrap mt-2">
+<div class="bg-rust-orange-100 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-orange-100</p>
+</div>
+<div class="bg-rust-orange-75 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-orange-75</p>
+</div>
+<div class="bg-rust-orange-50 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-orange-50</p>
+</div>
+<div class="bg-rust-orange-25 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-orange-25</p>
+</div>
+</div>
+<div class="flex gap-2 flex-wrap mt-2">
+<div class="bg-rust-blue-100 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-blue-100</p>
+</div>
+<div class="bg-rust-blue-75 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-blue-75</p>
+</div>
+<div class="bg-rust-blue-50 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-blue-50</p>
+</div>
+<div class="bg-rust-blue-25 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-blue-25</p>
+</div>
+</div>
+<div class="flex gap-2 flex-wrap mt-2">
+<div class="bg-rust-silver-100 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-silver-100</p>
+</div>
+<div class="bg-rust-silver-75 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-silver-75</p>
+</div>
+<div class="bg-rust-silver-50 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-silver-50</p>
+</div>
+<div class="bg-rust-silver-25 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-silver-25</p>
+</div>
+</div>
+<div class="flex gap-2 flex-wrap mt-2">
+<div class="bg-rust-green-100 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-green-100</p>
+</div>
+<div class="bg-rust-green-75 text-white h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-green-75</p>
+</div>
+<div class="bg-rust-green-50 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-green-50</p>
+</div>
+<div class="bg-rust-green-25 h-16 flex-1 min-w-32 flex items-center justify-center text-xs font-mono">
+<p>rust-green-25</p>
+</div>
+</div>
+<p>Brand colors are also available as text utilities:
+<span class="text-r-blue-1">text-r-blue-1</span>,
+<span class="text-rust-orange-100">text-rust-orange-100</span>,
+<span class="text-rust-blue-100">text-rust-blue-100</span>,
+<span class="text-rust-green-100">text-rust-green-100</span>,
+<span class="text-rust-dark-blue-100">text-rust-dark-blue-100</span>.</p>
+<h2 id="light-and-dark-mode">Light and dark mode</h2>
+<p>Theme switching is driven by a <code>.dark</code> class on <code>&lt;html&gt;</code>. Semantic tokens
+have separate values for each mode, so utilities like <code>bg-primary</code> or
+<code>text-muted-foreground</code> adapt without any extra work on your part.</p>
+<p>When you need a class to apply <em>only</em> in one mode, prefix it with the <code>dark:</code>
+variant:</p>
+<div class="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-border p-4 rounded">
+<p>This block is white in light mode and zinc-900 in dark mode. Toggle the theme
+to see the swap.</p>
+</div>
+<p>In practice you should rarely need <code>dark:</code> — reach for it only when the
+semantic tokens above don’t fit your case.</p>
+<h2 id="fonts">Fonts</h2>
+<p>Three font families are loaded in <code>css/fonts.css</code> and exposed as Tailwind
+utilities:</p>
+<div class="flex gap-2 flex-wrap">
+<div class="bg-card text-card-foreground border border-border font-mono p-4 flex-1 min-w-56">
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>&lt;div class=&quot;text-2xl&quot;&gt;Monaspace&lt;/div&gt;</span></span>
+<span class="giallo-l"><span>font-mono&lt;br&gt;</span></span>
+<span class="giallo-l"><span>ABCDEFGHIJKLMNOPQRSTUVWXYZ&lt;br&gt;</span></span>
+<span class="giallo-l"><span>abcdefghijklmnopqrstuvwxyz&lt;br&gt;</span></span>
+<span class="giallo-l"><span>0123456789</span></span></code></pre></div>
+<div class="bg-card text-card-foreground border border-border font-serif p-4 flex-1 min-w-56">
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>&lt;div class=&quot;text-2xl&quot;&gt;Noto Serif&lt;/div&gt;</span></span>
+<span class="giallo-l"><span>font-serif&lt;br&gt;</span></span>
+<span class="giallo-l"><span>ABCDEFGHIJKLMNOPQRSTUVWXYZ&lt;br&gt;</span></span>
+<span class="giallo-l"><span>abcdefghijklmnopqrstuvwxyz&lt;br&gt;</span></span>
+<span class="giallo-l"><span>0123456789</span></span></code></pre></div>
+<div class="bg-card text-card-foreground border border-border font-sans p-4 flex-1 min-w-56">
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>&lt;div class=&quot;text-2xl&quot;&gt;Noto Sans&lt;/div&gt;</span></span>
+<span class="giallo-l"><span>font-sans&lt;br&gt;</span></span>
+<span class="giallo-l"><span>ABCDEFGHIJKLMNOPQRSTUVWXYZ&lt;br&gt;</span></span>
+<span class="giallo-l"><span>abcdefghijklmnopqrstuvwxyz&lt;br&gt;</span></span>
+<span class="giallo-l"><span>0123456789</span></span></code></pre></div>
+</div>
+<p>Body copy uses <code>font-sans</code> by default, and headings inside <code>.content</code> get
+<code>font-mono</code> automatically (see <code>css/content.css</code>). You should rarely need to
+set a font utility by hand.</p>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;rextendr-internals&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>rextendr Internals</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;user-guide-pages&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>User Guide Pages</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#semantic-theme-colors" class="toc-link pl-4">Semantic theme colors</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#chart-colors" class="toc-link pl-4">Chart colors</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#brand-palette" class="toc-link pl-4">Brand palette</a>
+        
+        
+<ul class="space-y-1 ml-2">
+    
+    
+    <li class="toc-item">
+        <a href="#r-foundation" class="toc-link pl-4">R Foundation</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#rust-foundation" class="toc-link pl-4">Rust Foundation</a>
+        
+    </li>
+    
+    
+</ul>
+
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#light-and-dark-mode" class="toc-link pl-4">Light and dark mode</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#fonts" class="toc-link pl-4">Fonts</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

@@ -460,59 +460,138 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Documenting Code</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Documentation conventions for Rust (rustdoc) and R (roxygen2) code in extendr and rextendr.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>Code in extendr and rextendr should be thoroughly documented using widely
+accepted styling conventions in the R and Rust communities.</p>
+<h2 id="writing-style">Writing style</h2>
+<ul>
+<li>Be concise! And stay on topic! The reader should not have to wade through
+lengthy digressions to get to the point.</li>
+<li>Eschew obfuscation and avoid needlessly wordy phrases like ‘eschew
+obfuscation.’ In other words, keep it simple.</li>
+<li>Second person (“you”) is fine for instructions, but do not write about the
+reader’s intentions in the second person (avoid expressions like “you want to”
+or “you need to”).</li>
+</ul>
+<h2 id="rust-documentation">Rust Documentation</h2>
+<p>All Rust code in extendr should be documented with
+<a rel="external" href="https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html">rustdoc</a>
+following conventions recommended in the
+<a rel="external" href="https://rust-lang.github.io/api-guidelines/about.html">Rust API Guidelines</a>.</p>
+<p>Doc examples that call the R API must be wrapped in <code>with_r</code>. Bare doctests
+without it will fail at runtime.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> ```</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> use extendr_api::prelude::*;</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> with_r(|| {</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment">     let x = r!([1, 2, 3]);</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment">     assert_eq!(x.len(), 3);</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment">     Ok(())</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> });</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> ```</span></span></code></pre><h2 id="r-documentation">R Documentation</h2>
+<p>Functions in rextendr should be documented with <a rel="external" href="https://roxygen2.r-lib.org">roxygen2</a>,
+following the conventions recommended by the <a rel="external" href="https://style.tidyverse.org/documentation.html">tidyverse style guide</a>.</p>
+<ul>
+<li>Roxygen documentation for every exported function must include the following
+roclets:
+<ul>
+<li><code>@title</code></li>
+<li><code>@description</code> — a concise description of what the function does.</li>
+<li><code>@param</code> — one tag per parameter, specifying:
+<ul>
+<li>the data type (e.g. <code>integer</code>, <code>character</code>, <code>logical</code>)</li>
+<li>whether it is a scalar or vector</li>
+<li>the default value, if one exists</li>
+</ul>
+</li>
+<li><code>@return</code> — what the function returns, including the R type.</li>
+<li><code>@examples</code></li>
+</ul>
+</li>
+<li>The <code>@details</code> section are optional, but should be included for most functions
+in rextendr.</li>
+<li>Internal functions should include roxygen comments if their use in rextendr is
+fairly complex, important, and not easy to discern. Simple helper functions do
+not need to be documented.</li>
+<li>In online guides, add the runnable Rust code to the <code>packages/examples/</code>
+crate (or <code>packages/heck/</code> for the case-converter walkthrough) and call the
+generated R wrappers from <code>{r}</code> chunks after <code>library(examples)</code> /
+<code>library(heck)</code>. Show the Rust source with display-only <code>{.rust}</code> blocks.
+See <code>development/serde-integration.qmd</code> for a worked example to emulate.</li>
+</ul>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;writing-code&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>←</span>
+                        <span>Writing Code</span>
+                    </a>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;testing-code&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Testing Code</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#writing-style" class="toc-link pl-4">Writing style</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#rust-documentation" class="toc-link pl-4">Rust Documentation</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#r-documentation" class="toc-link pl-4">R Documentation</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

@@ -460,59 +460,113 @@
             <div class="p-4 md:p-6 xl:p-12">
                 <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
                     
-<div class="mx-auto w-full flex-1 max-w-screen-md">
-    <header class="space-y-2">
-        <h1 class="text-xl font-semibold tracking-tight md:text-4xl">
-            Build blazingly fast R packages with Rust
-        </h1>
-        <p class="text-muted-foreground text-[1.05rem] sm:text-base">
-            extendr provides developer-first tooling and support for publishing to CRAN.
-        </p>
-        <div class="flex flex-row gap-2 flex-wrap mt-4">
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Writing Code</h1>
             
-            <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions" data-original-href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;actions">
-                <img src="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr&#x2F;workflows&#x2F;Tests&#x2F;badge.svg" class="max-w-full h-auto" alt="Github Actions Build Status">
-            </a>
+            <p class="text-muted-foreground mt-1 mb-0">Code formatting conventions and recommended tooling for Rust and R contributions.</p>
             
-            <a href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;crates&#x2F;v&#x2F;extendr-api.svg" class="max-w-full h-auto" alt="Crates.io">
-            </a>
             
-            <a href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api" data-original-href="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api">
-                <img src="https:&#x2F;&#x2F;docs.rs&#x2F;extendr-api&#x2F;badge.svg" class="max-w-full h-auto" alt="Documentation">
-            </a>
-            
-            <a href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT" data-original-href="https:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT">
-                <img src="https:&#x2F;&#x2F;img.shields.io&#x2F;badge&#x2F;License-MIT-yellow.svg" class="max-w-full h-auto" alt="License: MIT">
-            </a>
-            
+        </header>
+        <div class="prose">
+            <p>This page covers code formatting conventions for the extendr project. Following
+these conventions keeps code consistent and readable across contributors.</p>
+<h2 id="rust-code">Rust Code</h2>
+<p>Rust code should be written to conform with conventions outlined in the
+<a rel="external" href="https://rust-lang.github.io/api-guidelines/about.html">Rust API Guidelines</a>.
+It’s a good idea to read this document, but it may take time to gain some
+familiarity with all of its ins and outs. In the meantime, the following tools
+will prove very beneficial to keeping your Rust code consistent with those
+conventions.</p>
+<ul>
+<li>
+<p>Use <a rel="external" href="https://rust-lang.github.io/rustfmt/?version=v1.9.0">rustfmt</a> to
+format Rust code. rustfmt is the standard Rust formatter and can be
+configured to run on save in most editors.</p>
+</li>
+<li>
+<p>Use <a rel="external" href="https://doc.rust-lang.org/stable/clippy/">Clippy</a> to lint Rust code.
+Clippy catches common mistakes and enforces idiomatic Rust style.</p>
+</li>
+<li>
+<p>Use <a rel="external" href="https://rust-analyzer.github.io/">rust-analyzer</a> for IDE support.
+It provides code completion, inline errors, and other features in VS Code,
+Positron, Zed, and other editors.</p>
+</li>
+</ul>
+<h2 id="r-code">R Code</h2>
+<p>R code should be written to conform with conventions outlined in the
+<a rel="external" href="https://style.tidyverse.org/">Tidyverse style guide</a>. What we said about the
+Rust API guidelines, it applies here, too. In your effort to abide by those
+conventions, you will find a great deal of advantage in these tools.</p>
+<ul>
+<li>
+<p>Use <a rel="external" href="https://posit-dev.github.io/air/">Air</a> to format R code. Air can be
+configured to automatically format R scripts on save in your editor. Air
+supports VS Code, Positron, Zed, and the command line.</p>
+</li>
+<li>
+<p>Use <a rel="external" href="https://lintr.r-lib.org/">lintr</a> to lint R code. rextendr’s CI uses
+lintr, so having it configured in your editor will catch issues before they
+are flagged in review. lintr supports most IDEs, include RStudio, VS Code, and
+Positron. You may also like <a rel="external" href="https://jarl.etiennebacher.com/">jarl</a>, an R
+lintr written in Rust, which is much faster than lintr and supports additional
+IDEs.</p>
+</li>
+</ul>
+
         </div>
-        <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
-                Get Started
-                <span class="iconify lucide--arrow-big-right"></span>
-            </a>
-        </div>
-    </header>
-    <div class="mt-6">
-        <div id="landing-code-example">
-            <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
-<span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><div class="mt-4">
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre></div>
-        </div>
-    </div>
+        
+        <footer class="mt-10">
+            <nav class="flex justify-between items-center text-sm">
+                <div>
+                    
+                </div>
+                <div>
+                    
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;documenting-code&#x2F;"
+                       class="flex items-center gap-1">
+                        <span>Documenting Code</span>
+                        <span>→</span>
+                    </a>
+                    
+                </div>
+            </nav>
+        </footer>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#rust-code" class="toc-link pl-4">Rust Code</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#r-code" class="toc-link pl-4">R Code</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
 </div>
 
                 </main>

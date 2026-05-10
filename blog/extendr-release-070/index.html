@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en"
+      class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0" />
+        <title>extendr</title>
+
+        <!-- Tailwind + Basecoat CSS -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/style.css" />
+
+        <!-- Determine theme before loading syntax highlighting -->
+        <script>
+            (() => {
+                const stored = localStorage.getItem("themeMode");
+                // Use stored preference if exists, otherwise always default to dark
+                const isDark = stored ? stored === "dark" : true;
+                document.documentElement.classList.toggle("dark", isDark);
+            })();
+        </script>
+
+        <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-light.css"
+              id="giallo-light" />
+        <link rel="stylesheet"
+              href="https://extendr.rs/giallo-dark.css"
+              id="giallo-dark" />
+
+        <!-- Toggle syntax highlighting -->
+        <script defer>
+            (() => {
+                const apply = (dark) => {
+                    document.documentElement.classList.toggle("dark", dark);
+
+                    // Toggle syntax highlighting themes via media attribute
+                    const darkSyntax = document.getElementById("giallo-dark");
+                    const lightSyntax = document.getElementById("giallo-light");
+                    if (darkSyntax && lightSyntax) {
+                        darkSyntax.media = dark ? "all" : "not all";
+                        lightSyntax.media = dark ? "not all" : "all";
+                    }
+
+                    try {
+                        localStorage.setItem(
+                            "themeMode",
+                            dark ? "dark" : "light",
+                        );
+                    } catch (_) { }
+                };
+
+                document.addEventListener("basecoat:theme", (event) => {
+                    const mode = event.detail?.mode;
+                    apply(
+                        mode === "dark" ? true : mode === "light"
+                            ? false : !document.documentElement.classList.contains("dark"),
+                    );
+                });
+
+                apply(document.documentElement.classList.contains("dark"));
+            })();
+        </script>
+
+        <!-- Basecoat ui functionality -->
+        <script src="https://extendr.rs/js/basecoat.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/popover.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js"
+                defer></script>
+        <script src="https://extendr.rs/js/accordion.js"
+                defer></script>
+        <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
+        <script src="https://extendr.rs/js/search.js"
+                defer></script>
+        <script src="https://extendr.rs/js/filter-list.js"
+                defer></script>
+
+        <script>
+            (() => {
+                const themeSelect = document.getElementById('theme-select');
+                const storedTheme = localStorage.getItem('themeVariant');
+                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
+                themeSelect.addEventListener('change', () => {
+                    const newTheme = themeSelect.value;
+                    document.documentElement.classList.forEach(c => {
+                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
+                    });
+                    if (newTheme) {
+                        document.documentElement.classList.add(`theme-${newTheme}`);
+                        localStorage.setItem('themeVariant', newTheme);
+                    } else {
+                        localStorage.removeItem('themeVariant');
+                    }
+                });
+            })();
+        </script>
+
+        <script>
+            (() => {
+                const KEY = "sidebarScrollTop";
+                const select = () => document.querySelector("aside.sidebar section");
+
+                const restore = () => {
+                    const el = select();
+                    if (!el) return;
+                    const v = sessionStorage.getItem(KEY);
+                    if (v !== null) el.scrollTop = parseInt(v, 10);
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", restore);
+                } else {
+                    restore();
+                }
+
+                window.addEventListener("pagehide", () => {
+                    const el = select();
+                    if (!el) return;
+                    sessionStorage.setItem(KEY, String(el.scrollTop));
+                });
+            })();
+        </script>
+
+        
+    </head>
+    <body>
+        <aside class="sidebar block"
+               data-side="left"
+               aria-label="Main navigation">
+            <nav aria-label="Sidebar navigation">
+    <header class="font-mono">
+        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+        </a>
+    </header>
+    <section class="scrollbar [&_div>h3]:uppercase">
+        <div role="group">
+            <h3>Getting started</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/introduction/">
+                        <span class="iconify lucide--info text-xs"></span>
+                        Introduction
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/installation/">
+                        <span class="iconify lucide--terminal text-xs"></span>
+                        Installation
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/example/">
+                        <span class="iconify lucide--package text-xs"></span>
+                        Example
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>API Reference</h3>
+            <ul>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                        <span class="iconify mdi--language-rust text-base"></span>extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                        <span class="iconify mdi--language-r text-base"></span>rextendr
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+            <h3>Community</h3>
+            <ul>
+                <li>
+                    <a href="https://extendr.rs/blog/">
+                        <span class="iconify lucide--rss text-xs"></span>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://extendr.rs/awesome/">
+                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
+                    </a>
+                </li>
+                <li>
+                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                        <span class="iconify mdi--github text-xs"></span>GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div role="group">
+
+<h3>Development</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/data-types/" class="pl-4">
+            R to Rust type mapping
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
+            Using Rust types in R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/collections/" class="pl-4">
+            Using HashMaps
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/into-list/" class="pl-4">
+            Rust Structs to Lists
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/default-args/" class="pl-4">
+            Default function arguments
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
+            Project Structure
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
+            `serde` integration
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/webr/" class="pl-4">
+            Building for WebR
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/development/tokio/" class="pl-4">
+            Async with Tokio
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Publishing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
+            Publish to CRAN
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
+            CRAN MSRV
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Rust Tutorials</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
+            Hello, World!
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
+            Basic Types
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
+            Control Flow
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
+            Collections
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
+            Loops
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
+            Mutability
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
+            Functions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
+            Ownership
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
+            Iterators
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
+            Structures
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
+            Implementations
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
+            Enumerations
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+        <div role="group">
+
+<h3>Contributing</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
+            Writing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
+            Documenting Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
+            Testing Code
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
+            extendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
+            rextendr Internals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
+            Colors and Fonts
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
+            User Guide Pages
+        </a>
+    </li>
+    
+    
+</ul>
+</div>
+    </section>
+</nav>
+        </aside>
+        <main>
+            <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
+                <div class="flex h-14 w-full items-center gap-2 px-4">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+        <span class="iconify lucide--sidebar"></span>
+    </button>
+    <div class="relative">
+        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
+    </div>
+    <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
+        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+        <span class="iconify lucide--sun hidden dark:block"></span>
+        <span class="iconify lucide--moon block dark:hidden"></span>
+    </button>
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
+        data-side="bottom" data-align="end">
+        <span class="iconify mdi--github"></span>
+    </a>
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
+        data-side="bottom" data-align="end">
+        <span class="iconify fa7-brands--discord text-xs"></span>
+    </a>
+</div>
+            </header>
+            <div class="p-4 md:p-6 xl:p-12">
+                <main class="mx-auto relative flex w-full max-w-screen-xl gap-8">
+                    
+<div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
+    <article class="content flex flex-col gap-4">
+        <header class="pb-2 border-b border-border">
+            <h1 class="my-0">Migration guide for extendr 0.7.0</h1>
+            
+            <p class="text-muted-foreground mt-1 mb-0">A new version of extendr has arrived, so we explain how to address major changes.
+</p>
+            
+            
+            <div class="mt-6">
+                
+                <p class="flex items-center text-sm text-muted-foreground my-0">
+                    <span class="iconify lucide--users mr-2"></span>
+                    Josiah Parry
+                </p>
+                
+                
+                <p class="flex items-center text-sm text-muted-foreground mt-2 mb-0">
+                    <span class="iconify lucide--calendar text-xs mr-2"></span>
+                    Jun 30, 2024
+                </p>
+                
+            </div>
+            
+        </header>
+        <div class="prose">
+            <p>The <code>0.7.0</code> version of extendr has just been released. This release has focused
+on cleaning up the API and ensuring that design decisions are safer and more
+idiomatic rust. To this end, there are a few breaking changes that will need to
+be addressed. When migrating, the Rust compiler might <em>look</em> like a red mess of
+error, but I can assure you, it isn’t so bad!</p>
+<h2 id="removal-of-fromrobj">Removal of <code>FromRobj</code></h2>
+<p>The <code>FromRobj</code> trait provided the method <code>from_robj()</code> method which allowed you
+to fallibly convert from one struct to another.</p>
+<p>This trait has been removed in favor of the standard library <code>TryFrom</code> trait.</p>
+<p>For example the following function definition adapted from <code>{rsgeo}</code> is no
+longer valid.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> signed_area</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
+<span class="giallo-l"><span>    &lt;</span><span class="z-keyword z-operator">&amp;</span><span class="z-entity z-name z-type">Geom</span><span>&gt;</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_robj</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">xi</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span>geom</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">signed_area</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Instead, replace the <code>from_robj()</code> with <code>try_from()</code>.</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> signed_area</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
+<span class="giallo-l"><span>    &lt;</span><span class="z-keyword z-operator">&amp;</span><span class="z-entity z-name z-type">Geom</span><span>&gt;</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">xi</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span>geom</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">signed_area</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="removal-of-extendr-use-try-from-true">Removal of <code>#[extendr(use_try_from = true)]</code></h2>
+<p>Because <code>TryFrom</code> is the default now, the macro argument <code>use_try_from = true</code>
+will cause a compiler error. For example this</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>(</span><span>use_try_from </span><span class="z-keyword z-operator">=</span><span> true</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> wkb_to_geoms</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span>(</span><span class="z-variable">_</span><span>,</span><span class="z-variable"> x</span><span>)</span><span class="z-keyword z-operator">|</span><span class="z-entity z-name z-function"> wkb_to_geom</span><span>(</span><span class="z-entity z-name z-function">raw_to_vecu8</span><span>(</span><span class="z-variable">x</span><span>)</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">List</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>becomes</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> wkb_to_geoms</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-variable">    x</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span>(</span><span class="z-variable">_</span><span>,</span><span class="z-variable"> x</span><span>)</span><span class="z-keyword z-operator">|</span><span class="z-entity z-name z-function"> wkb_to_geom</span><span>(</span><span class="z-entity z-name z-function">raw_to_vecu8</span><span>(</span><span class="z-variable">x</span><span>)</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">List</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="setting-attributes">Setting <code>Attributes</code></h2>
+<p>Prior to version <code>0.7.0</code> the <code>Attributes</code> trait did two undesirable things:</p>
+<ol>
+<li>any time you added an attribute, the result was an <code>Robj</code></li>
+<li>adding an attribute did not require a mutable reference</li>
+</ol>
+<p>The first was problematic because you lose the struct type when setting an
+attribute. The second was problematic because <code>Attributes::set_attrib()</code> method
+modified the underlying <code>SEXP</code> in place <em>without</em> requiring a mutable reference
+giving you an unsafe guarantee that the original <code>SEXP</code> would not be modified.</p>
+<p>For example migrating from to 0.7.0 in the package
+<a rel="external" href="https://cran.r-project.org/package=arcgisplaces"><code>{arcgisplaces}</code></a> results in
+the compiler error:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-variable">error</span><span>[</span><span class="z-entity z-name z-type">E0308</span><span>]</span><span class="z-keyword z-operator">:</span><span class="z-variable"> mismatched</span><span class="z-variable"> types</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">  -</span><span class="z-keyword z-operator">-&gt;</span><span class="z-variable"> src</span><span class="z-keyword z-operator">/</span><span class="z-variable">lib</span><span class="z-keyword z-operator">.</span><span>rs</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">15</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">13</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">   |</span></span>
+<span class="giallo-l"><span class="z-constant z-numeric">11</span><span class="z-keyword z-operator"> |</span><span class="z-keyword">   pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">   |</span><span class="z-keyword z-operator">                                               -</span><span class="z-keyword z-operator">-</span><span class="z-keyword z-operator">-</span><span class="z-keyword z-operator">-</span><span class="z-variable"> expected</span><span> `</span><span class="z-entity z-name z-namespace">extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Robj</span><span>` </span><span class="z-variable">because</span><span class="z-variable"> of</span><span class="z-keyword z-control"> return</span><span class="z-storage z-type"> type</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">...</span></span>
+<span class="giallo-l"><span class="z-constant z-numeric">15</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> /</span><span class="z-entity z-name z-type">             Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-constant z-numeric">16</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator">                 .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-constant z-numeric">17</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator">                 .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-constant z-numeric">18</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator">                 .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">   |</span><span class="z-keyword z-operator"> |</span><span class="z-variable">_________________________</span><span class="z-keyword z-operator">^</span><span class="z-variable"> expected</span><span> `</span><span class="z-entity z-name z-type">Robj</span><span>`</span><span>,</span><span class="z-variable"> found</span><span> `</span><span class="z-keyword z-operator">&amp;</span><span class="z-storage z-modifier">mut</span><span class="z-entity z-name z-type"> Robj</span><span>`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-variable">error</span><span>[</span><span class="z-entity z-name z-type">E0308</span><span>]</span><span class="z-keyword z-operator">:</span><span class="z-variable"> mismatched</span><span class="z-variable"> types</span></span></code></pre>
+<p>A simplified version of the function looks like:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>This function previously returned an <code>Robj</code> because that was the type returned
+by <code>set_class()</code>. This function can be rewritten as</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg2</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">clone</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p><code>.set_class()</code> returns a <code>&amp;mut Doubles</code> we can clone the <code>Doubles</code> the result so
+that we have a non-mutable reference. Note that <strong>cloning only increases a
+reference counter</strong> and is not costly. Here <code>.into_robj()</code> is used to return an
+<code>Robj</code></p>
+<p>Alternatively, the function can now return <code>Doubles</code> instead if you so desire:</p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Doubles</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-type">    Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">clone</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="r-devel-non-api-changes">R-devel Non-API changes</h2>
+<p>R-devel is currently in the process of formalizing what is and is not part of
+the official C-API. As a result extendr powered R packages have WARN-ings due to
+non-API usage.</p>
+<p>extendr 0.7.0 hides these behind a feature flag <code>non-api</code>. Unfortunately, due to
+the 1.69 minimum supported Rust version (MSRV) of CRAN combined with the lack of
+an MSRV in bindgen (which is used to generate R bindings), the non-api features
+cannot be provided automatically and require custom generation of R bindings via
+<code>libR-sys</code>.</p>
+<p>This will affect you if you are using the <code>global_var()</code>, <code>local_var()</code>,
+<code>base_env()</code>, various <code>Environment</code>, <code>Function</code>, <code>Primitive</code>, and <code>Promise</code>
+methods.</p>
+<p>If you are affected by this, <a rel="external" href="https://github.com/extendr/extendr/issues">please create an
+issue</a> and we can work through it
+together.</p>
+
+        </div>
+        
+    </article>
+</div>
+<div class="hidden text-sm xl:block w-full max-w-[240px]">
+    
+    <aside aria-label="On this page"
+           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+        
+        <nav
+             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+            <h4 class="font-medium uppercase">On this page</h4>
+            
+<ul class="space-y-1 ml-2 border-l border-border">
+    
+    
+    <li class="toc-item">
+        <a href="#removal-of-fromrobj" class="toc-link pl-4">Removal of FromRobj</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#removal-of-extendr-use-try-from-true" class="toc-link pl-4">Removal of #[extendr(use_try_from = true)]</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#setting-attributes" class="toc-link pl-4">Setting Attributes</a>
+        
+    </li>
+    
+    
+    
+    <li class="toc-item">
+        <a href="#r-devel-non-api-changes" class="toc-link pl-4">R-devel Non-API changes</a>
+        
+    </li>
+    
+    
+</ul>
+
+        </nav>
+        
+    </aside>
+</div>
+
+                </main>
+            </div>
+        </main>
+    </body>
+</html>
