@@ -470,11 +470,11 @@
         <div class="prose">
             <p>The <code>#[extendr]</code> attribute macro is how Rust types are made available to R.
 This chapter covers how to use it on structs, enums, and impl blocks.</p>
-<div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Note
         </h2>
     </header>
@@ -490,11 +490,11 @@ in the official Rust reference manual.
 <p>The <code>#[extendr]</code> macro works with inherent implementations on a type such as
 an <code>enum</code> or a <code>struct</code>. extendr <em>does not</em> support using <code>#[extendr]</code> on
 trait impls.</p>
-<div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Note
         </h2>
     </header>
@@ -608,11 +608,11 @@ the <code>extendr_module! {}</code> macro.</p>
 <pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
 <span class="giallo-l"><span class="z-storage z-type">    mod</span><span> hellorust</span><span>;</span></span>
 <span class="giallo-l"><span class="z-keyword">    impl</span><span class="z-entity z-name z-type"> Shape</span><span>;</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<span class="giallo-l"><span>}</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Warning">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Warning
         </h2>
     </header>
@@ -648,11 +648,11 @@ pointer</a>
 to the <code>Shape</code> enum in Rust. This pointer has the same methods as the Shape
 environment—though they cannot be seen in the same way. For example you can
 run the <code>n_coords()</code> method on the newly created object.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">tri</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">n_coords</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 3</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">tri</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">n_coords</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 3</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Tip">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Tip
         </h2>
     </header>
@@ -759,11 +759,11 @@ package is a good real-world example: it wraps <code>toml_edit::DocumentMut</cod
 <span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">w</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> Wrapper</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">new</span><span>(</span><span class="z-constant z-numeric">42L</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">w</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">value</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 42</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<span class="giallo-l"><span class="z-variable">w</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">value</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 42</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Tip">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Tip
         </h2>
     </header>

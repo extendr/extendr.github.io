@@ -484,11 +484,11 @@ package will be more performant but less flexible than the R package
 <p>Once we have the basic R package setup, then we need to add the necessary
 <code>extendr</code> scaffolding that will link our Rust code to R and ensure the package
 builds properly.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span class="z-variable">crate_name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rheck</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> lib_name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rheck</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span class="z-variable">crate_name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rheck</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> lib_name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rheck</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Note
         </h2>
     </header>
@@ -655,11 +655,11 @@ heck, and you’ve done it with just a few lines of code!</p>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span class="giallo-l"><span>1 rust         1      1        18.9       1        NaN</span></span>
-<span class="giallo-l"><span>2 snakecase   20.2   19.5       1        79.8      Inf</span></span></code></pre><div class="bc px-4 py-3 rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<span class="giallo-l"><span>2 snakecase   20.2   19.5       1        79.8      Inf</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
     <header class="flex items-center gap-3">
         <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-[0.95rem]/[1.4]">
+        <h2 class="font-semibold text-base">
             Note
         </h2>
     </header>
