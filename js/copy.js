@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.setAttribute('aria-label', 'Copy code');
 
         const icon = document.createElement('span');
-        icon.className = 'iconify material-symbols-light--content-copy-outline';
+        icon.className = 'iconify lucide--copy';
         btn.appendChild(icon);
         pre.appendChild(btn);
 
@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await navigator.clipboard.writeText(code.innerText);
                 btn.dataset.copied = 'true';
-                icon.className = 'iconify material-symbols-light--check';
+                icon.className = 'iconify lucide--copy-check';
                 setTimeout(() => {
                     delete btn.dataset.copied;
-                    icon.className = 'iconify material-symbols-light--content-copy-outline';
+                    icon.className = 'iconify lucide--copy';
                 }, 1500);
             } catch (err) {
                 console.error('Copy failed:', err);
