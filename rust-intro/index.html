@@ -436,25 +436,29 @@
         <main>
             <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
                 <div class="flex h-14 w-full items-center gap-2 px-4">
-    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))" aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
-        data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))"
+            aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
+            data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
         <span class="iconify lucide--sidebar"></span>
     </button>
     <div class="relative">
-        <span class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
+        <span
+              class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
         <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
     </div>
     <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
-        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+            onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="GitHub repository"
-        data-side="bottom" data-align="end">
+    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+       data-tooltip="GitHub repository"
+       data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer" data-tooltip="Discord channel"
-        data-side="bottom" data-align="end">
+    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+       data-tooltip="Discord channel"
+       data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
     </a>
 </div>
@@ -471,8 +475,8 @@
             <p class="text-muted-foreground mt-1 mb-0">Learn the basics of Rust programming with this introduction for R developers.</p>
             
             <p class="text-muted-foreground text-sm mt-4 mb-0">
-                Last updated: <time datetime="2026-05-13"
-                      class="font-mono">2026-05-13</time>
+                Last updated: <time datetime="2026-05-15"
+                      class="font-mono">2026-05-15</time>
             </p>
         </header>
         <div class="prose">
