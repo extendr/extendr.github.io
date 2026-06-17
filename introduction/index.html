@@ -471,45 +471,69 @@
         <header class="pb-2 border-b border-border">
             <h1 class="my-0">Introduction</h1>
             
-            <p class="text-muted-foreground mt-1 mb-0">Call Rust code in R!</p>
+            <p class="text-muted-foreground mt-1 mb-0">Write Rust code and call it in R!</p>
             
             
         </header>
         <div class="prose">
             <p>This is the website for <code>extendr</code>, a developer-first utility for building R
-packages that call Rust code. Of course, you do not have to be a package
-developer to find some use in extendr. In fact, anyone who has a need to call
-Rust in R can do so with ease. Consider this basic example:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># create a Rust function</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">rust_function</span><span>(</span></span>
-<span class="giallo-l"><span class="z-string">  &quot;</span><span class="z-string">fn add(a:f64, b:f64) -&gt; f64 { a + b }</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  quiet</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
-<span class="giallo-l"><span>)</span></span>
+packages that call Rust code. With extendr, you can write Rust code like this:</p>
+<div class="code-with-filename">
+<p><strong>lib.rs</strong></p>
+<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call it from R</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">add</span><span>(</span><span class="z-constant z-numeric">2.5</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 4.7</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 7.2</span></span></code></pre>
-<p>Moving beyond these simple, one-off cases, however, is where extendr really
-shines. Any time you have lots of really complex Rust code that requires
-seamless integration with R, notably within a package, extendr is the tool for
-you.</p>
-<p>Now largely owing to the fact that we are bridging programming languages, you
-will rarely proceed directly to extendr’s Rust API. You will instead reach for
-the R package <code>rextendr</code>, which works sort of like <code>usethis</code>, automating many of
-the repetitive tasks required to setup or scaffold your project, so you can
-focus on the important business of writing code. This is done by calling
-<code>rextendr::use_extendr()</code>, which should feel familiar to anyone who has worked
-with <code>usethis::use_cpp11()</code>.</p>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> Return string `&quot;Hello world!&quot;` to R.</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @param name A name to greet.</span></span>
+<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> hello</span><span>(</span><span class="z-variable">name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> String</span><span> {</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">    format!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Macro to generate exports.</span></span>
+<span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> helloextendr</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> hello</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>and then in R you can call it like this:</p>
+<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">hello</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">world</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
+<p>We call the whole project extendr, of course, but it isn’t just one thing. It’s
+actually a <em>suite</em> of software tools. On the Rust side, extendr consists of
+several crates, but you will typically interact with <code>extender-api</code>, a
+developer-facing crate providing a host of data structures, traits, and macros —
+like <code>#[extendr]</code> in the above example — that make it easy to write Rust code to
+call in R. On the R side, there is <code>rextendr</code>, an R package that works sort of
+like <code>usethis</code>, sort of like <code>devtools</code>, automating many of the repetitive tasks
+required to setup or scaffold your project, allowing you to focus on the
+important business of writing Rust and R code.</p>
+<div class="w-fit mx-auto my-4 md:my-8 flex flex-row items-center gap-2">
+  <a href="https://extendr.github.io/extendr/extendr_api/" class="bc btn-lg-outline h-auto p-2 md:p-4 font-mono md:text-[1.5em]">
+    <span class="iconify mdi--language-rust"></span>
+    extendr-api
+  </a>
+  <p class="text-gray-600 dark:text-gray-300 m-0 md:text-[1.5em]">&harr;</p>
+  <a href="https://extendr.github.io/rextendr/" class="bc btn-lg-outline h-auto p-2 md:p-4 font-mono md:text-[1.5em]">
+    rextendr
+    <span class="iconify mdi--language-r"></span>
+  </a>
+</div>
+<p>So, when you go to setup a repository to develop a Rust-powered R package, you
+will reach for rextendr first. Then, when you start writing Rust code for your R
+package, you will turn to extendr-api.</p>
 <h2 id="create-an-r-package">Create an R package</h2>
 <p>The process of building a Rust-powered R package with extendr boils down to
-three simple steps:</p>
+four simple steps:</p>
 <ol>
 <li>Setup R package with <code>usethis::create_package()</code>.</li>
 <li>Add extendr scaffolding with <code>rextendr::use_extendr()</code>.</li>
+<li>Write Rust code and export it with <code>extendr-api</code>.</li>
 <li>Build and document with <code>devtools::document()</code>.</li>
 </ol>
 <p>Once you have worked through those steps, you can then load your package with
-<code>devtools::load_all()</code> and start using your package! Here is an example with
-just the defaults:</p>
+<code>devtools::load_all()</code> and start using your package! Here is an example that
+loads the above <code>lib.rs</code> into your package at <code>src/rust/src/lib.rs</code>, compiles
+it, generates wrappers and documentation, and then calls the <code>hello()</code> function
+from R:</p>
 <pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
 <span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
 <span class="giallo-l"></span>
@@ -523,7 +547,7 @@ just the defaults:</p>
 <span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello_world</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
+<span class="giallo-l"><span class="z-entity z-name z-function">hello</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">world</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
 <p>A Rust-powered R package in one fell swoop! Now, if you want to see a complete
 example of an actual R package, check out the <a href="https://extendr.rs/example/">heck example</a>.</p>
 <h2 id="what-s-next">What’s next?</h2>
