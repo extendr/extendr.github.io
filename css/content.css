@@ -1,13 +1,11 @@
 @layer base {
 
-    /* 
-    Typography rules for guide and blog content. The `to (.bc)` boundary stops 
-    descent into shortcode subtrees so basecoat components keep their own styling. 
-    */
+    /* The `to (.bc)` ensures basecoat components keep their own styling. */
     @scope (.content) to (.bc) {
 
         :is(h1, h2, h3, h4, h5) {
             @apply font-mono font-semibold leading-tight;
+            scroll-margin-top: calc(var(--header-h, 5rem) + 1rem);
         }
 
         h1 {
