@@ -48,5 +48,29 @@
         a {
             @apply text-link hover:text-link-hover hover:underline;
         }
+
+        table {
+            @apply w-full caption-bottom text-sm my-6;
+
+            thead {
+                @apply [&_tr]:border-b;
+            }
+
+            tbody {
+                @apply [&>tr:not(:last-child)]:border-none [&>tr:last-child]:border-b;
+
+                tr {
+                    @apply hover:bg-muted/100 transition-colors;
+                }
+            }
+
+            th {
+                @apply text-foreground h-8 px-2 text-left align-middle font-medium;
+            }
+
+            td {
+                @apply p-2 align-middle;
+            }
+        }
     }
 }

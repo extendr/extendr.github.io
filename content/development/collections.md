@@ -15,47 +15,13 @@ A `HashMap` is Rust's implementation of a hash table. It stores key-value pairs 
 
 The table below shows common HashMap types that can be used with extendr:
 
-<table>
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 29%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr>
-<th>R type</th>
-<th>Rust type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>list(a = 1L, b = 2L)</code></td>
-<td><code>HashMap&lt;String, i32&gt;</code></td>
-<td>Named list with integer values</td>
-</tr>
-<tr>
-<td><code>list(a = 1.0, b = 2.0)</code></td>
-<td><code>HashMap&lt;String, f64&gt;</code></td>
-<td>Named list with double values</td>
-</tr>
-<tr>
-<td><code>list(a = "x", b = "y")</code></td>
-<td><code>HashMap&lt;String, String&gt;</code></td>
-<td>Named list with character values</td>
-</tr>
-<tr>
-<td><code>list(a = TRUE, b = FALSE)</code></td>
-<td><code>HashMap&lt;String, bool&gt;</code></td>
-<td>Named list with logical values</td>
-</tr>
-<tr>
-<td><code>list(a = list(), b = 1)</code></td>
-<td><code>HashMap&lt;String, Robj&gt;</code></td>
-<td>Named list with mixed types</td>
-</tr>
-</tbody>
-</table>
+| R type                          | Rust type                    | Description                          |
+|---------------------------------|------------------------------|--------------------------------------|
+| `list(a = 1L, b = 2L)`          | `HashMap<String, i32>`       | Named list with integer values       |
+| `list(a = 1.0, b = 2.0)`        | `HashMap<String, f64>`       | Named list with double values        |
+| `list(a = "x", b = "y")`        | `HashMap<String, String>`    | Named list with character values     |
+| `list(a = TRUE, b = FALSE)`     | `HashMap<String, bool>`      | Named list with logical values       |
+| `list(a = list(), b = 1)`       | `HashMap<String, Robj>`      | Named list with mixed types          |
 
 {% callout(type="warning") %}
 There are two important behaviors to be aware of when using HashMaps with R lists:
