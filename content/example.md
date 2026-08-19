@@ -30,12 +30,12 @@ builds properly.
 rextendr::use_extendr(crate_name = "rheck", lib_name = "rheck")
 ```
 
-{% callout(type="note") %}
+{% <callout> %}
 Normally, the crate and library names will default to the R package name, but in
 this case, we cannot do that because it would create a recursive dependency in
 the Rust library. To get around this, we name the internal Rust crate and
 library `rheck`, which allows us to name the R package `{heck}`.
-{% end %}
+{% </callout> %}
 
 Next, `heck` is needed as a dependency. The easiest way to do that is to call
 
@@ -314,12 +314,12 @@ bench::mark(
 2 snakecase   20.2   19.5       1        79.8      Inf
 ```
 
-{% callout(type="note") %}
+{% <callout> %}
 The memory usage for rust-based functions is likely quite understated. This is
 because memory allocated outside of R cannot be tracked.
 See [bench::mark](https://bench.r-lib.org/reference/mark.html#value)
 documentation for more information.
-{% end %}
+{% </callout> %}
 
 ## The whole thing
 

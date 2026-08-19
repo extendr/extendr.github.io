@@ -28,7 +28,7 @@ ecosystem for Rust integration. These include:
 A great deal of work also went into re-factoring code to reduce package dependencies and 
 improve the maintainability to ensure the long-term viability of the project.
 
-{% callout(type="note") %}
+{% <callout> %}
 
 ## What is rextendr?
 
@@ -36,7 +36,7 @@ For those new to the project, rextendr is an R package similar to `usethis` and
 `devtools` for supporting development of Rust-powered R packages, with the Rust
 crate `extendr` handling most of the heavy lifting behind the scenes.
 
-{% end %}
+{% </callout> %}
 
 ## WebR support
 
@@ -44,13 +44,13 @@ A very exciting development in this release is **WebR compatibility out of the b
 
 WebR support happens without any additional work on your part. Just update your build files with `use_extendr()` and permit rextendr to update your `Makevars{.win}.in`, files in `tools/`, `configure` scripts.
 
-{% callout(type="tip") %}
+{% <callout type="tip"> %}
 
 ## WebR for existing packages
 
 WebR support requires that `lto = true` in your release profile. This is handled for new packages, but not existing ones. Be sure to add it to your `Cargo.toml`.
 
-{% end %}
+{% </callout> %}
 
 
 ## CRAN compatibility

@@ -29,11 +29,11 @@ Your R package should share one runtime across all function calls. This approach
 - Uses lazy initialization—runtime is created only when first needed
 - Returns a reference to the same runtime on subsequent calls
 
-{% callout(type="note") %}
+{% <callout> %}
 \## Futures
 
 See [Futures and the Async Syntax](https://doc.rust-lang.org/book/ch17-01-futures-and-syntax.html) section of The Book™.
-{% end %}
+{% </callout> %}
 
 In your `lib.rs` we define a static called `TOKIO_RUNTIME` which contains a `Runtime`.
 

@@ -6,6 +6,6 @@ slug: extendr-internals
 ---
 
 
-{% callout(type="note") %}
+{% <callout> %}
 <span class="fs-1 fw-bold">Coming soon!</span>
-{% end %}
+{% </callout> %}

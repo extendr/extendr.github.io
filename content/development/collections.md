@@ -7,9 +7,9 @@ weight: 5
 
 In addition to vectors and [lists](@/development/extendr-macro.md), extendr supports using Rust's `HashMap` type as function arguments. This allows you to work with R named lists using Rust's hash map data structure.
 
-{% callout(type="note") %}
+{% <callout> %}
 A `HashMap` is Rust's implementation of a hash table. It stores key-value pairs and provides fast lookup, insertion, and deletion operations. Unlike R's named lists or vectors, HashMaps do not maintain any particular ordering of their elements.
-{% end %}
+{% </callout> %}
 
 ### Basic HashMap Type Mapping
 
@@ -23,13 +23,13 @@ The table below shows common HashMap types that can be used with extendr:
 | `list(a = TRUE, b = FALSE)`     | `HashMap<String, bool>`      | Named list with logical values       |
 | `list(a = list(), b = 1)`       | `HashMap<String, Robj>`      | Named list with mixed types          |
 
-{% callout(type="warning") %}
+{% <callout type="warning"> %}
 There are two important behaviors to be aware of when using HashMaps with R lists:
 
 1.  **Unordered**: HashMaps do not maintain insertion order. When you convert a HashMap back to an R list using `List::from_hashmap()`, the order of elements may differ from the original input.
 
 2.  **Duplicate Names**: If an R list contains duplicate names (e.g., `list(x = 1, x = 2)`), only the last value will be retained in the HashMap. In this example, the HashMap would contain `("x", 2)`.
-    {% end %}
+    {% </callout> %}
 
 ### Using HashMaps in Functions
 

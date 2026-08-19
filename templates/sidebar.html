@@ -1,3 +1,20 @@
+{% component guide(path) %}
+{% set section = get_section(path=path ~ "/_index.md") %}
+<h3>{{ section.extra.section_title | default(value=section.title) }}</h3>
+<ul class="border-l border-border ml-2">
+    <li>
+        <a href="{{ section.permalink | safe }}" class="pl-4">Overview</a>
+    </li>
+    {% for page in section.pages %}
+    <li>
+        <a href="{{ page.permalink | safe }}" class="pl-4">
+            {{ page.extra.short_title | default(value=page.title) }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endcomponent %}
+
 <nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
@@ -68,9 +85,9 @@
                 </li>
             </ul>
         </div>
-        <div role="group">{{ macros::guide(path="development") }}</div>
-        <div role="group">{{ macros::guide(path="publishing") }}</div>
-        <div role="group">{{ macros::guide(path="rust-intro") }}</div>
-        <div role="group">{{ macros::guide(path="contributing") }}</div>
+        <div role="group">{{<guide path="development"/>}}</div>
+        <div role="group">{{<guide path="publishing"/>}}</div>
+        <div role="group">{{<guide path="rust-intro"/>}}</div>
+        <div role="group">{{<guide path="contributing"/>}}</div>
     </section>
 </nav>

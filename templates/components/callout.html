@@ -1,0 +1,35 @@
+{% component callout(type: string = "note", collapse: bool = false) %}
+{%- set label = type | title -%}
+{%- set icon_set = {
+    "note": "lucide--info", 
+    "tip": "lucide--lightbulb", 
+    "warning": "lucide--triangle-alert",
+} -%}
+{%- set icon -%}
+<span class="{{ 'iconify ' ~ icon_set[type] ~ ' size-5 shrink-0 text-primary' }}"></span>
+{%- endset -%}
+{%- if collapse -%}
+<details class="group my-6 block w-full rounded-lg border border-border border-l-4 border-l-primary bg-card text-card-foreground px-4 py-3 text-sm"
+         role="note" aria-label="{{ label }}">
+    <summary
+             class="list-none cursor-pointer flex items-center gap-3 [&::-webkit-details-marker]:hidden after:content-['\203A'] after:text-muted-foreground after:text-2xl after:leading-none after:ml-auto after:transition-transform group-open:after:rotate-90 m-0">
+        {{- icon -}}
+        <h2 class="font-sans font-semibold text-base m-0 p-0 border-none">{{ label -}}</h2>
+    </summary>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        {{- body | markdown(inline=true) -}}
+    </section>
+</details>
+{%- else -%}
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+     role="note" aria-label="{{ label }}">
+    <header class="flex items-center gap-3 m-0">
+        {{- icon -}}
+        <h2 class="font-sans font-semibold text-base m-0 p-0 border-none">{{- label -}}</h2>
+    </header>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
+        {{- body | markdown(inline=true) -}}
+    </section>
+</div>
+{%- endif -%}
+{% endcomponent %}

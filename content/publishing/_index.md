@@ -19,10 +19,10 @@ no additional work.
 
 This guide assumes the following versions of necessary software:
 
-- R: {{ version(name="r") }}
-- Rust: {{ version(name="rust") }}
-- extendr-api: {{ version(name="extendr") }}
-- rextendr {{ version(name="rextendr") }}
+- R: {{<version name="r"/>}}
+- Rust: {{<version name="rust"/>}}
+- extendr-api: {{<version name="extendr"/>}}
+- rextendr {{<version name="rextendr"/>}}
 
 Please see the [Installation Guide](@/installation.md) if you have not already
 installed this software.

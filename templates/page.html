@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "macros.html" as macros %}
 
 {% block content %}
 <div class="ml-auto w-full flex-1 min-w-0 max-w-screen-md">
@@ -56,14 +55,27 @@
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    {% set max_level = page.extra.toc_max_level | default(value=3) %}
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         {% if page.toc %}
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            {{ macros::toc_items(headings=page.toc, max_level=max_level) }}
+            <ul class="py-2 border-l border-border">
+                {% for h1 in page.toc %}
+                <li class="toc-item">
+                    <a href="{{ h1.permalink | safe }}" class="toc-link">{{ h1.title }}</a>
+                    {% if h1.children %}
+                    <ul>
+                        {% for h2 in h1.children %}
+                        <li class="toc-item">
+                            <a href="{{ h2.permalink | safe }}" class="toc-link">{{ h2.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
         </nav>
         {% endif %}
     </aside>

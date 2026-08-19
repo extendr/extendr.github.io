@@ -8,14 +8,14 @@ weight: 4
 The `#[extendr]` attribute macro is how Rust types are made available to R.
 This chapter covers how to use it on structs, enums, and impl blocks.
 
-{% callout(type="note") %}
+{% <callout> %}
 If you would like to learn more about Rust macros, check The Book,
 specifically
 [Part 5 of Ch. 20](https://doc.rust-lang.org/book/ch20-05-macros.html). You
 may also want to consult the section on
 [procedural macros](https://doc.rust-lang.org/reference/procedural-macros.html)
 in the official Rust reference manual.
-{% end %}
+{% </callout> %}
 
 ## Exporting `impl` blocks
 
@@ -23,13 +23,13 @@ The `#[extendr]` macro works with inherent implementations on a type such as
 an `enum` or a `struct`. extendr *does not* support using `#[extendr]` on
 trait impls.
 
-{% callout(type="note") %}
+{% <callout> %}
 You can only add an inherent implementation on a type that you own and not one
 provided by a third-party crate. Doing so would violate the [orphan
 rules](https://github.com/Ixrec/rust-orphan-rules?tab=readme-ov-file#what-are-the-orphan-rules).
 See [Wrapping third-party types](#wrapping-third-party-types) for how to
 handle that case.
-{% end %}
+{% </callout> %}
 
 Without `#[extendr]` on the type itself, trying to return it from a function
 results in a compilation error:
@@ -152,9 +152,9 @@ extendr_module! {
 }
 ```
 
-{% callout(type="warning") %}
+{% <callout type="warning"> %}
 You can only have **one** `#[extendr]` impl block per type per module.
-{% end %}
+{% </callout> %}
 
 Doing so creates an environment in your package called `Shape`. The environment
 contains all of the methods that are available to you.
@@ -210,7 +210,7 @@ tri$n_coords()
 [1] 3
 ```
 
-{% callout(type="tip") %}
+{% <callout type="tip"> %}
 To make the methods visible to the `Shape` class you can define a
 `.DollarNames` method which will allow you to preview the methods and
 attributes when using the `$` syntax. This is very handy to define when making
@@ -222,7 +222,7 @@ an impl a core part of your package.
 }
 ```
 
-{% end %}
+{% </callout> %}
 
 ### `impl` ownership
 
@@ -345,11 +345,11 @@ w$value()
 [1] 42
 ```
 
-{% callout(type="tip") %}
+{% <callout type="tip"> %}
 Deriving `Clone` on your newtype wrapper is often necessary. Because R owns
 the external pointer, methods that produce a modified copy must clone the inner
 value and return the new wrapper rather than mutating in place.
-{% end %}
+{% </callout> %}
 
 ## Documenting methods
 

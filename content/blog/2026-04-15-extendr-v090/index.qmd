@@ -27,13 +27,13 @@ Read the full [CHANGELOG](https://github.com/extendr/extendr/blob/main/CHANGELOG
 - Use any error type (e.g. `anyhow::Error`)
 - Use `From`/`TryFrom`
 
-{% callout(type="tip") %}
+{% <callout type="tip"> %}
 
 If you are not interested in the nitty-gritty of current changes, feel free to
 skip to the [migration guide](#migration-guide). It will explain updates you
 need to make in your packages to address breaking changes.
 
-{% end %}
+{% </callout> %}
 
 ## A note on semantic versioning
 
@@ -147,12 +147,12 @@ The exact steps to update your package are these:
 5. Re-vendor crates with `rextendr::vendor_crates()`.
 6. Re-build and document package with `devtools::document()`.
 
-{% callout(type="warning") %}
+{% <callout type="warning"> %}
 
 There are some "gotchas" you might run into while working through the update
 that we flag below.
 
-{% end %}
+{% </callout> %}
 
 ### Update scaffold
 
