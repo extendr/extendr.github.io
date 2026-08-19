@@ -9,7 +9,7 @@ ignored_content = [
   "**/*.R",
   "content/_quarto.yml",
   "content/_variables.yml",
-  "CLAUDE.md"
+  "CLAUDE.md",
 ]
 
 [markdown]
