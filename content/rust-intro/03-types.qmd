@@ -37,12 +37,10 @@ Floating points are similar to integers but can represent decimal values, too.
 Unlike integers, floating points are also always signed and come in two sizes:
 `f32` and `f64`.
 
-{% callout(type="note") %}
-
+{% <callout> %}
 In R, integer vectors are comprised of only `i32` values, and floating points,
 called doubles, are always `f64` values.
-
-{% end %}
+{% </callout> %}
 
 Rust can usually infer types. For instance, it can distinguish the integer `1`
 from the floating point `1.0`, but you can also specify the type explicitly.

@@ -14,7 +14,7 @@ function has the argument `method = c("pearson", "kendall", "spearman")`. Rust
 formalizes this idea with *enumerations* or`enum`s, types that can take on
 exactly one of a defined set of *variants*.
 
-{% callout(type="note") %}
+{% <callout> %}
 
 The tidyverse design style guide has a great section on enums. See [enumerate
 options](https://design.tidyverse.org/enumerate-options.html#whats-the-pattern).
@@ -22,7 +22,7 @@ options](https://design.tidyverse.org/enumerate-options.html#whats-the-pattern).
 Josiah Parry's blog also has a nice discussion of this. See [Enums in R: towards
 type safe R](https://josiahparry.com/posts/2023-11-10-enums-in-r/).
 
-{% end %}
+{% </callout> %}
 
 Like structs, enum names use PascalCase, and variants are created using
 `EnumName::Variant`:
@@ -188,7 +188,7 @@ match measure {
 This makes missing values visible - the code cannot compile unless both arms are
 handled.
 
-{% callout(type="warning") %}
+{% <callout type="warning"> %}
 
 Sometimes dealing with options is a headache, particularly when we're in the
 early stages of developing. While we can use `.unwrap()` or `.expect()` to grab
@@ -201,7 +201,7 @@ thread 'main' panicked at src/main.rs:4:41:
 called `Option::unwrap()` on a `None` value
 ```
 
-{% end %}
+{% </callout> %}
 
 ## Optional arguments
 

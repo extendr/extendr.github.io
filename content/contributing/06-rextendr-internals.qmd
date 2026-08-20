@@ -92,6 +92,7 @@ required for CRAN submissions.
 
 ### Registration
 
+{% raw %}
 Because we are building an R package with compiled code, R requires that we 
 register all routines via a C-level initialization function named 
 `R_init_<pkgname>`. This is where `entrypoint.c` comes in. Currently, extendr 
@@ -102,6 +103,7 @@ Rust-generated function through the R-facing `R_init_{{{mod_name}}}`. Compiling
 package next gets loaded, the C function is called to register compiled routines 
 (step 6). If you inspect `R/extendr-wrappers.R`, you will see where this 
 happens. The call is `@useDynLib(pkgname, .registration = TRUE)`.
+{% endraw %}
 
 ### Cleanup
 

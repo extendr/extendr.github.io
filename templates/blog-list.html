@@ -1,17 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% set_global all_tags = [] %}
-{% for page in section.pages %}
-{% if page.taxonomies.tags %}
-{% for tag in page.taxonomies.tags %}
-{% if tag not in all_tags %}
-{% set_global all_tags = all_tags | concat(with=tag) %}
-{% endif %}
-{% endfor %}
-{% endif %}
-{% endfor %}
-{% set sorted_tags = all_tags | sort %}
+{% set taxonomy = get_taxonomy(kind="tags") %}
+{% set tags = [item.name for item in taxonomy.items] | unique | sort %}
 <div class="ml-auto">
     <div class="grid gap-x-4 gap-y-6 grid-cols-1 xl:grid-cols-[minmax(0,48rem)_15rem]">
         <header>
@@ -71,7 +62,8 @@
                                             data-tag-select-all
                                             class="text-xs text-primary hover:underline">Select all</button>
                                 </div>
-                                {% for tag in sorted_tags %}
+                                {% for tag in tags %}
+                                {% if tag %}
                                 <label class="flex items-center gap-2 w-full cursor-pointer px-2 py-1.5">
                                     <input type="checkbox"
                                            class="input"
@@ -79,6 +71,7 @@
                                            value="{{ tag }}">
                                     <span class="text-sm">{{ tag | title }}</span>
                                 </label>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -146,7 +139,8 @@
                                 class="text-xs text-primary hover:underline">Select all</button>
                     </div>
                     <div class="flex flex-col gap-2">
-                        {% for tag in sorted_tags %}
+                        {% for tag in tags %}
+                        {% if tag %}
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox"
                                    class="input"
@@ -154,6 +148,7 @@
                                    value="{{ tag }}">
                             <span class="text-sm">{{ tag | title }}</span>
                         </label>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </section>

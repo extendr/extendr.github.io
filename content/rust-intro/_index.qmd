@@ -45,7 +45,7 @@ call "The Book."
 
 ## Software requirements
 
-This guide assumes that you have Rust {{ version(name="rust") }} installed. Please
+This guide assumes that you have Rust {{<version name="rust"/>}} installed. Please
 see [Installation Guide](@/installation.md) if you do not. If you are not
 yet comfortable with installing Rust, you may find it helpful to try out
 examples in this tutorial using the open source [Rust

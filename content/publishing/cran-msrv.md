@@ -21,19 +21,18 @@ the extendr package [`{fio}`](https://albersonmiranda.github.io/fio/).
 
 **CRAN's MSRV** is 1.91.1.
 
-{% raw_table(format="csv") %}
-"Check flavor","rustc","cargo"
-"r-oldrel-macos-arm64",1.91.1,1.91.1
-"r-devel-windows-x86_64",1.92.0,1.92.0
-"r-release-windows-x86_64",1.92.0,1.92.0
-"r-oldrel-windows-x86_64",1.92.0,1.92.0
-"r-release-macos-arm64",1.93.0,1.93.0
-"r-release-macos-x86_64",1.93.0,1.93.0
-"r-oldrel-macos-x86_64",1.93.0,1.93.0
-"r-devel-linux-x86_64-fedora-clang",1.93.1,1.93.1
-"r-devel-linux-x86_64-fedora-gcc",1.93.1,1.93.1
-"r-devel-linux-x86_64-debian-clang",1.94.1,1.94.1
-"r-devel-linux-x86_64-debian-gcc",1.94.1,1.94.1
-"r-patched-linux-x86_64",1.94.1,1.94.1
-"r-release-linux-x86_64",1.94.1,1.94.1
-{% end %}
+| Check flavor                      | rustc  | cargo  |
+|:----------------------------------|:-------|:-------|
+| r-oldrel-macos-arm64              | 1.91.1 | 1.91.1 |
+| r-devel-windows-x86_64            | 1.92.0 | 1.92.0 |
+| r-release-windows-x86_64          | 1.92.0 | 1.92.0 |
+| r-oldrel-windows-x86_64           | 1.92.0 | 1.92.0 |
+| r-release-macos-arm64             | 1.93.0 | 1.93.0 |
+| r-release-macos-x86_64            | 1.93.0 | 1.93.0 |
+| r-oldrel-macos-x86_64             | 1.93.0 | 1.93.0 |
+| r-devel-linux-x86_64-debian-clang | 1.95.0 | 1.95.0 |
+| r-devel-linux-x86_64-debian-gcc   | 1.95.0 | 1.95.0 |
+| r-patched-linux-x86_64            | 1.95.0 | 1.95.0 |
+| r-release-linux-x86_64            | 1.95.0 | 1.95.0 |
+| r-devel-linux-x86_64-fedora-clang | 1.97.1 | 1.97.1 |
+| r-devel-linux-x86_64-fedora-gcc   | 1.97.1 | 1.97.1 |

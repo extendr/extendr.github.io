@@ -74,42 +74,12 @@ You can also find the latest version on
 This gives you the following conversions via the Arrow C Stream
 interface:
 
-<table>
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 42%" />
-<col style="width: 38%" />
-</colgroup>
-<thead>
-<tr>
-<th>Type</th>
-<th>Direction</th>
-<th>R object</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>polars_core::frame::DataFrame</code></td>
-<td><code>IntoArrowRobj</code></td>
-<td><code>nanoarrow_array_stream</code></td>
-</tr>
-<tr>
-<td><code>polars_core::frame::DataFrame</code></td>
-<td><code>FromArrowRobj</code></td>
-<td><code>nanoarrow_array_stream</code></td>
-</tr>
-<tr>
-<td><code>polars_arrow::ffi::ArrowArrayStream</code></td>
-<td><code>IntoArrowRobj</code></td>
-<td><code>nanoarrow_array_stream</code></td>
-</tr>
-<tr>
-<td><code>polars_arrow::ffi::ArrowArrayStreamReader</code></td>
-<td><code>FromArrowRobj</code></td>
-<td><code>nanoarrow_array_stream</code></td>
-</tr>
-</tbody>
-</table>
+| Type | Direction | R object |
+| ---- | --------- | -------- |
+| `polars_core::frame::DataFrame` | `IntoArrowRobj` | `nanoarrow_array_stream` |
+| `polars_core::frame::DataFrame` | `FromArrowRobj` | `nanoarrow_array_stream` |
+| `polars_arrow::ffi::ArrowArrayStream` | `IntoArrowRobj` | `nanoarrow_array_stream` |
+| `polars_arrow::ffi::ArrowArrayStreamReader` | `FromArrowRobj` | `nanoarrow_array_stream` |
 
 ## Round-trip a Polars DataFrame through R
 

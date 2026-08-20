@@ -76,11 +76,5 @@ res <- res[order(res[["rustc"]]), ]
 ```{r}
 #| echo: false
 #| results: asis
-csv_string <- capture.output(write.csv(res, row.names = FALSE))
-cat(
-  '{% raw_table(format="csv") %}',
-  csv_string,
-  "{% end %}",
-  sep = "\n"
-)
+knitr::kable(res, row.names = FALSE)
 ```

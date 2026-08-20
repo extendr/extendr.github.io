@@ -13,29 +13,27 @@ The below lists the extendr structs that wrap R object types. These types can be
 
 R has no concept of scalar values whereas Rust does. Rust does not have the concept of an NA. As such, we have types to represent scalar values in R. The below is how they are mapped.
 
-{% raw_table(format="csv") %}
-R, Rust, extendr
-integer(1), i32, Rint
-logical(1), bool, Rbool
-double(1), f64, Rfloat
-complex(1), Complex<f64>, Rcplx
-character(1), String, Rstr
-{% end %}
+| R              | Rust           | extendr  |
+|----------------|----------------|----------|
+| `integer(1)`   | `i32`          | `Rint`   |
+| `logical(1)`   | `bool`         | `Rbool`  |
+| `double(1)`    | `f64`          | `Rfloat` |
+| `complex(1)`   | `Complex<f64>` | `Rcplx`  |
+| `character(1)` | `String`       | `Rstr`   |
 
 ## Vector types
 
 Everything in R is a vector. In Rust, we have to point to R's owned vector types rather than use Rust's native `Vec` collection. These are mapped accordingly:
 
-{% raw_table(format="csv") %}
-R,extendr,scalar,C API
-integer(),Integers,Rint,INTSXP
-double(),Doubles,Rfloat,REALSXP
-logical(),Logicals,Rbool,LGLSXP
-complex(),Complexes,Rcplx,CPLXSXP
-character(),Strings,Rstr,STRSXP
-raw(),Raw,&\[u8\],RAWSXP
-list(),List,Robj,VECSXP
-{% end %}
+| R             | extendr     | scalar   | C API     |
+|---------------|-------------|----------|-----------|
+| `integer()`   | `Integers`  | `Rint`   | `INTSXP`  |
+| `double()`    | `Doubles`   | `Rfloat` | `REALSXP` |
+| `logical()`   | `Logicals`  | `Rbool`  | `LGLSXP`  |
+| `complex()`   | `Complexes` | `Rcplx`  | `CPLXSXP` |
+| `character()` | `Strings`   | `Rstr`   | `STRSXP`  |
+| `raw()`       | `Raw`       | `&[u8]`  | `RAWSXP`  |
+| `list()`      | `List`      | `Robj`   | `VECSXP`  |
 
 ## Using Rust library types vs R-native types
 

@@ -16,6 +16,7 @@ Cargo.lock
 
 # zola
 /public/
+/static/giallo-*.css
 
 # node / tailwind build
 /node_modules/
@@ -24,3 +25,4 @@ Cargo.lock
 # other
 /_miscellaneous/
 /.claude/
+/.agents/

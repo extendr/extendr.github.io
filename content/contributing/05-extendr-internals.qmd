@@ -5,6 +5,6 @@ weight: 5
 slug: extendr-internals
 ---
 
-{% callout(type="note") %}
+{% <callout> %}
 [Coming soon!]{.fs-1 .fw-bold}
-{% end %}
+{% </callout> %}
