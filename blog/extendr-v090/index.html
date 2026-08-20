@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -508,20 +506,15 @@ from R Core’s C API stabilization.</p>
 <li>Use any error type (e.g. <code>anyhow::Error</code>)</li>
 <li>Use <code>From</code>/<code>TryFrom</code></li>
 </ul>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Tip">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Tip
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Tip</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        If you are not interested in the nitty-gritty of current changes, feel free to
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">If you are not interested in the nitty-gritty of current changes, feel free to
 skip to the <a href="#migration-guide">migration guide</a>. It will explain updates you
-need to make in your packages to address breaking changes.
-    </section>
-</div><h2 id="a-note-on-semantic-versioning">A note on semantic versioning</h2>
+need to make in your packages to address breaking changes.</section>
+</div>
+<h2 id="a-note-on-semantic-versioning">A note on semantic versioning</h2>
 <p>The Rust ecosystem encourages the use of <a rel="external" href="https://doc.rust-lang.org/cargo/reference/semver.html"><strong>semantic
 versioning</strong></a>
 (SemVer) to keep expectations managed.</p>
@@ -559,12 +552,12 @@ unnecessary bloat into the prelude, which should really target symbols unique to
 extendr. Fortunately, some recent developments in extendr allow you to return
 <code>anyhow::Result</code> or build your own custom error type with <code>thiserror</code>, for
 example:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> anyhow</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Result</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> anyhow</span><span>::</span><span class="z-l-8 z-d-2">Result</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> foo</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Result</span><span>&lt;</span><span>(</span><span>)</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  bail!</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> foo</span><span>(</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Result</span><span>&lt;</span><span>(</span><span>)</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  bail!</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><h2 id="removal-of-non-standard-methods-and-traits">Removal of non-standard methods and traits</h2>
 <p>With this release, we continue our efforts to move away from custom functions
 towards more idiomatic Rust. In fact, this release deprecates <em>a lot</em> of methods
@@ -608,22 +601,17 @@ automate the update process. Some manual editing is required.</p>
 <li>Re-vendor crates with <code>rextendr::vendor_crates()</code>.</li>
 <li>Re-build and document package with <code>devtools::document()</code>.</li>
 </ol>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Warning">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Warning
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Warning</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        There are some “gotchas” you might run into while working through the update
-that we flag below.
-    </section>
-</div><h3 id="update-scaffold">Update scaffold</h3>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">There are some “gotchas” you might run into while working through the update
+that we flag below.</section>
+</div>
+<h3 id="update-scaffold">Update scaffold</h3>
 <p>Once you run <code>update_scaffold()</code>, you will see a list of updated files followed
 by this (somewhat lengthy) update message:</p>
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>! If your crate or library name differs from the R package name, please</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>! If your crate or library name differs from the R package name, please</span></span>
 <span class="giallo-l"><span>  re-run `update_scaffold()` with explicit `lib_name` and `crate_name`.</span></span>
 <span class="giallo-l"><span>! You will also need to update `Cargo.toml` to include the following:</span></span>
 <span class="giallo-l"><span>     </span></span>
@@ -658,16 +646,16 @@ your crate type. This signals that your Rust code should be accessible to the
 binary. Second, you need to add the <code>[[bin]]</code> section referencing the binary
 <code>document.rs</code> directly. These edits are essential to the new build process.</p>
 <p>Basically, <code>Cargo.toml</code> should look like this:</p>
-<pre class="giallo z-code"><code data-lang="toml"><span class="giallo-l"><span>[</span><span>lib</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">crate-type</span><span> =</span><span> [</span><span class="z-string">&quot;</span><span class="z-string">rlib</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">staticlib</span><span class="z-string">&quot;</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span> &lt;</span><span class="z-invalid">your </span><span class="z-invalid">lib </span><span class="z-invalid">name&gt;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span>lib</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">crate-type</span><span> =</span><span> [</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">rlib</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">staticlib</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">name</span><span> =</span><span> &lt;</span><span class="z-l-14 z-d-17">your </span><span class="z-l-14 z-d-17">lib </span><span class="z-l-14 z-d-17">name&gt;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>[[</span><span>bin</span><span>]]</span></span>
-<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &quot;</span><span class="z-string">document</span><span class="z-string">&quot;</span></span>
-<span class="giallo-l"><span class="z-variable">path</span><span> =</span><span class="z-string"> &quot;</span><span class="z-string">document.rs</span><span class="z-string">&quot;</span></span></code></pre><h3 id="update-extendr-api-version">Update extendr-api version</h3>
+<span class="giallo-l"><span class="z-l-3 z-d-9">name</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">document</span><span class="z-l-12 z-d-13">&quot;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">path</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">document.rs</span><span class="z-l-12 z-d-13">&quot;</span></span></code></pre><h3 id="update-extendr-api-version">Update extendr-api version</h3>
 <p>The next important change is to update your version of extendr to the latest
 release, 0.9.0. You can do this using our utility function</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">use_crate</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">extendr-api</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> version</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">0.9.0</span><span class="z-string">&quot;</span><span>)</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">use_crate</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">extendr-api</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> version</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">0.9.0</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre>
 <p>In theory, this should only bump the version, leaving any features or other
 flags alone, but you should check this if you have any customization of this
 dependency.</p>
@@ -690,7 +678,7 @@ truly your friend.</p>
 <p>So far, so good! The next step is to re-vendor crates to meet the CRAN
 requirement. Provided you have resolved all dependency conflicts, this should be
 as simple as running</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">vendor_crates</span><span>(</span><span>)</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-8 z-d-2">rextendr</span><span>::</span><span class="z-l-9 z-d-16">vendor_crates</span><span>(</span><span>)</span></span></code></pre>
 <p><span class="iconify lucide--message-square-warning text-xs"></span> <strong>GOTCHA FOUR</strong>: This is only kinda-sorta
 a gotcha, but it is worth noting. This function was originally called <code>vendor_pkgs()</code>,
 but was renamed in this release to more accurately reflect what it does.</p>
@@ -733,129 +721,87 @@ Discord!</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#tl-dr" class="toc-link pl-4">TL;DR</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#a-note-on-semantic-versioning" class="toc-link pl-4">A note on semantic versioning</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#changes-to-the-extendr-team" class="toc-link pl-4">Changes to the extendr team</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#cran-and-non-api-entry-points" class="toc-link pl-4">CRAN and non-API entry points</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#custom-error-types-anyhow-integration" class="toc-link pl-4">Custom Error types — anyhow integration</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#removal-of-non-standard-methods-and-traits" class="toc-link pl-4">Removal of non-standard methods and traits</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#self-documenting-build" class="toc-link pl-4">Self-documenting build</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#migration-guide" class="toc-link pl-4">Migration guide</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    <li class="toc-item">
-        <a href="#update-scaffold" class="toc-link pl-4">Update scaffold</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#add-linked-binary-to-manifest" class="toc-link pl-4">Add linked binary to manifest</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#update-extendr-api-version" class="toc-link pl-4">Update extendr-api version</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#update-rust-source" class="toc-link pl-4">Update Rust source</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#re-vendor-crates" class="toc-link pl-4">Re-vendor crates</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#re-build-your-package" class="toc-link pl-4">Re-build your package</a>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#what-s-next" class="toc-link pl-4">What’s next</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#tl-dr" class="toc-link">TL;DR</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#a-note-on-semantic-versioning" class="toc-link">A note on semantic versioning</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#changes-to-the-extendr-team" class="toc-link">Changes to the extendr team</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#cran-and-non-api-entry-points" class="toc-link">CRAN and non-API entry points</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#custom-error-types-anyhow-integration" class="toc-link">Custom Error types — anyhow integration</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#removal-of-non-standard-methods-and-traits" class="toc-link">Removal of non-standard methods and traits</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#self-documenting-build" class="toc-link">Self-documenting build</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#migration-guide" class="toc-link">Migration guide</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/extendr-v090/#update-scaffold" class="toc-link">Update scaffold</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/extendr-v090/#add-linked-binary-to-manifest" class="toc-link">Add linked binary to manifest</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/extendr-v090/#update-extendr-api-version" class="toc-link">Update extendr-api version</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/extendr-v090/#update-rust-source" class="toc-link">Update Rust source</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/extendr-v090/#re-vendor-crates" class="toc-link">Re-vendor crates</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/extendr-v090/#re-build-your-package" class="toc-link">Re-build your package</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-v090/#what-s-next" class="toc-link">What’s next</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

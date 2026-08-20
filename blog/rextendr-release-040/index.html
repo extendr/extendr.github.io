@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -511,36 +509,26 @@ ecosystem for Rust integration. These include:</p>
 </ul>
 <p>A great deal of work also went into re-factoring code to reduce package dependencies and
 improve the maintainability to ensure the long-term viability of the project.</p>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Note
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        <h2 id="what-is-rextendr">What is rextendr?</h2>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0"><h2 id="what-is-rextendr">What is rextendr?</h2>
 <p>For those new to the project, rextendr is an R package similar to <code>usethis</code> and
 <code>devtools</code> for supporting development of Rust-powered R packages, with the Rust
-crate <code>extendr</code> handling most of the heavy lifting behind the scenes.
-    </section>
-</div><h2 id="webr-support">WebR support</h2>
+crate <code>extendr</code> handling most of the heavy lifting behind the scenes.</section>
+</div>
+<h2 id="webr-support">WebR support</h2>
 <p>A very exciting development in this release is <strong>WebR compatibility out of the box</strong>. All extendr-powered R packages are now compatible with <a rel="external" href="https://webr.r-wasm.org/latest/">WebR</a>, meaning your packages can run in the browser without an R installation.</p>
 <p>WebR support happens without any additional work on your part. Just update your build files with <code>use_extendr()</code> and permit rextendr to update your <code>Makevars{.win}.in</code>, files in <code>tools/</code>, <code>configure</code> scripts.</p>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Tip">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Tip
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Tip</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        <h2 id="webr-for-existing-packages">WebR for existing packages</h2>
-<p>WebR support requires that <code>lto = true</code> in your release profile. This is handled for new packages, but not existing ones. Be sure to add it to your <code>Cargo.toml</code>.
-    </section>
-</div><h2 id="cran-compatibility">CRAN compatibility</h2>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0"><h2 id="webr-for-existing-packages">WebR for existing packages</h2>
+<p>WebR support requires that <code>lto = true</code> in your release profile. This is handled for new packages, but not existing ones. Be sure to add it to your <code>Cargo.toml</code>.</section>
+</div>
+<h2 id="cran-compatibility">CRAN compatibility</h2>
 <p>The standout feature of the current release is found in rextendr’s workhorse function <code>use_extendr()</code>, which now provides <strong>CRAN-ready scaffolding out of the box</strong>. All you need to do is vendor your Rust dependencies with <code>vendor_pkgs()</code> and you’re ready for CRAN submission.</p>
 <h2 id="positron-vs-code-support">Positron &amp; VS Code Support</h2>
 <p>With <a rel="external" href="http://positron.posit.co/">Positron</a> coming out of beta, we’ve introduced <code>use_positron()</code> and <code>use_vscode()</code> to generate (or update) <code>.vscode/settings.json</code> tailored to Rust development in R packages.</p>
@@ -572,67 +560,49 @@ documentation! For the full changelog see the <a rel="external" href="https://gi
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#tl-dr" class="toc-link pl-4">TL;DR</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#webr-support" class="toc-link pl-4">WebR support</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#cran-compatibility" class="toc-link pl-4">CRAN compatibility</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#positron-vs-code-support" class="toc-link pl-4">Positron &amp; VS Code Support</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#enhanced-developer-tools" class="toc-link pl-4">Enhanced Developer Tools</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#a-new-extendr-badge" class="toc-link pl-4">A new extendr badge!</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#there-s-still-more" class="toc-link pl-4">There’s still more</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#tl-dr" class="toc-link">TL;DR</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#webr-support" class="toc-link">WebR support</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#cran-compatibility" class="toc-link">CRAN compatibility</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#positron-vs-code-support" class="toc-link">Positron &amp; VS Code Support</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#enhanced-developer-tools" class="toc-link">Enhanced Developer Tools</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#a-new-extendr-badge" class="toc-link">A new extendr badge!</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/rextendr-release-040/#there-s-still-more" class="toc-link">There’s still more</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

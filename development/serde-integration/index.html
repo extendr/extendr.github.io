@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -479,59 +477,59 @@
 <p>First, modify your <code>Cargo.toml</code> to include the serde feature.</p>
 <div class="code-with-filename">
 <p><strong>Cargo.toml</strong></p>
-<pre class="giallo z-code"><code data-lang="toml"><span class="giallo-l"><span class="z-comment">#</span><span class="z-comment">[dependenices]</span></span>
-<span class="giallo-l"><span class="z-variable">extender-api</span><span> =</span><span> {</span><span class="z-variable"> version</span><span> =</span><span class="z-string"> &quot;</span><span class="z-string">*</span><span class="z-string">&quot;</span><span>,</span><span class="z-variable"> features</span><span> =</span><span> [</span><span class="z-string">&quot;</span><span class="z-string">serde</span><span class="z-string">&quot;</span><span>]</span><span> }</span></span></code></pre></div>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="toml"><span class="giallo-l"><span class="z-l-5 z-d-7">#</span><span class="z-l-5 z-d-7">[dependenices]</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">extender-api</span><span> =</span><span> {</span><span class="z-l-3 z-d-9"> version</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">*</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> features</span><span> =</span><span> [</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">serde</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span><span> }</span></span></code></pre></div>
 <p>For this example we will have a <code>Point</code> struct with two fields, <code>x</code>, and <code>y</code>. In your <code>lib.rs</code> include:</p>
 <div class="code-with-filename">
 <p><strong>lib.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> serde</span><span class="z-keyword z-operator">::</span><span>{</span><span class="z-entity z-name z-type">Deserialize</span><span>,</span><span class="z-entity z-name z-type"> Serialize</span><span>}</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> serde</span><span>::</span><span>{</span><span class="z-l-8 z-d-2">Deserialize</span><span>,</span><span class="z-l-8 z-d-2"> Serialize</span><span>}</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>,</span><span class="z-entity z-name z-type"> Clone</span><span>,</span><span class="z-entity z-name z-type"> Serialize</span><span>,</span><span class="z-entity z-name z-type"> Deserialize</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">pub</span><span class="z-storage z-type"> struct</span><span class="z-entity z-name z-type"> Point</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>,</span><span class="z-l-8 z-d-2"> Clone</span><span>,</span><span class="z-l-8 z-d-2"> Serialize</span><span>,</span><span class="z-l-8 z-d-2"> Deserialize</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">pub</span><span class="z-l-2 z-d-4"> struct</span><span class="z-l-8 z-d-2"> Point</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    y</span><span>:</span><span class="z-l-8 z-d-2"> f64</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
 <h2 id="deserializing-r-objects">Deserializing R objects</h2>
 <p>This defines a <code>Point</code> struct. However, you may want to be able to use an R object to represent that point. To deserialize R objects into Rust, use <code>extendr_api::deserializer::from_robj</code>. For a basic example we can deserialize
 an <code>Robj</code> into the <code>Point</code>.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">deserializer</span><span class="z-keyword z-operator">::</span><span>from_robj</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">deserializer</span><span>::</span><span>from_robj</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> point_from_r</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> point</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> from_robj</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">x</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    rprintln!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">point:?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> point_from_r</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> point</span><span> =</span><span class="z-l-9 z-d-16"> from_robj</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    rprintln!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">point:?</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>To represent a struct, a named list has to be used. Each name must correspond with the field name of the struct. In this case these are <code>x</code> and <code>y</code>.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">point</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> list</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 3.0</span><span class="z-keyword z-operator">,</span><span class="z-variable"> y</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 0.14</span><span>)</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">point_from_r</span><span>(</span><span class="z-entity z-name z-function">list</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 3.0</span><span class="z-keyword z-operator">,</span><span class="z-variable"> y</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 0.14</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>Ok(Point { x: 3.0, y: 0.14 })</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><h2 id="serializing">Serializing</h2>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">point</span><span> &lt;-</span><span class="z-l-9 z-d-16"> list</span><span>(</span><span class="z-l-3 z-d-9">x</span><span> =</span><span class="z-l-7 z-d-10"> 3.0</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> =</span><span class="z-l-7 z-d-10"> 0.14</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">point_from_r</span><span>(</span><span class="z-l-9 z-d-16">list</span><span>(</span><span class="z-l-3 z-d-9">x</span><span> =</span><span class="z-l-7 z-d-10"> 3.0</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> =</span><span class="z-l-7 z-d-10"> 0.14</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>Ok(Point { x: 3.0, y: 0.14 })</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><h2 id="serializing">Serializing</h2>
 <p>To serialize R objects you must use <code>extendr_api::serializer::to_robj</code> this will take a serde-compatible struct and convert it into a corresponding R object.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">serializer</span><span class="z-keyword z-operator">::</span><span>to_robj</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">deserializer</span><span class="z-keyword z-operator">::</span><span>from_robj</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">serializer</span><span>::</span><span>to_robj</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">deserializer</span><span>::</span><span>from_robj</span><span>;</span></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> round_trip</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Result</span><span>&lt;</span><span class="z-entity z-name z-type">Robj</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> point</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> from_robj</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    to_robj</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">point</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> round_trip</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Result</span><span>&lt;</span><span class="z-l-8 z-d-2">Robj</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> point</span><span> =</span><span class="z-l-9 z-d-16"> from_robj</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    to_robj</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">point</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This function will parse a list into a point and then return the <code>Point</code> as an R object as well doing a round trip deserialization and serialization process.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">round_trip</span><span>(</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  list</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 3.0</span><span class="z-keyword z-operator">,</span><span class="z-variable"> y</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 0.14</span><span>)</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$x</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">round_trip</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  list</span><span>(</span><span class="z-l-3 z-d-9">x</span><span> =</span><span class="z-l-7 z-d-10"> 3.0</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> =</span><span class="z-l-7 z-d-10"> 0.14</span><span>)</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$x</span></span>
 <span class="giallo-l"><span>[1] 3</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$y</span></span>
 <span class="giallo-l"><span>[1] 0.14</span></span></code></pre><h3 id="vectors-of-structs">Vectors of structs</h3>
 <p>You may find your self wanting to deserialize many structs at once from vectors. For example, if you have a <code>data.frame</code> with 2 columns <code>x</code> and <code>y</code> you may want to deserialize this into a <code>Vec&lt;Point&gt;</code>. To your dismay you will find this not actually possible.</p>
 <p>For example we can create a function <code>replicate_point()</code>.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> replicate_point</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>,</span><span class="z-variable"> n</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Result</span><span>&lt;</span><span class="z-entity z-name z-type">Robj</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> point</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> from_robj</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> points</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-variable">point</span><span>;</span><span class="z-variable"> n</span><span class="z-keyword"> as</span><span class="z-entity z-name z-type"> usize</span><span>]</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    to_robj</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">points</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> replicate_point</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>,</span><span class="z-l-3 z-d-9"> n</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Result</span><span>&lt;</span><span class="z-l-8 z-d-2">Robj</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> point</span><span> =</span><span class="z-l-9 z-d-16"> from_robj</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> points</span><span> =</span><span class="z-l-9 z-d-16"> vec!</span><span>[</span><span class="z-l-3 z-d-9">point</span><span>;</span><span class="z-l-3 z-d-9"> n</span><span class="z-l-2 z-d-4"> as</span><span class="z-l-8 z-d-2"> usize</span><span>]</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    to_robj</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">points</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This will create a <code>Vec&lt;Point&gt;</code> with the size of <code>n</code>. If you serialize this to R you will get a list of lists where each sub-list is a named-list with elements <code>x</code> and <code>y</code>. This is expected. And is quite like how you would expect something to be serialized into json or yaml for example.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">replicate_point</span><span>(</span><span class="z-entity z-name z-function">list</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 0.14</span><span class="z-keyword z-operator">,</span><span class="z-variable"> y</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 10</span><span>)</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 3L</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[[1]]</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">replicate_point</span><span>(</span><span class="z-l-9 z-d-16">list</span><span>(</span><span class="z-l-3 z-d-9">x</span><span> =</span><span class="z-l-7 z-d-10"> 0.14</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> =</span><span class="z-l-7 z-d-10"> 10</span><span>)</span><span>,</span><span class="z-l-7 z-d-10"> 3L</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[[1]]</span></span>
 <span class="giallo-l"><span>[[1]]$x</span></span>
 <span class="giallo-l"><span>[1] 0.14</span></span>
 <span class="giallo-l"></span>
@@ -554,22 +552,22 @@ an <code>Robj</code> into the <code>Point</code>.</p>
 <span class="giallo-l"><span>[[3]]$y</span></span>
 <span class="giallo-l"><span>[1] 10</span></span></code></pre>
 <p>When providing a <code>data.frame</code>, a closer analogue would be a struct with vectors for their fields like a <code>MultiPoint</code> struct</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>,</span><span class="z-entity z-name z-type"> Clone</span><span>,</span><span class="z-entity z-name z-type"> Serialize</span><span>,</span><span class="z-entity z-name z-type"> Deserialize</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">pub</span><span class="z-storage z-type"> struct</span><span class="z-entity z-name z-type"> MultiPoint</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-entity z-name z-type">f64</span><span>&gt;</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-entity z-name z-type">f64</span><span>&gt;</span><span>,</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>,</span><span class="z-l-8 z-d-2"> Clone</span><span>,</span><span class="z-l-8 z-d-2"> Serialize</span><span>,</span><span class="z-l-8 z-d-2"> Deserialize</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">pub</span><span class="z-l-2 z-d-4"> struct</span><span class="z-l-8 z-d-2"> MultiPoint</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>:</span><span class="z-l-8 z-d-2"> Vec</span><span>&lt;</span><span class="z-l-8 z-d-2">f64</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    y</span><span>:</span><span class="z-l-8 z-d-2"> Vec</span><span>&lt;</span><span class="z-l-8 z-d-2">f64</span><span>&gt;</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>and for the sake of demonstration we can create a <code>make_multipoint()</code> function:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> make_multipoint</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Result</span><span>&lt;</span><span>(</span><span>)</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> mpoint</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> from_robj</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">MultiPoint</span><span>&gt;</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    rprintln!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">mpoint:#?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Ok</span><span>(</span><span>(</span><span>)</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> make_multipoint</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Result</span><span>&lt;</span><span>(</span><span>)</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> mpoint</span><span> =</span><span class="z-l-9 z-d-16"> from_robj</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">MultiPoint</span><span>&gt;</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    rprintln!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">mpoint:#?</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Ok</span><span>(</span><span>(</span><span>)</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This function can be used to parse a <code>data.frame</code> into a <code>MultiPoint</code>.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">make_multipoint</span><span>(</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  data.frame</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 0</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">2</span><span class="z-keyword z-operator">,</span><span class="z-variable"> y</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 9</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">7</span><span>)</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>MultiPoint {</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">make_multipoint</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  data.frame</span><span>(</span><span class="z-l-3 z-d-9">x</span><span> =</span><span class="z-l-7 z-d-10"> 0</span><span>:</span><span class="z-l-7 z-d-10">2</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> =</span><span class="z-l-7 z-d-10"> 9</span><span>:</span><span class="z-l-7 z-d-10">7</span><span>)</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>MultiPoint {</span></span>
 <span class="giallo-l"><span>    x: [</span></span>
 <span class="giallo-l"><span>        0.0,</span></span>
 <span class="giallo-l"><span>        1.0,</span></span>
@@ -580,45 +578,45 @@ an <code>Robj</code> into the <code>Point</code>.</p>
 <span class="giallo-l"><span>        8.0,</span></span>
 <span class="giallo-l"><span>        7.0,</span></span>
 <span class="giallo-l"><span>    ],</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><h2 id="using-tryfrom">Using <code>TryFrom</code></h2>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><h2 id="using-tryfrom">Using <code>TryFrom</code></h2>
 <p>One of the benefits and challenges of rust is that it requires us to be explicit. Adding another language into play makes it all the more confusing! In many cases there isn’t a 1:1 mapping from Rust to R as you have seen the <code>Point</code> and <code>MultiPoint</code>. One way to simplify this would be to use a <code>TryFrom</code> trait implementation. This is discussed in more detail in another part of the user guide.</p>
 <p>Rather than use serde to do the conversion for you, you probably want a custom <code>TryFrom</code> trait implementation. Here we define an <code>MPoint</code> tuple struct and then implement <code>TryFrom&lt;Robj&gt;</code> for it.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-storage z-type"> struct</span><span class="z-entity z-name z-type"> MPoint</span><span>(</span><span class="z-entity z-name z-type">Vec</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">pub</span><span class="z-l-2 z-d-4"> struct</span><span class="z-l-8 z-d-2"> MPoint</span><span>(</span><span class="z-l-8 z-d-2">Vec</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> TryFrom</span><span>&lt;</span><span class="z-entity z-name z-type">Robj</span><span>&gt;</span><span class="z-keyword z-control"> for</span><span class="z-entity z-name z-type"> MPoint</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    type</span><span class="z-entity z-name z-type"> Error</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Error</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> try_from</span><span>(</span><span class="z-variable">value</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-namespace"> std</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">result</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Result</span><span>&lt;</span><span class="z-variable z-language">Self</span><span>,</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Error</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> point_df</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> List</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">value</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> x_vec</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-variable">point_df</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">dollar</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">x</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">?</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> y_vec</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-variable">point_df</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">dollar</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">y</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">?</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> inner</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x_vec</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">zip</span><span>(</span><span class="z-variable">y_vec</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span>(</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>)</span><span class="z-keyword z-operator">|</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">                    Point</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">                        x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-variable">x</span><span>)</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">                        y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-variable">y</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> TryFrom</span><span>&lt;</span><span class="z-l-8 z-d-2">Robj</span><span>&gt;</span><span class="z-l-13 z-d-11"> for</span><span class="z-l-8 z-d-2"> MPoint</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    type</span><span class="z-l-8 z-d-2"> Error</span><span> =</span><span class="z-l-8 z-d-2"> Error</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> try_from</span><span>(</span><span class="z-l-3 z-d-9">value</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> std</span><span>::</span><span class="z-l-8 z-d-2">result</span><span>::</span><span class="z-l-8 z-d-2">Result</span><span>&lt;</span><span class="z-l-2 z-d-4">Self</span><span>,</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Error</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> point_df</span><span> =</span><span class="z-l-8 z-d-2"> List</span><span>::</span><span class="z-l-9 z-d-16">try_from</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">value</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> x_vec</span><span> =</span><span class="z-l-8 z-d-2"> Doubles</span><span>::</span><span class="z-l-9 z-d-16">try_from</span><span>(</span><span class="z-l-3 z-d-9">point_df</span><span>.</span><span class="z-l-9 z-d-16">dollar</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">x</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>?</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> y_vec</span><span> =</span><span class="z-l-8 z-d-2"> Doubles</span><span>::</span><span class="z-l-9 z-d-16">try_from</span><span>(</span><span class="z-l-3 z-d-9">point_df</span><span>.</span><span class="z-l-9 z-d-16">dollar</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">y</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>?</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> inner</span><span> =</span><span class="z-l-3 z-d-9"> x_vec</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">zip</span><span>(</span><span class="z-l-3 z-d-9">y_vec</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>)</span><span>|</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">                    Point</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">                        x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">                        y</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">y</span><span>)</span></span>
 <span class="giallo-l"><span>                    }</span></span>
-<span class="giallo-l"><span>                }</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">Vec</span><span>&lt;</span><span class="z-variable">_</span><span>&gt;</span><span>&gt;</span><span>(</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        Ok</span><span>(</span><span class="z-entity z-name z-function">MPoint</span><span>(</span><span class="z-variable">inner</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>                }</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Vec</span><span>&lt;</span><span class="z-l-3 z-d-9">_</span><span>&gt;</span><span>&gt;</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        Ok</span><span>(</span><span class="z-l-9 z-d-16">MPoint</span><span>(</span><span class="z-l-3 z-d-9">inner</span><span>)</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This gives us the benefit of being able to pass the struct type directly into the function. Here we create a function <code>centroid()</code> to calculate the centroid of the <code>MPoint</code> struct directly. We use <code>to_robj()</code> to convert it back to an <code>Robj</code>.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> centroid</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> MPoint</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Result</span><span>&lt;</span><span class="z-entity z-name z-type">Robj</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> total</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span class="z-constant z-numeric">.</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">fold</span><span>(</span><span>(</span><span class="z-constant z-numeric">0</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>,</span><span class="z-constant z-numeric"> 0</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>,</span><span class="z-constant z-numeric"> 0</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>)</span><span>,</span><span class="z-keyword z-operator"> |</span><span class="z-storage z-modifier">mut</span><span class="z-variable"> acc</span><span>,</span><span class="z-variable"> next</span><span class="z-keyword z-operator">|</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        acc</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span class="z-keyword z-operator"> +=</span><span class="z-variable"> next</span><span class="z-keyword z-operator">.</span><span>x</span><span>;</span></span>
-<span class="giallo-l"><span class="z-variable">        acc</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">1</span><span class="z-keyword z-operator"> +=</span><span class="z-variable"> next</span><span class="z-keyword z-operator">.</span><span>y</span><span>;</span></span>
-<span class="giallo-l"><span class="z-variable">        acc</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">2</span><span class="z-keyword z-operator"> +=</span><span class="z-constant z-numeric"> 1</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>;</span></span>
-<span class="giallo-l"><span class="z-variable">        acc</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> centroid</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> MPoint</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Result</span><span>&lt;</span><span class="z-l-8 z-d-2">Robj</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> total</span><span> =</span><span class="z-l-3 z-d-9"> x</span><span>.</span><span class="z-l-7 z-d-10">0</span><span class="z-l-7 z-d-10">.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">fold</span><span>(</span><span>(</span><span class="z-l-7 z-d-10">0</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span>,</span><span class="z-l-7 z-d-10"> 0</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span>,</span><span class="z-l-7 z-d-10"> 0</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span>)</span><span>,</span><span> |</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-3 z-d-9"> acc</span><span>,</span><span class="z-l-3 z-d-9"> next</span><span>|</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        acc</span><span>.</span><span class="z-l-7 z-d-10">0</span><span> +=</span><span class="z-l-3 z-d-9"> next</span><span>.</span><span>x</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        acc</span><span>.</span><span class="z-l-7 z-d-10">1</span><span> +=</span><span class="z-l-3 z-d-9"> next</span><span>.</span><span>y</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        acc</span><span>.</span><span class="z-l-7 z-d-10">2</span><span> +=</span><span class="z-l-7 z-d-10"> 1</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        acc</span></span>
 <span class="giallo-l"><span>    }</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> centroid</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Point</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        x</span><span class="z-keyword z-operator">:</span><span class="z-variable"> total</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span class="z-keyword z-operator"> /</span><span class="z-variable"> total</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">2</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">        y</span><span class="z-keyword z-operator">:</span><span class="z-variable"> total</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">1</span><span class="z-keyword z-operator"> /</span><span class="z-variable"> total</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">2</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> centroid</span><span> =</span><span class="z-l-8 z-d-2"> Point</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        x</span><span>:</span><span class="z-l-3 z-d-9"> total</span><span>.</span><span class="z-l-7 z-d-10">0</span><span> /</span><span class="z-l-3 z-d-9"> total</span><span>.</span><span class="z-l-7 z-d-10">2</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        y</span><span>:</span><span class="z-l-3 z-d-9"> total</span><span>.</span><span class="z-l-7 z-d-10">1</span><span> /</span><span class="z-l-3 z-d-9"> total</span><span>.</span><span class="z-l-7 z-d-10">2</span></span>
 <span class="giallo-l"><span>    }</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    to_robj</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">centroid</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    to_robj</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">centroid</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This function can be used with a <code>data.frame</code> because we implemented the <code>TryFrom</code> trait.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">centroid</span><span>(</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  data.frame</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> rnorm</span><span>(</span><span class="z-constant z-numeric">10</span><span>)</span><span class="z-keyword z-operator">,</span><span class="z-variable"> y</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> rnorm</span><span>(</span><span class="z-constant z-numeric">10</span><span>)</span><span>)</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$x</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">centroid</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  data.frame</span><span>(</span><span class="z-l-3 z-d-9">x</span><span> =</span><span class="z-l-9 z-d-16"> rnorm</span><span>(</span><span class="z-l-7 z-d-10">10</span><span>)</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> =</span><span class="z-l-9 z-d-16"> rnorm</span><span>(</span><span class="z-l-7 z-d-10">10</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$x</span></span>
 <span class="giallo-l"><span>[1] -0.06553614</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$y</span></span>
@@ -629,7 +627,7 @@ an <code>Robj</code> into the <code>Point</code>.</p>
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;package-structure&#x2F;"
+                    <a href="https://extendr.rs/development/package-structure/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Project Structure</span>
@@ -638,7 +636,7 @@ an <code>Robj</code> into the <code>Point</code>.</p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;webr&#x2F;"
+                    <a href="https://extendr.rs/development/webr/"
                        class="flex items-center gap-1">
                         <span>Building for WebR</span>
                         <span>→</span>
@@ -651,52 +649,37 @@ an <code>Robj</code> into the <code>Point</code>.</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#deserializing-r-objects" class="toc-link pl-4">Deserializing R objects</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#serializing" class="toc-link pl-4">Serializing</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    <li class="toc-item">
-        <a href="#vectors-of-structs" class="toc-link pl-4">Vectors of structs</a>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#using-tryfrom" class="toc-link pl-4">Using TryFrom</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/serde-integration/#deserializing-r-objects" class="toc-link">Deserializing R objects</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/serde-integration/#serializing" class="toc-link">Serializing</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/development/serde-integration/#vectors-of-structs" class="toc-link">Vectors of structs</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/serde-integration/#using-tryfrom" class="toc-link">Using TryFrom</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

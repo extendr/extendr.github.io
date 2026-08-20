@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -503,37 +501,37 @@ to fallibly convert from one struct to another.</p>
 <p>This trait has been removed in favor of the standard library <code>TryFrom</code> trait.</p>
 <p>For example the following function definition adapted from <code>{rsgeo}</code> is no
 longer valid.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> signed_area</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
-<span class="giallo-l"><span>    &lt;</span><span class="z-keyword z-operator">&amp;</span><span class="z-entity z-name z-type">Geom</span><span>&gt;</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_robj</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">xi</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span>geom</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">signed_area</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> signed_area</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> List</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> f64</span><span> {</span></span>
+<span class="giallo-l"><span>    &lt;</span><span>&amp;</span><span class="z-l-8 z-d-2">Geom</span><span>&gt;</span><span>::</span><span class="z-l-9 z-d-16">from_robj</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">xi</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span>geom</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">signed_area</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>Instead, replace the <code>from_robj()</code> with <code>try_from()</code>.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> signed_area</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
-<span class="giallo-l"><span>    &lt;</span><span class="z-keyword z-operator">&amp;</span><span class="z-entity z-name z-type">Geom</span><span>&gt;</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable">xi</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span>geom</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">signed_area</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> signed_area</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> List</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> f64</span><span> {</span></span>
+<span class="giallo-l"><span>    &lt;</span><span>&amp;</span><span class="z-l-8 z-d-2">Geom</span><span>&gt;</span><span>::</span><span class="z-l-9 z-d-16">try_from</span><span>(</span><span>&amp;</span><span class="z-l-3 z-d-9">xi</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span>geom</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">signed_area</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><h2 id="removal-of-extendr-use-try-from-true">Removal of <code>#[extendr(use_try_from = true)]</code></h2>
 <p>Because <code>TryFrom</code> is the default now, the macro argument <code>use_try_from = true</code>
 will cause a compiler error. For example this</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>(</span><span>use_try_from </span><span class="z-keyword z-operator">=</span><span> true</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> wkb_to_geoms</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span>(</span><span class="z-variable">_</span><span>,</span><span class="z-variable"> x</span><span>)</span><span class="z-keyword z-operator">|</span><span class="z-entity z-name z-function"> wkb_to_geom</span><span>(</span><span class="z-entity z-name z-function">raw_to_vecu8</span><span>(</span><span class="z-variable">x</span><span>)</span><span>)</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">List</span><span>&gt;</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>(</span><span>use_try_from </span><span>=</span><span> true</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> wkb_to_geoms</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> List</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span>(</span><span class="z-l-3 z-d-9">_</span><span>,</span><span class="z-l-3 z-d-9"> x</span><span>)</span><span>|</span><span class="z-l-9 z-d-16"> wkb_to_geom</span><span>(</span><span class="z-l-9 z-d-16">raw_to_vecu8</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">List</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">into_robj</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>becomes</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> wkb_to_geoms</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> List</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_iter</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">map</span><span>(</span><span class="z-keyword z-operator">|</span><span>(</span><span class="z-variable">_</span><span>,</span><span class="z-variable"> x</span><span>)</span><span class="z-keyword z-operator">|</span><span class="z-entity z-name z-function"> wkb_to_geom</span><span>(</span><span class="z-entity z-name z-function">raw_to_vecu8</span><span>(</span><span class="z-variable">x</span><span>)</span><span>)</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">collect</span><span class="z-keyword z-operator">::</span><span>&lt;</span><span class="z-entity z-name z-type">List</span><span>&gt;</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> wkb_to_geoms</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> List</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span>(</span><span class="z-l-3 z-d-9">_</span><span>,</span><span class="z-l-3 z-d-9"> x</span><span>)</span><span>|</span><span class="z-l-9 z-d-16"> wkb_to_geom</span><span>(</span><span class="z-l-9 z-d-16">raw_to_vecu8</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">List</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">into_robj</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><h2 id="setting-attributes">Setting <code>Attributes</code></h2>
 <p>Prior to version <code>0.7.0</code> the <code>Attributes</code> trait did two undesirable things:</p>
 <ol>
@@ -547,47 +545,47 @@ giving you an unsafe guarantee that the original <code>SEXP</code> would not be 
 <p>For example migrating from to 0.7.0 in the package
 <a rel="external" href="https://cran.r-project.org/package=arcgisplaces"><code>{arcgisplaces}</code></a> results in
 the compiler error:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-variable">error</span><span>[</span><span class="z-entity z-name z-type">E0308</span><span>]</span><span class="z-keyword z-operator">:</span><span class="z-variable"> mismatched</span><span class="z-variable"> types</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">  -</span><span class="z-keyword z-operator">-&gt;</span><span class="z-variable"> src</span><span class="z-keyword z-operator">/</span><span class="z-variable">lib</span><span class="z-keyword z-operator">.</span><span>rs</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">15</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric">13</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">   |</span></span>
-<span class="giallo-l"><span class="z-constant z-numeric">11</span><span class="z-keyword z-operator"> |</span><span class="z-keyword">   pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">   |</span><span class="z-keyword z-operator">                                               -</span><span class="z-keyword z-operator">-</span><span class="z-keyword z-operator">-</span><span class="z-keyword z-operator">-</span><span class="z-variable"> expected</span><span> `</span><span class="z-entity z-name z-namespace">extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Robj</span><span>` </span><span class="z-variable">because</span><span class="z-variable"> of</span><span class="z-keyword z-control"> return</span><span class="z-storage z-type"> type</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">...</span></span>
-<span class="giallo-l"><span class="z-constant z-numeric">15</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> /</span><span class="z-entity z-name z-type">             Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-constant z-numeric">16</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator">                 .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-constant z-numeric">17</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator">                 .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-constant z-numeric">18</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator"> |</span><span class="z-keyword z-operator">                 .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">   |</span><span class="z-keyword z-operator"> |</span><span class="z-variable">_________________________</span><span class="z-keyword z-operator">^</span><span class="z-variable"> expected</span><span> `</span><span class="z-entity z-name z-type">Robj</span><span>`</span><span>,</span><span class="z-variable"> found</span><span> `</span><span class="z-keyword z-operator">&amp;</span><span class="z-storage z-modifier">mut</span><span class="z-entity z-name z-type"> Robj</span><span>`</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-3 z-d-9">error</span><span>[</span><span class="z-l-8 z-d-2">E0308</span><span>]</span><span>:</span><span class="z-l-3 z-d-9"> mismatched</span><span class="z-l-3 z-d-9"> types</span></span>
+<span class="giallo-l"><span>  -</span><span>-&gt;</span><span class="z-l-3 z-d-9"> src</span><span>/</span><span class="z-l-3 z-d-9">lib</span><span>.</span><span>rs</span><span>:</span><span class="z-l-7 z-d-10">15</span><span>:</span><span class="z-l-7 z-d-10">13</span></span>
+<span class="giallo-l"><span>   |</span></span>
+<span class="giallo-l"><span class="z-l-7 z-d-10">11</span><span> |</span><span class="z-l-2 z-d-4">   pub</span><span class="z-l-2 z-d-4"> fn</span><span class="z-l-9 z-d-16"> location_to_sfg</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Option</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span>   |</span><span>                                               -</span><span>-</span><span>-</span><span>-</span><span class="z-l-3 z-d-9"> expected</span><span> `</span><span class="z-l-8 z-d-2">extendr_api</span><span>::</span><span class="z-l-8 z-d-2">Robj</span><span>` </span><span class="z-l-3 z-d-9">because</span><span class="z-l-3 z-d-9"> of</span><span class="z-l-13 z-d-11"> return</span><span class="z-l-2 z-d-4"> type</span></span>
+<span class="giallo-l"><span>...</span></span>
+<span class="giallo-l"><span class="z-l-7 z-d-10">15</span><span> |</span><span> /</span><span class="z-l-8 z-d-2">             Doubles</span><span>::</span><span class="z-l-9 z-d-16">from_values</span><span>(</span><span>[</span><span class="z-l-3 z-d-9">x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-7 z-d-10">16</span><span> |</span><span> |</span><span>                 .</span><span class="z-l-9 z-d-16">into_robj</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-7 z-d-10">17</span><span> |</span><span> |</span><span>                 .</span><span class="z-l-9 z-d-16">set_class</span><span>(</span><span>&amp;</span><span>[</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">XY</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">POINT</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">sfg</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-7 z-d-10">18</span><span> |</span><span> |</span><span>                 .</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>   |</span><span> |</span><span class="z-l-3 z-d-9">_________________________</span><span>^</span><span class="z-l-3 z-d-9"> expected</span><span> `</span><span class="z-l-8 z-d-2">Robj</span><span>`</span><span>,</span><span class="z-l-3 z-d-9"> found</span><span> `</span><span>&amp;</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-8 z-d-2"> Robj</span><span>`</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-variable">error</span><span>[</span><span class="z-entity z-name z-type">E0308</span><span>]</span><span class="z-keyword z-operator">:</span><span class="z-variable"> mismatched</span><span class="z-variable"> types</span></span></code></pre>
+<span class="giallo-l"><span class="z-l-3 z-d-9">error</span><span>[</span><span class="z-l-8 z-d-2">E0308</span><span>]</span><span>:</span><span class="z-l-3 z-d-9"> mismatched</span><span class="z-l-3 z-d-9"> types</span></span></code></pre>
 <p>A simplified version of the function looks like:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">pub</span><span class="z-l-2 z-d-4"> fn</span><span class="z-l-9 z-d-16"> location_to_sfg</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Option</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-8 z-d-2"> Point</span><span> {</span><span class="z-l-3 z-d-9"> x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> }</span><span> =</span><span class="z-l-3 z-d-9"> x</span><span>.</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Doubles</span><span>::</span><span class="z-l-9 z-d-16">from_values</span><span>(</span><span>[</span><span class="z-l-3 z-d-9">x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">set_class</span><span>(</span><span>&amp;</span><span>[</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">XY</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">POINT</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">sfg</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This function previously returned an <code>Robj</code> because that was the type returned
 by <code>set_class()</code>. This function can be rewritten as</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg2</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">clone</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">into_robj</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">pub</span><span class="z-l-2 z-d-4"> fn</span><span class="z-l-9 z-d-16"> location_to_sfg2</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Option</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-8 z-d-2"> Point</span><span> {</span><span class="z-l-3 z-d-9"> x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> }</span><span> =</span><span class="z-l-3 z-d-9"> x</span><span>.</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Doubles</span><span>::</span><span class="z-l-9 z-d-16">from_values</span><span>(</span><span>[</span><span class="z-l-3 z-d-9">x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">set_class</span><span>(</span><span>&amp;</span><span>[</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">XY</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">POINT</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">sfg</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">clone</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">into_robj</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p><code>.set_class()</code> returns a <code>&amp;mut Doubles</code> we can clone the <code>Doubles</code> the result so
 that we have a non-mutable reference. Note that <strong>cloning only increases a
 reference counter</strong> and is not costly. Here <code>.into_robj()</code> is used to return an
 <code>Robj</code></p>
 <p>Alternatively, the function can now return <code>Doubles</code> instead if you so desire:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">pub</span><span class="z-keyword"> fn</span><span class="z-entity z-name z-function"> location_to_sfg</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Option</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Doubles</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">x</span><span>,</span><span class="z-variable"> y</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">set_class</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">XY</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">POINT</span><span class="z-string">&quot;</span><span>,</span><span class="z-string"> &quot;</span><span class="z-string">sfg</span><span class="z-string">&quot;</span><span>]</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        .</span><span class="z-entity z-name z-function">clone</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">pub</span><span class="z-l-2 z-d-4"> fn</span><span class="z-l-9 z-d-16"> location_to_sfg</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Option</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Doubles</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-8 z-d-2"> Point</span><span> {</span><span class="z-l-3 z-d-9"> x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> }</span><span> =</span><span class="z-l-3 z-d-9"> x</span><span>.</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Doubles</span><span>::</span><span class="z-l-9 z-d-16">from_values</span><span>(</span><span>[</span><span class="z-l-3 z-d-9">x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">set_class</span><span>(</span><span>&amp;</span><span>[</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">XY</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">POINT</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">sfg</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">clone</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><h2 id="r-devel-non-api-changes">R-devel Non-API changes</h2>
 <p>R-devel is currently in the process of formalizing what is and is not part of
 the official C-API. As a result extendr powered R packages have WARN-ings due to
@@ -609,46 +607,34 @@ together.</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#removal-of-fromrobj" class="toc-link pl-4">Removal of FromRobj</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#removal-of-extendr-use-try-from-true" class="toc-link pl-4">Removal of #[extendr(use_try_from = true)]</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#setting-attributes" class="toc-link pl-4">Setting Attributes</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#r-devel-non-api-changes" class="toc-link pl-4">R-devel Non-API changes</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-release-070/#removal-of-fromrobj" class="toc-link">Removal of FromRobj</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-release-070/#removal-of-extendr-use-try-from-true" class="toc-link">Removal of #[extendr(use_try_from = true)]</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-release-070/#setting-attributes" class="toc-link">Setting Attributes</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/extendr-release-070/#r-devel-non-api-changes" class="toc-link">R-devel Non-API changes</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

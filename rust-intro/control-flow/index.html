@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -471,7 +469,7 @@
         <header class="pb-2 border-b border-border">
             <h1 class="my-0">Control Flow</h1>
             
-            <p class="text-muted-foreground mt-1 mb-0">Branch with if&#x2F;else and Rust&#x27;s logical operators — familiar from R, but non-vectorised and strictly typed as bool.</p>
+            <p class="text-muted-foreground mt-1 mb-0">Branch with if/else and Rust&#39;s logical operators — familiar from R, but non-vectorised and strictly typed as bool.</p>
             
             
         </header>
@@ -491,13 +489,13 @@ single logical called a <code>bool</code> instead and can only take on one of tw
 <code>true</code> or <code>false</code>.</p>
 <p>Like R, each branch of an <code>if</code> in Rust must be delimited by curly brackets, but
 unlike R, parentheses around the condition are not required:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword z-control">if</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> ==</span><span class="z-variable"> y</span><span> {</span></span>
-<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> do something</span></span>
-<span class="giallo-l"><span>}</span><span class="z-keyword z-control"> else</span><span> {</span></span>
-<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> do something else</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-13 z-d-11">if</span><span class="z-l-3 z-d-9"> x</span><span> ==</span><span class="z-l-3 z-d-9"> y</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    //</span><span class="z-l-5 z-d-7"> do something</span></span>
+<span class="giallo-l"><span>}</span><span class="z-l-13 z-d-11"> else</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    //</span><span class="z-l-5 z-d-7"> do something else</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>Note, too, that the result of control flow can be assigned to a variable:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> number</span><span class="z-keyword z-operator"> =</span><span class="z-keyword z-control"> if</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> ==</span><span class="z-variable"> y</span><span> {</span><span class="z-constant z-numeric"> 5</span><span> }</span><span class="z-keyword z-control"> else</span><span> {</span><span class="z-constant z-numeric"> 3</span><span> }</span><span>;</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> number</span><span> =</span><span class="z-l-13 z-d-11"> if</span><span class="z-l-3 z-d-9"> x</span><span> ==</span><span class="z-l-3 z-d-9"> y</span><span> {</span><span class="z-l-7 z-d-10"> 5</span><span> }</span><span class="z-l-13 z-d-11"> else</span><span> {</span><span class="z-l-7 z-d-10"> 3</span><span> }</span><span>;</span></span></code></pre>
 <p>Given what we learned about Rust’s strong typing system, this suggests an
 additional strong constraint on control flow: each branch or “arm” of an <code>if</code>
 expression must return the same type. Otherwise, the type would be unknown at
@@ -505,16 +503,16 @@ compile time. Consider this example program (drawn straight from The Book) that
 includes mismatched types in the <code>if</code> and <code>else</code> arm:.</p>
 <div class="code-with-filename">
 <p><strong>src/main.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> condition</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> true</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> condition</span><span> =</span><span class="z-l-2 z-d-4"> true</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> number</span><span class="z-keyword z-operator"> =</span><span class="z-keyword z-control"> if</span><span class="z-variable"> condition</span><span> {</span><span class="z-constant z-numeric"> 5</span><span> }</span><span class="z-keyword z-control"> else</span><span> {</span><span class="z-string"> &quot;</span><span class="z-string">six</span><span class="z-string">&quot;</span><span> }</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> number</span><span> =</span><span class="z-l-13 z-d-11"> if</span><span class="z-l-3 z-d-9"> condition</span><span> {</span><span class="z-l-7 z-d-10"> 5</span><span> }</span><span class="z-l-13 z-d-11"> else</span><span> {</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">six</span><span class="z-l-12 z-d-13">&quot;</span><span> }</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">The value of number is: </span><span class="z-string">{</span><span class="z-string">number</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">The value of number is: </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">number</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
 <p>If you try to compile and run this program, you will get the following error
 message from cargo:</p>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>error[E0308]: `if` and `else` have incompatible types</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>error[E0308]: `if` and `else` have incompatible types</span></span>
 <span class="giallo-l"><span> --&gt; src/main.rs:4:44</span></span>
 <span class="giallo-l"><span>  |</span></span>
 <span class="giallo-l"><span>4 |     let number = if condition { 5 } else { &quot;six&quot; };</span></span>
@@ -530,21 +528,21 @@ your code. Often, it will even suggest how to fix your problem!</p>
 <p>For completeness, here is the correct way to program that control flow:</p>
 <div class="code-with-filename">
 <p><strong>src/main.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> condition</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> true</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> condition</span><span> =</span><span class="z-l-2 z-d-4"> true</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> number</span><span class="z-keyword z-operator"> =</span><span class="z-keyword z-control"> if</span><span class="z-variable"> condition</span><span> {</span><span class="z-constant z-numeric"> 5</span><span> }</span><span class="z-keyword z-control"> else</span><span> {</span><span class="z-constant z-numeric"> 6</span><span> }</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> number</span><span> =</span><span class="z-l-13 z-d-11"> if</span><span class="z-l-3 z-d-9"> condition</span><span> {</span><span class="z-l-7 z-d-10"> 5</span><span> }</span><span class="z-l-13 z-d-11"> else</span><span> {</span><span class="z-l-7 z-d-10"> 6</span><span> }</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">The value of number is: </span><span class="z-string">{</span><span class="z-string">number</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">The value of number is: </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">number</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>The value of number is: 5</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>The value of number is: 5</span></span></code></pre>
         </div>
         
         <footer class="mt-10">
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;types&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/types/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Basic Types</span>
@@ -553,7 +551,7 @@ your code. Often, it will even suggest how to fix your problem!</p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;collections&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/collections/"
                        class="flex items-center gap-1">
                         <span>Collections</span>
                         <span>→</span>
@@ -566,9 +564,7 @@ your code. Often, it will even suggest how to fix your problem!</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
     </aside>
 </div>

@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -471,7 +469,7 @@
         <header class="pb-2 border-b border-border">
             <h1 class="my-0">h3o is now on CRAN‼️</h1>
             
-            <p class="text-muted-foreground mt-1 mb-0">R users now have access to a pure Rust implementation of Uber&#x27;s H3, a 
+            <p class="text-muted-foreground mt-1 mb-0">R users now have access to a pure Rust implementation of Uber&#39;s H3, a 
 hexagonal geospatial grid and indexing system.
 </p>
             
@@ -501,23 +499,23 @@ the foreseeable future.</p>
 <h2 id="h3o-at-a-glance-eyes"><code>h3o</code> at a glance 👀</h2>
 <p>The package provides functionality to interact with H3’s grid as vectors, which
 can be converted to and from <code>sf</code> geometries.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">h3o</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">dplyr</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">sf</span><span>)</span></span>
-<span class="giallo-l"><span class="z-keyword">library</span><span>(</span><span class="z-variable">tibble</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-2 z-d-4">library</span><span>(</span><span class="z-l-3 z-d-9">h3o</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">library</span><span>(</span><span class="z-l-3 z-d-9">dplyr</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">library</span><span>(</span><span class="z-l-3 z-d-9">sf</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">library</span><span>(</span><span class="z-l-3 z-d-9">tibble</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-variable">xy</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> data.frame</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> runif</span><span>(</span><span class="z-constant z-numeric">100</span><span class="z-keyword z-operator">,</span><span class="z-keyword z-operator"> -</span><span class="z-constant z-numeric">5</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 10</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  y</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> runif</span><span>(</span><span class="z-constant z-numeric">100</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 40</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 50</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">xy</span><span> &lt;-</span><span class="z-l-9 z-d-16"> data.frame</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  x</span><span> =</span><span class="z-l-9 z-d-16"> runif</span><span>(</span><span class="z-l-7 z-d-10">100</span><span>,</span><span> -</span><span class="z-l-7 z-d-10">5</span><span>,</span><span class="z-l-7 z-d-10"> 10</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  y</span><span> =</span><span class="z-l-9 z-d-16"> runif</span><span>(</span><span class="z-l-7 z-d-10">100</span><span>,</span><span class="z-l-7 z-d-10"> 40</span><span>,</span><span class="z-l-7 z-d-10"> 50</span><span>)</span></span>
 <span class="giallo-l"><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-variable">pnts</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> st_as_sf</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  xy</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  coords</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> c</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">x</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">y</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  crs</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 4326</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">pnts</span><span> &lt;-</span><span class="z-l-9 z-d-16"> st_as_sf</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  xy</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  coords</span><span> =</span><span class="z-l-9 z-d-16"> c</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">x</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">y</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  crs</span><span> =</span><span class="z-l-7 z-d-10"> 4326</span></span>
 <span class="giallo-l"><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">mutate</span><span>(</span><span class="z-variable">pnts</span><span class="z-keyword z-operator">,</span><span class="z-variable"> h3</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_from_points</span><span>(</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 5</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>Simple feature collection with 100 features and 1 field</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">mutate</span><span>(</span><span class="z-l-3 z-d-9">pnts</span><span>,</span><span class="z-l-3 z-d-9"> h3</span><span> =</span><span class="z-l-9 z-d-16"> h3_from_points</span><span>(</span><span class="z-l-3 z-d-9">geometry</span><span>,</span><span class="z-l-7 z-d-10"> 5</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>Simple feature collection with 100 features and 1 field</span></span>
 <span class="giallo-l"><span>Geometry type: POINT</span></span>
 <span class="giallo-l"><span>Dimension:     XY</span></span>
 <span class="giallo-l"><span>Bounding box:  xmin: -4.984449 ymin: 40.02991 xmax: 9.927412 ymax: 49.57376</span></span>
@@ -535,96 +533,96 @@ can be converted to and from <code>sf</code> geometries.</p>
 <span class="giallo-l"><span>9     POINT (1.97672 48.76817) 851fb47bfffffff</span></span>
 <span class="giallo-l"><span>10  POINT (-4.807255 48.05959) 851846cffffffff</span></span></code></pre>
 <p>You can use the <code>st_as_sfc()</code> method to convert H3 hexagons to sf <code>POLYGON</code>s.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># replace geometry</span></span>
-<span class="giallo-l"><span class="z-variable">h3_cells</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> pnts</span><span class="z-keyword z-operator"> |&gt;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  mutate</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">    h3</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_from_points</span><span>(</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 4</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">    geometry</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> st_as_sfc</span><span>(</span><span class="z-variable">h3</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># replace geometry</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">h3_cells</span><span> &lt;-</span><span class="z-l-3 z-d-9"> pnts</span><span> |&gt;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  mutate</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    h3</span><span> =</span><span class="z-l-9 z-d-16"> h3_from_points</span><span>(</span><span class="z-l-3 z-d-9">geometry</span><span>,</span><span class="z-l-7 z-d-10"> 4</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    geometry</span><span> =</span><span class="z-l-9 z-d-16"> st_as_sfc</span><span>(</span><span class="z-l-3 z-d-9">h3</span><span>)</span></span>
 <span class="giallo-l"><span>  )</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># plot the hexagons</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">plot</span><span>(</span><span class="z-entity z-name z-function">st_geometry</span><span>(</span><span class="z-variable">h3_cells</span><span>)</span><span>)</span></span></code></pre><img src="index_files/figure-commonmark/unnamed-chunk-1-1.png"/>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># plot the hexagons</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">plot</span><span>(</span><span class="z-l-9 z-d-16">st_geometry</span><span>(</span><span class="z-l-3 z-d-9">h3_cells</span><span>)</span><span>)</span></span></code></pre><img src="index_files/figure-commonmark/unnamed-chunk-1-1.png"/>
 <p>H3 cell centroids can be returned using <code>h3_to_points()</code>. If <code>sf</code> is avilable,
 the results will be returned as an <code>sfc</code> (sf column) object. Otherwise it will
 return a list of <code>sfg</code> (sf geometries).</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># fetch h3 column</span></span>
-<span class="giallo-l"><span class="z-variable">h3s</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> h3_cells</span><span>[</span><span>[</span><span class="z-string">&quot;</span><span class="z-string">h3</span><span class="z-string">&quot;</span><span>]</span><span>]</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># fetch h3 column</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">h3s</span><span> &lt;-</span><span class="z-l-3 z-d-9"> h3_cells</span><span>[</span><span>[</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">h3</span><span class="z-l-12 z-d-13">&quot;</span><span>]</span><span>]</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># get there centers</span></span>
-<span class="giallo-l"><span class="z-variable">h3_centers</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> h3_to_points</span><span>(</span><span class="z-variable">h3s</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># get there centers</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">h3_centers</span><span> &lt;-</span><span class="z-l-9 z-d-16"> h3_to_points</span><span>(</span><span class="z-l-3 z-d-9">h3s</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># plot the hexagons with the centers</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">plot</span><span>(</span><span class="z-entity z-name z-function">st_geometry</span><span>(</span><span class="z-variable">h3_cells</span><span>)</span><span>)</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">plot</span><span>(</span><span class="z-variable">h3_centers</span><span class="z-keyword z-operator">,</span><span class="z-variable"> pch</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 16</span><span class="z-keyword z-operator">,</span><span class="z-variable"> add</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span><span class="z-keyword z-operator">,</span><span class="z-variable"> col</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">black</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><img src="index_files/figure-commonmark/unnamed-chunk-2-1.png"/>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># plot the hexagons with the centers</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">plot</span><span>(</span><span class="z-l-9 z-d-16">st_geometry</span><span>(</span><span class="z-l-3 z-d-9">h3_cells</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">plot</span><span>(</span><span class="z-l-3 z-d-9">h3_centers</span><span>,</span><span class="z-l-3 z-d-9"> pch</span><span> =</span><span class="z-l-7 z-d-10"> 16</span><span>,</span><span class="z-l-3 z-d-9"> add</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span><span>,</span><span class="z-l-3 z-d-9"> col</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">black</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><img src="index_files/figure-commonmark/unnamed-chunk-2-1.png"/>
 <h2 id="h3-at-light-speed-zap">H3 at light speed ⚡</h2>
 <p>Because it builds on a pure Rust implementation, <code>h3o</code> is also very very fast.
 Here are some benchmarks, which also serve to showcase <code>h3o</code> tools.</p>
 <h3 id="creating-polygons">Creating polygons</h3>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">h3_strs</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> as.character</span><span>(</span><span class="z-variable">h3s</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> st_as_sfc</span><span>(</span><span class="z-variable">h3s</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">cell_to_polygon</span><span>(</span><span class="z-variable">h3_strs</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">h3_strs</span><span> &lt;-</span><span class="z-l-9 z-d-16"> as.character</span><span>(</span><span class="z-l-3 z-d-9">h3s</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">bench</span><span>::</span><span class="z-l-9 z-d-16">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3o</span><span> =</span><span class="z-l-9 z-d-16"> st_as_sfc</span><span>(</span><span class="z-l-3 z-d-9">h3s</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3jsr</span><span> =</span><span class="z-l-8 z-d-2"> h3jsr</span><span>::</span><span class="z-l-9 z-d-16">cell_to_polygon</span><span>(</span><span class="z-l-3 z-d-9">h3_strs</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  relative</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span class="giallo-l"><span>1 h3o          1      1        15.6        1      1   </span></span>
 <span class="giallo-l"><span>2 h3jsr       17.8   17.3       1        274.     7.96</span></span></code></pre><h3 id="converting-polygons-to-h3-cells">Converting polygons to H3 cells:</h3>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">nc</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> st_read</span><span>(</span><span class="z-entity z-name z-function">system.file</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">gpkg/nc.gpkg</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> package</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">sf</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">,</span><span class="z-variable"> quiet</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span><span>)</span><span class="z-keyword z-operator"> |&gt;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  st_transform</span><span>(</span><span class="z-constant z-numeric">4326</span><span>)</span><span class="z-keyword z-operator"> |&gt;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  st_geometry</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">nc</span><span> &lt;-</span><span class="z-l-9 z-d-16"> st_read</span><span>(</span><span class="z-l-9 z-d-16">system.file</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">gpkg/nc.gpkg</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> package</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">sf</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>,</span><span class="z-l-3 z-d-9"> quiet</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span><span>)</span><span> |&gt;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  st_transform</span><span>(</span><span class="z-l-7 z-d-10">4326</span><span>)</span><span> |&gt;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  st_geometry</span><span>(</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> sfc_to_cells</span><span>(</span><span class="z-variable">nc</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 5</span><span class="z-keyword z-operator">,</span><span class="z-string"> &quot;</span><span class="z-string">centroid</span><span class="z-string">&quot;</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">polygon_to_cells</span><span>(</span><span class="z-variable">nc</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 5</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">bench</span><span>::</span><span class="z-l-9 z-d-16">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3o</span><span> =</span><span class="z-l-9 z-d-16"> sfc_to_cells</span><span>(</span><span class="z-l-3 z-d-9">nc</span><span>,</span><span class="z-l-7 z-d-10"> 5</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">centroid</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3jsr</span><span> =</span><span class="z-l-8 z-d-2"> h3jsr</span><span>::</span><span class="z-l-9 z-d-16">polygon_to_cells</span><span>(</span><span class="z-l-3 z-d-9">nc</span><span>,</span><span class="z-l-7 z-d-10"> 5</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  check</span><span> =</span><span class="z-l-2 z-d-4"> FALSE</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  relative</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span class="giallo-l"><span>1 h3o         1      1         5.42       1       2.26</span></span>
 <span class="giallo-l"><span>2 h3jsr       5.81   5.61      1         34.1     1   </span></span></code></pre><h3 id="converting-points-to-cells">Converting points to cells</h3>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_from_points</span><span>(</span><span class="z-variable">pnts</span><span class="z-keyword z-operator">$</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 3</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">point_to_cell</span><span>(</span><span class="z-variable">pnts</span><span class="z-keyword z-operator">$</span><span class="z-variable">geometry</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 3</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-8 z-d-2">bench</span><span>::</span><span class="z-l-9 z-d-16">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3o</span><span> =</span><span class="z-l-9 z-d-16"> h3_from_points</span><span>(</span><span class="z-l-3 z-d-9">pnts</span><span>$</span><span class="z-l-3 z-d-9">geometry</span><span>,</span><span class="z-l-7 z-d-10"> 3</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3jsr</span><span> =</span><span class="z-l-8 z-d-2"> h3jsr</span><span>::</span><span class="z-l-9 z-d-16">point_to_cell</span><span>(</span><span class="z-l-3 z-d-9">pnts</span><span>$</span><span class="z-l-3 z-d-9">geometry</span><span>,</span><span class="z-l-7 z-d-10"> 3</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  check</span><span> =</span><span class="z-l-2 z-d-4"> FALSE</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  relative</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span class="giallo-l"><span>1 h3o          1      1        21.2        1      1.03</span></span>
 <span class="giallo-l"><span>2 h3jsr       21.2   23.0       1        955.     1   </span></span></code></pre><h3 id="retrieve-edges">Retrieve edges</h3>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_edges</span><span>(</span><span class="z-variable">h3s</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">get_udedges</span><span>(</span><span class="z-variable">h3_strs</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-8 z-d-2">bench</span><span>::</span><span class="z-l-9 z-d-16">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3o</span><span> =</span><span class="z-l-9 z-d-16"> h3_edges</span><span>(</span><span class="z-l-3 z-d-9">h3s</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3jsr</span><span> =</span><span class="z-l-8 z-d-2"> h3jsr</span><span>::</span><span class="z-l-9 z-d-16">get_udedges</span><span>(</span><span class="z-l-3 z-d-9">h3_strs</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  check</span><span> =</span><span class="z-l-2 z-d-4"> FALSE</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  relative</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span class="giallo-l"><span>1 h3o         1      1         2.90      1        1.07</span></span>
 <span class="giallo-l"><span>2 h3jsr       4.38   3.14      1         7.02     1   </span></span></code></pre><h3 id="get-origins-and-destinations-from-edges">Get origins and destinations from edges.</h3>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># get edges for a single location</span></span>
-<span class="giallo-l"><span class="z-variable">eds</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> h3_edges</span><span>(</span><span class="z-variable">h3s</span><span>[</span><span class="z-constant z-numeric">1</span><span>]</span><span>)</span><span>[</span><span>[</span><span class="z-constant z-numeric">1</span><span>]</span><span>]</span></span>
-<span class="giallo-l"><span class="z-comment"># strings for h3jsr</span></span>
-<span class="giallo-l"><span class="z-variable">eds_str</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> as.character</span><span>(</span><span class="z-variable">eds</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># get edges for a single location</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">eds</span><span> &lt;-</span><span class="z-l-9 z-d-16"> h3_edges</span><span>(</span><span class="z-l-3 z-d-9">h3s</span><span>[</span><span class="z-l-7 z-d-10">1</span><span>]</span><span>)</span><span>[</span><span>[</span><span class="z-l-7 z-d-10">1</span><span>]</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># strings for h3jsr</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">eds_str</span><span> &lt;-</span><span class="z-l-9 z-d-16"> as.character</span><span>(</span><span class="z-l-3 z-d-9">eds</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-variable">bench</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">mark</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  h3o</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> h3_edge_cells</span><span>(</span><span class="z-variable">eds</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  h3jsr</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> h3jsr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">get_udends</span><span>(</span><span class="z-variable">eds_str</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  check</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  relative</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">bench</span><span>::</span><span class="z-l-9 z-d-16">mark</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3o</span><span> =</span><span class="z-l-9 z-d-16"> h3_edge_cells</span><span>(</span><span class="z-l-3 z-d-9">eds</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  h3jsr</span><span> =</span><span class="z-l-8 z-d-2"> h3jsr</span><span>::</span><span class="z-l-9 z-d-16">get_udends</span><span>(</span><span class="z-l-3 z-d-9">eds_str</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  check</span><span> =</span><span class="z-l-2 z-d-4"> FALSE</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  relative</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
 <span class="giallo-l"><span>1 h3o          1      1        37.9      1        1.00</span></span>
 <span class="giallo-l"><span>2 h3jsr       48.2   38.6       1        2.52     1   </span></span></code></pre><h2 id="installation-package">Installation 📦</h2>
 <p>You can install the release version of <code>h3o</code> from CRAN with:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">install.packages</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">h3o</span><span class="z-string">&quot;</span><span>)</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">install.packages</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">h3o</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre>
 <p>Or you can install the development version from <a rel="external" href="https://github.com/">GitHub</a>
 with:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># install.packages(&quot;pak&quot;)</span></span>
-<span class="giallo-l"><span class="z-variable">pak</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">pak</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">extendr/h3o</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><h2 id="learn-more-adult-mortar-board">Learn more 🧑‍🎓</h2>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># install.packages(&quot;pak&quot;)</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">pak</span><span>::</span><span class="z-l-9 z-d-16">pak</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">extendr/h3o</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><h2 id="learn-more-adult-mortar-board">Learn more 🧑‍🎓</h2>
 <p>See the package documentation for more details: <a rel="external" href="http://extendr.rs/h3o/">http://extendr.rs/h3o/</a>.</p>
 <p>If you encounter a bug or would like to request new features, head over to the
 GitHub repository: <a rel="external" href="https://github.com/extendr/h3o">https://github.com/extendr/h3o</a>.</p>
@@ -634,87 +632,58 @@ GitHub repository: <a rel="external" href="https://github.com/extendr/h3o">https
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#h3o-at-a-glance-eyes" class="toc-link pl-4">h3o at a glance 👀</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#h3-at-light-speed-zap" class="toc-link pl-4">H3 at light speed ⚡</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    <li class="toc-item">
-        <a href="#creating-polygons" class="toc-link pl-4">Creating polygons</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#converting-polygons-to-h3-cells" class="toc-link pl-4">Converting polygons to H3 cells:</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#converting-points-to-cells" class="toc-link pl-4">Converting points to cells</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#retrieve-edges" class="toc-link pl-4">Retrieve edges</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#get-origins-and-destinations-from-edges" class="toc-link pl-4">Get origins and destinations from edges.</a>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#installation-package" class="toc-link pl-4">Installation 📦</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#learn-more-adult-mortar-board" class="toc-link pl-4">Learn more 🧑‍🎓</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/h3o-on-cran/#h3o-at-a-glance-eyes" class="toc-link">h3o at a glance 👀</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/h3o-on-cran/#h3-at-light-speed-zap" class="toc-link">H3 at light speed ⚡</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/h3o-on-cran/#creating-polygons" class="toc-link">Creating polygons</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/h3o-on-cran/#converting-polygons-to-h3-cells" class="toc-link">Converting polygons to H3 cells:</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/h3o-on-cran/#converting-points-to-cells" class="toc-link">Converting points to cells</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/h3o-on-cran/#retrieve-edges" class="toc-link">Retrieve edges</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/blog/h3o-on-cran/#get-origins-and-destinations-from-edges" class="toc-link">Get origins and destinations from edges.</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/h3o-on-cran/#installation-package" class="toc-link">Installation 📦</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/blog/h3o-on-cran/#learn-more-adult-mortar-board" class="toc-link">Learn more 🧑‍🎓</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

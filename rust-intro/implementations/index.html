@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -471,7 +469,7 @@
         <header class="pb-2 border-b border-border">
             <h1 class="my-0">Implementations</h1>
             
-            <p class="text-muted-foreground mt-1 mb-0">Attach methods to your structs with impl blocks — Rust&#x27;s take on object-oriented behaviour, similar in spirit to S3.</p>
+            <p class="text-muted-foreground mt-1 mb-0">Attach methods to your structs with impl blocks — Rust&#39;s take on object-oriented behaviour, similar in spirit to S3.</p>
             
             
         </header>
@@ -480,9 +478,9 @@
 block is roughly analogous to defining S3 methods in R, except Rust’s <code>impl</code>
 blocks associate behavior directly with the type definition, making them
 object-oriented. The syntax is this:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> TypeName</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> method_name</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-comment">        //</span><span class="z-comment"> body</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> TypeName</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> method_name</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">        //</span><span class="z-l-5 z-d-7"> body</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><h2 id="associated-functions">Associated functions</h2>
 <p>An <em>associated function</em> is called on the type itself rather than on an
@@ -490,82 +488,82 @@ instance. These are written as <code>TypeName::function()</code> and are typical
 constructors. The return type <code>Self</code> refers to the type being implemented:</p>
 <div class="code-with-filename">
 <p><strong>src/main.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    age</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    age</span><span>:</span><span class="z-l-8 z-d-2"> i32</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span class="z-variable">name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>,</span><span class="z-variable"> age</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        Person</span><span> {</span><span class="z-variable"> name</span><span>,</span><span class="z-variable"> age</span><span> }</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span class="z-l-3 z-d-9">name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>,</span><span class="z-l-3 z-d-9"> age</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        Person</span><span> {</span><span class="z-l-3 z-d-9"> name</span><span>,</span><span class="z-l-3 z-d-9"> age</span><span> }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> me</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Person</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">new</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-constant z-numeric"> 29</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">{</span><span class="z-string">me:?</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> me</span><span> =</span><span class="z-l-8 z-d-2"> Person</span><span>::</span><span class="z-l-9 z-d-16">new</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Josiah</span><span class="z-l-12 z-d-13">&quot;</span><span>.</span><span class="z-l-9 z-d-16">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-l-7 z-d-10"> 29</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">me:?</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>Person { name: &quot;Josiah&quot;, age: 29 }</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>Person { name: &quot;Josiah&quot;, age: 29 }</span></span></code></pre>
 <p>You have already seen associated functions in this form: <code>Vec::new()</code> and
 <code>String::new()</code> are both associated functions.</p>
 <h2 id="self-reference">Self-reference</h2>
 <p>To define a method that operates on an instance, add <code>&amp;self</code> as the first
 argument. This provides a read-only reference to the struct, so you can access
 its fields but not move or modify them:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> greet</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">Hello, my name is </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string"> and I am </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string"> years old.</span><span class="z-string">&quot;</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable z-language">            self</span><span class="z-keyword z-operator">.</span><span>name</span><span>,</span><span class="z-variable z-language"> self</span><span class="z-keyword z-operator">.</span><span>age</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> greet</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">        println!</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">Hello, my name is </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13"> and I am </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13"> years old.</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">            self</span><span>.</span><span>name</span><span>,</span><span class="z-l-2 z-d-4"> self</span><span>.</span><span>age</span></span>
 <span class="giallo-l"><span>        )</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>A method can also accept another instance of the same type by using <code>&amp;Self</code> as
 an argument type. Here <code>is_older_than()</code> compares two <code>Person</code> values:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> is_older_than</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>,</span><span class="z-variable"> other_person</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-variable z-language">Self</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> bool</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span>age</span><span class="z-keyword z-operator"> &gt;</span><span class="z-variable"> other_person</span><span class="z-keyword z-operator">.</span><span>age</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> is_older_than</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>,</span><span class="z-l-3 z-d-9"> other_person</span><span>:</span><span> &amp;</span><span class="z-l-2 z-d-4">Self</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> bool</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span>age</span><span> &gt;</span><span class="z-l-3 z-d-9"> other_person</span><span>.</span><span>age</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre><h2 id="mutable-self">Mutable self</h2>
 <p>To modify a struct’s fields from a method, use <code>&amp;mut self</code>. Here <code>rename()</code> and
 <code>celebrate_birthday()</code> both mutate fields in place:</p>
 <div class="code-with-filename">
 <p><strong>src/main.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    age</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    age</span><span>:</span><span class="z-l-8 z-d-2"> i32</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span class="z-variable">name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>,</span><span class="z-variable"> age</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        Person</span><span> {</span><span class="z-variable"> name</span><span>,</span><span class="z-variable"> age</span><span> }</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span class="z-l-3 z-d-9">name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>,</span><span class="z-l-3 z-d-9"> age</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        Person</span><span> {</span><span class="z-l-3 z-d-9"> name</span><span>,</span><span class="z-l-3 z-d-9"> age</span><span> }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> greet</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">        println!</span><span>(</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">Hello, my name is </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string"> and I am </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string"> years old.</span><span class="z-string">&quot;</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable z-language">            self</span><span class="z-keyword z-operator">.</span><span>name</span><span>,</span><span class="z-variable z-language"> self</span><span class="z-keyword z-operator">.</span><span>age</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> greet</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">        println!</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">Hello, my name is </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13"> and I am </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13"> years old.</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">            self</span><span>.</span><span>name</span><span>,</span><span class="z-l-2 z-d-4"> self</span><span>.</span><span>age</span></span>
 <span class="giallo-l"><span>        )</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> rename</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-storage z-modifier">mut</span><span class="z-variable z-language"> self</span><span>,</span><span class="z-variable"> new_name</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span>name </span><span class="z-keyword z-operator">=</span><span class="z-variable"> new_name</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_string</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> rename</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-2 z-d-4"> self</span><span>,</span><span class="z-l-3 z-d-9"> new_name</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span>name </span><span>=</span><span class="z-l-3 z-d-9"> new_name</span><span>.</span><span class="z-l-9 z-d-16">to_string</span><span>(</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> celebrate_birthday</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-storage z-modifier">mut</span><span class="z-variable z-language"> self</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span>age </span><span class="z-keyword z-operator">+=</span><span class="z-constant z-numeric"> 1</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> celebrate_birthday</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-2 z-d-4"> self</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span>age </span><span>+=</span><span class="z-l-7 z-d-10"> 1</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-storage z-modifier"> mut</span><span class="z-variable"> me</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Person</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">new</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-constant z-numeric"> 29</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-variable">    me</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">celebrate_birthday</span><span>(</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-variable">    me</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">rename</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Jo</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-variable">    me</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">greet</span><span>(</span><span>)</span><span>;</span><span> </span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-2 z-d-4"> mut</span><span class="z-l-3 z-d-9"> me</span><span> =</span><span class="z-l-8 z-d-2"> Person</span><span>::</span><span class="z-l-9 z-d-16">new</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Josiah</span><span class="z-l-12 z-d-13">&quot;</span><span>.</span><span class="z-l-9 z-d-16">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-l-7 z-d-10"> 29</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    me</span><span>.</span><span class="z-l-9 z-d-16">celebrate_birthday</span><span>(</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    me</span><span>.</span><span class="z-l-9 z-d-16">rename</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Jo</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    me</span><span>.</span><span class="z-l-9 z-d-16">greet</span><span>(</span><span>)</span><span>;</span><span> </span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>Hello, my name is Jo and I am 30 years old.</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>Hello, my name is Jo and I am 30 years old.</span></span></code></pre>
 <p>Note that the instance must also be declared <code>mut</code> when it is assigned to a
 variable.</p>
 
@@ -575,7 +573,7 @@ variable.</p>
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;structures&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/structures/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Structures</span>
@@ -584,7 +582,7 @@ variable.</p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;enumerations&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/enumerations/"
                        class="flex items-center gap-1">
                         <span>Enumerations</span>
                         <span>→</span>
@@ -597,39 +595,29 @@ variable.</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#associated-functions" class="toc-link pl-4">Associated functions</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#self-reference" class="toc-link pl-4">Self-reference</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#mutable-self" class="toc-link pl-4">Mutable self</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/rust-intro/implementations/#associated-functions" class="toc-link">Associated functions</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/rust-intro/implementations/#self-reference" class="toc-link">Self-reference</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/rust-intro/implementations/#mutable-self" class="toc-link">Mutable self</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

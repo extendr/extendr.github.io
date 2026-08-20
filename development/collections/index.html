@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -475,70 +473,26 @@
         </header>
         <div class="prose">
             <p>In addition to vectors and <a href="https://extendr.rs/development/extendr-macro/">lists</a>, extendr supports using Rust’s <code>HashMap</code> type as function arguments. This allows you to work with R named lists using Rust’s hash map data structure.</p>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Note
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        A <code>HashMap</code> is Rust’s implementation of a hash table. It stores key-value pairs and provides fast lookup, insertion, and deletion operations. Unlike R’s named lists or vectors, HashMaps do not maintain any particular ordering of their elements.
-    </section>
-</div><h3 id="basic-hashmap-type-mapping">Basic HashMap Type Mapping</h3>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">A <code>HashMap</code> is Rust’s implementation of a hash table. It stores key-value pairs and provides fast lookup, insertion, and deletion operations. Unlike R’s named lists or vectors, HashMaps do not maintain any particular ordering of their elements.</section>
+</div>
+<h3 id="basic-hashmap-type-mapping">Basic HashMap Type Mapping</h3>
 <p>The table below shows common HashMap types that can be used with extendr:</p>
-<table>
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 29%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr>
-<th>R type</th>
-<th>Rust type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>list(a = 1L, b = 2L)</code></td>
-<td><code>HashMap&lt;String, i32&gt;</code></td>
-<td>Named list with integer values</td>
-</tr>
-<tr>
-<td><code>list(a = 1.0, b = 2.0)</code></td>
-<td><code>HashMap&lt;String, f64&gt;</code></td>
-<td>Named list with double values</td>
-</tr>
-<tr>
-<td><code>list(a = "x", b = "y")</code></td>
-<td><code>HashMap&lt;String, String&gt;</code></td>
-<td>Named list with character values</td>
-</tr>
-<tr>
-<td><code>list(a = TRUE, b = FALSE)</code></td>
-<td><code>HashMap&lt;String, bool&gt;</code></td>
-<td>Named list with logical values</td>
-</tr>
-<tr>
-<td><code>list(a = list(), b = 1)</code></td>
-<td><code>HashMap&lt;String, Robj&gt;</code></td>
-<td>Named list with mixed types</td>
-</tr>
-</tbody>
-</table>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<table><thead><tr><th>R type</th><th>Rust type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>list(a = 1L, b = 2L)</code></td><td><code>HashMap&lt;String, i32&gt;</code></td><td>Named list with integer values</td></tr>
+<tr><td><code>list(a = 1.0, b = 2.0)</code></td><td><code>HashMap&lt;String, f64&gt;</code></td><td>Named list with double values</td></tr>
+<tr><td><code>list(a = "x", b = "y")</code></td><td><code>HashMap&lt;String, String&gt;</code></td><td>Named list with character values</td></tr>
+<tr><td><code>list(a = TRUE, b = FALSE)</code></td><td><code>HashMap&lt;String, bool&gt;</code></td><td>Named list with logical values</td></tr>
+<tr><td><code>list(a = list(), b = 1)</code></td><td><code>HashMap&lt;String, Robj&gt;</code></td><td>Named list with mixed types</td></tr>
+</tbody></table>
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Warning">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Warning
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Warning</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        There are two important behaviors to be aware of when using HashMaps with R lists:</p>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">There are two important behaviors to be aware of when using HashMaps with R lists:</p>
 <ol>
 <li>
 <p><strong>Unordered</strong>: HashMaps do not maintain insertion order. When you convert a HashMap back to an R list using <code>List::from_hashmap()</code>, the order of elements may differ from the original input.</p>
@@ -547,19 +501,19 @@
 <p><strong>Duplicate Names</strong>: If an R list contains duplicate names (e.g., <code>list(x = 1, x = 2)</code>), only the last value will be retained in the HashMap. In this example, the HashMap would contain <code>("x", 2)</code>.</p>
 </li>
 </ol>
-
-    </section>
-</div><h3 id="using-hashmaps-in-functions">Using HashMaps in Functions</h3>
+</section>
+</div>
+<h3 id="using-hashmaps-in-functions">Using HashMaps in Functions</h3>
 <p>To use a HashMap in your extendr functions, you need to import <code>std::collections::HashMap</code> and specify it as a function argument type. Here’s a simple example that takes a named list of integers:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> std</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">collections</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">HashMap</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> std</span><span>::</span><span class="z-l-8 z-d-2">collections</span><span>::</span><span class="z-l-8 z-d-2">HashMap</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> test_hm_i32</span><span>(</span><span class="z-storage z-modifier">mut</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> HashMap</span><span>&lt;</span><span class="z-entity z-name z-type">String</span><span>,</span><span class="z-entity z-name z-type"> i32</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> List</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">insert</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">inserted_value</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-constant z-numeric"> 314</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    List</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_hashmap</span><span>(</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> test_hm_i32</span><span>(</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> HashMap</span><span>&lt;</span><span class="z-l-8 z-d-2">String</span><span>,</span><span class="z-l-8 z-d-2"> i32</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> List</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">insert</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">inserted_value</span><span class="z-l-12 z-d-13">&quot;</span><span>.</span><span class="z-l-9 z-d-16">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-l-7 z-d-10"> 314</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    List</span><span>::</span><span class="z-l-9 z-d-16">from_hashmap</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This function accepts a named list of integers, adds a new key-value pair, and returns the modified list back to R using <code>List::from_hashmap()</code>.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">test_hm_i32</span><span>(</span><span class="z-entity z-name z-function">list</span><span>(</span><span class="z-variable">a</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1L</span><span class="z-keyword z-operator">,</span><span class="z-variable"> b</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 2L</span><span class="z-keyword z-operator">,</span><span class="z-variable"> c</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 3L</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$a</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">test_hm_i32</span><span>(</span><span class="z-l-9 z-d-16">list</span><span>(</span><span class="z-l-3 z-d-9">a</span><span> =</span><span class="z-l-7 z-d-10"> 1L</span><span>,</span><span class="z-l-3 z-d-9"> b</span><span> =</span><span class="z-l-7 z-d-10"> 2L</span><span>,</span><span class="z-l-3 z-d-9"> c</span><span> =</span><span class="z-l-7 z-d-10"> 3L</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$a</span></span>
 <span class="giallo-l"><span>[1] 1</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$b</span></span>
@@ -573,19 +527,19 @@
 <p>Notice that the order of elements in the returned list may differ from the input order due to HashMap’s unordered nature.</p>
 <h3 id="working-with-mixed-types">Working with Mixed Types</h3>
 <p>When working with named lists that contain different types of values, use <code>HashMap&lt;String, Robj&gt;</code> to accept any R object:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> std</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">collections</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">HashMap</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> std</span><span>::</span><span class="z-l-8 z-d-2">collections</span><span>::</span><span class="z-l-8 z-d-2">HashMap</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> test_hm_string</span><span>(</span><span class="z-storage z-modifier">mut</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> HashMap</span><span>&lt;</span><span class="z-entity z-name z-type">String</span><span>,</span><span class="z-entity z-name z-type"> Robj</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> List</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">insert</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">inserted_value</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-entity z-name z-namespace"> List</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">new</span><span>(</span><span class="z-constant z-numeric">0</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">into</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    List</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_hashmap</span><span>(</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">test_hm_string</span><span>(</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  list</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">    a</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1L</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">    b</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">hello</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">    c</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> c</span><span>(</span><span class="z-constant z-numeric">1.0</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 2.0</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 3.0</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> test_hm_string</span><span>(</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> HashMap</span><span>&lt;</span><span class="z-l-8 z-d-2">String</span><span>,</span><span class="z-l-8 z-d-2"> Robj</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> List</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">insert</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">inserted_value</span><span class="z-l-12 z-d-13">&quot;</span><span>.</span><span class="z-l-9 z-d-16">to_string</span><span>(</span><span>)</span><span>,</span><span class="z-l-8 z-d-2"> List</span><span>::</span><span class="z-l-9 z-d-16">new</span><span>(</span><span class="z-l-7 z-d-10">0</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">into</span><span>(</span><span>)</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    List</span><span>::</span><span class="z-l-9 z-d-16">from_hashmap</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">test_hm_string</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  list</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    a</span><span> =</span><span class="z-l-7 z-d-10"> 1L</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    b</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">hello</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    c</span><span> =</span><span class="z-l-9 z-d-16"> c</span><span>(</span><span class="z-l-7 z-d-10">1.0</span><span>,</span><span class="z-l-7 z-d-10"> 2.0</span><span>,</span><span class="z-l-7 z-d-10"> 3.0</span><span>)</span></span>
 <span class="giallo-l"><span>  )</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$a</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$a</span></span>
 <span class="giallo-l"><span>[1] 1</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$inserted_value</span></span>
@@ -598,49 +552,49 @@
 <span class="giallo-l"><span>[1] &quot;hello&quot;</span></span></code></pre><h3 id="custom-types-with-tryfrom">Custom Types with TryFrom</h3>
 <p>Similar to the examples in the <a href="https://extendr.rs/development/serde-integration/"><code>serde</code> integration guide</a>, you can use HashMaps with custom types by implementing the <code>TryFrom&lt;Robj&gt;</code> trait. This is particularly useful when you want to work with complex data structures.</p>
 <p>Here’s an example using a custom <code>Point</code> struct:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span class="z-keyword z-operator">|</span><span class="z-variable"> code</span><span class="z-keyword z-operator">-</span><span class="z-variable">fold</span><span class="z-keyword z-operator">:</span><span class="z-constant z-language"> true</span></span>
-<span class="giallo-l"><span>#</span><span class="z-keyword z-operator">|</span><span class="z-variable"> code</span><span class="z-keyword z-operator">-</span><span class="z-variable">summary</span><span class="z-keyword z-operator">:</span><span class="z-string"> &quot;</span><span class="z-string">View TryFrom trait implementations</span><span class="z-string">&quot;</span></span>
-<span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> std</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">collections</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">HashMap</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>|</span><span class="z-l-3 z-d-9"> code</span><span>-</span><span class="z-l-3 z-d-9">fold</span><span>:</span><span class="z-l-2 z-d-4"> true</span></span>
+<span class="giallo-l"><span>#</span><span>|</span><span class="z-l-3 z-d-9"> code</span><span>-</span><span class="z-l-3 z-d-9">summary</span><span>:</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">View TryFrom trait implementations</span><span class="z-l-12 z-d-13">&quot;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> std</span><span>::</span><span class="z-l-8 z-d-2">collections</span><span>::</span><span class="z-l-8 z-d-2">HashMap</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Point</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Point</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    y</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> TryFrom</span><span>&lt;</span><span class="z-entity z-name z-type">Robj</span><span>&gt;</span><span class="z-keyword z-control"> for</span><span class="z-entity z-name z-type"> Point</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    type</span><span class="z-entity z-name z-type"> Error</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Error</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> TryFrom</span><span>&lt;</span><span class="z-l-8 z-d-2">Robj</span><span>&gt;</span><span class="z-l-13 z-d-11"> for</span><span class="z-l-8 z-d-2"> Point</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    type</span><span class="z-l-8 z-d-2"> Error</span><span> =</span><span class="z-l-8 z-d-2"> Error</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> try_from</span><span>(</span><span class="z-variable">value</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-namespace"> std</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">result</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Result</span><span>&lt;</span><span class="z-variable z-language">Self</span><span>,</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Error</span><span>&gt;</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> inner_vec</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-type"> Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-variable">value</span><span>)</span><span class="z-keyword z-operator">?</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> inner_vec</span><span>[</span><span class="z-constant z-numeric">0</span><span>]</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> inner_vec</span><span>[</span><span class="z-constant z-numeric">1</span><span>]</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        Ok</span><span>(</span><span class="z-entity z-name z-type">Point</span><span> {</span><span class="z-variable"> x</span><span>,</span><span class="z-variable"> y</span><span> }</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> try_from</span><span>(</span><span class="z-l-3 z-d-9">value</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> std</span><span>::</span><span class="z-l-8 z-d-2">result</span><span>::</span><span class="z-l-8 z-d-2">Result</span><span>&lt;</span><span class="z-l-2 z-d-4">Self</span><span>,</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Error</span><span>&gt;</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> inner_vec</span><span> =</span><span class="z-l-8 z-d-2"> Doubles</span><span>::</span><span class="z-l-9 z-d-16">try_from</span><span>(</span><span class="z-l-3 z-d-9">value</span><span>)</span><span>?</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span> =</span><span class="z-l-3 z-d-9"> inner_vec</span><span>[</span><span class="z-l-7 z-d-10">0</span><span>]</span><span>.</span><span class="z-l-7 z-d-10">0</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> y</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span> =</span><span class="z-l-3 z-d-9"> inner_vec</span><span>[</span><span class="z-l-7 z-d-10">1</span><span>]</span><span>.</span><span class="z-l-7 z-d-10">0</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        Ok</span><span>(</span><span class="z-l-8 z-d-2">Point</span><span> {</span><span class="z-l-3 z-d-9"> x</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span> }</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> From</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span class="z-keyword z-control"> for</span><span class="z-entity z-name z-type"> Doubles</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> from</span><span>(</span><span class="z-variable">value</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Point</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from_values</span><span>(</span><span>[</span><span class="z-variable">value</span><span class="z-keyword z-operator">.</span><span>x</span><span>,</span><span class="z-variable"> value</span><span class="z-keyword z-operator">.</span><span>y</span><span>]</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> From</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span class="z-l-13 z-d-11"> for</span><span class="z-l-8 z-d-2"> Doubles</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> from</span><span>(</span><span class="z-l-3 z-d-9">value</span><span>:</span><span class="z-l-8 z-d-2"> Point</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        Doubles</span><span>::</span><span class="z-l-9 z-d-16">from_values</span><span>(</span><span>[</span><span class="z-l-3 z-d-9">value</span><span>.</span><span>x</span><span>,</span><span class="z-l-3 z-d-9"> value</span><span>.</span><span>y</span><span>]</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> From</span><span>&lt;</span><span class="z-entity z-name z-type">Point</span><span>&gt;</span><span class="z-keyword z-control"> for</span><span class="z-entity z-name z-type"> Robj</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> from</span><span>(</span><span class="z-variable">value</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Point</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        Robj</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-entity z-name z-namespace">Doubles</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-variable">value</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> From</span><span>&lt;</span><span class="z-l-8 z-d-2">Point</span><span>&gt;</span><span class="z-l-13 z-d-11"> for</span><span class="z-l-8 z-d-2"> Robj</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> from</span><span>(</span><span class="z-l-3 z-d-9">value</span><span>:</span><span class="z-l-8 z-d-2"> Point</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        Robj</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-8 z-d-2">Doubles</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">value</span><span>)</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> test_hm_custom_try_from</span><span>(</span><span class="z-storage z-modifier">mut</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> HashMap</span><span>&lt;</span><span class="z-keyword z-operator">&amp;</span><span class="z-entity z-name z-type">str</span><span>,</span><span class="z-entity z-name z-type"> Point</span><span>&gt;</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> List</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">insert</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">inserted_value</span><span class="z-string">&quot;</span><span>,</span><span class="z-entity z-name z-type"> Point</span><span> {</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric"> 3</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>,</span><span class="z-variable"> y</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric"> 0</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">1415</span><span> }</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    List</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">try_from</span><span>(</span><span class="z-variable">x</span><span>)</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">unwrap</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> test_hm_custom_try_from</span><span>(</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> HashMap</span><span>&lt;</span><span>&amp;</span><span class="z-l-8 z-d-2">str</span><span>,</span><span class="z-l-8 z-d-2"> Point</span><span>&gt;</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> List</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">insert</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">inserted_value</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-8 z-d-2"> Point</span><span> {</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-7 z-d-10"> 3</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>:</span><span class="z-l-7 z-d-10"> 0</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">1415</span><span> }</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    List</span><span>::</span><span class="z-l-9 z-d-16">try_from</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">unwrap</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This function accepts a named list where each element is a numeric vector of length 2, which gets converted to a <code>Point</code> struct:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">test_hm_custom_try_from</span><span>(</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  list</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">    origin</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> c</span><span>(</span><span class="z-constant z-numeric">0.0</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 0.0</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">    point_a</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> c</span><span>(</span><span class="z-constant z-numeric">1.0</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 2.0</span><span>)</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">    point_b</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> c</span><span>(</span><span class="z-constant z-numeric">3.0</span><span class="z-keyword z-operator">,</span><span class="z-constant z-numeric"> 4.0</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">test_hm_custom_try_from</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  list</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    origin</span><span> =</span><span class="z-l-9 z-d-16"> c</span><span>(</span><span class="z-l-7 z-d-10">0.0</span><span>,</span><span class="z-l-7 z-d-10"> 0.0</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    point_a</span><span> =</span><span class="z-l-9 z-d-16"> c</span><span>(</span><span class="z-l-7 z-d-10">1.0</span><span>,</span><span class="z-l-7 z-d-10"> 2.0</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    point_b</span><span> =</span><span class="z-l-9 z-d-16"> c</span><span>(</span><span class="z-l-7 z-d-10">3.0</span><span>,</span><span class="z-l-7 z-d-10"> 4.0</span><span>)</span></span>
 <span class="giallo-l"><span>  )</span></span>
-<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$origin</span></span>
+<span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$origin</span></span>
 <span class="giallo-l"><span>[1] 0 0</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$point_a</span></span>
@@ -662,7 +616,7 @@
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;extendr-macro&#x2F;"
+                    <a href="https://extendr.rs/development/extendr-macro/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Using Rust types in R</span>
@@ -671,7 +625,7 @@
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;into-list&#x2F;"
+                    <a href="https://extendr.rs/development/into-list/"
                        class="flex items-center gap-1">
                         <span>Rust Structs to Lists</span>
                         <span>→</span>
@@ -684,53 +638,39 @@
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#basic-hashmap-type-mapping" class="toc-link pl-4">Basic HashMap Type Mapping</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#using-hashmaps-in-functions" class="toc-link pl-4">Using HashMaps in Functions</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#working-with-mixed-types" class="toc-link pl-4">Working with Mixed Types</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#custom-types-with-tryfrom" class="toc-link pl-4">Custom Types with TryFrom</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#see-also" class="toc-link pl-4">See Also</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/collections/#basic-hashmap-type-mapping" class="toc-link">Basic HashMap Type Mapping</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/collections/#using-hashmaps-in-functions" class="toc-link">Using HashMaps in Functions</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/collections/#working-with-mixed-types" class="toc-link">Working with Mixed Types</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/collections/#custom-types-with-tryfrom" class="toc-link">Custom Types with TryFrom</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/collections/#see-also" class="toc-link">See Also</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

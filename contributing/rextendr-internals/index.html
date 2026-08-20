@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -489,19 +487,19 @@ written to the user’s package directory via the internal function
 <code>use_rextendr_template()</code>:</p>
 <div class="code-with-filename">
 <p><strong>R/use_extendr.R</strong></p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">use_rextendr_template</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-keyword"> function</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">  template</span><span class="z-keyword z-operator">,</span><span class="z-comment">        # filename in inst/templates/</span></span>
-<span class="giallo-l"><span class="z-variable">  save_as</span><span class="z-keyword z-operator">,</span><span class="z-comment">         # destination path in the user&#39;s package</span></span>
-<span class="giallo-l"><span class="z-variable">  data</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> list</span><span>(</span><span>)</span><span class="z-keyword z-operator">,</span><span class="z-comment">   # named list of variables to interpolate into the template</span></span>
-<span class="giallo-l"><span class="z-variable">  quiet</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> FALSE</span><span class="z-keyword z-operator">,</span></span>
-<span class="giallo-l"><span class="z-variable">  overwrite</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> NULL</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">use_rextendr_template</span><span> &lt;-</span><span class="z-l-2 z-d-4"> function</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  template</span><span>,</span><span class="z-l-5 z-d-7">        # filename in inst/templates/</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  save_as</span><span>,</span><span class="z-l-5 z-d-7">         # destination path in the user&#39;s package</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  data</span><span> =</span><span class="z-l-9 z-d-16"> list</span><span>(</span><span>)</span><span>,</span><span class="z-l-5 z-d-7">   # named list of variables to interpolate into the template</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  quiet</span><span> =</span><span class="z-l-2 z-d-4"> FALSE</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">  overwrite</span><span> =</span><span class="z-l-2 z-d-4"> NULL</span></span>
 <span class="giallo-l"><span>)</span></span></code></pre></div>
 <p>When <code>usethis</code> is available and <code>overwrite = NULL</code>, this delegates to
 <code>usethis::use_template()</code>, which handles interactive prompting if the file
 already exists. Otherwise it reads the template file directly, performs
 interpolation, and writes the result. The templates directory currently includes
 all of the following:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">fs</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">dir_tree</span><span>(</span><span class="z-entity z-name z-function">system.file</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">templates</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> package</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">rextendr</span><span class="z-string">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>C:/Users/kenne/AppData/Local/R/win-library/4.5/rextendr/templates</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-8 z-d-2">fs</span><span>::</span><span class="z-l-9 z-d-16">dir_tree</span><span>(</span><span class="z-l-9 z-d-16">system.file</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">templates</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> package</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">rextendr</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>C:/Users/kenne/AppData/Local/R/win-library/4.5/rextendr/templates</span></span>
 <span class="giallo-l"><span>├── Cargo.toml</span></span>
 <span class="giallo-l"><span>├── cleanup</span></span>
 <span class="giallo-l"><span>├── cleanup.win</span></span>
@@ -585,7 +583,7 @@ current R session.</p>
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;extendr-internals&#x2F;"
+                    <a href="https://extendr.rs/contributing/extendr-internals/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>extendr Internals</span>
@@ -594,7 +592,7 @@ current R session.</p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;colors-and-fonts&#x2F;"
+                    <a href="https://extendr.rs/contributing/colors-and-fonts/"
                        class="flex items-center gap-1">
                         <span>Colors and Fonts</span>
                         <span>→</span>
@@ -607,66 +605,44 @@ current R session.</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#package-setup" class="toc-link pl-4">Package Setup</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#package-build" class="toc-link pl-4">Package Build</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    <li class="toc-item">
-        <a href="#setup" class="toc-link pl-4">Setup</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#build" class="toc-link pl-4">Build</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#registration" class="toc-link pl-4">Registration</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#cleanup" class="toc-link pl-4">Cleanup</a>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/contributing/rextendr-internals/#package-setup" class="toc-link">Package Setup</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/contributing/rextendr-internals/#package-build" class="toc-link">Package Build</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/rextendr-internals/#setup" class="toc-link">Setup</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/rextendr-internals/#build" class="toc-link">Build</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/rextendr-internals/#registration" class="toc-link">Registration</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/rextendr-internals/#cleanup" class="toc-link">Cleanup</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -478,57 +476,25 @@
 <p>The below lists the extendr structs that wrap R object types. These types can be used as function arguments or return values.</p>
 <h2 id="scalar-types">Scalar types</h2>
 <p>R has no concept of scalar values whereas Rust does. Rust does not have the concept of an NA. As such, we have types to represent scalar values in R. The below is how they are mapped.</p>
-
-<table class="table">
-  
-  <thead>
-    <tr>
-      <th>R</th><th> Rust</th><th> extendr</th>
-    </tr>
-  </thead>
-  <tbody class="[&>tr:not(:last-child)]:border-none [&>tr:last-child]:border-b">
-    
-    <tr><td>integer(1)</td><td> i32</td><td> Rint</td></tr>
-    
-    <tr><td>logical(1)</td><td> bool</td><td> Rbool</td></tr>
-    
-    <tr><td>double(1)</td><td> f64</td><td> Rfloat</td></tr>
-    
-    <tr><td>complex(1)</td><td> Complex&lt;f64&gt;</td><td> Rcplx</td></tr>
-    
-    <tr><td>character(1)</td><td> String</td><td> Rstr</td></tr>
-    
-  </tbody>
-  
-</table><h2 id="vector-types">Vector types</h2>
+<table><thead><tr><th>R</th><th>Rust</th><th>extendr</th></tr></thead><tbody>
+<tr><td><code>integer(1)</code></td><td><code>i32</code></td><td><code>Rint</code></td></tr>
+<tr><td><code>logical(1)</code></td><td><code>bool</code></td><td><code>Rbool</code></td></tr>
+<tr><td><code>double(1)</code></td><td><code>f64</code></td><td><code>Rfloat</code></td></tr>
+<tr><td><code>complex(1)</code></td><td><code>Complex&lt;f64&gt;</code></td><td><code>Rcplx</code></td></tr>
+<tr><td><code>character(1)</code></td><td><code>String</code></td><td><code>Rstr</code></td></tr>
+</tbody></table>
+<h2 id="vector-types">Vector types</h2>
 <p>Everything in R is a vector. In Rust, we have to point to R’s owned vector types rather than use Rust’s native <code>Vec</code> collection. These are mapped accordingly:</p>
-
-<table class="table">
-  
-  <thead>
-    <tr>
-      <th>R</th><th>extendr</th><th>scalar</th><th>C API</th>
-    </tr>
-  </thead>
-  <tbody class="[&>tr:not(:last-child)]:border-none [&>tr:last-child]:border-b">
-    
-    <tr><td>integer()</td><td>Integers</td><td>Rint</td><td>INTSXP</td></tr>
-    
-    <tr><td>double()</td><td>Doubles</td><td>Rfloat</td><td>REALSXP</td></tr>
-    
-    <tr><td>logical()</td><td>Logicals</td><td>Rbool</td><td>LGLSXP</td></tr>
-    
-    <tr><td>complex()</td><td>Complexes</td><td>Rcplx</td><td>CPLXSXP</td></tr>
-    
-    <tr><td>character()</td><td>Strings</td><td>Rstr</td><td>STRSXP</td></tr>
-    
-    <tr><td>raw()</td><td>Raw</td><td>&amp;\[u8\]</td><td>RAWSXP</td></tr>
-    
-    <tr><td>list()</td><td>List</td><td>Robj</td><td>VECSXP</td></tr>
-    
-  </tbody>
-  
-</table><h2 id="using-rust-library-types-vs-r-native-types">Using Rust library types vs R-native types</h2>
+<table><thead><tr><th>R</th><th>extendr</th><th>scalar</th><th>C API</th></tr></thead><tbody>
+<tr><td><code>integer()</code></td><td><code>Integers</code></td><td><code>Rint</code></td><td><code>INTSXP</code></td></tr>
+<tr><td><code>double()</code></td><td><code>Doubles</code></td><td><code>Rfloat</code></td><td><code>REALSXP</code></td></tr>
+<tr><td><code>logical()</code></td><td><code>Logicals</code></td><td><code>Rbool</code></td><td><code>LGLSXP</code></td></tr>
+<tr><td><code>complex()</code></td><td><code>Complexes</code></td><td><code>Rcplx</code></td><td><code>CPLXSXP</code></td></tr>
+<tr><td><code>character()</code></td><td><code>Strings</code></td><td><code>Rstr</code></td><td><code>STRSXP</code></td></tr>
+<tr><td><code>raw()</code></td><td><code>Raw</code></td><td><code>&amp;[u8]</code></td><td><code>RAWSXP</code></td></tr>
+<tr><td><code>list()</code></td><td><code>List</code></td><td><code>Robj</code></td><td><code>VECSXP</code></td></tr>
+</tbody></table>
+<h2 id="using-rust-library-types-vs-r-native-types">Using Rust library types vs R-native types</h2>
 <p>Whenever possible use the extendr wrapper type. Accepting or returning a <code>Vec&lt;T&gt;</code> requires additional allocations. This will always incur memory usage overhead. In some cases, the overhead will be minimal and tolerable. However, if you can use the Rust type instead, always do.</p>
 <h2 id="other-types">Other types</h2>
 <ul>
@@ -552,7 +518,7 @@
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;extendr-macro&#x2F;"
+                    <a href="https://extendr.rs/development/extendr-macro/"
                        class="flex items-center gap-1">
                         <span>Using Rust types in R</span>
                         <span>→</span>
@@ -565,46 +531,34 @@
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#scalar-types" class="toc-link pl-4">Scalar types</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#vector-types" class="toc-link pl-4">Vector types</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#using-rust-library-types-vs-r-native-types" class="toc-link pl-4">Using Rust library types vs R-native types</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#other-types" class="toc-link pl-4">Other types</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/data-types/#scalar-types" class="toc-link">Scalar types</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/data-types/#vector-types" class="toc-link">Vector types</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/data-types/#using-rust-library-types-vs-r-native-types" class="toc-link">Using Rust library types vs R-native types</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/data-types/#other-types" class="toc-link">Other types</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

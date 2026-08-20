@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -480,23 +478,23 @@
 packages that call Rust code. With extendr, you can write Rust code like this:</p>
 <div class="code-with-filename">
 <p><strong>lib.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> Return string `&quot;Hello world!&quot;` to R.</span></span>
-<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @param name A name to greet.</span></span>
-<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">///</span><span class="z-l-5 z-d-7"> Return string `&quot;Hello world!&quot;` to R.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">///</span><span class="z-l-5 z-d-7"> @param name A name to greet.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">///</span><span class="z-l-5 z-d-7"> @export</span></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> hello</span><span>(</span><span class="z-variable">name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> String</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    format!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> hello</span><span>(</span><span class="z-l-3 z-d-9">name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> String</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    format!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Hello </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">name</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">!</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Macro to generate exports.</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> helloextendr</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> hello</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> Macro to generate exports.</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    mod</span><span> helloextendr</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-3 z-d-9"> hello</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
 <p>and then in R you can call it like this:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">hello</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">world</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">hello</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">world</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
 <p>We call the whole project extendr, of course, but it isn’t just one thing. It’s
 actually a <em>suite</em> of software tools. On the Rust side, extendr consists of
 several crates, but you will typically interact with <code>extender-api</code>, a
@@ -534,20 +532,20 @@ four simple steps:</p>
 loads the above <code>lib.rs</code> into your package at <code>src/rust/src/lib.rs</code>, compiles
 it, generates wrappers and documentation, and then calls the <code>hello()</code> function
 from R:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># setup R package</span></span>
-<span class="giallo-l"><span class="z-variable">usethis</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">create_package</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">helloextendr</span><span class="z-string">&quot;</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># setup R package</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">usethis</span><span>::</span><span class="z-l-9 z-d-16">create_package</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">helloextendr</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># add extendr scaffolding</span></span>
-<span class="giallo-l"><span class="z-variable">rextendr</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">use_extendr</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># add extendr scaffolding</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">rextendr</span><span>::</span><span class="z-l-9 z-d-16">use_extendr</span><span>(</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># build and document package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">document</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># build and document package</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">devtools</span><span>::</span><span class="z-l-9 z-d-16">document</span><span>(</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># load package</span></span>
-<span class="giallo-l"><span class="z-variable">devtools</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">load_all</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># load package</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">devtools</span><span>::</span><span class="z-l-9 z-d-16">load_all</span><span>(</span><span>)</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment"># call rust function</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">hello</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">world</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
+<span class="giallo-l"><span class="z-l-5 z-d-7"># call rust function</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">hello</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">world</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello world!&quot;</span></span></code></pre>
 <p>A Rust-powered R package in one fell swoop! Now, if you want to see a complete
 example of an actual R package, check out the <a href="https://extendr.rs/example/">heck example</a>.</p>
 <h2 id="what-s-next">What’s next?</h2>
@@ -578,32 +576,24 @@ maintenance? Have a look at our <a href="https://extendr.rs/contributing/">Guide
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#create-an-r-package" class="toc-link pl-4">Create an R package</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#what-s-next" class="toc-link pl-4">What’s next?</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/introduction/#create-an-r-package" class="toc-link">Create an R package</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/introduction/#what-s-next" class="toc-link">What’s next?</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -471,7 +469,7 @@
         <header class="pb-2 border-b border-border">
             <h1 class="my-0">Hello, World!</h1>
             
-            <p class="text-muted-foreground mt-1 mb-0">Set up your first Rust crate and run it with cargo, Rust&#x27;s bundled build tool and package manager.</p>
+            <p class="text-muted-foreground mt-1 mb-0">Set up your first Rust crate and run it with cargo, Rust&#39;s bundled build tool and package manager.</p>
             
             
         </header>
@@ -486,11 +484,11 @@ applications or executables that you can run, like command line tools. Library
 crates are typically small bundles of code that are used in the development of
 other crates. In this tutorial, we will focus on building a binary crate.</p>
 <p>To create a new binary crate, open a terminal and run the following:</p>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>cargo new hello-world</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>cargo new hello-world</span></span></code></pre>
 <p>This will create a new directory called <code>hello-world</code> that you can then navigate
 into using <code>cd hello-world</code>. Once inside that directory, you will find all of
 the following:</p>
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>hello-world/</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>hello-world/</span></span>
 <span class="giallo-l"><span>├── Cargo.toml</span></span>
 <span class="giallo-l"><span>├── Cargo.lock</span></span>
 <span class="giallo-l"><span>└── src/</span></span>
@@ -504,8 +502,8 @@ source directory. If you open that file in Positron (or your preferred IDE), you
 will see the following text:</p>
 <div class="code-with-filename">
 <p><strong>src/main.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, world!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Hello, world!</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
 <p>In just those three short lines, we see examples of many Rust coding patterns:</p>
 <ul>
@@ -521,22 +519,22 @@ R, when we print a message with <code>print()</code> or <code>message()</code>, 
 Similarly, when we make a warning or error using <code>stop()</code> or <code>warning()</code>, that
 is writing to <code>stderr</code>. The Rust <code>println!()</code> macro also has the nice feature of
 supporting string interpolation like <code>sprintf()</code> and <code>glue()</code>:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> indirect interpolation</span></span>
-<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>,</span><span class="z-variable"> name</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> indirect interpolation</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> name</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">Josiah</span><span class="z-l-12 z-d-13">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Hello, </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">!</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> name</span><span>)</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> direct interpolation</span></span>
-<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span></code></pre>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> direct interpolation</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> name</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">Josiah</span><span class="z-l-12 z-d-13">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Hello, </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">name</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">!</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span></code></pre>
 <p>If we add one or the other of those lines to <code>main()</code> like so</p>
 <div class="code-with-filename">
 <p><strong>src/main.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> main</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> name</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">Josiah</span><span class="z-string">&quot;</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    println!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">name</span><span class="z-string">}</span><span class="z-string">!</span><span class="z-string">&quot;</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> main</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> name</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">Josiah</span><span class="z-l-12 z-d-13">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    println!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Hello, </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">name</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">!</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
 <p>we can then call the application and get it to execute in the terminal:</p>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>cargo run</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>cargo run</span></span>
 <span class="giallo-l"><span>   Compiling hello_world v0.1.0 (/hello-world)</span></span>
 <span class="giallo-l"><span>    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs</span></span>
 <span class="giallo-l"><span>     Running `target/debug/hello_world`</span></span>
@@ -548,7 +546,7 @@ Rust programs have to be built before they can be run. For those coming from R,
 that might sound rather mysterious, and in some respects it is, but we want to
 emphasize how easy it was to get a program up and running. It was just three
 lines of code in the terminal:</p>
-<pre class="giallo z-code"><code data-lang="shellsession"><span class="giallo-l"><span>cargo new hello-world</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="shellsession"><span class="giallo-l"><span>cargo new hello-world</span></span>
 <span class="giallo-l"><span>cd hello-world</span></span>
 <span class="giallo-l"><span>cargo run</span></span></code></pre>
 <p>That’s it! Those three lines were sufficient to build and run our simple binary.
@@ -563,7 +561,7 @@ Now we can move on to learning about basic data types in Rust.</p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;types&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/types/"
                        class="flex items-center gap-1">
                         <span>Basic Types</span>
                         <span>→</span>
@@ -576,9 +574,7 @@ Now we can move on to learning about basic data types in Rust.</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
     </aside>
 </div>

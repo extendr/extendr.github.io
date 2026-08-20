@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -480,7 +478,7 @@ directory structure that is fairly unique among R packages, so this page serves
 to give a high level overview of the generated files, focusing on those that are
 relevant to you as an R package developer. The package directory should have the
 following structure:</p>
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>.</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>.</span></span>
 <span class="giallo-l"><span>├── R</span></span>
 <span class="giallo-l"><span>│   └── extendr-wrappers.R</span></span>
 <span class="giallo-l"><span>├── cleanup</span></span>
@@ -513,27 +511,27 @@ edition, dependencies, and build profiles. By default, you should see this in
 your manifest:</p>
 <div class="code-with-filename">
 <p><strong>src/rust/Cargo.toml</strong></p>
-<pre class="giallo z-code"><code data-lang="toml"><span class="giallo-l"><span>[</span><span>package</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">hellorust</span><span class="z-string">&#39;</span></span>
-<span class="giallo-l"><span class="z-variable">publish</span><span> =</span><span class="z-constant z-language"> false</span></span>
-<span class="giallo-l"><span class="z-variable">version</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">0.1.0</span><span class="z-string">&#39;</span></span>
-<span class="giallo-l"><span class="z-variable">edition</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">2021</span><span class="z-string">&#39;</span></span>
-<span class="giallo-l"><span class="z-variable">rust-version</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">1.65</span><span class="z-string">&#39;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span>package</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">name</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">hellorust</span><span class="z-l-12 z-d-13">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">publish</span><span> =</span><span class="z-l-2 z-d-4"> false</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">version</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">0.1.0</span><span class="z-l-12 z-d-13">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">edition</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">2021</span><span class="z-l-12 z-d-13">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">rust-version</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">1.65</span><span class="z-l-12 z-d-13">&#39;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>[</span><span>lib</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">crate-type</span><span> =</span><span> [</span><span class="z-string">&#39;</span><span class="z-string">rlib</span><span class="z-string">&#39;</span><span>,</span><span class="z-string"> &#39;</span><span class="z-string">staticlib</span><span class="z-string">&#39;</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">hellorust</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">crate-type</span><span> =</span><span> [</span><span class="z-l-12 z-d-13">&#39;</span><span class="z-l-12 z-d-13">rlib</span><span class="z-l-12 z-d-13">&#39;</span><span>,</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">staticlib</span><span class="z-l-12 z-d-13">&#39;</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">name</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">hellorust</span><span class="z-l-12 z-d-13">&#39;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>[[</span><span>bin</span><span>]]</span></span>
-<span class="giallo-l"><span class="z-variable">name</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">document</span><span class="z-string">&#39;</span></span>
-<span class="giallo-l"><span class="z-variable">path</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">document.rs</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">name</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">document</span><span class="z-l-12 z-d-13">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">path</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">document.rs</span><span class="z-l-12 z-d-13">&#39;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>[</span><span>dependencies</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">extendr-api</span><span> =</span><span class="z-string"> &#39;</span><span class="z-string">*</span><span class="z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">extendr-api</span><span> =</span><span class="z-l-12 z-d-13"> &#39;</span><span class="z-l-12 z-d-13">*</span><span class="z-l-12 z-d-13">&#39;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>[</span><span>profile</span><span>.</span><span>release</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">lto</span><span> =</span><span class="z-constant z-language"> true</span></span>
-<span class="giallo-l"><span class="z-variable">codegen-units</span><span> =</span><span class="z-constant z-numeric"> 1</span></span></code></pre></div>
+<span class="giallo-l"><span class="z-l-3 z-d-9">lto</span><span> =</span><span class="z-l-2 z-d-4"> true</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">codegen-units</span><span> =</span><span class="z-l-7 z-d-10"> 1</span></span></code></pre></div>
 <p>Note that the crate is built as both an <code>rlib</code> (used by the <code>document</code> binary to
 introspect exports) and a <code>staticlib</code> (linked into the R package). The <code>[[bin]]</code>
 entry registers <code>document.rs</code> as an executable used to generate R wrappers at
@@ -550,21 +548,21 @@ the main Rust library file where you gather Rust code to be linked into R. The
 scaffolded version will initially contain a simple <code>hello_world()</code> example:</p>
 <div class="code-with-filename">
 <p><strong>src/rust/src/lib.rs</strong></p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">use</span><span class="z-entity z-name z-namespace"> extendr_api</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-namespace">prelude</span><span class="z-keyword z-operator">::</span><span class="z-keyword z-operator">*</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> Return string `&quot;Hello world!&quot;` to R.</span></span>
-<span class="giallo-l"><span class="z-comment">///</span><span class="z-comment"> @export</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">///</span><span class="z-l-5 z-d-7"> Return string `&quot;Hello world!&quot;` to R.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">///</span><span class="z-l-5 z-d-7"> @export</span></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> hello_world</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-keyword z-operator"> &amp;</span><span>&#39;</span><span class="z-entity z-name z-type">static</span><span class="z-entity z-name z-type"> str</span><span> {</span></span>
-<span class="giallo-l"><span class="z-string">    &quot;</span><span class="z-string">Hello world!</span><span class="z-string">&quot;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> hello_world</span><span>(</span><span>)</span><span> -&gt;</span><span> &amp;</span><span>&#39;</span><span class="z-l-8 z-d-2">static</span><span class="z-l-8 z-d-2"> str</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">    &quot;</span><span class="z-l-12 z-d-13">Hello world!</span><span class="z-l-12 z-d-13">&quot;</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Macro to generate exports.</span></span>
-<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> This ensures exported functions are registered with R.</span></span>
-<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> See corresponding C code in `entrypoint.c`.</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> hellorust</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-variable"> hello_world</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> Macro to generate exports.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> This ensures exported functions are registered with R.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> See corresponding C code in `entrypoint.c`.</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    mod</span><span> hellorust</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-3 z-d-9"> hello_world</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre></div>
 <p>The <code>extendr_module!</code> macro controls which functions, <code>impl</code> blocks, and
 submodules are exposed to R. Every function you want available in R must be
@@ -575,7 +573,7 @@ listed in an <code>extendr_module!</code>.</p>
 that should not be committed:</p>
 <div class="code-with-filename">
 <p><strong>src/.gitignore</strong></p>
-<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>*.o</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>*.o</span></span>
 <span class="giallo-l"><span>*.so</span></span>
 <span class="giallo-l"><span>*.dll</span></span>
 <span class="giallo-l"><span>target</span></span>
@@ -610,7 +608,7 @@ the package developer. We repeat, <strong>DO NOTE EDIT THESE FILES:</strong></p>
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;default-args&#x2F;"
+                    <a href="https://extendr.rs/development/default-args/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Default function arguments</span>
@@ -619,7 +617,7 @@ the package developer. We repeat, <strong>DO NOTE EDIT THESE FILES:</strong></p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;serde-integration&#x2F;"
+                    <a href="https://extendr.rs/development/serde-integration/"
                        class="flex items-center gap-1">
                         <span>`serde` integration</span>
                         <span>→</span>
@@ -632,46 +630,34 @@ the package developer. We repeat, <strong>DO NOTE EDIT THESE FILES:</strong></p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#the-cargo-manifest" class="toc-link pl-4">The Cargo manifest</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#the-crate-library" class="toc-link pl-4">The crate library</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#git-ignore" class="toc-link pl-4">Git ignore</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#learn-more" class="toc-link pl-4">Learn more</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/package-structure/#the-cargo-manifest" class="toc-link">The Cargo manifest</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/package-structure/#the-crate-library" class="toc-link">The crate library</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/package-structure/#git-ignore" class="toc-link">Git ignore</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/package-structure/#learn-more" class="toc-link">Learn more</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

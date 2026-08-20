@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -476,62 +474,51 @@
         <div class="prose">
             <p>The <code>#[extendr]</code> attribute macro is how Rust types are made available to R.
 This chapter covers how to use it on structs, enums, and impl blocks.</p>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Note
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        If you would like to learn more about Rust macros, check The Book,
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">If you would like to learn more about Rust macros, check The Book,
 specifically
 <a rel="external" href="https://doc.rust-lang.org/book/ch20-05-macros.html">Part 5 of Ch. 20</a>. You
 may also want to consult the section on
 <a rel="external" href="https://doc.rust-lang.org/reference/procedural-macros.html">procedural macros</a>
-in the official Rust reference manual.
-    </section>
-</div><h2 id="exporting-impl-blocks">Exporting <code>impl</code> blocks</h2>
+in the official Rust reference manual.</section>
+</div>
+<h2 id="exporting-impl-blocks">Exporting <code>impl</code> blocks</h2>
 <p>The <code>#[extendr]</code> macro works with inherent implementations on a type such as
 an <code>enum</code> or a <code>struct</code>. extendr <em>does not</em> support using <code>#[extendr]</code> on
 trait impls.</p>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Note
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        You can only add an inherent implementation on a type that you own and not one
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">You can only add an inherent implementation on a type that you own and not one
 provided by a third-party crate. Doing so would violate the <a rel="external" href="https://github.com/Ixrec/rust-orphan-rules?tab=readme-ov-file#what-are-the-orphan-rules">orphan
 rules</a>.
 See <a href="#wrapping-third-party-types">Wrapping third-party types</a> for how to
-handle that case.
-    </section>
+handle that case.</section>
 </div>
 <p>Without <code>#[extendr]</code> on the type itself, trying to return it from a function
 results in a compilation error:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">enum</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Hexagon</span><span>,</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">enum</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Hexagon</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> make_shape</span><span>(</span><span class="z-variable">shape</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">    match</span><span class="z-variable"> shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">triangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">rectangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">pentagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">hexagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Hexagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        &amp;</span><span class="z-variable">_</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-function"> unimplemented!</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> make_shape</span><span>(</span><span class="z-l-3 z-d-9">shape</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">    match</span><span class="z-l-3 z-d-9"> shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">triangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">rectangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">pentagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">hexagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Hexagon</span><span>,</span></span>
+<span class="giallo-l"><span>        &amp;</span><span class="z-l-3 z-d-9">_</span><span> =&gt;</span><span class="z-l-9 z-d-16"> unimplemented!</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>error[E0277]: the trait bound `Shape: ToVectorValue` is not satisfied</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>error[E0277]: the trait bound `Shape: ToVectorValue` is not satisfied</span></span>
 <span class="giallo-l"><span>  --&gt; src/lib.rs:11:1</span></span>
 <span class="giallo-l"><span>   |</span></span>
 <span class="giallo-l"><span>11 | #[extendr]</span></span>
@@ -556,53 +543,53 @@ results in a compilation error:</p>
 <span class="giallo-l"><span>   = note: this error originates in the attribute macro `extendr` (in Nightly builds, run with -Z macro-backtrace for more info)</span></span></code></pre>
 <p>Adding <code>#[extendr]</code> to the enum itself generates the necessary <code>From</code>/<code>TryFrom</code>
 implementations between the type and <code>Robj</code>, making it returnable to R:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>)</span><span>]</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>)</span><span>]</span></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">enum</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Hexagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">enum</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Hexagon</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> make_shape</span><span>(</span><span class="z-variable">shape</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">    match</span><span class="z-variable"> shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">triangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">rectangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">pentagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">        &quot;</span><span class="z-string">hexagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-type"> Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Hexagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">        &amp;</span><span class="z-variable">_</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-function"> unimplemented!</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> make_shape</span><span>(</span><span class="z-l-3 z-d-9">shape</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">    match</span><span class="z-l-3 z-d-9"> shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">triangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">rectangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">pentagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">        &quot;</span><span class="z-l-12 z-d-13">hexagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Shape</span><span>::</span><span class="z-l-8 z-d-2">Hexagon</span><span>,</span></span>
+<span class="giallo-l"><span>        &amp;</span><span class="z-l-3 z-d-9">_</span><span> =&gt;</span><span class="z-l-9 z-d-16"> unimplemented!</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>It is also possible to add methods to structs/enums and their instances:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>)</span><span>]</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>)</span><span>]</span></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">enum</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Hexagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">enum</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Hexagon</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">        match</span><span class="z-variable"> x</span><span> {</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">triangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">rectangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">pentagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">hexagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Hexagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">            &amp;</span><span class="z-variable">_</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-function"> unimplemented!</span><span>(</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">        match</span><span class="z-l-3 z-d-9"> x</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">triangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">rectangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">pentagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">hexagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Hexagon</span><span>,</span></span>
+<span class="giallo-l"><span>            &amp;</span><span class="z-l-3 z-d-9">_</span><span> =&gt;</span><span class="z-l-9 z-d-16"> unimplemented!</span><span>(</span><span>)</span><span>,</span></span>
 <span class="giallo-l"><span>        }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> n_coords</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> usize</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">        match</span><span class="z-keyword z-operator"> &amp;</span><span class="z-variable z-language">self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Triangle</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 3</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Rectangle</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 4</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Pentagon</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 4</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Hexagon</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 5</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> n_coords</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> usize</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">        match</span><span> &amp;</span><span class="z-l-2 z-d-4">self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Triangle</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 3</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Rectangle</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 4</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Pentagon</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 4</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Hexagon</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 5</span><span>,</span></span>
 <span class="giallo-l"><span>        }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
@@ -611,20 +598,14 @@ implementations between the type and <code>Robj</code>, making it returnable to 
 a <code>&amp;str</code> and returns an enum variant. Now that the enum has an <code>impl</code> block
 with the <code>#[extendr]</code> attribute macro, it can be exported to R by inclusion in
 the <code>extendr_module! {}</code> macro.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-function">extendr_module!</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    mod</span><span> hellorust</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword">    impl</span><span class="z-entity z-name z-type"> Shape</span><span>;</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-9 z-d-16">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    mod</span><span> hellorust</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    impl</span><span class="z-l-8 z-d-2"> Shape</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Warning">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Warning
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--triangle-alert size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Warning</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        You can only have <strong>one</strong> <code>#[extendr]</code> impl block per type per module.
-    </section>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">You can only have <strong>one</strong> <code>#[extendr]</code> impl block per type per module.</section>
 </div>
 <p>Doing so creates an environment in your package called <code>Shape</code>. The environment
 contains all of the methods that are available to you.</p>
@@ -633,7 +614,7 @@ environment which enable you to call the methods defined in the impl block. You
 might think that this feels like an <a rel="external" href="https://r6.r-lib.org/articles/Introduction.html">R6
 object</a> and you’d be right
 because an R6 object essentially is an environment!</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">as.list</span><span>(</span><span class="z-variable">Shape</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$n_coords</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">as.list</span><span>(</span><span class="z-l-3 z-d-9">Shape</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$n_coords</span></span>
 <span class="giallo-l"><span>function () </span></span>
 <span class="giallo-l"><span>.Call(wrap__Shape__n_coords, self)</span></span>
 <span class="giallo-l"><span>&lt;bytecode: 0x000001bcf5f7b270&gt;</span></span>
@@ -645,8 +626,8 @@ because an R6 object essentially is an environment!</p>
 <span class="giallo-l"><span>&lt;bytecode: 0x000001bcf5f7b0e8&gt;</span></span>
 <span class="giallo-l"><span>&lt;environment: namespace:examples&gt;</span></span></code></pre>
 <p>Calling the <code>new()</code> method instantiates a new enum variant.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">tri</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> Shape</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">new</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">triangle</span><span class="z-string">&quot;</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">tri</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>&lt;pointer: 0x000001bcf3dfff50&gt;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">tri</span><span> &lt;-</span><span class="z-l-3 z-d-9"> Shape</span><span>$</span><span class="z-l-9 z-d-16">new</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">triangle</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">tri</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>&lt;pointer: 0x000001bcf3dfff50&gt;</span></span>
 <span class="giallo-l"><span>attr(,&quot;class&quot;)</span></span>
 <span class="giallo-l"><span>[1] &quot;Shape&quot;</span></span></code></pre>
 <p>The newly made <code>tri</code> object is an <a rel="external" href="https://cran.r-project.org/doc/manuals/R-exts.html#External-pointers-and-weak-references">external
@@ -654,24 +635,19 @@ pointer</a>
 to the <code>Shape</code> enum in Rust. This pointer has the same methods as the Shape
 environment—though they cannot be seen in the same way. For example you can
 run the <code>n_coords()</code> method on the newly created object.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">tri</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">n_coords</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 3</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">tri</span><span>$</span><span class="z-l-9 z-d-16">n_coords</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 3</span></span></code></pre><div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Tip">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Tip
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Tip</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        To make the methods visible to the <code>Shape</code> class you can define a
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">To make the methods visible to the <code>Shape</code> class you can define a
 <code>.DollarNames</code> method which will allow you to preview the methods and
 attributes when using the <code>$</code> syntax. This is very handy to define when making
 an impl a core part of your package.</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">.DollarNames.Shape</span><span class="z-keyword z-operator"> =</span><span class="z-keyword"> function</span><span>(</span><span class="z-variable">env</span><span class="z-keyword z-operator">,</span><span class="z-variable"> pattern</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">&quot;</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">  ls</span><span>(</span><span class="z-variable">Shape</span><span class="z-keyword z-operator">,</span><span class="z-variable"> pattern</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> pattern</span><span>)</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre>
-    </section>
-</div><h3 id="impl-ownership"><code>impl</code> ownership</h3>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">.DollarNames.Shape</span><span> =</span><span class="z-l-2 z-d-4"> function</span><span>(</span><span class="z-l-3 z-d-9">env</span><span>,</span><span class="z-l-3 z-d-9"> pattern</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">  ls</span><span>(</span><span class="z-l-3 z-d-9">Shape</span><span>,</span><span class="z-l-3 z-d-9"> pattern</span><span> =</span><span class="z-l-3 z-d-9"> pattern</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></section>
+</div>
+<h3 id="impl-ownership"><code>impl</code> ownership</h3>
 <p>Adding the <code>#[extendr]</code> macro to an impl allows the struct or enum to be made
 available to R as an external pointer. Once you create an external pointer,
 that is then owned by R. So you can only get references to it or mutable
@@ -684,41 +660,41 @@ you may want to define functions that take the impl as a function argument.</p>
 owned version of the impl as an input. For example, trying to define a function
 that subtracts an integer from the <code>n_coords()</code> output like below returns a
 compiler error:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">enum</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Hexagon</span><span>,</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">enum</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Hexagon</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Shape</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">        match</span><span class="z-variable"> x</span><span> {</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">triangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Triangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">rectangle</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Rectangle</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">pentagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Pentagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-string">            &quot;</span><span class="z-string">hexagon</span><span class="z-string">&quot;</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-variable z-language"> Self</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Hexagon</span><span>,</span></span>
-<span class="giallo-l"><span class="z-keyword z-operator">            &amp;</span><span class="z-variable">_</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-entity z-name z-function"> unimplemented!</span><span>(</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Shape</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">        match</span><span class="z-l-3 z-d-9"> x</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">triangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Triangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">rectangle</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Rectangle</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">pentagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Pentagon</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-12 z-d-13">            &quot;</span><span class="z-l-12 z-d-13">hexagon</span><span class="z-l-12 z-d-13">&quot;</span><span> =&gt;</span><span class="z-l-2 z-d-4"> Self</span><span>::</span><span class="z-l-8 z-d-2">Hexagon</span><span>,</span></span>
+<span class="giallo-l"><span>            &amp;</span><span class="z-l-3 z-d-9">_</span><span> =&gt;</span><span class="z-l-9 z-d-16"> unimplemented!</span><span>(</span><span>)</span><span>,</span></span>
 <span class="giallo-l"><span>        }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> n_coords</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> usize</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">        match</span><span class="z-keyword z-operator"> &amp;</span><span class="z-variable z-language">self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Triangle</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 3</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Rectangle</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 4</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Pentagon</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 4</span><span>,</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">            Shape</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-type">Hexagon</span><span class="z-keyword z-operator"> =&gt;</span><span class="z-constant z-numeric"> 5</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> n_coords</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> usize</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">        match</span><span> &amp;</span><span class="z-l-2 z-d-4">self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Triangle</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 3</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Rectangle</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 4</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Pentagon</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 4</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">            Shape</span><span>::</span><span class="z-l-8 z-d-2">Hexagon</span><span> =&gt;</span><span class="z-l-7 z-d-10"> 5</span><span>,</span></span>
 <span class="giallo-l"><span>        }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> subtract_coord</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Shape</span><span>,</span><span class="z-variable"> n</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> i32</span><span> {</span></span>
-<span class="giallo-l"><span>    (</span><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">n_coords</span><span>(</span><span>)</span><span class="z-keyword"> as</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -</span><span class="z-variable"> n</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>error[E0277]: the trait bound `Shape: TryFrom&lt;...&gt;` is not satisfied</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> subtract_coord</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Shape</span><span>,</span><span class="z-l-3 z-d-9"> n</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> i32</span><span> {</span></span>
+<span class="giallo-l"><span>    (</span><span class="z-l-3 z-d-9">x</span><span>.</span><span class="z-l-9 z-d-16">n_coords</span><span>(</span><span>)</span><span class="z-l-2 z-d-4"> as</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -</span><span class="z-l-3 z-d-9"> n</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>error[E0277]: the trait bound `Shape: TryFrom&lt;...&gt;` is not satisfied</span></span>
 <span class="giallo-l"><span>  --&gt; src/lib.rs:33:1</span></span>
 <span class="giallo-l"><span>   |</span></span>
 <span class="giallo-l"><span>33 | #[extendr]</span></span>
@@ -746,39 +722,34 @@ then exposes methods just as with any type you own. The
 package is a good real-world example: it wraps <code>toml_edit::DocumentMut</code> in a
 <code>Toml</code> newtype and exposes parsing, reading, and writing methods to R.</p>
 <p>As a simplified illustration:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Pretend `Inner` comes from a third-party crate we don&#39;t own.</span></span>
-<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>,</span><span class="z-entity z-name z-type"> Clone</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Inner</span><span>(</span><span class="z-entity z-name z-type">i32</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> Pretend `Inner` comes from a third-party crate we don&#39;t own.</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>,</span><span class="z-l-8 z-d-2"> Clone</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Inner</span><span>(</span><span class="z-l-8 z-d-2">i32</span><span>)</span><span>;</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">//</span><span class="z-comment"> Our newtype wrapper — we own this, so #[extendr] is allowed.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> Our newtype wrapper — we own this, so #[extendr] is allowed.</span></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>,</span><span class="z-entity z-name z-type"> Clone</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Wrapper</span><span>(</span><span class="z-entity z-name z-type">Inner</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>,</span><span class="z-l-8 z-d-2"> Clone</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Wrapper</span><span>(</span><span class="z-l-8 z-d-2">Inner</span><span>)</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Wrapper</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">        Wrapper</span><span>(</span><span class="z-entity z-name z-function">Inner</span><span>(</span><span class="z-variable">x</span><span>)</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Wrapper</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">        Wrapper</span><span>(</span><span class="z-l-9 z-d-16">Inner</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>)</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> value</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> i32</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> value</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> i32</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span class="z-l-7 z-d-10">0</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">w</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> Wrapper</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">new</span><span>(</span><span class="z-constant z-numeric">42L</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">w</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">value</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 42</span></span></code></pre><div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">w</span><span> &lt;-</span><span class="z-l-3 z-d-9"> Wrapper</span><span>$</span><span class="z-l-9 z-d-16">new</span><span>(</span><span class="z-l-7 z-d-10">42L</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">w</span><span>$</span><span class="z-l-9 z-d-16">value</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 42</span></span></code></pre><div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Tip">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Tip
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--lightbulb size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Tip</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        Deriving <code>Clone</code> on your newtype wrapper is often necessary. Because R owns
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">Deriving <code>Clone</code> on your newtype wrapper is often necessary. Because R owns
 the external pointer, methods that produce a modified copy must clone the inner
-value and return the new wrapper rather than mutating in place.
-    </section>
-</div><h2 id="documenting-methods">Documenting methods</h2>
+value and return the new wrapper rather than mutating in place.</section>
+</div>
+<h2 id="documenting-methods">Documenting methods</h2>
 <p>Methods on <code>#[extendr]</code> impl blocks can be documented with Roxygen-style <code>///</code>
 doc comments. These are picked up by <code>rextendr</code> when generating R wrappers,
 so the documentation surfaces in R’s help system via <code>?</code>. The
@@ -786,41 +757,41 @@ so the documentation surfaces in R’s help system via <code>?</code>. The
 package is a good example of this in practice.</p>
 <p>The <code>///</code> prefix is Rust’s item-level doc comment syntax. Tags follow standard
 Roxygen2 conventions: <code>@param</code>, <code>@return</code>, <code>@details</code>, <code>@examples</code>, and so on.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">Debug</span><span>,</span><span class="z-entity z-name z-type"> Clone</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Counter</span><span>(</span><span class="z-entity z-name z-type">i32</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">Debug</span><span>,</span><span class="z-l-8 z-d-2"> Clone</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Counter</span><span>(</span><span class="z-l-8 z-d-2">i32</span><span>)</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> Counter</span><span> {</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> Create a new Counter starting at zero.</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> @return A `Counter` object.</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> @export</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">        Counter</span><span>(</span><span class="z-constant z-numeric">0</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> Counter</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> Create a new Counter starting at zero.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> @return A `Counter` object.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> @export</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">        Counter</span><span>(</span><span class="z-l-7 z-d-10">0</span><span>)</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> Increment the counter by one.</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> @return Self (invisibly)</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> @export</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> increment</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-storage z-modifier">mut</span><span class="z-variable z-language"> self</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span><span class="z-keyword z-operator"> +=</span><span class="z-constant z-numeric"> 1</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> Increment the counter by one.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> @return Self (invisibly)</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> @export</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> increment</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-2 z-d-4"> self</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span class="z-l-7 z-d-10">0</span><span> +=</span><span class="z-l-7 z-d-10"> 1</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> Return the current count.</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> @return An integer.</span></span>
-<span class="giallo-l"><span class="z-comment">    ///</span><span class="z-comment"> @export</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> value</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> i32</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span class="z-constant z-numeric">0</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> Return the current count.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> @return An integer.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    ///</span><span class="z-l-5 z-d-7"> @export</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> value</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> i32</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span class="z-l-7 z-d-10">0</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">c1</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> Counter</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">new</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">c1</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">c1</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">c1</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">value</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 2</span></span></code></pre>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">c1</span><span> &lt;-</span><span class="z-l-3 z-d-9"> Counter</span><span>$</span><span class="z-l-9 z-d-16">new</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">c1</span><span>$</span><span class="z-l-9 z-d-16">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">c1</span><span>$</span><span class="z-l-9 z-d-16">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">c1</span><span>$</span><span class="z-l-9 z-d-16">value</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 2</span></span></code></pre>
         </div>
         
         <footer class="mt-10">
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;data-types&#x2F;"
+                    <a href="https://extendr.rs/development/data-types/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>R to Rust type mapping</span>
@@ -829,7 +800,7 @@ Roxygen2 conventions: <code>@param</code>, <code>@return</code>, <code>@details<
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;collections&#x2F;"
+                    <a href="https://extendr.rs/development/collections/"
                        class="flex items-center gap-1">
                         <span>Using HashMaps</span>
                         <span>→</span>
@@ -842,59 +813,42 @@ Roxygen2 conventions: <code>@param</code>, <code>@return</code>, <code>@details<
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#exporting-impl-blocks" class="toc-link pl-4">Exporting impl blocks</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    <li class="toc-item">
-        <a href="#impl-ownership" class="toc-link pl-4">impl ownership</a>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#accessing-exported-impls-from-rust" class="toc-link pl-4">Accessing exported impls from Rust</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#wrapping-third-party-types" class="toc-link pl-4">Wrapping third-party types</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#documenting-methods" class="toc-link pl-4">Documenting methods</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/extendr-macro/#exporting-impl-blocks" class="toc-link">Exporting impl blocks</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/development/extendr-macro/#impl-ownership" class="toc-link">impl ownership</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/extendr-macro/#accessing-exported-impls-from-rust" class="toc-link">Accessing exported impls from Rust</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/extendr-macro/#wrapping-third-party-types" class="toc-link">Wrapping third-party types</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/extendr-macro/#documenting-methods" class="toc-link">Documenting methods</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

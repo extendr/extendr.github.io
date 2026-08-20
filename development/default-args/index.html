@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -477,50 +475,50 @@
             <p>In Rust, all function arguments are required—there are no default arguments. However, for R packages, having default arguments is essential for creating ergonomic and user-friendly APIs. The <code>#[extendr]</code> macro provides the <code>default</code> parameter allowing you to specify default values that will be added to the generated R wrapper functions.</p>
 <h2 id="the-default-attribute">The <code>default</code> attribute</h2>
 <p>The <code>default</code> attribute is applied to individual function arguments using the syntax <code>#[extendr(default = "value")]</code>. The value you provide is a string that will be inserted directly into the generated R function signature. This means you can use any valid R expression as a default value.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> my_function</span><span>(</span><span>#</span><span>[</span><span class="z-entity z-name z-function">extendr</span><span>(</span><span class="z-variable">default</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">NULL</span><span class="z-string">&quot;</span><span>)</span><span>]</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-comment">    //</span><span class="z-comment"> function body</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> my_function</span><span>(</span><span>#</span><span>[</span><span class="z-l-9 z-d-16">extendr</span><span>(</span><span class="z-l-3 z-d-9">default</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">NULL</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>]</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">    //</span><span class="z-l-5 z-d-7"> function body</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This generates an R function with the signature <code>my_function(x = NULL)</code>.</p>
 <h2 id="basic-examples">Basic examples</h2>
 <p>Let’s start with a simple function that checks if an argument is <code>NULL</code>. By setting the default to <code>"NULL"</code>, users can call the function without providing any arguments:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> check_default</span><span>(</span><span>#</span><span>[</span><span class="z-entity z-name z-function">extendr</span><span>(</span><span class="z-variable">default</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">NULL</span><span class="z-string">&quot;</span><span>)</span><span>]</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Robj</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> bool</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">is_null</span><span>(</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> check_default</span><span>(</span><span>#</span><span>[</span><span class="z-l-9 z-d-16">extendr</span><span>(</span><span class="z-l-3 z-d-9">default</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">NULL</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>]</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> Robj</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> bool</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">is_null</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>Now you can call this function without any arguments, and it will use the default value:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">check_default</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] TRUE</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">check_default</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] TRUE</span></span></code></pre>
 <p>Or provide an explicit value:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">check_default</span><span>(</span><span class="z-constant z-numeric">42</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] FALSE</span></span></code></pre><h2 id="working-with-logical-defaults">Working with logical defaults</h2>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">check_default</span><span>(</span><span class="z-l-7 z-d-10">42</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] FALSE</span></span></code></pre><h2 id="working-with-logical-defaults">Working with logical defaults</h2>
 <p>Default arguments work with any R type. Here’s an example with a logical default value:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> greet</span><span>(</span><span class="z-variable">name</span><span class="z-keyword z-operator">:</span><span class="z-keyword z-operator"> &amp;</span><span class="z-entity z-name z-type">str</span><span>,</span><span> #</span><span>[</span><span class="z-entity z-name z-function">extendr</span><span>(</span><span class="z-variable">default</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">FALSE</span><span class="z-string">&quot;</span><span>)</span><span>]</span><span class="z-variable"> loud</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> bool</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> String</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> greeting</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> format!</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Hello, </span><span class="z-string">{</span><span class="z-string">}</span><span class="z-string">&quot;</span><span>,</span><span class="z-variable"> name</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">    if</span><span class="z-variable"> loud</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        greeting</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">to_uppercase</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span>    }</span><span class="z-keyword z-control"> else</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        greeting</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> greet</span><span>(</span><span class="z-l-3 z-d-9">name</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>,</span><span> #</span><span>[</span><span class="z-l-9 z-d-16">extendr</span><span>(</span><span class="z-l-3 z-d-9">default</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">FALSE</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>]</span><span class="z-l-3 z-d-9"> loud</span><span>:</span><span class="z-l-8 z-d-2"> bool</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> String</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> greeting</span><span> =</span><span class="z-l-9 z-d-16"> format!</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Hello, </span><span class="z-l-12 z-d-13">{</span><span class="z-l-12 z-d-13">}</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> name</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">    if</span><span class="z-l-3 z-d-9"> loud</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        greeting</span><span>.</span><span class="z-l-9 z-d-16">to_uppercase</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span><span class="z-l-13 z-d-11"> else</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        greeting</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># Using the default (quiet greeting)</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">greet</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Alice</span><span class="z-string">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello, Alice&quot;</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># Override the default</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">greet</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Alice</span><span class="z-string">&quot;</span><span class="z-keyword z-operator">,</span><span class="z-variable"> loud</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;HELLO, ALICE&quot;</span></span></code></pre><h2 id="multiple-defaults">Multiple defaults</h2>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># Using the default (quiet greeting)</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">greet</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Alice</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;Hello, Alice&quot;</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># Override the default</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">greet</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Alice</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-3 z-d-9"> loud</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;HELLO, ALICE&quot;</span></span></code></pre><h2 id="multiple-defaults">Multiple defaults</h2>
 <p>You can use multiple default arguments in a single function. Just remember that in R, arguments with defaults should typically come after required arguments for best practices:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> multiply</span><span>(</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span></span>
-<span class="giallo-l"><span>    #</span><span>[</span><span class="z-entity z-name z-function">extendr</span><span>(</span><span class="z-variable">default</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">1.0</span><span class="z-string">&quot;</span><span>)</span><span>]</span><span class="z-variable"> multiplier</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span></span>
-<span class="giallo-l"><span>    #</span><span>[</span><span class="z-entity z-name z-function">extendr</span><span>(</span><span class="z-variable">default</span><span class="z-keyword z-operator"> =</span><span class="z-string"> &quot;</span><span class="z-string">FALSE</span><span class="z-string">&quot;</span><span>)</span><span>]</span><span class="z-variable"> round_result</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> bool</span></span>
-<span class="giallo-l"><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">    let</span><span class="z-variable"> result</span><span class="z-keyword z-operator"> =</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> *</span><span class="z-variable"> multiplier</span><span>;</span></span>
-<span class="giallo-l"><span class="z-keyword z-control">    if</span><span class="z-variable"> round_result</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        result</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">round</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span>    }</span><span class="z-keyword z-control"> else</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        result</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> multiply</span><span>(</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span class="z-l-9 z-d-16">extendr</span><span>(</span><span class="z-l-3 z-d-9">default</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">1.0</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>]</span><span class="z-l-3 z-d-9"> multiplier</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>,</span></span>
+<span class="giallo-l"><span>    #</span><span>[</span><span class="z-l-9 z-d-16">extendr</span><span>(</span><span class="z-l-3 z-d-9">default</span><span> =</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">FALSE</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>]</span><span class="z-l-3 z-d-9"> round_result</span><span>:</span><span class="z-l-8 z-d-2"> bool</span></span>
+<span class="giallo-l"><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> f64</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    let</span><span class="z-l-3 z-d-9"> result</span><span> =</span><span class="z-l-3 z-d-9"> x</span><span> *</span><span class="z-l-3 z-d-9"> multiplier</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-13 z-d-11">    if</span><span class="z-l-3 z-d-9"> round_result</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        result</span><span>.</span><span class="z-l-9 z-d-16">round</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span><span class="z-l-13 z-d-11"> else</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        result</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># All defaults</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">multiply</span><span>(</span><span class="z-constant z-numeric">5.5</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 5.5</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># Custom multiplier</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">multiply</span><span>(</span><span class="z-constant z-numeric">5.5</span><span class="z-keyword z-operator">,</span><span class="z-variable"> multiplier</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 2.5</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 13.75</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-comment"># Custom multiplier and rounding</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">multiply</span><span>(</span><span class="z-constant z-numeric">5.5</span><span class="z-keyword z-operator">,</span><span class="z-variable"> multiplier</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 2.5</span><span class="z-keyword z-operator">,</span><span class="z-variable"> round_result</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-language"> TRUE</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 14</span></span></code></pre><h2 id="important-notes">Important notes</h2>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># All defaults</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">multiply</span><span>(</span><span class="z-l-7 z-d-10">5.5</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 5.5</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># Custom multiplier</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">multiply</span><span>(</span><span class="z-l-7 z-d-10">5.5</span><span>,</span><span class="z-l-3 z-d-9"> multiplier</span><span> =</span><span class="z-l-7 z-d-10"> 2.5</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 13.75</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-5 z-d-7"># Custom multiplier and rounding</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">multiply</span><span>(</span><span class="z-l-7 z-d-10">5.5</span><span>,</span><span class="z-l-3 z-d-9"> multiplier</span><span> =</span><span class="z-l-7 z-d-10"> 2.5</span><span>,</span><span class="z-l-3 z-d-9"> round_result</span><span> =</span><span class="z-l-2 z-d-4"> TRUE</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 14</span></span></code></pre><h2 id="important-notes">Important notes</h2>
 <ul>
 <li>The value in <code>default = "..."</code> is inserted directly into the R function signature, so it must be valid R code</li>
 <li>You can use any R expression, including function calls: <code>#[extendr(default = "getOption('my_option')")]</code></li>
@@ -533,7 +531,7 @@
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;into-list&#x2F;"
+                    <a href="https://extendr.rs/development/into-list/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Rust Structs to Lists</span>
@@ -542,7 +540,7 @@
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;package-structure&#x2F;"
+                    <a href="https://extendr.rs/development/package-structure/"
                        class="flex items-center gap-1">
                         <span>Project Structure</span>
                         <span>→</span>
@@ -555,53 +553,39 @@
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#the-default-attribute" class="toc-link pl-4">The default attribute</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#basic-examples" class="toc-link pl-4">Basic examples</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#working-with-logical-defaults" class="toc-link pl-4">Working with logical defaults</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#multiple-defaults" class="toc-link pl-4">Multiple defaults</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#important-notes" class="toc-link pl-4">Important notes</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/default-args/#the-default-attribute" class="toc-link">The default attribute</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/default-args/#basic-examples" class="toc-link">Basic examples</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/default-args/#working-with-logical-defaults" class="toc-link">Working with logical defaults</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/default-args/#multiple-defaults" class="toc-link">Multiple defaults</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/default-args/#important-notes" class="toc-link">Important notes</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

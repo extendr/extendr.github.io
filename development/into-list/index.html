@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -477,39 +475,39 @@
             <p>When returning structured data from Rust to R, named lists are often the most natural representation. The <code>IntoList</code> derive macro converts Rust structs into R lists where each field becomes a named element.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Derive <code>IntoList</code> on a struct to convert it into a named R list. Each field is converted to an <code>Robj</code> and assembled into a named list. This approach has some overhead but provides a straightforward way to return structured results. Note that this creates a one-way conversion—there is no built-in method to convert the list back into the Rust struct. For stateful objects that need methods, use <code>#[extendr]</code> on an <code>impl</code> block with external pointers instead. See <a href="https://extendr.rs/development/into-list/#intolist-vs-external-pointers">IntoList vs External Pointers</a> below for additional details.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">IntoList</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    age</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>,</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">IntoList</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    age</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> create_person</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Person</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        name</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">Alice</span><span class="z-string">&quot;</span><span>)</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">        age</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric"> 30</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> create_person</span><span>(</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Person</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        name</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">Alice</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        age</span><span>:</span><span class="z-l-7 z-d-10"> 30</span><span>,</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>The field names become element names in the resulting list:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">create_person</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$name</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">create_person</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$name</span></span>
 <span class="giallo-l"><span>[1] &quot;Alice&quot;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$age</span></span>
-<span class="giallo-l"><span>[1] 30</span></span></code></pre><pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">IntoList</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Analysis</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    id</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    values</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-entity z-name z-type">f64</span><span>&gt;</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    passed</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> bool</span><span>,</span></span>
+<span class="giallo-l"><span>[1] 30</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">IntoList</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Analysis</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    id</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    values</span><span>:</span><span class="z-l-8 z-d-2"> Vec</span><span>&lt;</span><span class="z-l-8 z-d-2">f64</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    passed</span><span>:</span><span class="z-l-8 z-d-2"> bool</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> run_analysis</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Analysis</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Analysis</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        id</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric"> 123</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">        values</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">1</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">5</span><span>,</span><span class="z-constant z-numeric"> 2</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">7</span><span>,</span><span class="z-constant z-numeric"> 3</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">9</span><span>]</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">        passed</span><span class="z-keyword z-operator">:</span><span class="z-constant z-language"> true</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> run_analysis</span><span>(</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Analysis</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Analysis</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        id</span><span>:</span><span class="z-l-7 z-d-10"> 123</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        values</span><span>:</span><span class="z-l-9 z-d-16"> vec!</span><span>[</span><span class="z-l-7 z-d-10">1</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">5</span><span>,</span><span class="z-l-7 z-d-10"> 2</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">7</span><span>,</span><span class="z-l-7 z-d-10"> 3</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">9</span><span>]</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        passed</span><span>:</span><span class="z-l-2 z-d-4"> true</span><span>,</span></span>
 <span class="giallo-l"><span>    }</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-entity z-name z-function">run_analysis</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$id</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">run_analysis</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$id</span></span>
 <span class="giallo-l"><span>[1] 123</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$values</span></span>
@@ -520,60 +518,60 @@
 <p>Any type that can be converted into an <code>Robj</code> can be used as a field. If a field type cannot be converted, exclude it using <code>#[into_list(ignore)]</code> or reconsider the approach.</p>
 <h2 id="ignoring-fields">Ignoring Fields</h2>
 <p>Not all types in Rust can be converted to R. Skip serializing these fields by using <code>#[into_list(ignore)]</code>:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-entity z-name z-type">IntoList</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> Config</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    setting</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">    value</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>,</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>derive</span><span>(</span><span class="z-l-8 z-d-2">IntoList</span><span>)</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> Config</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    setting</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    value</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>,</span></span>
 <span class="giallo-l"><span>    #</span><span>[</span><span>into_list</span><span>(</span><span>ignore</span><span>)</span><span>]</span></span>
-<span class="giallo-l"><span class="z-variable">    internal_cache</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> Vec</span><span>&lt;</span><span class="z-entity z-name z-type">u8</span><span>&gt;</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    internal_cache</span><span>:</span><span class="z-l-8 z-d-2"> Vec</span><span>&lt;</span><span class="z-l-8 z-d-2">u8</span><span>&gt;</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> get_config</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> Config</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">    Config</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">        setting</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> String</span><span class="z-keyword z-operator">::</span><span class="z-entity z-name z-function">from</span><span>(</span><span class="z-string">&quot;</span><span class="z-string">timeout</span><span class="z-string">&quot;</span><span>)</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">        value</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric"> 30</span><span>,</span></span>
-<span class="giallo-l"><span class="z-variable">        internal_cache</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-function"> vec!</span><span>[</span><span class="z-constant z-numeric">1</span><span>,</span><span class="z-constant z-numeric"> 2</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>]</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> get_config</span><span>(</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Config</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    Config</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        setting</span><span>:</span><span class="z-l-8 z-d-2"> String</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">timeout</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        value</span><span>:</span><span class="z-l-7 z-d-10"> 30</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">        internal_cache</span><span>:</span><span class="z-l-9 z-d-16"> vec!</span><span>[</span><span class="z-l-7 z-d-10">1</span><span>,</span><span class="z-l-7 z-d-10"> 2</span><span>,</span><span class="z-l-7 z-d-10"> 3</span><span>]</span><span>,</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>Note that the ignored field does not appear in the resultant list:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">config</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-entity z-name z-function"> get_config</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">config</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>$setting</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">config</span><span> &lt;-</span><span class="z-l-9 z-d-16"> get_config</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">config</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>$setting</span></span>
 <span class="giallo-l"><span>[1] &quot;timeout&quot;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>$value</span></span>
-<span class="giallo-l"><span>[1] 30</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">config</span><span class="z-keyword z-operator">$</span><span class="z-variable">internal_cache</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><h2 id="intolist-vs-external-pointers">IntoList vs External Pointers</h2>
+<span class="giallo-l"><span>[1] 30</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">config</span><span>$</span><span class="z-l-3 z-d-9">internal_cache</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><h2 id="intolist-vs-external-pointers">IntoList vs External Pointers</h2>
 <p><code>IntoList</code> takes Rust structs and serializes them as an R list. The result is just that—an R list. The list does not store any reference to the Rust struct. That is lost.</p>
 <p>The <code>#[extendr]</code> macro creates a reference to the Rust struct itself. This can then be used to pass the Rust struct from function to function.</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-storage z-type">struct</span><span class="z-entity z-name z-type"> StatefulCounter</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    count</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>,</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">struct</span><span class="z-l-8 z-d-2"> StatefulCounter</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    count</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>,</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">impl</span><span class="z-entity z-name z-type"> StatefulCounter</span><span> {</span></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> new</span><span>(</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-variable z-language"> Self</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">        StatefulCounter</span><span> {</span><span class="z-variable"> count</span><span class="z-keyword z-operator">:</span><span class="z-constant z-numeric"> 0</span><span> }</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">impl</span><span class="z-l-8 z-d-2"> StatefulCounter</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> new</span><span>(</span><span>)</span><span> -&gt;</span><span class="z-l-2 z-d-4"> Self</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">        StatefulCounter</span><span> {</span><span class="z-l-3 z-d-9"> count</span><span>:</span><span class="z-l-7 z-d-10"> 0</span><span> }</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> increment</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-storage z-modifier">mut</span><span class="z-variable z-language"> self</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span>count </span><span class="z-keyword z-operator">+=</span><span class="z-constant z-numeric"> 1</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> increment</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">mut</span><span class="z-l-2 z-d-4"> self</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span>count </span><span>+=</span><span class="z-l-7 z-d-10"> 1</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"></span>
-<span class="giallo-l"><span class="z-keyword">    fn</span><span class="z-entity z-name z-function"> get</span><span>(</span><span class="z-keyword z-operator">&amp;</span><span class="z-variable z-language">self</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> i32</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable z-language">        self</span><span class="z-keyword z-operator">.</span><span>count</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-9 z-d-16"> get</span><span>(</span><span>&amp;</span><span class="z-l-2 z-d-4">self</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> i32</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        self</span><span>.</span><span>count</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p><code>StatefulCounter</code> keeps state in Rust and exposes methods:</p>
-<pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">counter</span><span class="z-keyword z-operator"> &lt;-</span><span class="z-variable"> StatefulCounter</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">new</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span class="z-variable">counter</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">counter</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-code"><code data-lang="r"><span class="giallo-l"><span class="z-variable">counter</span><span class="z-keyword z-operator">$</span><span class="z-entity z-name z-function">get</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>[1] 2</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">counter</span><span> &lt;-</span><span class="z-l-3 z-d-9"> StatefulCounter</span><span>$</span><span class="z-l-9 z-d-16">new</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">counter</span><span>$</span><span class="z-l-9 z-d-16">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">counter</span><span>$</span><span class="z-l-9 z-d-16">increment</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>NULL</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-3 z-d-9">counter</span><span>$</span><span class="z-l-9 z-d-16">get</span><span>(</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] 2</span></span></code></pre>
         </div>
         
         <footer class="mt-10">
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;collections&#x2F;"
+                    <a href="https://extendr.rs/development/collections/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Using HashMaps</span>
@@ -582,7 +580,7 @@
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;development&#x2F;default-args&#x2F;"
+                    <a href="https://extendr.rs/development/default-args/"
                        class="flex items-center gap-1">
                         <span>Default function arguments</span>
                         <span>→</span>
@@ -595,39 +593,29 @@
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#basic-usage" class="toc-link pl-4">Basic Usage</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#ignoring-fields" class="toc-link pl-4">Ignoring Fields</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#intolist-vs-external-pointers" class="toc-link pl-4">IntoList vs External Pointers</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/into-list/#basic-usage" class="toc-link">Basic Usage</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/into-list/#ignoring-fields" class="toc-link">Ignoring Fields</a>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/development/into-list/#intolist-vs-external-pointers" class="toc-link">IntoList vs External Pointers</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

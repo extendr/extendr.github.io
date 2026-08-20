@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -471,7 +469,7 @@
         <header class="pb-2 border-b border-border">
             <h1 class="my-0">Basic Types</h1>
             
-            <p class="text-muted-foreground mt-1 mb-0">Meet Rust&#x27;s scalar primitives — signed and unsigned integers, floats, and how to declare or infer their types.</p>
+            <p class="text-muted-foreground mt-1 mb-0">Meet Rust&#39;s scalar primitives — signed and unsigned integers, floats, and how to declare or infer their types.</p>
             
             
         </header>
@@ -497,35 +495,29 @@ are needed to store the value:</p>
 number indicates the bit width. Unsigned integers can hold larger positive
 values than their signed counterparts because they do not need to use a bit to
 represent a negative value:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-entity z-name z-type">i32</span><span class="z-keyword z-operator">::</span><span>MAX</span><span class="z-comment"> //</span><span class="z-comment"> 2147483647</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-type">u32</span><span class="z-keyword z-operator">::</span><span>MAX</span><span class="z-comment"> //</span><span class="z-comment"> 4294967295</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-8 z-d-2">i32</span><span>::</span><span>MAX</span><span class="z-l-5 z-d-7"> //</span><span class="z-l-5 z-d-7"> 2147483647</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">u32</span><span>::</span><span>MAX</span><span class="z-l-5 z-d-7"> //</span><span class="z-l-5 z-d-7"> 4294967295</span></span></code></pre>
 <p>Floating points are similar to integers but can represent decimal values, too.
 Unlike integers, floating points are also always signed and come in two sizes:
 <code>f32</code> and <code>f64</code>.</p>
-<div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Note
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        In R, integer vectors are comprised of only <code>i32</code> values, and floating points,
-called doubles, are always <code>f64</code> values.
-    </section>
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">In R, integer vectors are comprised of only <code>i32</code> values, and floating points,
+called doubles, are always <code>f64</code> values.</section>
 </div>
 <p>Rust can usually infer types. For instance, it can distinguish the integer <code>1</code>
 from the floating point <code>1.0</code>, but you can also specify the type explicitly.
 There are two ways to do this — using <code>:</code> in the assignment, or by appending a
 type suffix to the literal value:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 10</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 10</span><span class="z-constant z-numeric">.</span><span class="z-constant z-numeric">0</span><span class="z-entity z-name z-type">f64</span><span>;</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span> =</span><span class="z-l-7 z-d-10"> 10</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> x</span><span> =</span><span class="z-l-7 z-d-10"> 10</span><span class="z-l-7 z-d-10">.</span><span class="z-l-7 z-d-10">0</span><span class="z-l-8 z-d-2">f64</span><span>;</span></span></code></pre>
 <p>You can also use <code>_</code> as a visual separator when writing numeric literals. The
 following are all identical:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1000</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1000</span><span class="z-entity z-name z-type">i32</span><span>;</span></span>
-<span class="giallo-l"><span class="z-storage z-type">let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-constant z-numeric"> 1_000_</span><span class="z-entity z-name z-type">i32</span><span>;</span></span></code></pre>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> x</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span> =</span><span class="z-l-7 z-d-10"> 1000</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> x</span><span> =</span><span class="z-l-7 z-d-10"> 1000</span><span class="z-l-8 z-d-2">i32</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">let</span><span class="z-l-3 z-d-9"> x</span><span> =</span><span class="z-l-7 z-d-10"> 1_000_</span><span class="z-l-8 z-d-2">i32</span><span>;</span></span></code></pre>
 <p>This pattern of explicitly declaring the type of a variable may seem somewhat
 verbose to the average R user since R is very lax about types, relying as it
 does on a lot of implicit conversions. Becuase of Rust’s memory management
@@ -535,8 +527,8 @@ precludes running operations on different types. For example, math expressions
 can only be performed between values of the same type, so you cannot, for
 example, directly add an <code>f64</code> and an <code>i32</code>. You must first cast one to match
 the type of the other, in the simplest case using the <code>as</code> keyword:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> add2</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> f64</span><span>,</span><span class="z-variable"> y</span><span class="z-keyword z-operator">:</span><span class="z-entity z-name z-type"> i32</span><span>)</span><span class="z-keyword z-operator"> -&gt;</span><span class="z-entity z-name z-type"> f64</span><span> {</span></span>
-<span class="giallo-l"><span class="z-variable">    x</span><span class="z-keyword z-operator"> +</span><span> (</span><span class="z-variable">y</span><span class="z-keyword"> as</span><span class="z-entity z-name z-type"> f64</span><span>)</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> add2</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> f64</span><span>,</span><span class="z-l-3 z-d-9"> y</span><span>:</span><span class="z-l-8 z-d-2"> i32</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> f64</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span> +</span><span> (</span><span class="z-l-3 z-d-9">y</span><span class="z-l-2 z-d-4"> as</span><span class="z-l-8 z-d-2"> f64</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>If you call <code>add2(3.2, 2)</code>, the function will first cast <code>y</code> to <code>f64</code> before
 doing addition, returning the <code>f64</code> value <code>5.2</code>. Before we continue, note that
@@ -549,7 +541,7 @@ for remainder (equivalent to <code>%%</code> in R).</p>
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;hello-world&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/hello-world/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Hello, World!</span>
@@ -558,7 +550,7 @@ for remainder (equivalent to <code>%%</code> in R).</p>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rust-intro&#x2F;control-flow&#x2F;"
+                    <a href="https://extendr.rs/rust-intro/control-flow/"
                        class="flex items-center gap-1">
                         <span>Control Flow</span>
                         <span>→</span>
@@ -571,9 +563,7 @@ for remainder (equivalent to <code>%%</code> in R).</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
     </aside>
 </div>

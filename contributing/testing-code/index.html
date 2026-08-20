@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -494,11 +492,11 @@ file under <code>tests/</code>. For details, see <a rel="external" href="https:/
 tests will need a live R session to handle R objects and symbols. The <code>test!</code>
 macro is useful for this purpose. It wraps test code in a call to the R API and
 allows <code>?</code> to be used inside the block:</p>
-<pre class="giallo z-code"><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>test</span><span>]</span></span>
-<span class="giallo-l"><span class="z-keyword">fn</span><span class="z-entity z-name z-function"> my_test</span><span>(</span><span>)</span><span> {</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">    test!</span><span> {</span></span>
-<span class="giallo-l"><span class="z-storage z-type">        let</span><span class="z-variable"> x</span><span class="z-keyword z-operator"> =</span><span class="z-entity z-name z-function"> r!</span><span>(</span><span>[</span><span class="z-constant z-numeric">1</span><span>,</span><span class="z-constant z-numeric"> 2</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>]</span><span>)</span><span>;</span></span>
-<span class="giallo-l"><span class="z-entity z-name z-function">        assert_eq!</span><span>(</span><span class="z-variable">x</span><span class="z-keyword z-operator">.</span><span class="z-entity z-name z-function">len</span><span>(</span><span>)</span><span>,</span><span class="z-constant z-numeric"> 3</span><span>)</span><span>;</span></span>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>test</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> my_test</span><span>(</span><span>)</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    test!</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">        let</span><span class="z-l-3 z-d-9"> x</span><span> =</span><span class="z-l-9 z-d-16"> r!</span><span>(</span><span>[</span><span class="z-l-7 z-d-10">1</span><span>,</span><span class="z-l-7 z-d-10"> 2</span><span>,</span><span class="z-l-7 z-d-10"> 3</span><span>]</span><span>)</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">        assert_eq!</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>.</span><span class="z-l-9 z-d-16">len</span><span>(</span><span>)</span><span>,</span><span class="z-l-7 z-d-10"> 3</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>If a test does not call the R API at all — for example, testing pure Rust
@@ -551,7 +549,7 @@ explicit testing.</li>
             <nav class="flex justify-between items-center text-sm">
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;documenting-code&#x2F;"
+                    <a href="https://extendr.rs/contributing/documenting-code/"
                        class="flex items-center gap-1">
                         <span>←</span>
                         <span>Documenting Code</span>
@@ -560,7 +558,7 @@ explicit testing.</li>
                 </div>
                 <div>
                     
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;contributing&#x2F;extendr-internals&#x2F;"
+                    <a href="https://extendr.rs/contributing/extendr-internals/"
                        class="flex items-center gap-1">
                         <span>extendr Internals</span>
                         <span>→</span>
@@ -573,59 +571,40 @@ explicit testing.</li>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#rust-tests" class="toc-link pl-4">Rust Tests</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    <li class="toc-item">
-        <a href="#tests-using-r-symbols" class="toc-link pl-4">Tests using R symbols</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#ffi-tests" class="toc-link pl-4">FFI tests</a>
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#additional-guidance" class="toc-link pl-4">Additional guidance</a>
-        
-    </li>
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#r-tests" class="toc-link pl-4">R Tests</a>
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/contributing/testing-code/#rust-tests" class="toc-link">Rust Tests</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/testing-code/#tests-using-r-symbols" class="toc-link">Tests using R symbols</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/testing-code/#ffi-tests" class="toc-link">FFI tests</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/contributing/testing-code/#additional-guidance" class="toc-link">Additional guidance</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/contributing/testing-code/#r-tests" class="toc-link">R Tests</a>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>

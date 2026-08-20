@@ -136,7 +136,9 @@
         <aside class="sidebar block"
                data-side="left"
                aria-label="Main navigation">
-            <nav aria-label="Sidebar navigation">
+            
+
+<nav aria-label="Sidebar navigation">
     <header class="font-mono">
         <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
@@ -170,12 +172,12 @@
             <h3>API Reference</h3>
             <ul>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;extendr&#x2F;">
+                    <a href="https://extendr.rs/extendr/">
                         <span class="iconify mdi--language-rust text-base"></span>extendr
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;extendr.rs&#x2F;rextendr&#x2F;">
+                    <a href="https://extendr.rs/rextendr/">
                         <span class="iconify mdi--language-r text-base"></span>rextendr
                     </a>
                 </li>
@@ -195,12 +197,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc">
+                    <a href="https://discord.gg/7hmApuc">
                         <span class="iconify fa7-brands--discord text-xs"></span>Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr">
+                    <a href="https://github.com/extendr/extendr">
                         <span class="iconify mdi--github text-xs"></span>GitHub
                     </a>
                 </li>
@@ -268,7 +270,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -290,7 +291,6 @@
             CRAN MSRV
         </a>
     </li>
-    
     
 </ul>
 </div>
@@ -374,7 +374,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
         <div role="group">
@@ -427,7 +426,6 @@
         </a>
     </li>
     
-    
 </ul>
 </div>
     </section>
@@ -451,12 +449,12 @@
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https:&#x2F;&#x2F;github.com&#x2F;extendr&#x2F;extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https:&#x2F;&#x2F;discord.gg&#x2F;7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -476,21 +474,16 @@
             
         </header>
         <div class="prose">
-            <div class="bc px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+            <div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
-    <header class="flex items-center gap-3">
-        <span class="iconify lucide--info size-5 shrink-0 text-primary"></span>
-        <h2 class="font-semibold text-base">
-            Note
-        </h2>
+    <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
-    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">
-        This page does not try to be a comprehensive installation guide. Instead, it
+    <section class="mt-2 pl-8 text-muted-foreground text-[0.925rem] [&>:first-child]:mt-0 [&>:last-child]:mb-0">This page does not try to be a comprehensive installation guide. Instead, it
 provides a quick overview of the software you need to get started with extendr.
 For more detailed instructions, please refer to the official documentation of
-each software package.
-    </section>
-</div><h2 id="required-software">Required software</h2>
+each software package.</section>
+</div>
+<h2 id="required-software">Required software</h2>
 <div class="flex flex-col gap-6 [&_h3]:text-lg [&_h3]:lg:text-xl">
 <div class="group/item bg-card flex flex-row items-center gap-6 p-3 border border-border">
 <div class="basis-1/6 [&_img]:w-full">
@@ -501,7 +494,8 @@ each software package.
 <p>Follow the <a rel="external" href="https://www.rust-lang.org/tools/install">rustup installation
 instructions</a> to install Rust. Note
 that the current minimum supported Rust version (msrv) in <strong>extendr</strong> is
-<span class="rust-version">1.65.0</span>. This is to ensure CRAN compliance. Windows users will
+<span class="rust-version">1.65.0</span>
+. This is to ensure CRAN compliance. Windows users will
 also need to install the GNU toolchain as it matches Rtools. This can be done
 via rustup in the terminal: <code>rustup target add x86_64-pc-windows-gnu</code>.</p>
 </div>
@@ -574,54 +568,52 @@ and auto-completion suggestions. It is <strong>very</strong> helpful!</p>
     </article>
 </div>
 <div class="hidden text-sm xl:block w-full max-w-[240px]">
-    
-    <aside aria-label="On this page"
-           class="sticky top-[var(--header-h,5rem)] py-4 space-y-1">
+    <aside aria-label="On this page" class="sticky top-[var(--header-h,5rem)] py-4">
         
         <nav
-             class="toc sticky top-22 space-y-2 [&_ul]:my-0 [&_ul]:list-none [&_li]:mt-0 [&_li]:pt-2 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground">
+             class="toc [&_ul]:space-y-2 [&_ul]:my-2 [&_ul]:ml-2 [&_ul]:list-none [&_li]:mt-0 [&_a]:inline-block [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-foreground [&_a]:text-muted-foreground [&_a]:pl-4">
             <h4 class="font-medium uppercase">On this page</h4>
-            
-<ul class="space-y-1 ml-2 border-l border-border">
-    
-    
-    <li class="toc-item">
-        <a href="#required-software" class="toc-link pl-4">Required software</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    
-    
-    
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-    
-    <li class="toc-item">
-        <a href="#recommended-software" class="toc-link pl-4">Recommended software</a>
-        
-        
-<ul class="space-y-1 ml-2">
-    
-    
-    
-    
-    
-</ul>
-
-        
-    </li>
-    
-    
-</ul>
-
+            <ul class="py-2 border-l border-border">
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/installation/#required-software" class="toc-link">Required software</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/installation/#rust-docs" class="toc-link">Rust [docs]</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/installation/#r-docs" class="toc-link">R [docs]</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/installation/#rextendr-docs" class="toc-link">rextendr [docs]</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="toc-item">
+                    <a href="https://extendr.rs/installation/#recommended-software" class="toc-link">Recommended software</a>
+                    
+                    <ul>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/installation/#rig-docs" class="toc-link">rig [docs]</a>
+                        </li>
+                        
+                        <li class="toc-item">
+                            <a href="https://extendr.rs/installation/#rust-analyzer-docs" class="toc-link">rust-analyzer [docs]</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
         </nav>
         
     </aside>
