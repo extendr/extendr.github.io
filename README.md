@@ -15,7 +15,7 @@ code. The website is built using the Rust-powered static site generator,
     components library built with Tailwind CSS
 -   **[Quarto](https://quarto.org/)** — currently used to execute code chunks 
     and render to commonmark, though this is likely to change
--   **[Node.js](https://nodejs.org/en)** — uses `bun` to manage dependencies
+-   **[Bun](https://bun.com/)** — javascript runtime and package manager
 -   **[iconify](https://iconify.design/docs/usage/css/tailwind/tailwind4/)** — a 
     Tailwind extension for icons (currently limited to fa7-brands, lucide, and 
     mdi icons)
