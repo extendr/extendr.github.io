@@ -24,6 +24,8 @@ fn hello(name: String) -> String {
 }
 
 // Macro to generate exports.
+// This ensures exported functions are registered with R.
+// See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod helloextendr;
     fn hello;
@@ -38,7 +40,9 @@ and then in R you can call it like this:
 hello("world")
 ```
 
-    [1] "Hello world!"
+``` output
+[1] "Hello world!"
+```
 
 We call the whole project extendr, of course, but it isn't just one thing. It's
 actually a *suite* of software tools. On the Rust side, extendr consists of
@@ -99,7 +103,9 @@ devtools::load_all()
 hello("world")
 ```
 
-    [1] "Hello world!"
+``` output
+[1] "Hello world!"
+```
 
 A Rust-powered R package in one fell swoop! Now, if you want to see a complete
 example of an actual R package, check out the [heck example](@/example.md).

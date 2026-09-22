@@ -4,43 +4,52 @@ description: "Write Rust code and call it in R!"
 weight: 2
 ---
 
+```{r}
+#| label: create-package
+#| include: false
+pkgpath <- file.path(tempdir(), "helloextendr")
+usethis::create_package(pkgpath, open = FALSE)
+```
 
 ```{r}
 #| label: set-root-dir
 #| include: false
-root_dir <- tempdir()
-knitr::opts_knit$set(root.dir = root_dir)
+knitr::opts_knit$set(root.dir = pkgpath)
+```
+
+```{r}
+#| label: use-extendr
+#| include: false
+rextendr::use_extendr()
+
+# need to use dev extendr
+rextendr::use_crate("extendr-api", git = "https://github.com/extendr/extendr")
+```
+
+```{r}
+#| label: document
+#| include: false
+devtools::document()
+devtools::load_all()
 ```
 
 This is the website for `extendr`, a developer-first utility for building R
 packages that call Rust code. With extendr, you can write Rust code like this:
 
-```rust {filename="lib.rs"}
-use extendr_api::prelude::*;
-
-/// Return string `"Hello world!"` to R.
-/// @param name A name to greet.
-/// @export
-#[extendr]
-fn hello(name: String) -> String {
-    format!("Hello {name}!")
-}
-
-// Macro to generate exports.
-extendr_module! {
-    mod helloextendr;
-    fn hello;
-}
+```{r}
+#| label: read-lib.rs
+#| echo: false
+#| attr-output: 'filename="lib.rs"'
+#| class-output: rust
+libpath <- file.path("src", "rust", "src", "lib.rs")
+cat(readLines(libpath), sep = "\n")
 ```
 
 and then in R you can call it like this:
 
-```{.r}
+```{r}
+#| label: hello
 hello("world")
-```
-
-```
-[1] "Hello world!"
 ```
 
 We call the whole project extendr, of course, but it isn't just one thing. It's 
@@ -104,8 +113,10 @@ devtools::load_all()
 hello("world")
 ```
 
-```
-[1] "Hello world!"
+```{r}
+#| label: hello-again
+#| echo: false
+hello("world")
 ```
 
 A Rust-powered R package in one fell swoop! Now, if you want to see a complete 
