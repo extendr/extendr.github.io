@@ -489,6 +489,8 @@ packages that call Rust code. With extendr, you can write Rust code like this:</
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> Macro to generate exports.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> This ensures exported functions are registered with R.</span></span>
+<span class="giallo-l"><span class="z-l-5 z-d-7">//</span><span class="z-l-5 z-d-7"> See corresponding C code in `entrypoint.c`.</span></span>
 <span class="giallo-l"><span class="z-l-9 z-d-16">extendr_module!</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">    mod</span><span> helloextendr</span><span>;</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-3 z-d-9"> hello</span><span>;</span></span>
