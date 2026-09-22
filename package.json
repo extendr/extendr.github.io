@@ -7,13 +7,6 @@
         "@iconify/tailwind4": "^1.2.3",
         "@tailwindcss/cli": "^4.2.0",
         "tailwindcss": "^4.2.0",
-        "basecoat-css": "^0.3.5",
-        "npm-run-all": "^4.1.5"
-    },
-    "scripts": {
-        "tailwind:build": "npx @tailwindcss/cli -i css/style.css -o static/style.css --minify",
-        "tailwind:watch": "npx @tailwindcss/cli -i css/style.css -o static/style.css --watch",
-        "zola:serve": "zola serve --open",
-        "dev": "npm-run-all --parallel tailwind:watch zola:serve"
+        "basecoat-css": "^0.3.5"
     }
 }
