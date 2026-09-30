@@ -502,42 +502,53 @@ library <code>rheck</code>, which allows us to name the R package <code>{heck}</
 <p>If you prefer to use your terminal, however, simply navigate to <code>src/rust</code> and
 run <code>cargo add heck</code>. With this, you have everything you need to get started.</p>
 <h2 id="scalar-snek-case-conversion">Scalar snek case conversion</h2>
-<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> heck</span><span>::</span><span class="z-l-8 z-d-2">ToSnekCase</span><span>;</span></span></code></pre>
 <p>Let’s start by creating a simple function to take a single string, and convert
 it to snake case. First, the trait <code>ToSnekCase</code> needs to be imported so that the
-method <code>to_snek_case()</code> is available to <code>&amp;str</code>.</p>
-<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> heck</span><span>::</span><span class="z-l-8 z-d-2">ToSnekCase</span><span>;</span></span>
+method <code>to_snek_case()</code> is available to <code>&amp;str</code>. This is achieved with the <code>use</code>
+declaration. Note that we do not declare <code>use extendr_api</code> here because that is
+done automatically by the rust engine for knitr.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> heck</span><span>::</span><span class="z-l-8 z-d-2">ToSnekCase</span><span>;</span></span></code></pre>
+<p>Now we can write our wrapper around the heck trait.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> to_snek_case</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> String</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>To make the function accessible from your R session, it needs to be included in
+your <code>extendr_module! {}</code> macro, so your entire <code>lib.rs</code> should look like this.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> heck</span><span>::</span><span class="z-l-8 z-d-2">ToSnekCase</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> to_snek_case</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span> &amp;</span><span class="z-l-8 z-d-2">str</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> String</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre>
-<p>Simple enough, right? Let’s give it a shot. To make it accessible from your R
-session, it needs to be included in your <code>extendr_module! {}</code> macro.</p>
-<pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-9 z-d-16">extendr_module!</span><span> {</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">extendr_module!</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">    mod</span><span> heck</span><span>;</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">    fn</span><span class="z-l-3 z-d-9"> to_snek_case</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
-<p>From your R session, run <code>devtools::document()</code> followed by
-<code>devtools::load_all()</code> to make the function available.</p>
+<p>Run <code>devtools::document()</code> and <code>devtools::load_all()</code> to make the function
+available in R.</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">MakeMe-Snake case</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;make_me_snake_case&quot;</span></span></code></pre>
 <p>Rarely is it useful to run a function on just a scalar character value. Rust,
-though, works with scalars by default and adding vectorization is another step.</p>
-<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span class="z-l-9 z-d-16">c</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">DontStep</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">on-Snek</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; &quot;on_snek&quot;  </span></span></code></pre>
-<p>Providing a character vector causes an error. So how do you go about
-vectorizing?</p>
+though, works with scalars by default and adding vectorization is another step.
+If you try to provide a character vector now, it will throw an error.</p>
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span class="z-l-9 z-d-16">c</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">DontStep</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">on-Snek</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>Error in `to_snek_case()`:</span></span>
+<span class="giallo-l"><span>! Expected Scalar, got Strings</span></span></code></pre>
+<p>So how do you go about vectorizing?</p>
 <h2 id="vectorizing-snek-case-conversion">Vectorizing snek case conversion</h2>
 <p>To vectorize this function, you need to apply the conversion to each element in
-a character vector. The extendr wrapper struct for a character vector is called
+the vector. The extendr wrapper struct for a character vector is called
 <code>Strings</code>. To take in a character vector and also return one, the function
 signature should look like this:</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> to_snek_case</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Strings</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Strings</span><span> {</span></span>
+<span class="giallo-l"><span class="z-l-9 z-d-16">    todo!</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
-<p>This says there is an argument <code>x</code> which must be a character vector and this
-function must also return the <code>Strings</code> (a character vector). The return type is
-signaled by <code>-&gt;</code>. To iterate through this you can use the <code>.into_iter()</code> method
-on the character vector.</p>
+<p>This says the function takes a character vector or <code>Strings</code> as input and also
+returns a character vector or <code>Strings</code> as output. The return type is signaled
+by <code>-&gt;</code>. To iterate through this you can use the <code>.into_iter()</code> method on the
+character vector.</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> to_snek_case</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Strings</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Strings</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
@@ -545,24 +556,19 @@ on the character vector.</p>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>Iterators have a method called <code>.map()</code> (yes, just like <code>purrr::map()</code>). It lets
 you apply a closure (an anonymous function) to each element of the iterator. In
-this case, each element is an
-<a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/rstr/struct.Rstr.html"><code>Rstr</code></a>.
-The <code>Rstr</code> has a method <code>.as_str()</code> which will return a string slice <code>&amp;str</code>. You
-can take this slice and pass it on to <code>.to_snek_case()</code>. After having mapped
-over each element, the results are <code>.collect()</code>ed into another <code>Strings</code>.</p>
+this case, each element is an <a rel="external" href="https://extendr.github.io/extendr/extendr_api/wrapper/rstr/struct.Rstr.html"><code>Rstr</code></a>. The <code>Rstr</code> implements <code>.as_ref()</code> from the standard library, which
+returns a string slice <code>&amp;str</code>. You can take this slice and pass it on to
+<code>.to_snek_case()</code>. After having mapped over each element, the results are
+<code>.collect()</code>ed into another <code>Strings</code>.</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span>#</span><span>[</span><span>extendr</span><span>]</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">fn</span><span class="z-l-9 z-d-16"> to_snek_case</span><span>(</span><span class="z-l-3 z-d-9">x</span><span>:</span><span class="z-l-8 z-d-2"> Strings</span><span>)</span><span> -&gt;</span><span class="z-l-8 z-d-2"> Strings</span><span> {</span></span>
-<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span class="z-l-3 z-d-9">xi</span><span>|</span><span> {</span></span>
-<span class="giallo-l"><span class="z-l-3 z-d-9">            xi</span><span>.</span><span class="z-l-9 z-d-16">as_str</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span>)</span></span>
-<span class="giallo-l"><span>        }</span><span>)</span></span>
-<span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
+<span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span class="z-l-3 z-d-9">xi</span><span>|</span><span> {</span><span class="z-l-3 z-d-9"> xi</span><span>.</span><span class="z-l-9 z-d-16">as_ref</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span>)</span><span> }</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>This new version of the function can be used in a vectorized manner:</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span class="z-l-9 z-d-16">c</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">DontStep</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">on-Snek</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; &quot;on_snek&quot;  </span></span></code></pre>
 <p>But can it handle a missing value out of the box?</p>
-<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span class="z-l-9 z-d-16">c</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">DontStep</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-2 z-d-4"> NA_character_</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">on-Snek</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; NA          &quot;on_snek&quot;  </span></span></code></pre>
-<p>Well, sort of. The <code>as_str()</code> method when used on a missing value will return
+<pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span class="z-l-9 z-d-16">c</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">DontStep</span><span class="z-l-12 z-d-13">&quot;</span><span>,</span><span class="z-l-2 z-d-4"> NA_character_</span><span>,</span><span class="z-l-12 z-d-13"> &quot;</span><span class="z-l-12 z-d-13">on-Snek</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;dont_step&quot; &quot;na&quot;        &quot;on_snek&quot;  </span></span></code></pre>
+<p>Well, sort of. The <code>as_ref()</code> method when used on a missing value will return
 <code>"NA"</code> which is not in a user’s best interest.</p>
 <h2 id="handling-missing-values">Handling missing values</h2>
 <p>Instead of returning <code>"na"</code>, it would be better to return an <em>actual</em> missing
@@ -580,7 +586,7 @@ the other <code>false</code> arm must <em>also</em> be an <code>Rstr</code>. To 
 <span class="giallo-l"><span class="z-l-3 z-d-9">    x</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span class="z-l-3 z-d-9">xi</span><span>|</span><span class="z-l-13 z-d-11"> match</span><span class="z-l-3 z-d-9"> xi</span><span>.</span><span class="z-l-9 z-d-16">is_na</span><span>(</span><span>)</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">            true</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">na</span><span>(</span><span>)</span><span>,</span></span>
-<span class="giallo-l"><span class="z-l-2 z-d-4">            false</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">xi</span><span>.</span><span class="z-l-9 z-d-16">as_str</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">            false</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">xi</span><span>.</span><span class="z-l-9 z-d-16">as_ref</span><span>(</span><span>)</span><span>.</span><span class="z-l-9 z-d-16">to_snek_case</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
 <span class="giallo-l"><span>        }</span><span>)</span></span>
 <span class="giallo-l"><span>        .</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
@@ -601,15 +607,15 @@ identifier which has a placeholder called <code>$fn_name</code>: <code>$fn_name:
 <span class="giallo-l"><span class="z-l-3 z-d-9">            x</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>                .</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span class="z-l-3 z-d-9">xi</span><span>|</span><span class="z-l-13 z-d-11"> match</span><span class="z-l-3 z-d-9"> xi</span><span>.</span><span class="z-l-9 z-d-16">is_na</span><span>(</span><span>)</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">                    true</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">na</span><span>(</span><span>)</span><span>,</span></span>
-<span class="giallo-l"><span class="z-l-2 z-d-4">                    false</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">xi</span><span>.</span><span class="z-l-9 z-d-16">as_str</span><span>(</span><span>)</span><span>.</span><span>$</span><span class="z-l-9 z-d-16">fn_name</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">                    false</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">xi</span><span>.</span><span class="z-l-9 z-d-16">as_ref</span><span>(</span><span>)</span><span>.</span><span>$</span><span class="z-l-9 z-d-16">fn_name</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
 <span class="giallo-l"><span>                }</span><span>)</span></span>
 <span class="giallo-l"><span>                .</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>        }</span></span>
 <span class="giallo-l"><span>    }</span><span>;</span></span>
 <span class="giallo-l"><span>}</span></span></code></pre>
 <p>The <code>$fn_name</code> placeholder is put as the function name definition which is the
-same as the method name. To use this macro to generate the rest of the functions
-the other traits need to be imported.</p>
+same as the method name. To use this macro to generate the rest of the
+functions, the other traits need to be imported.</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> heck</span><span>::</span><span>{</span></span>
 <span class="giallo-l"><span class="z-l-8 z-d-2">    ToKebabCase</span><span>,</span><span class="z-l-8 z-d-2"> ToShoutyKebabCase</span><span>,</span></span>
 <span class="giallo-l"><span class="z-l-8 z-d-2">    ToSnekCase</span><span>,</span><span class="z-l-8 z-d-2"> ToShoutySnakeCase</span><span>,</span></span>
@@ -627,8 +633,8 @@ functions.</p>
 <span class="giallo-l"><span class="z-l-9 z-d-16">make_heck_fn!</span><span>(</span><span class="z-l-3 z-d-9">to_train_case</span><span>)</span><span>;</span></span>
 <span class="giallo-l"><span class="z-l-9 z-d-16">make_heck_fn!</span><span>(</span><span class="z-l-3 z-d-9">to_title_case</span><span>)</span><span>;</span></span></code></pre>
 <p>Note that each of these functions should be added to the <code>extendr_module! {}</code>
-macro in order for them to be available from R.</p>
-<p>Test it out with the <code>to_shouty_kebab_case()</code> function!</p>
+macro in order for them to be available from R. But once you do, you can
+document and load the R package, and test one of your new functions!</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="r"><span class="giallo-l"><span class="z-l-9 z-d-16">to_shouty_kebab_case</span><span>(</span><span class="z-l-12 z-d-13">&quot;</span><span class="z-l-12 z-d-13">lorem:IpsumDolor__sit^amet</span><span class="z-l-12 z-d-13">&quot;</span><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span>[1] &quot;LOREM-IPSUM-DOLOR-SIT-AMET&quot;</span></span></code></pre>
 <p>And with that, you’ve created an R package that provides case conversion using
 heck, and you’ve done it with just a few lines of code!</p>
@@ -652,8 +658,8 @@ heck, and you’ve done it with just a few lines of code!</p>
 <span class="giallo-l"><span>)</span></span></code></pre><pre class="giallo z-l-code z-d-code" ><code data-lang="plain"><span class="giallo-l"><span># A tibble: 2 × 6</span></span>
 <span class="giallo-l"><span>  expression   min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span class="giallo-l"><span>  &lt;bch:expr&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span class="giallo-l"><span>1 rust         1      1        18.9       1        NaN</span></span>
-<span class="giallo-l"><span>2 snakecase   20.2   19.5       1        79.8      Inf</span></span></code></pre><div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
+<span class="giallo-l"><span>1 rust         1      1        23.1       1        NaN</span></span>
+<span class="giallo-l"><span>2 snakecase   24.5   24.7       1        61.9      Inf</span></span></code></pre><div class="px-4 py-3 my-6 border border-border border-l-4 border-l-primary bg-card text-card-foreground"
      role="note" aria-label="Note">
     <header class="flex items-center gap-3 m-0"><span class="iconify lucide--info size-5 shrink-0 text-primary"></span><h2 class="font-sans font-semibold text-base m-0 p-0 border-none">Note</h2>
     </header>
@@ -663,13 +669,15 @@ See <a rel="external" href="https://bench.r-lib.org/reference/mark.html#value">b
 documentation for more information.</section>
 </div>
 <h2 id="the-whole-thing">The whole thing</h2>
-<p>In just 42 lines of code (empty lines included), you can create a very
+<p>In just 44 lines of code (empty lines included), you can create a very
 performant R package!</p>
 <pre class="giallo z-l-code z-d-code" ><code data-lang="rust"><span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> extendr_api</span><span>::</span><span class="z-l-8 z-d-2">prelude</span><span>::</span><span>*</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">use</span><span class="z-l-8 z-d-2"> heck</span><span>::</span><span>{</span></span>
-<span class="giallo-l"><span class="z-l-8 z-d-2">    ToKebabCase</span><span>,</span><span class="z-l-8 z-d-2"> ToPascalCase</span><span>,</span><span class="z-l-8 z-d-2"> ToShoutyKebabCase</span><span>,</span><span class="z-l-8 z-d-2"> ToShoutySnakeCase</span><span>,</span><span class="z-l-8 z-d-2"> ToSnekCase</span><span>,</span><span class="z-l-8 z-d-2"> ToTitleCase</span><span>,</span></span>
-<span class="giallo-l"><span class="z-l-8 z-d-2">    ToTrainCase</span><span>,</span><span class="z-l-8 z-d-2"> ToUpperCamelCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    ToKebabCase</span><span>,</span><span class="z-l-8 z-d-2"> ToShoutyKebabCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    ToSnekCase</span><span>,</span><span class="z-l-8 z-d-2"> ToShoutySnakeCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    ToPascalCase</span><span>,</span><span class="z-l-8 z-d-2"> ToUpperCamelCase</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-8 z-d-2">    ToTrainCase</span><span>,</span><span class="z-l-8 z-d-2"> ToTitleCase</span><span>,</span></span>
 <span class="giallo-l"><span>}</span><span>;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span class="z-l-9 z-d-16">macro_rules!</span><span class="z-l-9 z-d-16"> make_heck_fn</span><span> {</span></span>
@@ -680,7 +688,7 @@ performant R package!</p>
 <span class="giallo-l"><span class="z-l-3 z-d-9">            x</span><span>.</span><span class="z-l-9 z-d-16">into_iter</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>                .</span><span class="z-l-9 z-d-16">map</span><span>(</span><span>|</span><span class="z-l-3 z-d-9">xi</span><span>|</span><span class="z-l-13 z-d-11"> match</span><span class="z-l-3 z-d-9"> xi</span><span>.</span><span class="z-l-9 z-d-16">is_na</span><span>(</span><span>)</span><span> {</span></span>
 <span class="giallo-l"><span class="z-l-2 z-d-4">                    true</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">na</span><span>(</span><span>)</span><span>,</span></span>
-<span class="giallo-l"><span class="z-l-2 z-d-4">                    false</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">xi</span><span>.</span><span class="z-l-9 z-d-16">as_str</span><span>(</span><span>)</span><span>.</span><span>$</span><span class="z-l-9 z-d-16">fn_name</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
+<span class="giallo-l"><span class="z-l-2 z-d-4">                    false</span><span> =&gt;</span><span class="z-l-8 z-d-2"> Rstr</span><span>::</span><span class="z-l-9 z-d-16">from</span><span>(</span><span class="z-l-3 z-d-9">xi</span><span>.</span><span class="z-l-9 z-d-16">as_ref</span><span>(</span><span>)</span><span>.</span><span>$</span><span class="z-l-9 z-d-16">fn_name</span><span>(</span><span>)</span><span>)</span><span>,</span></span>
 <span class="giallo-l"><span>                }</span><span>)</span></span>
 <span class="giallo-l"><span>                .</span><span class="z-l-9 z-d-16">collect</span><span>::</span><span>&lt;</span><span class="z-l-8 z-d-2">Strings</span><span>&gt;</span><span>(</span><span>)</span></span>
 <span class="giallo-l"><span>        }</span></span>
