@@ -17,6 +17,9 @@ execute:
 knitr:
   opts_chunk:
     class-output: output
+    class-error: output
+    class-warning: output
+    class-message: output
 
 filters:
   - path: _extensions/image/image.lua
