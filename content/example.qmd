@@ -6,8 +6,9 @@ weight: 2
 
 ```{r}
 #| label: setup
-#| include: false
-library(heck)
+#| include: FALSE
+library(rextendr)
+knitr::opts_chunk$set(engine.opts = list(dependencies = list(heck = "0.5.0")))
 ```
 
 The Rust crate ecosystem is rich with very small and very powerful utility
@@ -23,9 +24,7 @@ package will be more performant but less flexible than the  R package
 
 The first thing we need to do is create a new R package:
 
-```{r}
-#| label: create-package
-#| eval: false
+```r
 usethis::create_package("heck")
 ```
 
@@ -33,9 +32,7 @@ Once we have the basic R package setup, then we need to add the necessary
 `extendr` scaffolding that will link our Rust code to R and ensure the package
 builds properly.
 
-```{r}
-#| label: use-extendr
-#| eval: false
+```r
 rextendr::use_extendr(crate_name = "rheck", lib_name = "rheck")
 ```
 
@@ -48,9 +45,7 @@ library `rheck`, which allows us to name the R package `{heck}`.
 
 Next, `heck` is needed as a dependency. The easiest way to do that is to call
 
-```{r}
-#| label: use-crate
-#| eval: false
+```r
 rextendr::use_crate("heck")
 ```
 
@@ -59,67 +54,78 @@ run `cargo add heck`. With this, you have everything you need to get started.
 
 ## Scalar snek case conversion
 
-```{.rust}
+Let's start by creating a simple function to take a single string, and convert
+it to snake case. First, the trait `ToSnekCase` needs to be imported so that the
+method `to_snek_case()` is available to `&str`. This is achieved with the `use`
+declaration. Note that we do not declare `use extendr_api` here because that is 
+done automatically by the rust engine for knitr.
+
+```{extendrsrc use_heck, eval=FALSE}
 use heck::ToSnekCase;
 ```
 
-Let's start by creating a simple function to take a single string, and convert
-it to snake case. First, the trait `ToSnekCase` needs to be imported so that the
-method `to_snek_case()` is available to `&str`.
+Now we can write our wrapper around the heck trait.
 
-```{.rust}
-use heck::ToSnekCase;
-
+```{extendrsrc to_snek, preamble="use_heck"}
 #[extendr]
 fn to_snek_case(x: &str) -> String {
     x.to_snek_case()
 }
 ```
 
-Simple enough, right? Let's give it a shot. To make it accessible from your R
-session, it needs to be included in your `extendr_module! {}` macro.
+To make the function accessible from your R session, it needs to be included in 
+your `extendr_module! {}` macro, so your entire `lib.rs` should look like this.
 
 ``` rust
+use extendr_api::prelude::*;
+use heck::ToSnekCase;
+
+#[extendr]
+fn to_snek_case(x: &str) -> String {
+    x.to_snek_case()
+}
+
 extendr_module! {
     mod heck;
     fn to_snek_case;
 }
 ```
 
-From your R session, run `devtools::document()` followed by 
-`devtools::load_all()` to make the function available. 
+Run `devtools::document()` and `devtools::load_all()` to make the function 
+available in R.
 
-```{r}
+```{r to_snek_r}
 to_snek_case("MakeMe-Snake case")
 ```
 
-Rarely is it useful to run a function on just a scalar character value. Rust,
-though, works with scalars by default and adding vectorization is another step.
+Rarely is it useful to run a function on just a scalar character value. Rust, 
+though, works with scalars by default and adding vectorization is another step. 
+If you try to provide a character vector now, it will throw an error. 
 
-```{r, error = TRUE}
+```{r to_snek_error, error=TRUE}
 to_snek_case(c("DontStep", "on-Snek"))
 ```
 
-Providing a character vector causes an error. So how do you go about
-vectorizing?
+So how do you go about vectorizing?
 
 ## Vectorizing snek case conversion
 
 To vectorize this function, you need to apply the conversion to each element in 
-a character vector. The extendr wrapper struct for a character vector is called 
+the vector. The extendr wrapper struct for a character vector is called 
 `Strings`. To take in a character vector and also return one, the function 
 signature should look like this:
 
 ``` rust
 #[extendr]
 fn to_snek_case(x: Strings) -> Strings {
+    todo!()
 }
 ```
 
-This says there is an argument `x` which must be a character vector and this
-function must also return the `Strings` (a character vector). The return type is
-signaled by `->`. To iterate through this you can use the `.into_iter()` method 
-on the character vector.
+This says the function takes a character vector or `Strings` as input and also 
+returns a character vector or `Strings` as output. The return type is signaled 
+by `->`. To iterate through this you can use the `.into_iter()` method  on the 
+character vector.
 
 ``` rust
 #[extendr]
@@ -131,36 +137,31 @@ fn to_snek_case(x: Strings) -> Strings {
 
 Iterators have a method called `.map()` (yes, just like `purrr::map()`). It lets
 you apply a closure (an anonymous function) to each element of the iterator. In
-this case, each element is an
-[`Rstr`](https://extendr.github.io/extendr/extendr_api/wrapper/rstr/struct.Rstr.html).
-The `Rstr` has a method `.as_str()` which will return a string slice `&str`. You
-can take this slice and pass it on to `.to_snek_case()`. After having mapped
-over each element, the results are `.collect()`ed into another `Strings`.
+this case, each element is an [`Rstr`](https://extendr.github.io/extendr/extendr_api/wrapper/rstr/struct.Rstr.html). The `Rstr` implements `.as_ref()` from the standard library, which 
+returns a string slice `&str`. You can take this slice and pass it on to 
+`.to_snek_case()`. After having mapped over each element, the results are 
+`.collect()`ed into another `Strings`.
 
-```{.rust}
+```{extendrsrc to_snek_vec, preamble="use_heck"}
 #[extendr]
 fn to_snek_case(x: Strings) -> Strings {
-    x.into_iter()
-        .map(|xi| {
-            xi.as_str().to_snek_case()
-        })
-        .collect::<Strings>()
+    x.into_iter().map(|xi| { xi.as_ref().to_snek_case() }).collect::<Strings>()
 }
 ```
 
 This new version of the function can be used in a vectorized manner:
 
-```{r}
+```{r to_snek_vec_example}
 to_snek_case(c("DontStep", "on-Snek"))
 ```
 
 But can it handle a missing value out of the box?
 
-```{r}
+```{r to_snek_missing}
 to_snek_case(c("DontStep", NA_character_, "on-Snek"))
 ```
 
-Well, sort of. The `as_str()` method when used on a missing value will return
+Well, sort of. The `as_ref()` method when used on a missing value will return
 `"NA"` which is not in a user's best interest.
 
 ## Handling missing values
@@ -177,13 +178,13 @@ the `Rstr` is converted to snek case. However, since the `true` arm is an `Rstr`
 the other `false` arm must *also* be an `Rstr`. To accomplish this use the
 `Rstr::from()` method.
 
-```{.rust}
+```{extendrsrc to_snek_na, preamble="use_heck", engine.opts = list(dependencies = list(heck = "0.5.0"), profile = "release")}
 #[extendr]
 fn to_snek_case(x: Strings) -> Strings {
     x.into_iter()
         .map(|xi| match xi.is_na() {
             true => Rstr::na(),
-            false => Rstr::from(xi.as_str().to_snek_case()),
+            false => Rstr::from(xi.as_ref().to_snek_case()),
         })
         .collect::<Strings>()
 }
@@ -205,7 +206,7 @@ call multiple times, *or* you can use a macro as a form of code generation. A
 macro allows you to generate code in a short hand manner. This macro takes an
 identifier which has a placeholder called `$fn_name`: `$fn_name:ident`.
 
-``` rust
+```{extendrsrc heck_macro, eval=FALSE}
 macro_rules! make_heck_fn {
     ($fn_name:ident) => {
         /// @export
@@ -214,7 +215,7 @@ macro_rules! make_heck_fn {
             x.into_iter()
                 .map(|xi| match xi.is_na() {
                     true => Rstr::na(),
-                    false => Rstr::from(xi.as_str().$fn_name()),
+                    false => Rstr::from(xi.as_ref().$fn_name()),
                 })
                 .collect::<Strings>()
         }
@@ -223,10 +224,10 @@ macro_rules! make_heck_fn {
 ```
 
 The `$fn_name` placeholder is put as the function name definition which is the
-same as the method name. To use this macro to generate the rest of the functions
-the other traits need to be imported.
+same as the method name. To use this macro to generate the rest of the 
+functions, the other traits need to be imported.
 
-```{.rust}
+```{extendrsrc use_heck_traits, eval=FALSE}
 use heck::{
     ToKebabCase, ToShoutyKebabCase,
     ToSnekCase, ToShoutySnakeCase,
@@ -238,7 +239,7 @@ use heck::{
 With the traits in scope, the macro can be invoked to generate the other
 functions.
 
-``` rust
+```{extendrsrc heck_macro_calls, eval=FALSE}
 make_heck_fn!(to_snek_case);
 make_heck_fn!(to_shouty_snake_case);
 make_heck_fn!(to_kebab_case);
@@ -249,10 +250,21 @@ make_heck_fn!(to_train_case);
 make_heck_fn!(to_title_case);
 ```
 
-Note that each of these functions should be added to the `extendr_module! {}`
-macro in order for them to be available from R.
+```{extendrsrc to_shouty, preamble = "use_heck_traits", include = FALSE}
+#[extendr]
+fn to_shouty_kebab_case(x: Strings) -> Strings {
+    x.into_iter()
+        .map(|xi| match xi.is_na() {
+            true => Rstr::na(),
+            false => Rstr::from(xi.as_str().to_shouty_kebab_case()),
+        })
+        .collect::<Strings>()
+}
+```
 
-Test it out with the `to_shouty_kebab_case()` function!
+Note that each of these functions should be added to the `extendr_module! {}`
+macro in order for them to be available from R. But once you do, you can 
+document and load the R package, and test one of your new functions!
 
 ```{r}
 to_shouty_kebab_case("lorem:IpsumDolor__sit^amet")
@@ -291,15 +303,17 @@ documentation for more information.
 
 ## The whole thing
 
-In just 42 lines of code (empty lines included), you can create a very
+In just 44 lines of code (empty lines included), you can create a very
 performant R package!
 
 ``` rust
 use extendr_api::prelude::*;
 
 use heck::{
-    ToKebabCase, ToPascalCase, ToShoutyKebabCase, ToShoutySnakeCase, ToSnekCase, ToTitleCase,
-    ToTrainCase, ToUpperCamelCase,
+    ToKebabCase, ToShoutyKebabCase,
+    ToSnekCase, ToShoutySnakeCase,
+    ToPascalCase, ToUpperCamelCase,
+    ToTrainCase, ToTitleCase,
 };
 
 macro_rules! make_heck_fn {
@@ -310,7 +324,7 @@ macro_rules! make_heck_fn {
             x.into_iter()
                 .map(|xi| match xi.is_na() {
                     true => Rstr::na(),
-                    false => Rstr::from(xi.as_str().$fn_name()),
+                    false => Rstr::from(xi.as_ref().$fn_name()),
                 })
                 .collect::<Strings>()
         }
