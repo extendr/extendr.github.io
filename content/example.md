@@ -67,11 +67,8 @@ fn to_snek_case(x: &str) -> String {
 }
 ```
 
-In this case, the free function and the trait method both have the same name,
-but it is not a namespace collision since the latter is scoped to the type. At
-any rate, to make the function accessible from your R session, it needs to be
-included in your `extendr_module! {}` macro, so your entire `lib.rs` should look
-like this.
+To make the function accessible from your R session, it needs to be included in
+your `extendr_module! {}` macro, so your entire `lib.rs` should look like this.
 
 ``` rust
 use extendr_api::prelude::*;
@@ -88,8 +85,8 @@ extendr_module! {
 }
 ```
 
-Now, you can run `devtools::document()` and `devtools::load_all()` to make the
-function available in R.
+Run `devtools::document()` and `devtools::load_all()` to make the function
+available in R.
 
 ``` r
 to_snek_case("MakeMe-Snake case")
@@ -99,10 +96,9 @@ to_snek_case("MakeMe-Snake case")
 [1] "make_me_snake_case"
 ```
 
-Of course, it is rarely useful to run a function on just a scalar character
-value. Rust, though, works with scalars by default and adding vectorization is
-another step. If you try to provide a character vector now, it will throw an
-error.
+Rarely is it useful to run a function on just a scalar character value. Rust,
+though, works with scalars by default and adding vectorization is another step.
+If you try to provide a character vector now, it will throw an error.
 
 ``` r
 to_snek_case(c("DontStep", "on-Snek"))
@@ -124,7 +120,9 @@ signature should look like this:
 
 ``` rust
 #[extendr]
-fn to_snek_case(x: Strings) -> Strings
+fn to_snek_case(x: Strings) -> Strings {
+    todo!()
+}
 ```
 
 This says the function takes a character vector or `Strings` as input and also
@@ -318,8 +316,8 @@ bench::mark(
 # A tibble: 2 × 6
   expression   min median `itr/sec` mem_alloc `gc/sec`
   <bch:expr> <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-1 rust        1      1         2.39       1        NaN
-2 snakecase   2.40   2.37      1         61.9      Inf
+1 rust         1      1        23.1       1        NaN
+2 snakecase   24.5   24.7       1        61.9      Inf
 ```
 
 {% <callout> %}
