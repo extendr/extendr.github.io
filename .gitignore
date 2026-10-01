@@ -9,11 +9,6 @@ Cargo.lock
 .Rproj.user/
 *.Rproj
 
-# quarto
-/content/.quarto/
-**/*.quarto_ipynb
-.luarc.json
-
 # zola
 /public/
 /static/giallo-*.css

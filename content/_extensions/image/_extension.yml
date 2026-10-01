@@ -1,6 +1,0 @@
-title: Image to HTML
-author: local
-version: 1.0.0
-contributes:
-  filters:
-    - image-html.lua
