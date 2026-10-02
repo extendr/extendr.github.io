@@ -18,10 +18,6 @@
 }
 
 /* custom properties for theme */
-.badge,
-.badge-primary,
-.badge-secondary,
-.badge-destructive,
-.badge-outline {
+.badge {
     border-radius: 0;
 }

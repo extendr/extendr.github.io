@@ -8,7 +8,7 @@
         "@iconify/json": "^2.2.448",
         "@iconify/tailwind4": "^1.2.3",
         "@tailwindcss/cli": "^4.2.0",
-        "basecoat-css": "^0.3.5",
+        "basecoat-css": "^1.0.2",
         "tailwindcss": "^4.2.0",
       },
     },
@@ -96,7 +96,7 @@
 
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.3.3", "", { "os": "win32", "cpu": "x64" }, "sha512-yJ0pwIVc/nYeGoV02WtsN8KYyLQv7kyI2wDnkezyJlGGjkd4QLwDGAwl47YpPJeuI0M0ObaXGSPjvWDPeTPggw=="],
 
-    "basecoat-css": ["basecoat-css@0.3.11", "", {}, "sha512-cU91Egcg9AhKJ1HswpKFItHC//FWDt1T8AlL5Yk9Fh5I2WYe+QhN3MtiVJ2vemqFF4iAM1vfbikhhjc+vkr2zA=="],
+    "basecoat-css": ["basecoat-css@1.0.2", "", {}, "sha512-C6I5rr7HziIAoBYNGPO5U6HaU/6FuF3iVp++IgoEqqJ836is3XoRty6l1ibXqxnoIRZNnOAYDMX8QxVC+58zhw=="],
 
     "boolbase": ["boolbase@1.0.0", "", {}, "sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww=="],
 

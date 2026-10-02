@@ -55,12 +55,12 @@ required to setup or scaffold your project, allowing you to focus on the
 important business of writing Rust and R code.
 
 <div class="w-fit mx-auto my-4 md:my-8 flex flex-row items-center gap-2">
-  <a href="https://extendr.github.io/extendr/extendr_api/" class="bc btn-lg-outline h-auto p-2 md:p-4 font-mono md:text-[1.5em]">
+  <a href="https://extendr.github.io/extendr/extendr_api/" class="bc btn h-auto p-2 md:p-4 font-mono md:text-[1.5em]" data-size="lg" data-variant="outline">
     <span class="iconify mdi--language-rust"></span>
     extendr-api
   </a>
   <p class="text-gray-600 dark:text-gray-300 m-0 md:text-[1.5em]">&harr;</p>
-  <a href="https://extendr.github.io/rextendr/" class="bc btn-lg-outline h-auto p-2 md:p-4 font-mono md:text-[1.5em]">
+  <a href="https://extendr.github.io/rextendr/" class="bc btn h-auto p-2 md:p-4 font-mono md:text-[1.5em]" data-size="lg" data-variant="outline">
     rextendr
     <span class="iconify mdi--language-r"></span>
   </a>
