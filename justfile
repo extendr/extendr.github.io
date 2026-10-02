@@ -41,74 +41,14 @@ basecoat:
     mkdir -p static/js/
     cp node_modules/basecoat-css/dist/js/*.min.js static/js/
 
-# Create a new documentation page at content/{{path}}.qmd
+# Create a new documentation page at r-markdown/{{path}}.qmd
 page path:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    if [ -f "content/{{ path }}.qmd" ]; then
-    	@echo "Error: content/{{ path }}.qmd already exists."
-    	exit 1
-    fi
-    cat > "content/{{ path }}.qmd" <<-EOF
-    ---
-    title:
-    description: ""
-    weight: 0
-    extra:
-      short_title:
-    ---
-    EOF
-    @echo "Created content/{{ path }}.qmd"
+    Rscript r-markdown/_scripts/page.R {{ path }}
 
-# Create a new blog post at content/blog/{{title}}/index.qmd
+# Create a new blog post at r-markdown/blog/{{title}}/index.qmd
 post title:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    date=$(date +%Y-%m-%d)
-    dir="content/blog/${date}-{{ title }}"
-    mkdir -p "$dir"
-    cat > "$dir/index.qmd" <<-EOF
-    ---
-    title: {{ title }}
-    date: "$date"
-    authors: []
-    taxonomies:
-      tags: []
-    ---
-    EOF
-    @echo "Created $dir/index.qmd"
+    Rscript r-markdown/_scripts/post.R {{ title }}
 
-# Render a documentation page at content/{{path}}.qmd
-render-page path: (render-one path)
-
-# Render a blog post at content/blog/{{title}}/index.qmd
-render-post title: (render-one ("blog" / title / "index"))
-
-[private]
-render-one path:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd content
-    if [ -f "{{ path }}.qmd" ]; then
-    	rm -f "{{ path }}.md"
-    	quarto render "{{ path }}.qmd" {{ quarto_out + " " + quarto_flags }}
-    else
-    	@echo "Error: Could not find content/{{ path }}.qmd."
-    	exit 1
-    fi
-
-# Render all pages in content/ recursively (ignores blog/)
-render:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    shopt -s globstar nullglob
-    cd content
-    for page in **/*.qmd; do
-    	[[ "$page" == blog/* ]] && continue
-    	rm -f "${page%.qmd}.md"
-    	quarto render "$page" {{ quarto_out + " " + quarto_flags }}
-    done
-    @echo "Successfully rendered all documentation pages."
-
-quarto_out := "--to commonmark+yaml_metadata_block"
-quarto_flags := "-M engine:knitr -M wrap:preserve -M from:markdown-smart"
+# Render page or project in r-markdown/ (ignores r-markdown/blog/ when rendering project)
+render path=".":
+    Rscript r-markdown/_scripts/knitr.R {{ path }}

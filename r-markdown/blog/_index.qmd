@@ -1,0 +1,6 @@
+---
+title: "extendr Blog"
+description: "News and tips from the extendr community."
+sort_by: "date"
+template: "blog-list.html"
+---
