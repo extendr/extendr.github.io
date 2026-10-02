@@ -140,7 +140,7 @@
 
 <nav aria-label="Sidebar navigation">
     <header class="font-mono">
-        <a href="/" class="btn-ghost p-2 h-12 w-full justify-start text-xl items-baseline">
+        <a href="/" class="btn p-2 h-12 w-full justify-start text-xl items-baseline" data-variant="ghost">
             extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
         </a>
     </header>
@@ -436,7 +436,7 @@
                 <div class="flex h-14 w-full items-center gap-2 px-4">
     <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))"
             aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
-            data-side="bottom" data-align="start" class="btn-sm-icon-ghost mr-auto size-7 -ml-1.5">
+            data-side="bottom" data-align="start" class="btn mr-auto size-7 -ml-1.5" data-size="icon-sm" data-variant="ghost">
         <span class="iconify lucide--sidebar"></span>
     </button>
     <div class="relative">
@@ -445,16 +445,16 @@
         <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
     </div>
     <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
-            onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn-icon-outline size-8">
+            onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn size-8" data-size="icon" data-variant="outline">
         <span class="iconify lucide--sun hidden dark:block"></span>
         <span class="iconify lucide--moon block dark:hidden"></span>
     </button>
-    <a href="https://github.com/extendr/extendr" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://github.com/extendr/extendr" class="btn size-8" data-size="icon" data-variant="outline" target="_blank" rel="noopener noreferrer"
        data-tooltip="GitHub repository"
        data-side="bottom" data-align="end" aria-label="Link to GitHub repository">
         <span class="iconify mdi--github"></span>
     </a>
-    <a href="https://discord.gg/7hmApuc" class="btn-icon-outline size-8" target="_blank" rel="noopener noreferrer"
+    <a href="https://discord.gg/7hmApuc" class="btn size-8" data-size="icon" data-variant="outline" target="_blank" rel="noopener noreferrer"
        data-tooltip="Discord channel"
        data-side="bottom" data-align="end" aria-label="Link to Discord channel">
         <span class="iconify fa7-brands--discord text-xs"></span>
@@ -492,7 +492,7 @@
             
         </div>
         <div class="mt-6">
-            <a href="https://extendr.rs/introduction/" class="btn-sm px-2 font-mono uppercase">
+            <a href="https://extendr.rs/introduction/" class="btn px-2 font-mono uppercase" data-size="sm">
                 Get Started
                 <span class="iconify lucide--arrow-big-right"></span>
             </a>
