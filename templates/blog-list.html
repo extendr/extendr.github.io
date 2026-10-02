@@ -32,7 +32,7 @@
                             aria-haspopup="menu"
                             aria-controls="filter-dropdown-menu"
                             aria-expanded="false"
-                            class="btn-outline flex items-center gap-2 h-8">
+                            class="btn flex items-center gap-2 h-8" data-variant="outline">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              width="1em"
                              height="1em"
@@ -99,7 +99,7 @@
                     {% if page.taxonomies.tags %}
                     <div class="flex items-center gap-2 flex-wrap mt-2">
                         {% for tag in page.taxonomies.tags %}
-                        <span class="badge-outline flex items-center gap-1">{{ tag }}</span>
+                        <span class="badge flex items-center gap-1" data-variant="outline">{{ tag }}</span>
                         {% endfor %}
                     </div>
                     {% endif %}
