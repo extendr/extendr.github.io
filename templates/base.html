@@ -133,8 +133,9 @@
         {% block head %}{% endblock %}
     </head>
     <body>
-        <aside class="sidebar block"
+        <aside class="sidebar"
                data-side="left"
+               {% if current_path == "/" %}data-initial-open="false" aria-hidden="true" inert{% endif %}
                aria-label="Main navigation">
             {% include "sidebar.html" %}
         </aside>
