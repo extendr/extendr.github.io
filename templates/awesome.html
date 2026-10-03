@@ -67,7 +67,7 @@ format="csv") %}
             {% set desc = row[3] %}
             {% set url = row[4] %}
             {% set count = row[5] %}
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="{% if url and url != 'NA' %}{{ url }}{% endif %}"
                target="{% if url and url != 'NA' %}_blank{% endif %}"
                rel="{% if url and url != 'NA' %}noopener noreferrer{% endif %}"

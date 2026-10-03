@@ -23,62 +23,61 @@ html:not(.dark) .giallo {
     @apply border border-border text-[0.9rem];
 }
 
-.content {
-    .giallo {
-        position: relative;
-        overflow-x: auto;
-        margin: 1em 0;
+
+.giallo {
+    position: relative;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    opacity: 0;
+    cursor: pointer;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    line-height: 0;
+    transition: opacity 150ms, background-color 150ms;
+}
+
+.copy-btn:hover {
+    @apply bg-gray-200 dark:bg-gray-700;
+}
+
+pre.giallo:hover .copy-btn,
+.copy-btn:focus-visible {
+    opacity: 1;
+}
+
+.copy-btn[data-copied] {
+    opacity: 1;
+    @apply text-primary;
+}
+
+:not(pre)>code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-[0.9em] font-semibold;
+}
+
+.code-with-filename {
+    p>strong:before {
+        content: "FILE: ";
+        @apply font-mono text-sm;
     }
 
-    .copy-btn {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.25rem;
-        border-radius: 0.25rem;
-        opacity: 0;
-        cursor: pointer;
-        color: inherit;
-        background: transparent;
-        border: 0;
-        line-height: 0;
-        transition: opacity 150ms, background-color 150ms;
+    p>strong {
+        @apply font-mono font-normal text-muted-foreground;
     }
 
-    .copy-btn:hover {
-        @apply bg-gray-200 dark:bg-gray-700;
+    p {
+        @apply mb-0;
     }
 
-    pre.giallo:hover .copy-btn,
-    .copy-btn:focus-visible {
-        opacity: 1;
-    }
-
-    .copy-btn[data-copied] {
-        opacity: 1;
-        @apply text-primary;
-    }
-
-    :not(pre)>code {
-        @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-[0.9em] font-semibold;
-    }
-
-    .code-with-filename {
-        p>strong:before {
-            content: "FILE: ";
-            @apply font-mono text-sm;
-        }
-
-        p>strong {
-            @apply font-mono font-normal text-muted-foreground;
-        }
-
-        p {
-            @apply mb-0;
-        }
-
-        pre.giallo {
-            @apply mt-0;
-        }
+    pre.giallo {
+        @apply mt-0;
     }
 }
