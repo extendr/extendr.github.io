@@ -3,8 +3,7 @@
       class="dark">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}{{ config.title }}{% endblock %}</title>
 
         <!-- Tailwind + Basecoat CSS -->
@@ -22,12 +21,8 @@
         </script>
 
         <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
-        <link rel="stylesheet"
-              href="{{ get_url(path='giallo-light.css') }}"
-              id="giallo-light" />
-        <link rel="stylesheet"
-              href="{{ get_url(path='giallo-dark.css') }}"
-              id="giallo-dark" />
+        <link rel="stylesheet" href="{{ get_url(path='giallo-light.css') }}" id="giallo-light" />
+        <link rel="stylesheet" href="{{ get_url(path='giallo-dark.css') }}" id="giallo-dark" />
 
         <!-- Toggle syntax highlighting -->
         <script defer>
@@ -64,45 +59,16 @@
         </script>
 
         <!-- Basecoat ui functionality -->
-        <script src="{{ get_url(path='js/basecoat.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/dropdown-menu.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/sidebar.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/popover.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/tabs.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/accordion.js') }}"
-                defer></script>
+        <script src="{{ get_url(path='js/basecoat.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/dropdown-menu.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/sidebar.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/popover.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/tabs.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/accordion.js') }}" defer></script>
         <script>window.SEARCH_INDEX_URL = "{{ get_url(path='search_index.en.json') }}";</script>
-        <script src="{{ get_url(path='js/search.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/filter-list.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/copy.js') }}"
-                defer></script>
-
-        <script>
-            (() => {
-                const themeSelect = document.getElementById('theme-select');
-                const storedTheme = localStorage.getItem('themeVariant');
-                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
-                themeSelect.addEventListener('change', () => {
-                    const newTheme = themeSelect.value;
-                    document.documentElement.classList.forEach(c => {
-                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
-                    });
-                    if (newTheme) {
-                        document.documentElement.classList.add(`theme-${newTheme}`);
-                        localStorage.setItem('themeVariant', newTheme);
-                    } else {
-                        localStorage.removeItem('themeVariant');
-                    }
-                });
-            })();
-        </script>
+        <script src="{{ get_url(path='js/search.js') }}" defer></script>
+        <script src="{{ get_url(path='js/filter-list.js') }}" defer></script>
+        <script src="{{ get_url(path='js/copy.js') }}" defer></script>
 
         <script>
             (() => {
@@ -133,12 +99,43 @@
         {% block head %}{% endblock %}
     </head>
     <body>
-        <aside class="sidebar"
-               data-side="left"
-               {% if current_path == "/" %}data-initial-open="false" aria-hidden="true" inert{% endif %}
-               aria-label="Main navigation">
-            {% include "sidebar.html" %}
-        </aside>
+        {% set header %}
+        <a href="/" class="btn p-2 h-12 w-full justify-start text-xl items-baseline font-mono" data-variant="ghost">
+            extendr <span class="text-sm text-muted-foreground">v{{ config.extra.version.extendr }}</span>
+        </a>
+        {% endset %}
+        {%- set initial_open = current_path != "/" %}
+        {%<sidebar header={header} initial_open={initial_open}>%}
+            {%<sidebar_group title="Getting started"> %}
+                {{<sidebar_item label="Introduction" href="@/introduction.md" icon="lucide--info"/>}}
+                {{<sidebar_item label="Installation" href="@/installation.md" icon="lucide--terminal"/>}}
+                {{<sidebar_item label="Example" href="@/example.md" icon="lucide--package"/>}}
+            {%</sidebar_group>%}
+            {%<sidebar_group title="API Reference">%}
+                {{<sidebar_item label="extendr" href={config.extra.url.extendr} icon="mdi--language-rust text-base"/>}}
+                {{<sidebar_item label="rextendr" href={config.extra.url.rextendr} icon="mdi--language-r text-base"/>}}
+            {%</sidebar_group>%}
+            {%<sidebar_group title="Community">%}
+                {{<sidebar_item label="Blog" href="@/blog/_index.md" icon="lucide--rss"/>}}
+                {{<sidebar_item label="Awesome Extendr" href="@/awesome.md" icon="lucide--sparkles"/>}}
+                {{<sidebar_item label="Discord" href={config.extra.url.discord} icon="fa7-brands--discord"/>}}
+                {{<sidebar_item label="GitHub" href={config.extra.url.github} icon="mdi--github"/>}}
+            {%</sidebar_group>%}
+            {%<sidebar_group title="Guides">%}
+                {%- for path in ["development", "publishing", "rust-intro", "contributing"] %}
+                {%- set guide = get_section(path=path ~ "/_index.md") %}
+                {%- set label = guide.extra.section_title | default(value=guide.title) %}
+                {%- set open = current_path is starting_with(pat="/" ~ path ~ "/") %}
+                {%<sidebar_submenu label={label} open={open}>%}
+                    {{<sidebar_item label="Overview" href={guide.permalink}/>}}
+                    {%- for page in guide.pages %}
+                    {%- set page_label = page.extra.short_title | default(value=page.title) %}
+                    {{<sidebar_item label={page_label} href={page.permalink}/>}}
+                    {%- endfor %}
+                {%</sidebar_submenu>%}
+                {%- endfor %}
+            {%</sidebar_group>%}
+        {%</sidebar>%}
         <main>
             <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
                 {% include "navbar.html" %}
