@@ -133,8 +133,9 @@
         
     </head>
     <body>
-        <aside class="sidebar block"
+        <aside class="sidebar"
                data-side="left"
+               
                aria-label="Main navigation">
             
 
@@ -434,7 +435,7 @@
         <main>
             <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
                 <div class="flex h-14 w-full items-center gap-2 px-4">
-    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))"
+    <button type="button" onclick="document.querySelector('.sidebar').toggle()"
             aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
             data-side="bottom" data-align="start" class="btn mr-auto size-7 -ml-1.5" data-size="icon-sm" data-variant="ghost">
         <span class="iconify lucide--sidebar"></span>
@@ -473,8 +474,8 @@
             <p class="text-muted-foreground mt-1 mb-0">Learn how to publish an extendr-based R package to CRAN</p>
             
             <p class="text-muted-foreground text-sm mt-4 mb-0">
-                Last updated: <time datetime="2026-10-02"
-                      class="font-mono">2026-10-02</time>
+                Last updated: <time datetime="2026-10-03"
+                      class="font-mono">2026-10-03</time>
             </p>
         </header>
         <div class="prose">

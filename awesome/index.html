@@ -133,8 +133,9 @@
         
     </head>
     <body>
-        <aside class="sidebar block"
+        <aside class="sidebar"
                data-side="left"
+               
                aria-label="Main navigation">
             
 
@@ -434,7 +435,7 @@
         <main>
             <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
                 <div class="flex h-14 w-full items-center gap-2 px-4">
-    <button type="button" onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))"
+    <button type="button" onclick="document.querySelector('.sidebar').toggle()"
             aria-label="Toggle sidebar" data-tooltip="Toggle sidebar"
             data-side="bottom" data-align="start" class="btn mr-auto size-7 -ml-1.5" data-size="icon-sm" data-variant="ghost">
         <span class="iconify lucide--sidebar"></span>
@@ -805,8 +806,8 @@
             <a href="https://awesome.re" target="_blank" rel="noopener noreferrer">
                 <img src="https://awesome.re/badge.svg" alt="Awesome">
             </a>
-            <img src="https://img.shields.io/badge/Last_Updated-2026--10--02-276DC2"
-                 alt="Last updated 2026-10-02">
+            <img src="https://img.shields.io/badge/Last_Updated-2026--10--03-276DC2"
+                 alt="Last updated 2026-10-03">
             <img src="https://img.shields.io/badge/Packages-68-276DC2"
                  alt="68 packages">
             <img src="https://img.shields.io/badge/CRAN_Downloads-1780097-276DC2"
@@ -851,7 +852,7 @@
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/belian-earth/a5R"
                target="_blank"
                rel="noopener noreferrer"
@@ -904,7 +905,7 @@
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://yousa-mirage.github.io/r-ahocorasick/"
                target="_blank"
                rel="noopener noreferrer"
@@ -957,7 +958,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/R-ArcGIS/arcgis/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1008,7 +1009,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/r-arcgis/arcgisgeocode"
                target="_blank"
                rel="noopener noreferrer"
@@ -1065,7 +1066,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/R-ArcGIS/arcgisplaces"
                target="_blank"
                rel="noopener noreferrer"
@@ -1118,7 +1119,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/R-ArcGIS/arcgisutils"
                target="_blank"
                rel="noopener noreferrer"
@@ -1173,7 +1174,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://r.esri.com/arcpbf/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1216,7 +1217,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/jolars/arity-r"
                target="_blank"
                rel="noopener noreferrer"
@@ -1261,7 +1262,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/etiennebacher/astgrepr"
                target="_blank"
                rel="noopener noreferrer"
@@ -1306,7 +1307,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/kbvernon/awdb"
                target="_blank"
                rel="noopener noreferrer"
@@ -1359,7 +1360,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/extendr/b32"
                target="_blank"
                rel="noopener noreferrer"
@@ -1404,7 +1405,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://extendr.github.io/b64/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1455,7 +1456,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://caugi.org/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1502,7 +1503,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/mrchypark/churon"
                target="_blank"
                rel="noopener noreferrer"
@@ -1557,7 +1558,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://cifly.dev/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1608,7 +1609,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://docs.ropensci.org/datefixR/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1667,7 +1668,7 @@ Algorithm</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/ipea/enderecobr"
                target="_blank"
                rel="noopener noreferrer"
@@ -1720,7 +1721,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/jolars/eulerr"
                target="_blank"
                rel="noopener noreferrer"
@@ -1769,7 +1770,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/firstzeroenergy/fastgeojson"
                target="_blank"
                rel="noopener noreferrer"
@@ -1822,7 +1823,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/shrektan/fcl"
                target="_blank"
                rel="noopener noreferrer"
@@ -1881,7 +1882,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/ABindoff/fibr"
                target="_blank"
                rel="noopener noreferrer"
@@ -1952,7 +1953,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://albersonmiranda.github.io/fio/"
                target="_blank"
                rel="noopener noreferrer"
@@ -1999,7 +2000,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/fozzieverse/fozziejoin"
                target="_blank"
                rel="noopener noreferrer"
@@ -2060,7 +2061,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://walker-data.com/freestiler/"
                target="_blank"
                rel="noopener noreferrer"
@@ -2107,7 +2108,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/CausalDisco/gadjid"
                target="_blank"
                rel="noopener noreferrer"
@@ -2158,7 +2159,7 @@ Standardizer)</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href=""
                target=""
                rel=""
@@ -2203,7 +2204,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://r.ggsql.org"
                target="_blank"
                rel="noopener noreferrer"
@@ -2254,7 +2255,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="http://projects.indicatrix.org/gtfsrealtime-r/"
                target="_blank"
                rel="noopener noreferrer"
@@ -2299,7 +2300,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/extendr/h3o"
                target="_blank"
                rel="noopener noreferrer"
@@ -2340,7 +2341,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/DyfanJones/heck"
                target="_blank"
                rel="noopener noreferrer"
@@ -2385,7 +2386,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://christophertkenny.com/ipf/"
                target="_blank"
                rel="noopener noreferrer"
@@ -2432,7 +2433,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/AlexanderHenzi/isodistrreg"
                target="_blank"
                rel="noopener noreferrer"
@@ -2481,7 +2482,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://yousa-mirage.github.io/jiebaRS/"
                target="_blank"
                rel="noopener noreferrer"
@@ -2532,7 +2533,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/kollerma/jss-style-checker"
                target="_blank"
                rel="noopener noreferrer"
@@ -2579,7 +2580,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/jimeharrisjr/rust-dmd"
                target="_blank"
                rel="noopener noreferrer"
@@ -2640,7 +2641,7 @@ Systems</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/JBGruber/libipldr"
                target="_blank"
                rel="noopener noreferrer"
@@ -2691,7 +2692,7 @@ Systems</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/DyfanJones/llmjson"
                target="_blank"
                rel="noopener noreferrer"
@@ -2736,7 +2737,7 @@ Systems</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/ixpantia/orbweaver-r"
                target="_blank"
                rel="noopener noreferrer"
@@ -2783,7 +2784,7 @@ Systems</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/StrategicProjects/osmnxr"
                target="_blank"
                rel="noopener noreferrer"
@@ -2838,7 +2839,7 @@ Systems</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/StrategicProjects/pdfsigner"
                target="_blank"
                rel="noopener noreferrer"
@@ -2893,7 +2894,7 @@ Systems</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://lapkb.github.io/Pmetrics/"
                target="_blank"
                rel="noopener noreferrer"
@@ -2948,7 +2949,7 @@ software suite for population pharmacometric data analysis.</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/StrategicProjects/polyglot-sql-r"
                target="_blank"
                rel="noopener noreferrer"
@@ -3005,7 +3006,7 @@ software suite for population pharmacometric data analysis.</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://davzim.github.io/rbm25/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3054,7 +3055,7 @@ Text Search</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/cboettig/roxigraph"
                target="_blank"
                rel="noopener noreferrer"
@@ -3105,7 +3106,7 @@ Text Search</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href=""
                target=""
                rel=""
@@ -3146,7 +3147,7 @@ Text Search</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://milkway.github.io/rpic-r/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3199,7 +3200,7 @@ Text Search</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/alexhroom/rshift"
                target="_blank"
                rel="noopener noreferrer"
@@ -3256,7 +3257,7 @@ Text Search</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://davzim.github.io/rtiktoken/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3299,7 +3300,7 @@ Models</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/Prabashoka/scanr"
                target="_blank"
                rel="noopener noreferrer"
@@ -3342,7 +3343,7 @@ Models</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/atsyplenkov/sceua/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3395,7 +3396,7 @@ Models</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/ABindoff/smoothbp"
                target="_blank"
                rel="noopener noreferrer"
@@ -3458,7 +3459,7 @@ Models</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://ryanzomorrodi.github.io/socratadata/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3503,7 +3504,7 @@ Models</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://walker-data.com/spopt-r/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3562,7 +3563,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://dataupsurge.github.io/SQLFormatteR/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3611,7 +3612,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://strategicprojects.github.io/tantivyr/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3664,7 +3665,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/Pierre9344/tarpolyglot"
                target="_blank"
                rel="noopener noreferrer"
@@ -3725,7 +3726,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://rtergo.pagacz.io"
                target="_blank"
                rel="noopener noreferrer"
@@ -3774,7 +3775,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/yihui/tinyimg"
                target="_blank"
                rel="noopener noreferrer"
@@ -3827,7 +3828,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/mlverse/tok"
                target="_blank"
                rel="noopener noreferrer"
@@ -3876,7 +3877,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://extendr.github.io/tomledit/"
                target="_blank"
                rel="noopener noreferrer"
@@ -3921,7 +3922,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/lhdjung/unsum"
                target="_blank"
                rel="noopener noreferrer"
@@ -3966,7 +3967,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href=""
                target=""
                rel=""
@@ -4017,7 +4018,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/thomasp85/waysign"
                target="_blank"
                rel="noopener noreferrer"
@@ -4062,7 +4063,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://github.com/bzhanglab/WebGestaltR"
                target="_blank"
                rel="noopener noreferrer"
@@ -4103,7 +4104,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://sachsmc.github.io/xactonomial/"
                target="_blank"
                rel="noopener noreferrer"
@@ -4144,7 +4145,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://shrektan.github.io/ymd/"
                target="_blank"
                rel="noopener noreferrer"
@@ -4189,7 +4190,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://nanx.me/zmij/"
                target="_blank"
                rel="noopener noreferrer"
@@ -4242,7 +4243,7 @@ Market Analysis</p>
             
             
             
-            <a class="card overflow-hidden hover:bg-muted/80 transition-colors cursor-pointer hover:border-ring hover:ring-ring/50 hover:ring-[3px]"
+            <a class="card overflow-hidden"
                href="https://archive.beniamino.org/zoomerjoin/"
                target="_blank"
                rel="noopener noreferrer"
