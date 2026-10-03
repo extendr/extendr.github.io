@@ -1,30 +1,14 @@
-+++
-title = "Build blazingly fast R packages with Rust" 
-description = "extendr provides developer-first tooling and support for publishing to CRAN."
+---
+title: "Build blazingly fast R packages with Rust"
+description: "extendr provides developer-first tooling and support for publishing to CRAN."
+---
 
-[extra] 
-get_started_path = "@/introduction.md"
-
-[[extra.badges]]
-href = "https://github.com/extendr/extendr/actions" 
-img = "https://github.com/extendr/extendr/workflows/Tests/badge.svg" 
-alt = "Github Actions Build Status"
-
-[[extra.badges]]
-href = "https://crates.io/crates/extendr-api" 
-img = "https://img.shields.io/crates/v/extendr-api.svg" 
-alt = "Crates.io"
-
-[[extra.badges]]
-href = "https://docs.rs/extendr-api"
-img = "https://docs.rs/extendr-api/badge.svg" 
-alt = "Documentation"
-
-[[extra.badges]] 
-href = "https://opensource.org/licenses/MIT" 
-img = "https://img.shields.io/badge/License-MIT-yellow.svg" 
-alt = "License: MIT" 
-+++
+{%<flex_row gap="2" class="mb-10">%}
+[![Github Actions Build Status](https://github.com/extendr/extendr/workflows/Tests/badge.svg)](https://github.com/extendr/extendr/actions)
+[![Crates.io](https://img.shields.io/crates/v/extendr-api.svg)](https://crates.io/crates/extendr-api)
+[![Documentation](https://docs.rs/extendr-api/badge.svg)](https://docs.rs/extendr-api)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+{%</flex_row>%}
 
 ```r
 # setup R package
@@ -43,8 +27,21 @@ devtools::load_all()
 hello("world")
 ```
 
-<div class="mt-4">
+```output
+[1] "Hello world!"
+```
 
-    [1] "Hello world!"
-
-</div>
+{%<item_group layout="grid" class="mt-10">%}
+{%<item title="Get Started" href="@/introduction.md" variant="outline" icon="lucide--rocket">%}
+Learn about extendr, necessary software, and see a complete example.
+{%</item>%}
+{%<item title="Rust Basics" href="@/rust-intro/_index.md" variant="outline" icon="lucide--cog">%}
+Learn the basics of Rust programming with an introduction for R developers.
+{%</item>%}
+{%<item title="Developer's Guide" href="@/development/_index.md" variant="outline" icon="lucide--book-open">%}
+Learn how to develop an R package that calls Rust code with extendr.
+{%</item>%}
+{%<item title="Publishing" href="@/publishing/_index.md" variant="outline" icon="lucide--package-check">%}
+Learn how to publish an extendr-based R package to CRAN.
+{%</item>%}
+{%</item_group>%}

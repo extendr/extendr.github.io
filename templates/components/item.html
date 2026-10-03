@@ -1,0 +1,35 @@
+{% component item(title: string, href: string = "", icon: string = "", variant: string = "default", size: string = "default") %}
+{%- set content -%}
+{%- if icon -%}
+<figure><span class="iconify {{ icon }} size-5"></span></figure>
+{%- endif -%}
+<section>
+    <h3>{{ title }}</h3>
+    {%- if body | trim -%}
+    <p>{{ body | markdown(inline=true) }}</p>
+    {%- endif -%}
+</section>
+{%- endset -%}
+{%- if href -%}
+{%- if href is starting_with(pat="@/") -%}{%- set href = get_url(path=href) -%}{%- endif -%}
+<a class="bc item" data-variant="{{ variant }}" data-size="{{ size }}" href="{{ href }}">
+    {{- content -}}
+    <aside><span class="iconify lucide--chevron-right size-4"></span></aside>
+</a>
+{%- else -%}
+<article class="bc item" data-variant="{{ variant }}" data-size="{{ size }}">
+    {{- content -}}
+</article>
+{%- endif -%}
+{% endcomponent %}
+
+{% component item_group(layout: string = "flex_col", class: string = "", ...rest) %}
+{%- set class = "item-group " ~ class -%}
+{%- if layout == "grid" -%}
+{% <grid class={class} {...rest}> %}{{ body }}{% </grid> %}
+{%- elif layout == "flex_row" -%}
+{% <flex_row class={class} {...rest}> %}{{ body }}{% </flex_row> %}
+{%- else -%}
+{% <flex_col class={class} {...rest}> %}{{ body }}{% </flex_col> %}
+{%- endif -%}
+{% endcomponent %}

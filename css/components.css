@@ -1,0 +1,17 @@
+@layer components {
+
+    .item,
+    .item :is(h2, h3, h4) {
+        @apply text-base;
+    }
+
+    .badge {
+        border-radius: 0;
+    }
+
+    .card[data-filter-item],
+    a.item,
+    header .btn {
+        @apply transition-colors cursor-pointer hover:bg-muted/80 hover:border-ring hover:ring-ring/50 hover:ring-[3px];
+    }
+}
