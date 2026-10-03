@@ -1,0 +1,23 @@
+{% component flex_row(gap: string = "2", class: string = "") %}
+<div class="bc flex flex-row flex-wrap items-center gap-{{ gap }} {{ class }}">
+    {{- body | markdown(inline=true) -}}
+</div>
+{% endcomponent %}
+
+{% component flex_col(gap: string = "2", class: string = "") %}
+<div class="bc flex flex-col gap-{{ gap }} {{ class }}">
+    {{- body | markdown(inline=true) -}}
+</div>
+{% endcomponent %}
+
+{% component grid(cols: string = "2", gap: string = "4", class: string = "") %}
+{%- set columns = {
+    "1": "grid-cols-1",
+    "2": "grid-cols-1 sm:grid-cols-2",
+    "3": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+    "4": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+} -%}
+<div class="bc grid {{ columns[cols] }} gap-{{ gap }} {{ class }}">
+    {{- body | markdown(inline=true) -}}
+</div>
+{% endcomponent %}

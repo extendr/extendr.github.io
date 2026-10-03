@@ -3,6 +3,7 @@
 
 @import "basecoat-css";
 @import "./code.css";
+@import "./components.css";
 @import "./content.css";
 @import "./fonts.css";
 @import "./theme.css";
@@ -10,14 +11,10 @@
 /* instruct tailwind to watch these files for utilities during live serve */
 @source "../templates/**/*.html";
 @source "../content/**/*.md";
+@source inline("gap-{0..12}");
 
 /* tailwind customization and plugins */
 @plugin "@iconify/tailwind4" {
     prefixes: fa7-brands, lucide, mdi;
     scale: 1.3;
-}
-
-/* custom properties for theme */
-.badge {
-    border-radius: 0;
 }
