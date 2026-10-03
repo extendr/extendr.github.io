@@ -5,6 +5,16 @@
         @apply text-base;
     }
 
+    .sidebar nav section {
+        h3 {
+            @apply uppercase;
+        }
+
+        li > a > .iconify {
+            @apply text-xs;
+        }
+    }
+
     .badge {
         border-radius: 0;
     }
