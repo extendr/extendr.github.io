@@ -1,0 +1,37 @@
+{% set header %}
+<a href="/" class="btn p-2 h-12 w-full justify-start text-xl items-baseline font-mono" data-variant="ghost">
+    extendr <span class="text-sm text-muted-foreground">v{{ config.extra.version.extendr }}</span>
+</a>
+{% endset %}
+{%- set initial_open = current_path != "/" %}
+{%<sidebar header={header} initial_open={initial_open}>%}
+    {%<sidebar_group title="Getting started"> %}
+        {{<sidebar_item label="Introduction" href="@/introduction.md" icon="lucide--info"/>}}
+        {{<sidebar_item label="Installation" href="@/installation.md" icon="lucide--terminal"/>}}
+        {{<sidebar_item label="Example" href="@/example.md" icon="lucide--package"/>}}
+    {%</sidebar_group>%}
+    {%<sidebar_group title="API Reference">%}
+        {{<sidebar_item label="extendr" href={config.extra.url.extendr} icon="mdi--language-rust text-base"/>}}
+        {{<sidebar_item label="rextendr" href={config.extra.url.rextendr} icon="mdi--language-r text-base"/>}}
+    {%</sidebar_group>%}
+    {%<sidebar_group title="Community">%}
+        {{<sidebar_item label="Blog" href="@/blog/_index.md" icon="lucide--rss"/>}}
+        {{<sidebar_item label="Awesome Extendr" href="@/awesome.md" icon="lucide--sparkles"/>}}
+        {{<sidebar_item label="Discord" href={config.extra.url.discord} icon="fa7-brands--discord"/>}}
+        {{<sidebar_item label="GitHub" href={config.extra.url.github} icon="mdi--github"/>}}
+    {%</sidebar_group>%}
+    {%<sidebar_group title="Guides">%}
+        {%- for path in ["development", "publishing", "rust-intro", "contributing"] %}
+        {%- set guide = get_section(path=path ~ "/_index.md") %}
+        {%- set label = guide.extra.section_title | default(value=guide.title) %}
+        {%- set open = current_path is starting_with(pat="/" ~ path ~ "/") %}
+        {%<sidebar_submenu label={label} open={open}>%}
+            {{<sidebar_item label="Overview" href={guide.permalink}/>}}
+            {%- for page in guide.pages %}
+            {%- set page_label = page.extra.short_title | default(value=page.title) %}
+            {{<sidebar_item label={page_label} href={page.permalink}/>}}
+            {%- endfor %}
+        {%</sidebar_submenu>%}
+        {%- endfor %}
+    {%</sidebar_group>%}
+{%</sidebar>%}
