@@ -12,7 +12,7 @@
 
 {% component sidebar_group(title: string) %}
 {%- set id = "sidebar-group-" ~ title | slugify -%}
-<div role="bc group" aria-labelledby="{{ id }}">
+<div class="bc" role="group" aria-labelledby="{{ id }}">
     <h3 id="{{ id }}" class="uppercase">{{ title }}</h3>
     <ul>{{ body }}</ul>
 </div>
@@ -24,7 +24,7 @@
 <li class="bc">
     <details id="{{ id }}" {{ open }}>
         <summary aria-controls="{{ id }}-content">
-            {%- if icon %}<span class="iconify {{ icon }} text-xs"></span>{% endif -%}
+            {%- if icon %}<span class="iconify {{ icon }}"></span>{% endif -%}
             <span>{{ label }}</span>
         </summary>
         <ul id="{{ id }}-content">{{ body }}</ul>
@@ -36,7 +36,7 @@
 {%- if href is starting_with(pat="@/") -%}{%- set href = get_url(path=href) -%}{%- endif -%}
 <li class="bc">
     <a href="{{ href }}">
-        {%- if icon %}<span class="iconify {{ icon }} text-xs"></span>{% endif -%}
+        {%- if icon %}<span class="iconify {{ icon }}"></span>{% endif -%}
         <span>{{ label }}</span>
     </a>
 </li>
