@@ -3,8 +3,7 @@
       class="dark">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>extendr</title>
 
         <!-- Tailwind + Basecoat CSS -->
@@ -22,12 +21,8 @@
         </script>
 
         <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
-        <link rel="stylesheet"
-              href="https://extendr.rs/giallo-light.css"
-              id="giallo-light" />
-        <link rel="stylesheet"
-              href="https://extendr.rs/giallo-dark.css"
-              id="giallo-dark" />
+        <link rel="stylesheet" href="https://extendr.rs/giallo-light.css" id="giallo-light" />
+        <link rel="stylesheet" href="https://extendr.rs/giallo-dark.css" id="giallo-dark" />
 
         <!-- Toggle syntax highlighting -->
         <script defer>
@@ -64,45 +59,16 @@
         </script>
 
         <!-- Basecoat ui functionality -->
-        <script src="https://extendr.rs/js/basecoat.min.js"
-                defer></script>
-        <script src="https://extendr.rs/js/dropdown-menu.min.js"
-                defer></script>
-        <script src="https://extendr.rs/js/sidebar.min.js"
-                defer></script>
-        <script src="https://extendr.rs/js/popover.min.js"
-                defer></script>
-        <script src="https://extendr.rs/js/tabs.min.js"
-                defer></script>
-        <script src="https://extendr.rs/js/accordion.js"
-                defer></script>
+        <script src="https://extendr.rs/js/basecoat.min.js" defer></script>
+        <script src="https://extendr.rs/js/dropdown-menu.min.js" defer></script>
+        <script src="https://extendr.rs/js/sidebar.min.js" defer></script>
+        <script src="https://extendr.rs/js/popover.min.js" defer></script>
+        <script src="https://extendr.rs/js/tabs.min.js" defer></script>
+        <script src="https://extendr.rs/js/accordion.js" defer></script>
         <script>window.SEARCH_INDEX_URL = "https://extendr.rs/search_index.en.json";</script>
-        <script src="https://extendr.rs/js/search.js"
-                defer></script>
-        <script src="https://extendr.rs/js/filter-list.js"
-                defer></script>
-        <script src="https://extendr.rs/js/copy.js"
-                defer></script>
-
-        <script>
-            (() => {
-                const themeSelect = document.getElementById('theme-select');
-                const storedTheme = localStorage.getItem('themeVariant');
-                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
-                themeSelect.addEventListener('change', () => {
-                    const newTheme = themeSelect.value;
-                    document.documentElement.classList.forEach(c => {
-                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
-                    });
-                    if (newTheme) {
-                        document.documentElement.classList.add(`theme-${newTheme}`);
-                        localStorage.setItem('themeVariant', newTheme);
-                    } else {
-                        localStorage.removeItem('themeVariant');
-                    }
-                });
-            })();
-        </script>
+        <script src="https://extendr.rs/js/search.js" defer></script>
+        <script src="https://extendr.rs/js/filter-list.js" defer></script>
+        <script src="https://extendr.rs/js/copy.js" defer></script>
 
         <script>
             (() => {
@@ -133,305 +99,294 @@
         
     </head>
     <body>
-        <aside class="sidebar"
-               data-side="left"
-               data-initial-open="false" aria-hidden="true" inert
-               aria-label="Main navigation">
-            
+        
+<aside class="bc sidebar" data-side="left" data-initial-open="false" aria-hidden="true" inert>
+    <nav aria-label="Sidebar navigation">
+        <header>
+<a href="/" class="btn p-2 h-12 w-full justify-start text-xl items-baseline font-mono" data-variant="ghost">
+    extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
+</a>
+</header>
+        <section class="scrollbar">
+    <div class="bc" role="group" aria-labelledby="sidebar-group-getting-started">
+    <h3 id="sidebar-group-getting-started" class="uppercase">Getting started</h3>
+    <ul>
+        <li class="bc">
+    <a href="https://extendr.rs/introduction/"><span class="iconify lucide--info"></span><span>Introduction</span>
+    </a>
+</li>
 
-<nav aria-label="Sidebar navigation">
-    <header class="font-mono">
-        <a href="/" class="btn p-2 h-12 w-full justify-start text-xl items-baseline" data-variant="ghost">
-            extendr <span class="text-sm text-muted-foreground">v0.9.0</span>
-        </a>
-    </header>
-    <section class="scrollbar [&_div>h3]:uppercase">
-        <div role="group">
-            <h3>Getting started</h3>
-            <ul>
-                <li>
-                    <a href="https://extendr.rs/introduction/">
-                        <span class="iconify lucide--info text-xs"></span>
-                        Introduction
-                    </a>
-                </li>
-                <li>
-                    <a href="https://extendr.rs/installation/">
-                        <span class="iconify lucide--terminal text-xs"></span>
-                        Installation
-                    </a>
-                </li>
-                <li>
-                    <a href="https://extendr.rs/example/">
-                        <span class="iconify lucide--package text-xs"></span>
-                        Example
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div role="group">
-            <h3>API Reference</h3>
-            <ul>
-                <li>
-                    <a href="https://extendr.rs/extendr/">
-                        <span class="iconify mdi--language-rust text-base"></span>extendr
-                    </a>
-                </li>
-                <li>
-                    <a href="https://extendr.rs/rextendr/">
-                        <span class="iconify mdi--language-r text-base"></span>rextendr
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div role="group">
-            <h3>Community</h3>
-            <ul>
-                <li>
-                    <a href="https://extendr.rs/blog/">
-                        <span class="iconify lucide--rss text-xs"></span>Blog
-                    </a>
-                </li>
-                <li>
-                    <a href="https://extendr.rs/awesome/">
-                        <span class="iconify lucide--sparkles text-xs"></span>Awesome Extendr
-                    </a>
-                </li>
-                <li>
-                    <a href="https://discord.gg/7hmApuc">
-                        <span class="iconify fa7-brands--discord text-xs"></span>Discord
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/extendr/extendr">
-                        <span class="iconify mdi--github text-xs"></span>GitHub
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div role="group">
+        <li class="bc">
+    <a href="https://extendr.rs/installation/"><span class="iconify lucide--terminal"></span><span>Installation</span>
+    </a>
+</li>
 
-<h3>Development</h3>
-<ul class="border-l border-border ml-2">
-    <li>
-        <a href="https://extendr.rs/development/" class="pl-4">Overview</a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/data-types/" class="pl-4">
-            R to Rust type mapping
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/extendr-macro/" class="pl-4">
-            Using Rust types in R
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/collections/" class="pl-4">
-            Using HashMaps
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/into-list/" class="pl-4">
-            Rust Structs to Lists
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/default-args/" class="pl-4">
-            Default function arguments
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/package-structure/" class="pl-4">
-            Project Structure
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/serde-integration/" class="pl-4">
-            `serde` integration
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/webr/" class="pl-4">
-            Building for WebR
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/development/tokio/" class="pl-4">
-            Async with Tokio
-        </a>
-    </li>
-    
-</ul>
+        <li class="bc">
+    <a href="https://extendr.rs/example/"><span class="iconify lucide--package"></span><span>Example</span>
+    </a>
+</li>
+
+    </ul>
 </div>
-        <div role="group">
 
-<h3>Publishing</h3>
-<ul class="border-l border-border ml-2">
-    <li>
-        <a href="https://extendr.rs/publishing/" class="pl-4">Overview</a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/publishing/cran-publishing/" class="pl-4">
-            Publish to CRAN
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/publishing/cran-msrv/" class="pl-4">
-            CRAN MSRV
-        </a>
-    </li>
-    
-</ul>
-</div>
-        <div role="group">
+    <div class="bc" role="group" aria-labelledby="sidebar-group-api-reference">
+    <h3 id="sidebar-group-api-reference" class="uppercase">API Reference</h3>
+    <ul>
+        <li class="bc">
+    <a href="https://extendr.rs/extendr/"><span class="iconify mdi--language-rust text-base"></span><span>extendr</span>
+    </a>
+</li>
 
-<h3>Rust Tutorials</h3>
-<ul class="border-l border-border ml-2">
-    <li>
-        <a href="https://extendr.rs/rust-intro/" class="pl-4">Overview</a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/hello-world/" class="pl-4">
-            Hello, World!
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/types/" class="pl-4">
-            Basic Types
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/control-flow/" class="pl-4">
-            Control Flow
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/collections/" class="pl-4">
-            Collections
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/loops/" class="pl-4">
-            Loops
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/mutability/" class="pl-4">
-            Mutability
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/functions/" class="pl-4">
-            Functions
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/ownership/" class="pl-4">
-            Ownership
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/iterators/" class="pl-4">
-            Iterators
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/structures/" class="pl-4">
-            Structures
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/implementations/" class="pl-4">
-            Implementations
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/rust-intro/enumerations/" class="pl-4">
-            Enumerations
-        </a>
-    </li>
-    
-</ul>
-</div>
-        <div role="group">
+        <li class="bc">
+    <a href="https://extendr.rs/rextendr/"><span class="iconify mdi--language-r text-base"></span><span>rextendr</span>
+    </a>
+</li>
 
-<h3>Contributing</h3>
-<ul class="border-l border-border ml-2">
-    <li>
-        <a href="https://extendr.rs/contributing/" class="pl-4">Overview</a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/writing-code/" class="pl-4">
-            Writing Code
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/documenting-code/" class="pl-4">
-            Documenting Code
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/testing-code/" class="pl-4">
-            Testing Code
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/extendr-internals/" class="pl-4">
-            extendr Internals
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/rextendr-internals/" class="pl-4">
-            rextendr Internals
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/colors-and-fonts/" class="pl-4">
-            Colors and Fonts
-        </a>
-    </li>
-    
-    <li>
-        <a href="https://extendr.rs/contributing/user-guide-pages/" class="pl-4">
-            User Guide Pages
-        </a>
-    </li>
-    
-</ul>
+    </ul>
 </div>
-    </section>
-</nav>
-        </aside>
+
+    <div class="bc" role="group" aria-labelledby="sidebar-group-community">
+    <h3 id="sidebar-group-community" class="uppercase">Community</h3>
+    <ul>
+        <li class="bc">
+    <a href="https://extendr.rs/blog/"><span class="iconify lucide--rss"></span><span>Blog</span>
+    </a>
+</li>
+
+        <li class="bc">
+    <a href="https://extendr.rs/awesome/"><span class="iconify lucide--sparkles"></span><span>Awesome Extendr</span>
+    </a>
+</li>
+
+        <li class="bc">
+    <a href="https://discord.gg/7hmApuc"><span class="iconify fa7-brands--discord"></span><span>Discord</span>
+    </a>
+</li>
+
+        <li class="bc">
+    <a href="https://github.com/extendr/extendr"><span class="iconify mdi--github"></span><span>GitHub</span>
+    </a>
+</li>
+
+    </ul>
+</div>
+
+    <div class="bc" role="group" aria-labelledby="sidebar-group-guides">
+    <h3 id="sidebar-group-guides" class="uppercase">Guides</h3>
+    <ul>
+        <li class="bc">
+    <details id="sidebar-submenu-development" >
+        <summary aria-controls="sidebar-submenu-development-content"><span>Development</span>
+        </summary>
+        <ul id="sidebar-submenu-development-content">
+            <li class="bc">
+    <a href="https://extendr.rs/development/"><span>Overview</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/data-types/"><span>R to Rust type mapping</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/extendr-macro/"><span>Using Rust types in R</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/collections/"><span>Using HashMaps</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/into-list/"><span>Rust Structs to Lists</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/default-args/"><span>Default function arguments</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/package-structure/"><span>Project Structure</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/serde-integration/"><span>`serde` integration</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/webr/"><span>Building for WebR</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/development/tokio/"><span>Async with Tokio</span>
+    </a>
+</li>
+
+        </ul>
+    </details>
+</li>
+
+        <li class="bc">
+    <details id="sidebar-submenu-publishing" >
+        <summary aria-controls="sidebar-submenu-publishing-content"><span>Publishing</span>
+        </summary>
+        <ul id="sidebar-submenu-publishing-content">
+            <li class="bc">
+    <a href="https://extendr.rs/publishing/"><span>Overview</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/publishing/cran-publishing/"><span>Publish to CRAN</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/publishing/cran-msrv/"><span>CRAN MSRV</span>
+    </a>
+</li>
+
+        </ul>
+    </details>
+</li>
+
+        <li class="bc">
+    <details id="sidebar-submenu-rust-tutorials" >
+        <summary aria-controls="sidebar-submenu-rust-tutorials-content"><span>Rust Tutorials</span>
+        </summary>
+        <ul id="sidebar-submenu-rust-tutorials-content">
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/"><span>Overview</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/hello-world/"><span>Hello, World!</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/types/"><span>Basic Types</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/control-flow/"><span>Control Flow</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/collections/"><span>Collections</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/loops/"><span>Loops</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/mutability/"><span>Mutability</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/functions/"><span>Functions</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/ownership/"><span>Ownership</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/iterators/"><span>Iterators</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/structures/"><span>Structures</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/implementations/"><span>Implementations</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/rust-intro/enumerations/"><span>Enumerations</span>
+    </a>
+</li>
+
+        </ul>
+    </details>
+</li>
+
+        <li class="bc">
+    <details id="sidebar-submenu-contributing" >
+        <summary aria-controls="sidebar-submenu-contributing-content"><span>Contributing</span>
+        </summary>
+        <ul id="sidebar-submenu-contributing-content">
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/"><span>Overview</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/writing-code/"><span>Writing Code</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/documenting-code/"><span>Documenting Code</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/testing-code/"><span>Testing Code</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/extendr-internals/"><span>extendr Internals</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/rextendr-internals/"><span>rextendr Internals</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/colors-and-fonts/"><span>Colors and Fonts</span>
+    </a>
+</li>
+
+            <li class="bc">
+    <a href="https://extendr.rs/contributing/user-guide-pages/"><span>User Guide Pages</span>
+    </a>
+</li>
+
+        </ul>
+    </details>
+</li>
+
+    </ul>
+</div>
+
+</section>
+    </nav>
+</aside>
+
         <main>
             <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
                 <div class="flex h-14 w-full items-center gap-2 px-4">
