@@ -33,17 +33,7 @@ format="csv") %}
         <div data-filterable-list
              class="flex flex-1 flex-col gap-4">
             <div>
-                <div class="flex-1 relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span
-                              class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none">
-                        </span>
-                    </div>
-                    <input type="search"
-                           data-filter-search
-                           placeholder="Search packages"
-                           class="input pl-8 h-8">
-                </div>
+                {{<input_group id="filter-search" placeholder="Search packages" class="h-8"/>}}
                 <div class="flex items-center gap-2 text-sm text-muted-foreground mt-3">
                     <span>Sort by:</span>
                     <button type="button"

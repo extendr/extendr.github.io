@@ -2,7 +2,7 @@
   const list = document.querySelector('[data-filterable-list]');
   if (!list) return;
 
-  const searchInput = document.querySelector('[data-filter-search]');
+  const searchInput = document.getElementById('filter-search');
   const sortButtons = document.querySelectorAll('[data-filter-sort]');
   const cards = document.querySelectorAll('[data-filter-item]');
   const checkboxes = document.querySelectorAll('[data-tag-checkbox]');
