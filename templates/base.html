@@ -3,8 +3,7 @@
       class="dark">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}{{ config.title }}{% endblock %}</title>
 
         <!-- Tailwind + Basecoat CSS -->
@@ -22,12 +21,8 @@
         </script>
 
         <!-- Syntax highlighting themes (both loaded; inactive one disabled by pre-paint script) -->
-        <link rel="stylesheet"
-              href="{{ get_url(path='giallo-light.css') }}"
-              id="giallo-light" />
-        <link rel="stylesheet"
-              href="{{ get_url(path='giallo-dark.css') }}"
-              id="giallo-dark" />
+        <link rel="stylesheet" href="{{ get_url(path='giallo-light.css') }}" id="giallo-light" />
+        <link rel="stylesheet" href="{{ get_url(path='giallo-dark.css') }}" id="giallo-dark" />
 
         <!-- Toggle syntax highlighting -->
         <script defer>
@@ -64,45 +59,16 @@
         </script>
 
         <!-- Basecoat ui functionality -->
-        <script src="{{ get_url(path='js/basecoat.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/dropdown-menu.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/sidebar.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/popover.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/tabs.min.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/accordion.js') }}"
-                defer></script>
+        <script src="{{ get_url(path='js/basecoat.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/dropdown-menu.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/sidebar.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/popover.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/tabs.min.js') }}" defer></script>
+        <script src="{{ get_url(path='js/accordion.js') }}" defer></script>
         <script>window.SEARCH_INDEX_URL = "{{ get_url(path='search_index.en.json') }}";</script>
-        <script src="{{ get_url(path='js/search.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/filter-list.js') }}"
-                defer></script>
-        <script src="{{ get_url(path='js/copy.js') }}"
-                defer></script>
-
-        <script>
-            (() => {
-                const themeSelect = document.getElementById('theme-select');
-                const storedTheme = localStorage.getItem('themeVariant');
-                if (themeSelect && storedTheme) themeSelect.value = storedTheme;
-                themeSelect.addEventListener('change', () => {
-                    const newTheme = themeSelect.value;
-                    document.documentElement.classList.forEach(c => {
-                        if (c.startsWith('theme-')) document.documentElement.classList.remove(c);
-                    });
-                    if (newTheme) {
-                        document.documentElement.classList.add(`theme-${newTheme}`);
-                        localStorage.setItem('themeVariant', newTheme);
-                    } else {
-                        localStorage.removeItem('themeVariant');
-                    }
-                });
-            })();
-        </script>
+        <script src="{{ get_url(path='js/search.js') }}" defer></script>
+        <script src="{{ get_url(path='js/filter-list.js') }}" defer></script>
+        <script src="{{ get_url(path='js/copy.js') }}" defer></script>
 
         <script>
             (() => {
@@ -133,12 +99,7 @@
         {% block head %}{% endblock %}
     </head>
     <body>
-        <aside class="sidebar"
-               data-side="left"
-               {% if current_path == "/" %}data-initial-open="false" aria-hidden="true" inert{% endif %}
-               aria-label="Main navigation">
-            {% include "sidebar.html" %}
-        </aside>
+        {% include "sidebar.html" %}
         <main>
             <header class="bg-sidebar sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-10">
                 {% include "navbar.html" %}

@@ -1,0 +1,43 @@
+{% component sidebar(header: string = "", side: string = "left", initial_open: bool = true, aria_label: string = "Sidebar navigation") %}
+{%- set initial_open = "" if initial_open else 'data-initial-open="false" aria-hidden="true" inert' -%}
+<aside class="bc sidebar" data-side="{{ side }}" {{ initial_open | safe }}>
+    <nav aria-label="{{ aria_label }}">
+        {%- if header %}
+        <header>{{ header }}</header>
+        {%- endif %}
+        <section class="scrollbar">{{ body }}</section>
+    </nav>
+</aside>
+{% endcomponent %}
+
+{% component sidebar_group(title: string) %}
+{%- set id = "sidebar-group-" ~ title | slugify -%}
+<div class="bc" role="group" aria-labelledby="{{ id }}">
+    <h3 id="{{ id }}" class="uppercase">{{ title }}</h3>
+    <ul>{{ body }}</ul>
+</div>
+{% endcomponent %}
+
+{% component sidebar_submenu(label: string, icon: string = "", open: bool = false) %}
+{%- set id = "sidebar-submenu-" ~ label | slugify -%}
+{%- set open = "open" if open else "" -%}
+<li class="bc">
+    <details id="{{ id }}" {{ open }}>
+        <summary aria-controls="{{ id }}-content">
+            {%- if icon %}<span class="iconify {{ icon }}"></span>{% endif -%}
+            <span>{{ label }}</span>
+        </summary>
+        <ul id="{{ id }}-content">{{ body }}</ul>
+    </details>
+</li>
+{% endcomponent %}
+
+{% component sidebar_item(label: string, href: string, icon: string = "") %}
+{%- if href is starting_with(pat="@/") -%}{%- set href = get_url(path=href) -%}{%- endif -%}
+<li class="bc">
+    <a href="{{ href }}">
+        {%- if icon %}<span class="iconify {{ icon }}"></span>{% endif -%}
+        <span>{{ label }}</span>
+    </a>
+</li>
+{% endcomponent %}
