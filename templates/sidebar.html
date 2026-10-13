@@ -3,8 +3,7 @@
     extendr <span class="text-sm text-muted-foreground">v{{ config.extra.version.extendr }}</span>
 </a>
 {% endset %}
-{%- set initial_open = current_path != "/" %}
-{%<sidebar header={header} initial_open={initial_open}>%}
+{%<sidebar header={header}>%}
     {%<sidebar_group title="Getting started"> %}
         {{<sidebar_item label="Introduction" href="@/introduction.md" icon="lucide--info"/>}}
         {{<sidebar_item label="Installation" href="@/installation.md" icon="lucide--terminal"/>}}
