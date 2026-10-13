@@ -395,11 +395,12 @@
             data-side="bottom" data-align="start" class="btn mr-auto size-7 -ml-1.5" data-size="icon-sm" data-variant="ghost">
         <span class="iconify lucide--sidebar"></span>
     </button>
-    <div class="relative">
-        <span
-              class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none"></span>
-        <input class="input h-8 pl-8" id="input-with-text" type="search" placeholder="Search the docs">
-    </div>
+    
+<div class="bc input-group h-8 w-auto">
+    <input id="input-with-text" type="search" placeholder="Search the docs" aria-label="Search the docs">
+    <span data-align="start" aria-hidden="true"><span class="iconify lucide--search size-4"></span></span>
+</div>
+
     <button type="button" aria-label="Toggle dark mode" data-tooltip="Toggle dark mode" data-side="bottom"
             onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))" class="btn size-8" data-size="icon" data-variant="outline">
         <span class="iconify lucide--sun hidden dark:block"></span>
@@ -777,29 +778,24 @@
             <a href="https://awesome.re" target="_blank" rel="noopener noreferrer">
                 <img src="https://awesome.re/badge.svg" alt="Awesome">
             </a>
-            <img src="https://img.shields.io/badge/Last_Updated-2026--10--04-276DC2"
-                 alt="Last updated 2026-10-04">
+            <img src="https://img.shields.io/badge/Last_Updated-2026--10--13-276DC2"
+                 alt="Last updated 2026-10-13">
             <img src="https://img.shields.io/badge/Packages-70-276DC2"
                  alt="70 packages">
-            <img src="https://img.shields.io/badge/CRAN_Downloads-1789906-276DC2"
-                 alt="1789906 CRAN downloads">
+            <img src="https://img.shields.io/badge/CRAN_Downloads-1798763-276DC2"
+                 alt="1798763 CRAN downloads">
         </div>
     </header>
     <div class="flex gap-4 mt-6">
         <div data-filterable-list
              class="flex flex-1 flex-col gap-4">
             <div>
-                <div class="flex-1 relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span
-                              class="iconify lucide--search absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none">
-                        </span>
-                    </div>
-                    <input type="search"
-                           data-filter-search
-                           placeholder="Search packages"
-                           class="input pl-8 h-8">
-                </div>
+                
+<div class="bc input-group h-8">
+    <input id="filter-search" type="search" placeholder="Search packages" aria-label="Search packages">
+    <span data-align="start" aria-hidden="true"><span class="iconify lucide--search size-4"></span></span>
+</div>
+
                 <div class="flex items-center gap-2 text-sm text-muted-foreground mt-3">
                     <span>Sort by:</span>
                     <button type="button"
@@ -838,7 +834,7 @@
     &#39;A5&#39; &#39;Rust&#39; crate via &#39;extendr&#39;. Hugh Graham"
                data-sort-name="a5r"
                data-sort-author="hugh graham"
-               data-sort-count="4313">
+               data-sort-count="4508">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">a5R</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -863,7 +859,7 @@
                         <span>Downloads:</span>
                         <span>
                             
-                            4313
+                            4508
                             
                         </span>
                     </span>
@@ -891,7 +887,7 @@ Algorithm"
     Aho and Corasick (1975) &lt;doi:10.1145/360825.360855&gt;. Hao Cheng"
                data-sort-name="ahocorasick"
                data-sort-author="hao cheng"
-               data-sort-count="1574">
+               data-sort-count="1645">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">ahocorasick</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -916,7 +912,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1574
+                            1645
                             
                         </span>
                     </span>
@@ -943,7 +939,7 @@ Algorithm</p>
     meta-package at &lt;https://developers.arcgis.com/r-bridge/&gt;. Josiah Parry"
                data-sort-name="arcgis"
                data-sort-author="josiah parry"
-               data-sort-count="17329">
+               data-sort-count="17540">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">arcgis</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -967,7 +963,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            17329
+                            17540
                             
                         </span>
                     </span>
@@ -997,7 +993,7 @@ Algorithm</p>
     &lt;https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm&gt;. Josiah Parry"
                data-sort-name="arcgisgeocode"
                data-sort-author="josiah parry"
-               data-sort-count="15800">
+               data-sort-count="15920">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">arcgisgeocode</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1024,7 +1020,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            15800
+                            15920
                             
                         </span>
                     </span>
@@ -1052,7 +1048,7 @@ Algorithm</p>
     with other spatial libraries. Learn more in the &#39;Places service&#39; API reference &lt;https://developers.arcgis.com/rest/places/&gt;. Josiah Parry"
                data-sort-name="arcgisplaces"
                data-sort-author="josiah parry"
-               data-sort-count="195646">
+               data-sort-count="195739">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">arcgisplaces</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1077,7 +1073,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            195646
+                            195739
                             
                         </span>
                     </span>
@@ -1106,7 +1102,7 @@ Algorithm</p>
     &lt;https://developers.arcgis.com/r-bridge/installation/&gt;. Josiah Parry"
                data-sort-name="arcgisutils"
                data-sort-author="josiah parry"
-               data-sort-count="37962">
+               data-sort-count="38308">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">arcgisutils</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1132,7 +1128,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            37962
+                            38308
                             
                         </span>
                     </span>
@@ -1155,7 +1151,7 @@ Algorithm</p>
   It is designed to work seamlessly with &#39;httr2&#39; and integrates with &#39;sf&#39;. Josiah Parry"
                data-sort-name="arcpbf"
                data-sort-author="josiah parry"
-               data-sort-count="27532">
+               data-sort-count="27828">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">arcpbf</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1175,7 +1171,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            27532
+                            27828
                             
                         </span>
                     </span>
@@ -1199,7 +1195,7 @@ Algorithm</p>
     tidyverse R style guide. Johan Larsson"
                data-sort-name="arity"
                data-sort-author="johan larsson"
-               data-sort-count="221">
+               data-sort-count="391">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">arity</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1220,7 +1216,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            221
+                            391
                             
                         </span>
                     </span>
@@ -1244,7 +1240,7 @@ Algorithm</p>
     can parse and explore R code. Etienne Bacher"
                data-sort-name="astgrepr"
                data-sort-author="etienne bacher"
-               data-sort-count="7416">
+               data-sort-count="7565">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">astgrepr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1265,7 +1261,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            7416
+                            7565
                             
                         </span>
                     </span>
@@ -1293,7 +1289,7 @@ Algorithm</p>
     found at &lt;https://wcc.sc.egov.usda.gov/awdbRestApi/swagger-ui/index.html&gt;. Kenneth Blake Vernon"
                data-sort-name="awdb"
                data-sort-author="kenneth blake vernon"
-               data-sort-count="8204">
+               data-sort-count="8272">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">awdb</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1318,7 +1314,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            8204
+                            8272
                             
                         </span>
                     </span>
@@ -1342,7 +1338,7 @@ Algorithm</p>
     lower hex alphabets. Josiah Parry"
                data-sort-name="b32"
                data-sort-author="josiah parry"
-               data-sort-count="1893">
+               data-sort-count="1937">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">b32</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1363,7 +1359,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1893
+                            1937
                             
                         </span>
                     </span>
@@ -1390,7 +1386,7 @@ Algorithm</p>
     support unique base 64 encoding and decoding needs. Josiah Parry"
                data-sort-name="b64"
                data-sort-author="josiah parry"
-               data-sort-count="44649">
+               data-sort-count="44731">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">b64</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1414,7 +1410,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            44649
+                            44731
                             
                         </span>
                     </span>
@@ -1439,7 +1435,7 @@ Algorithm</p>
     relationships. Frederik Fabricius-Bjerre"
                data-sort-name="caugi"
                data-sort-author="frederik fabricius-bjerre"
-               data-sort-count="10985">
+               data-sort-count="11101">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">caugi</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1461,7 +1457,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            10985
+                            11101
                             
                         </span>
                     </span>
@@ -1490,7 +1486,7 @@ Algorithm</p>
     &lt;https://github.com/microsoft/onnxruntime/releases&gt;. Chanyub Park"
                data-sort-name="churon"
                data-sort-author="chanyub park"
-               data-sort-count="140">
+               data-sort-count="314">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">churon</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1516,7 +1512,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            140
+                            314
                             
                         </span>
                     </span>
@@ -1541,7 +1537,7 @@ Algorithm</p>
     useful for building a custom Chinese word segmentation dictionary. Hao Cheng"
                data-sort-name="cidian"
                data-sort-author="hao cheng"
-               data-sort-count="108">
+               data-sort-count="291">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">cidian</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1563,7 +1559,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            108
+                            291
                             
                         </span>
                     </span>
@@ -1590,7 +1586,7 @@ Algorithm</p>
     Henckel (2025) &lt;doi:10.48550/arXiv.2506.15758&gt;. Marcel Wienöbst"
                data-sort-name="ciflyr"
                data-sort-author="marcel wienöbst"
-               data-sort-count="2736">
+               data-sort-count="2788">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">ciflyr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1614,7 +1610,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2736
+                            2788
                             
                         </span>
                     </span>
@@ -1645,7 +1641,7 @@ Algorithm</p>
     months with user-controlled behavior. Nathan Constantine-Cooke"
                data-sort-name="datefixr"
                data-sort-author="nathan constantine-cooke"
-               data-sort-count="23104">
+               data-sort-count="23294">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">datefixR</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1673,7 +1669,7 @@ Algorithm</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            23104
+                            23294
                             
                         </span>
                     </span>
@@ -1701,7 +1697,7 @@ Standardizer)"
     manipulation, not supporting probabilistic matches between strings.) Daniel Herszenhut"
                data-sort-name="enderecobr"
                data-sort-author="daniel herszenhut"
-               data-sort-count="73210">
+               data-sort-count="73465">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">enderecobr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1726,7 +1722,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            73210
+                            73465
                             
                         </span>
                     </span>
@@ -1752,7 +1748,7 @@ Standardizer)</p>
     wide range of inputs and can be visualized in numerous ways. Johan Larsson"
                data-sort-name="eulerr"
                data-sort-author="johan larsson"
-               data-sort-count="223888">
+               data-sort-count="225524">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">eulerr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1775,7 +1771,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            223888
+                            225524
                             
                         </span>
                     </span>
@@ -1803,7 +1799,7 @@ Standardizer)</p>
     encoding overhead. Alex Jorion"
                data-sort-name="fastgeojson"
                data-sort-author="alex jorion"
-               data-sort-count="2580">
+               data-sort-count="2793">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">fastgeojson</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1828,7 +1824,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2580
+                            2793
                             
                         </span>
                     </span>
@@ -1859,7 +1855,7 @@ Standardizer)</p>
     &lt;https://en.wikipedia.org/wiki/Time-weighted_return&gt;. Xianying Tan"
                data-sort-name="fcl"
                data-sort-author="xianying tan"
-               data-sort-count="352825">
+               data-sort-count="352869">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">fcl</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1887,7 +1883,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            352825
+                            352869
                             
                         </span>
                     </span>
@@ -1924,7 +1920,7 @@ Standardizer)</p>
     package&#39;s source repository. Aidan D Bindoff"
                data-sort-name="fibr"
                data-sort-author="aidan d bindoff"
-               data-sort-count="868">
+               data-sort-count="927">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">fibr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -1958,7 +1954,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            868
+                            927
                             
                         </span>
                     </span>
@@ -1983,7 +1979,7 @@ Standardizer)</p>
   hybrid architecture that pairs R&#39;s accessibility with Rust&#39;s computational efficiency. Alberson da Silva Miranda"
                data-sort-name="fio"
                data-sort-author="alberson da silva miranda"
-               data-sort-count="195920">
+               data-sort-count="196007">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">fio</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2005,7 +2001,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            195920
+                            196007
                             
                         </span>
                     </span>
@@ -2037,7 +2033,7 @@ Standardizer)</p>
     &#39;Rust&#39; crate &lt;https://docs.rs/interavl/0.5.0/interavl/&gt;. Jon Downs"
                data-sort-name="fozziejoin"
                data-sort-author="jon downs"
-               data-sort-count="1943">
+               data-sort-count="1983">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">fozziejoin</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2066,7 +2062,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1943
+                            1983
                             
                         </span>
                     </span>
@@ -2091,7 +2087,7 @@ Standardizer)</p>
     in-memory tiling with zero external system dependencies. Kyle Walker"
                data-sort-name="freestiler"
                data-sort-author="kyle walker"
-               data-sort-count="2658">
+               data-sort-count="2834">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">freestiler</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2113,7 +2109,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2658
+                            2834
                             
                         </span>
                     </span>
@@ -2140,7 +2136,7 @@ Standardizer)</p>
     See also Henckel, Würtzen, Weichwald (2024) &lt;doi:10.48550/arXiv.2402.08616&gt;. Sebastian Weichwald"
                data-sort-name="gadjid"
                data-sort-author="sebastian weichwald"
-               data-sort-count="2250">
+               data-sort-count="2285">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">gadjid</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2164,7 +2160,7 @@ Standardizer)</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2250
+                            2285
                             
                         </span>
                     </span>
@@ -2236,7 +2232,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
   the user to use &#39;ggsql&#39; in both frameworks. Thomas Lin Pedersen"
                data-sort-name="ggsql"
                data-sort-author="thomas lin pedersen"
-               data-sort-count="2225">
+               data-sort-count="2434">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">ggsql</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2260,7 +2256,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            2225
+                            2434
                             
                         </span>
                     </span>
@@ -2284,7 +2280,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
     data frames. It can be used to retrieve current data or to process archived data. Matthew Bhagat-Conway"
                data-sort-name="gtfsrealtime"
                data-sort-author="matthew bhagat-conway"
-               data-sort-count="1432">
+               data-sort-count="1504">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">gtfsrealtime</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2305,7 +2301,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            1432
+                            1504
                             
                         </span>
                     </span>
@@ -2327,7 +2323,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                data-description="A dependency free interface to the H3 geospatial indexing system utilizing the Rust library &#39;h3o&#39; &lt;https://github.com/HydroniumLabs/h3o&gt; via the &#39;extendr&#39; library &lt;https://github.com/extendr/extendr&gt;. Josiah Parry"
                data-sort-name="h3o"
                data-sort-author="josiah parry"
-               data-sort-count="7467">
+               data-sort-count="7519">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">h3o</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2346,7 +2342,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            7467
+                            7519
                             
                         </span>
                     </span>
@@ -2370,7 +2366,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
     as the backend for a highly performant case conversion for &#39;R&#39;. Josiah Parry"
                data-sort-name="heck"
                data-sort-author="josiah parry"
-               data-sort-count="11587">
+               data-sort-count="11628">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">heck</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2391,7 +2387,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            11587
+                            11628
                             
                         </span>
                     </span>
@@ -2416,7 +2412,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
     diagnostics. Christopher T. Kenny"
                data-sort-name="ipf"
                data-sort-author="christopher t. kenny"
-               data-sort-count="724">
+               data-sort-count="760">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">ipf</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2438,7 +2434,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            724
+                            760
                             
                         </span>
                     </span>
@@ -2464,7 +2460,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
     Ziegel (2026) &lt;doi:10.48550/arXiv.2608.02914&gt;. Bram van den Heuvel"
                data-sort-name="isodistrreg"
                data-sort-author="bram van den heuvel"
-               data-sort-count="8683">
+               data-sort-count="8730">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">isodistrreg</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2487,7 +2483,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            8683
+                            8730
                             
                         </span>
                     </span>
@@ -2514,7 +2510,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
     the &#39;jiebaR&#39; package. Hao Cheng"
                data-sort-name="jiebars"
                data-sort-author="hao cheng"
-               data-sort-count="1834">
+               data-sort-count="1952">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">jiebaRS</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2538,7 +2534,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            1834
+                            1952
                             
                         </span>
                     </span>
@@ -2563,7 +2559,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
     binding, exposed to R via &#39;extendr&#39;. Manuel Koller"
                data-sort-name="jsslintr"
                data-sort-author="manuel koller"
-               data-sort-count="691">
+               data-sort-count="741">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">jsslintr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2585,7 +2581,7 @@ to deliver scalable, accurate density estimation for large geospatial datasets w
                         <span>Downloads:</span>
                         <span>
                             
-                            691
+                            741
                             
                         </span>
                     </span>
@@ -2617,7 +2613,7 @@ Systems"
     and chaotic maps for experimentation. James Harris"
                data-sort-name="koopman.dmd"
                data-sort-author="james harris"
-               data-sort-count="286">
+               data-sort-count="464">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">koopman.dmd</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2646,7 +2642,7 @@ Systems</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            286
+                            464
                             
                         </span>
                     </span>
@@ -2673,7 +2669,7 @@ Systems</p>
     (InterPlanetary File System) and &#39;AtProto&#39; (Bluesky) applications. Johannes B. Gruber"
                data-sort-name="libipldr"
                data-sort-author="johannes b. gruber"
-               data-sort-count="1309">
+               data-sort-count="1356">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">libipldr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2697,7 +2693,7 @@ Systems</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1309
+                            1356
                             
                         </span>
                     </span>
@@ -2721,7 +2717,7 @@ Systems</p>
     keys, and other common JSON syntax errors. Dyfan Jones"
                data-sort-name="llmjson"
                data-sort-author="dyfan jones"
-               data-sort-count="2769">
+               data-sort-count="2811">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">llmjson</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2742,7 +2738,7 @@ Systems</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2769
+                            2811
                             
                         </span>
                     </span>
@@ -2767,7 +2763,7 @@ Systems</p>
     place, streamlining your workflow for optimal productivity. ixpantia, SRL"
                data-sort-name="orbweaver"
                data-sort-author="ixpantia, srl"
-               data-sort-count="10109">
+               data-sort-count="10148">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">orbweaver</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2789,7 +2785,7 @@ Systems</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            10109
+                            10148
                             
                         </span>
                     </span>
@@ -2818,7 +2814,7 @@ Systems</p>
     bundled &#39;Rust&#39; core. Andre Leite"
                data-sort-name="osmnxr"
                data-sort-author="andre leite"
-               data-sort-count="785">
+               data-sort-count="831">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">osmnxr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2844,7 +2840,7 @@ Systems</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            785
+                            831
                             
                         </span>
                     </span>
@@ -2873,7 +2869,7 @@ Systems</p>
     supported. Andre Leite"
                data-sort-name="pdfsigner"
                data-sort-author="andre leite"
-               data-sort-count="558">
+               data-sort-count="707">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">pdfsigner</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -2899,7 +2895,7 @@ Systems</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            558
+                            707
                             
                         </span>
                     </span>
@@ -2981,10 +2977,10 @@ software suite for population pharmacometric data analysis.</p>
     session; no database connection, &#39;Python&#39; runtime or external service
     is required.  Includes column-level lineage, structural query
     analysis, query optimization, &#39;AST&#39; diffing and &#39;OpenLineage&#39; facet
-    generation. Andre Leite"
+    generation. André Leite"
                data-sort-name="polyglotsql"
-               data-sort-author="andre leite"
-               data-sort-count="504">
+               data-sort-author="andré leite"
+               data-sort-count="615">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">polyglotSQL</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3004,14 +3000,14 @@ software suite for population pharmacometric data analysis.</p>
                 <footer class="flex items-center gap-2 w-full text-xs text-muted-foreground">
                     <span class="truncate flex items-center gap-1 mr-auto shrink-0">
                         <span class="iconify lucide--users mr-1"></span>
-                        Andre Leite
+                        André Leite
                     </span>
                     <span class="flex items-center gap-1 shrink-0">
                         <span class="iconify lucide--download"></span>
                         <span>Downloads:</span>
                         <span>
                             
-                            504
+                            615
                             
                         </span>
                     </span>
@@ -3037,7 +3033,7 @@ Text Search"
     For more information, see Robertson et al. (1994) &lt;https://trec.nist.gov/pubs/trec3/t3_proceedings.html&gt;. David Zimmermann-Kollenda"
                data-sort-name="rbm25"
                data-sort-author="david zimmermann-kollenda"
-               data-sort-count="3861">
+               data-sort-count="3893">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">rbm25</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3060,7 +3056,7 @@ Text Search</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            3861
+                            3893
                             
                         </span>
                     </span>
@@ -3087,7 +3083,7 @@ Text Search</p>
     framework for &#39;Rust&#39;-R bindings. Carl Boettiger"
                data-sort-name="roxigraph"
                data-sort-author="carl boettiger"
-               data-sort-count="1943">
+               data-sort-count="1966">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">roxigraph</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3111,7 +3107,7 @@ Text Search</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1943
+                            1966
                             
                         </span>
                     </span>
@@ -3133,7 +3129,7 @@ Text Search</p>
                data-description="Implements diversification analyses using the phylogenetic birth-death-shift model. It leverages belief propagation techniques to calculate branch-specific diversification rates, see Kopperud &amp; Hoehna (2025) &lt;doi:10.1093/sysbio/syaf041&gt;. Bjørn Tore Kopperud"
                data-sort-name="rpesto"
                data-sort-author="bjørn tore kopperud"
-               data-sort-count="2021">
+               data-sort-count="2058">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">RPesto</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3152,7 +3148,7 @@ Text Search</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2021
+                            2058
                             
                         </span>
                     </span>
@@ -3180,7 +3176,7 @@ Text Search</p>
     for inline diagrams in &#39;R Markdown&#39; and &#39;Quarto&#39; documents. André Leite"
                data-sort-name="rpic"
                data-sort-author="andré leite"
-               data-sort-count="456">
+               data-sort-count="733">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">rpic</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3205,7 +3201,7 @@ Text Search</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            456
+                            733
                             
                         </span>
                     </span>
@@ -3235,7 +3231,7 @@ Text Search</p>
     Sample data set January_PDO from NOAA: &lt;https://www.ncei.noaa.gov/access/monitoring/pdo/&gt;. Alex H. Room"
                data-sort-name="rshift"
                data-sort-author="alex h. room"
-               data-sort-count="205619">
+               data-sort-count="205677">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">rshift</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3262,7 +3258,7 @@ Text Search</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            205619
+                            205677
                             
                         </span>
                     </span>
@@ -3285,7 +3281,7 @@ Models"
                data-description="A thin wrapper around the tiktoken-rs crate, allowing to encode text into Byte-Pair-Encoding (BPE) tokens and decode tokens back to text. This is useful to understand how Large Language Models (LLMs) perceive text.  David Zimmermann-Kollenda"
                data-sort-name="rtiktoken"
                data-sort-author="david zimmermann-kollenda"
-               data-sort-count="6218">
+               data-sort-count="6254">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">rtiktoken</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3305,7 +3301,7 @@ Models</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            6218
+                            6254
                             
                         </span>
                     </span>
@@ -3328,7 +3324,7 @@ Models</p>
     framework. The implementation uses a native Rust backend exposed to R via &#39;extendr&#39;. Ashoka Prabashwara"
                data-sort-name="scanr"
                data-sort-author="ashoka prabashwara"
-               data-sort-count="492">
+               data-sort-count="551">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">scanr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3348,7 +3344,7 @@ Models</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            492
+                            551
                             
                         </span>
                     </span>
@@ -3376,7 +3372,7 @@ Models</p>
     algorithm proposed by Duan et al. (1992) &lt;doi:10.1029/91WR02985&gt;. Anatoly Tsyplenkov"
                data-sort-name="sceua"
                data-sort-author="anatoly tsyplenkov"
-               data-sort-count="924">
+               data-sort-count="965">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">sceua</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3401,7 +3397,7 @@ Models</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            924
+                            965
                             
                         </span>
                     </span>
@@ -3434,7 +3430,7 @@ Models</p>
     Bindoff (2026) &lt;doi:10.48550/arXiv.2606.19044&gt;. Aidan D Bindoff"
                data-sort-name="smoothbp"
                data-sort-author="aidan d bindoff"
-               data-sort-count="1339">
+               data-sort-count="1377">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">smoothbp</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3464,7 +3460,7 @@ Models</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1339
+                            1377
                             
                         </span>
                     </span>
@@ -3488,7 +3484,7 @@ Models</p>
     including spatial data returned as &#39;sf&#39; objects.  Ryan Zomorrodi"
                data-sort-name="socratadata"
                data-sort-author="ryan zomorrodi"
-               data-sort-count="3029">
+               data-sort-count="3054">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">socratadata</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3509,7 +3505,7 @@ Models</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            3029
+                            3054
                             
                         </span>
                     </span>
@@ -3540,7 +3536,7 @@ Market Analysis"
     documentation of the individual functions. Kyle Walker"
                data-sort-name="spopt"
                data-sort-author="kyle walker"
-               data-sort-count="2477">
+               data-sort-count="2532">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">spopt</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3568,7 +3564,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2477
+                            2532
                             
                         </span>
                     </span>
@@ -3594,7 +3590,7 @@ Market Analysis</p>
     queries are clean, readable, and consistent. Morgan Durand"
                data-sort-name="sqlformatter"
                data-sort-author="morgan durand"
-               data-sort-count="4218">
+               data-sort-count="4256">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">SQLFormatteR</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3617,7 +3613,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            4218
+                            4256
                             
                         </span>
                     </span>
@@ -3645,7 +3641,7 @@ Market Analysis</p>
     clippings, extracted &#39;PDF&#39; text, transcripts and legal acts. Andre Leite"
                data-sort-name="tantivyr"
                data-sort-author="andre leite"
-               data-sort-count="791">
+               data-sort-count="933">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tantivyr</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3670,7 +3666,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            791
+                            933
                             
                         </span>
                     </span>
@@ -3702,7 +3698,7 @@ Market Analysis</p>
     arguments are supported. Pierre Solomon"
                data-sort-name="tarpolyglot"
                data-sort-author="pierre solomon"
-               data-sort-count="567">
+               data-sort-count="590">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tarpolyglot</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3731,7 +3727,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            567
+                            590
                             
                         </span>
                     </span>
@@ -3759,7 +3755,7 @@ Market Analysis</p>
     syntax can be found at &lt;https://keats.github.io/tera/&gt;. Kenneth Blake Vernon"
                data-sort-name="tera"
                data-sort-author="kenneth blake vernon"
-               data-sort-count="130">
+               data-sort-count="318">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tera</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3784,7 +3780,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            130
+                            318
                             
                         </span>
                     </span>
@@ -3810,7 +3806,7 @@ Market Analysis</p>
     Learn more about &#39;tergo&#39; at &lt;https://rtergo.pagacz.io&gt;. Konrad Pagacz"
                data-sort-name="tergo"
                data-sort-author="konrad pagacz"
-               data-sort-count="4135">
+               data-sort-count="4164">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tergo</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3833,7 +3829,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            4135
+                            4164
                             
                         </span>
                     </span>
@@ -3861,7 +3857,7 @@ Market Analysis</p>
     Use tinyimg() as a convenient entry point for mixed PNG/JPEG workflows. Yihui Xie"
                data-sort-name="tinyimg"
                data-sort-author="yihui xie"
-               data-sort-count="6973">
+               data-sort-count="7244">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tinyimg</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3886,7 +3882,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            6973
+                            7244
                             
                         </span>
                     </span>
@@ -3912,7 +3908,7 @@ Market Analysis</p>
   training new vocabularies and tokenizing texts. Tomasz Kalinowski"
                data-sort-name="tok"
                data-sort-author="tomasz kalinowski"
-               data-sort-count="154574">
+               data-sort-count="154701">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tok</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3935,7 +3931,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            154574
+                            154701
                             
                         </span>
                     </span>
@@ -3959,7 +3955,7 @@ Market Analysis</p>
     objects such as lists, data.frames, numeric, logical, and date vectors. Josiah Parry"
                data-sort-name="tomledit"
                data-sort-author="josiah parry"
-               data-sort-count="16216">
+               data-sort-count="16509">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">tomledit</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -3980,7 +3976,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            16216
+                            16509
                             
                         </span>
                     </span>
@@ -4004,7 +4000,7 @@ Market Analysis</p>
     &#39;CLOSURE&#39; algorithm. Lukas Jung"
                data-sort-name="unsum"
                data-sort-author="lukas jung"
-               data-sort-count="2867">
+               data-sort-count="2940">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">unsum</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4025,7 +4021,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2867
+                            2940
                             
                         </span>
                     </span>
@@ -4052,7 +4048,7 @@ Market Analysis</p>
     expose 16-byte raw representations for low-level workflows. Thomas Bryce Kelly"
                data-sort-name="uuidx"
                data-sort-author="thomas bryce kelly"
-               data-sort-count="1933">
+               data-sort-count="1981">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">uuidx</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4076,7 +4072,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            1933
+                            1981
                             
                         </span>
                     </span>
@@ -4100,7 +4096,7 @@ Market Analysis</p>
     with a path, not just a handler function. Thomas Lin Pedersen"
                data-sort-name="waysign"
                data-sort-author="thomas lin pedersen"
-               data-sort-count="7609">
+               data-sort-count="7769">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">waysign</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4121,7 +4117,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            7609
+                            7769
                             
                         </span>
                     </span>
@@ -4143,7 +4139,7 @@ Market Analysis</p>
                data-description="The web version WebGestalt &lt;https://www.webgestalt.org&gt; supports 12 organisms, 354 gene identifiers and 321,251 function categories. Users can upload the data and functional categories with their own gene identifiers. In addition to the Over-Representation Analysis, WebGestalt also supports Gene Set Enrichment Analysis and Network Topology Analysis. The user-friendly output report allows interactive and efficient exploration of enrichment results. The WebGestaltR package not only supports all above functions but also can be integrated into other pipeline or simultaneously analyze multiple gene lists. John Elizarraras"
                data-sort-name="webgestaltr"
                data-sort-author="john elizarraras"
-               data-sort-count="30651">
+               data-sort-count="30862">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">WebGestaltR</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4162,7 +4158,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            30651
+                            30862
                             
                         </span>
                     </span>
@@ -4184,7 +4180,7 @@ Market Analysis</p>
                data-description="We consider the problem where we observe k vectors (possibly of different lengths), each representing an independent multinomial random vector. For a given function that takes in the concatenated vector of multinomial probabilities and outputs a real number, this is a Monte Carlo estimation procedure of an exact p-value and confidence interval. The resulting inference is valid even in small samples, when the parameter is on the boundary, and when the function is not differentiable at the parameter value, all situations where asymptotic methods and the bootstrap would fail. For more details see Sachs, Fay, and Gabriel (2025) &lt;doi:10.48550/arXiv.2406.19141&gt;. Michael C Sachs"
                data-sort-name="xactonomial"
                data-sort-author="michael c sachs"
-               data-sort-count="2942">
+               data-sort-count="2986">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">xactonomial</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4203,7 +4199,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            2942
+                            2986
                             
                         </span>
                     </span>
@@ -4227,7 +4223,7 @@ Market Analysis</p>
     finding the beginning or end of the given period, adding months to Date, etc. Xianying Tan"
                data-sort-name="ymd"
                data-sort-author="xianying tan"
-               data-sort-count="11218">
+               data-sort-count="11273">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">ymd</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4248,7 +4244,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            11218
+                            11273
                             
                         </span>
                     </span>
@@ -4276,7 +4272,7 @@ Market Analysis</p>
     missing and non-finite values. Nan Xiao"
                data-sort-name="zmij"
                data-sort-author="nan xiao"
-               data-sort-count="483">
+               data-sort-count="504">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">zmij</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4301,7 +4297,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            483
+                            504
                             
                         </span>
                     </span>
@@ -4323,7 +4319,7 @@ Market Analysis</p>
                data-description="Empowers users to fuzzily-merge data frames with millions or tens of millions of rows in minutes with low memory usage.  The package uses the locality sensitive hashing algorithms developed by Datar, Immorlica, Indyk and Mirrokni (2004) &lt;doi:10.1145/997817.997857&gt;, and Broder (1998) &lt;doi:10.1109/SEQUEN.1997.666900&gt; to avoid having to compare every pair of records in each dataset, resulting in fuzzy-merges that finish in linear time. Beniamino Green"
                data-sort-name="zoomerjoin"
                data-sort-author="beniamino green"
-               data-sort-count="9503">
+               data-sort-count="9614">
                 <header class="flex items-start justify-between gap-2">
                     <h2 class="font-mono">zoomerjoin</h2>
                     <span class="iconify lucide--external-link text-xs text-muted-foreground"></span>
@@ -4342,7 +4338,7 @@ Market Analysis</p>
                         <span>Downloads:</span>
                         <span>
                             
-                            9503
+                            9614
                             
                         </span>
                     </span>
