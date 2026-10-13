@@ -1,0 +1,8 @@
+{% component input_group(id: string, placeholder: string, type: string = "search", icon: string = "lucide--search", class: string = "") %}
+<div class="bc input-group {{ class }}">
+    <input id="{{ id }}" type="{{ type }}" placeholder="{{ placeholder }}" aria-label="{{ placeholder }}">
+    {%- if icon %}
+    <span data-align="start" aria-hidden="true"><span class="iconify {{ icon }} size-4"></span></span>
+    {%- endif %}
+</div>
+{% endcomponent %}
