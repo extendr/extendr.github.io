@@ -2,9 +2,29 @@
 <html lang="en"
       class="dark">
     <head>
+        {% if page %}
+        {% set meta = page %}
+        {% elif section %}
+        {% set meta = section %}
+        {% endif %}
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}{{ config.title }}{% endblock %}</title>
+
+        {% if meta.title %}
+        {% set meta_title = meta.title ~ " | " ~ config.title %}
+        {% else %}
+        {% set meta_title = config.title %}
+        {% endif %}
+        <title>{% block title %}{{ meta_title }}{% endblock %}</title>
+
+        <meta name="description" content="{{ meta.description | default(value=config.description) }}" />
+        <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}" />
+        <meta property="og:type" content="{% if page %}article{% else %}website{% endif %}" />
+        <meta property="og:site_name" content="{{ config.title }}" />
+        <meta property="og:title" content="{{ meta_title }}" />
+        <meta property="og:description" content="{{ meta.description | default(value=config.description) }}" />
+        <meta property="og:url" content="{{ current_url | default(value=config.base_url) }}" />
+        <meta property="og:image" content="{{ get_url(path='images/r-and-happy-ferris.svg') }}" />
 
         <!-- Tailwind + Basecoat CSS -->
         <link rel="stylesheet"

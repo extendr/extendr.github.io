@@ -1,4 +1,5 @@
 title = "extendr"
+description = "A developer-first utility for building R packages that call Rust code."
 base_url = "https://extendr.rs"
 compile_sass = false
 build_search_index = true
